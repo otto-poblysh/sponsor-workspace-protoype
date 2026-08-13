@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sponsor Workspace — Dashboard</title>
+  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace dashboard prototype" />
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+
+  <!-- Pretext fallback -->
+  <script type="module">
+    import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+    window.Pretext = { prepare, layout };
+  </script>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filter-meta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .kpi-tile {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: box-shadow 200ms ease;
+    }
+
+    .kpi-tile:hover { box-shadow: var(--shadow-hover); }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    .kpi-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .kpi-delta.positive { color: var(--success-text); }
+    .kpi-delta.negative { color: var(--error-text); }
+
+    .kpi-context {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Bento sections */
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .section-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .bento {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .bento-3 { grid-template-columns: repeat(3, 1fr); }
+    .bento-2 { grid-template-columns: repeat(2, 1fr); }
+    .bento-mixed {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 var(--space-md);
+      color: var(--text);
+    }
+
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .bar-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .bar-label {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .bar-value {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    .bar-track {
+      grid-column: 1 / -1;
+      height: 6px;
+      background: var(--bone);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 9999px;
+    }
+
+    .bar-fill.muted { background: var(--text-tertiary); opacity: 0.5; }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    /* Funnel */
+    .funnel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .funnel-row:last-child { border-bottom: none; }
+
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .funnel-bar {
+      height: 8px;
+      background: var(--accent);
+      border-radius: 9999px;
+      min-width: 4px;
+    }
+
+    .funnel-label {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .funnel-count {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Activity */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-row {
+      display: grid;
+      grid-template-columns: 130px 1fr auto;
+      gap: var(--space-md);
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-row:last-child { border-bottom: none; }
+
+    .activity-time {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      padding-top: 2px;
+    }
+
+    .activity-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .activity-text strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .activity-meta {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: var(--space-2xl);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .empty-state-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-3 { grid-template-columns: repeat(2, 1fr); }
+      .bento-mixed { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+      .filter-meta { margin-left: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid,
+      .bento-3,
+      .bento-2,
+      .bento-mixed { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+      .filter-meta { justify-content: space-between; }
+      .activity-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .activity-meta { text-align: left; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+    .delay-3 { animation-delay: 240ms; }
+    .delay-4 { animation-delay: 320ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Addis Jobs Consortium</div>
+          <div class="brand-sub">Sponsor Workspace</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Overview</div>
+          <ul class="nav-list">
+            <li><a class="nav-item is-active" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Insights</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Settings</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="user-mini">
+          <div class="user-avatar">TH</div>
+          <div>
+            <div class="user-name">Tigist Haile</div>
+            <div class="user-role">Sponsor Owner</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-subtitle">Overview of the Addis SMB Jobs Portal by Addis Jobs Consortium</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-secondary"><i class="ph-bold ph-download-simple"></i> Export</button>
+          <button class="btn btn-primary"><i class="ph-bold ph-plus"></i> Invite entity</button>
+        </div>
+      </header>
+
+      <div class="filter-bar animate-enter delay-1" role="search" aria-label="Dashboard filters">
+        <div class="filter-group">
+          <label class="filter-label" for="filter-date">Date range</label>
+          <select id="filter-date" class="filter-select">
+            <option>Last 30 days</option>
+            <option>Last 24 hours</option>
+            <option>Last 7 days</option>
+            <option>Last 90 days</option>
+            <option>Last 365 days</option>
+            <option>All time</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-sector">Sector</label>
+          <select id="filter-sector" class="filter-select">
+            <option>All sectors</option>
+            <option>Software</option>
+            <option>Healthcare</option>
+            <option>Green energy</option>
+            <option>Manufacturing</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-location">Location</label>
+          <select id="filter-location" class="filter-select">
+            <option>All locations</option>
+            <option>Addis Ababa</option>
+            <option>Hawassa</option>
+            <option>Adama</option>
+            <option>Bahir Dar</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-status">Entity status</label>
+          <select id="filter-status" class="filter-select">
+            <option>All statuses</option>
+            <option>Approved</option>
+            <option>Pending review</option>
+            <option>Invited</option>
+            <option>Suspended</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-size">Entity size</label>
+          <select id="filter-size" class="filter-select">
+            <option>All sizes</option>
+            <option>1–49</option>
+            <option>50–249</option>
+            <option>250+</option>
+          </select>
+        </div>
+        <div class="filter-meta">
+          <span>Refreshed 13 Jun, 14:42</span>
+          <button class="btn btn-secondary" style="padding: 8px 12px;"><i class="ph-bold ph-arrows-clockwise"></i></button>
+        </div>
+      </div>
+
+      <section class="kpi-grid" aria-label="Key metrics">
+        <article class="kpi-tile animate-enter delay-2">
+          <div class="kpi-label">Companies / entities</div>
+          <div class="kpi-value">142</div>
+          <div class="kpi-delta positive"><i class="ph-bold ph-trend-up"></i> +8 this month</div>
+          <div class="kpi-context">128 approved, 4 pending, 10 invited</div>
+        </article>
+        <article class="kpi-tile animate-enter delay-2">
+          <div class="kpi-label">Active jobs</div>
+          <div class="kpi-value">1,847</div>
+          <div class="kpi-delta positive"><i class="ph-bold ph-trend-up"></i> +126 this month</div>
+          <div class="kpi-context">312 hard-to-fill roles</div>
+        </article>
+        <article class="kpi-tile animate-enter delay-2">
+          <div class="kpi-label">Job seekers registered</div>
+          <div class="kpi-value">24,691</div>
+          <div class="kpi-delta positive"><i class="ph-bold ph-trend-up"></i> +1,204 this month</div>
+          <div class="kpi-context">7,803 returning visitors</div>
+        </article>
+        <article class="kpi-tile animate-enter delay-2">
+          <div class="kpi-label">Applications submitted</div>
+          <div class="kpi-value">9,214</div>
+          <div class="kpi-delta negative"><i class="ph-bold ph-trend-down"></i> -3% vs last month</div>
+          <div class="kpi-context">Average 5.0 per job</div>
+        </article>
+      </section>
+
+      <section class="section animate-enter delay-3">
+        <div class="section-header">
+          <h2 class="section-title">People breakdown</h2>
+          <span class="section-note">Job seekers by experience, education, and seniority</span>
+        </div>
+        <div class="bento bento-3">
+          <div class="card">
+            <h3 class="card-title">Years of experience</h3>
+            <div class="bar-list">
+              <div class="bar-item">
+                <span class="bar-label">0–2 years</span>
+                <span class="bar-value">8,247</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">2–5 years</span>
+                <span class="bar-value">9,112</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 84%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">5–10 years</span>
+                <span class="bar-value">4,956</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 46%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">10+ years</span>
+                <span class="bar-value">2,376</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 22%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Education level</h3>
+            <div class="bar-list">
+              <div class="bar-item">
+                <span class="bar-label">Secondary school</span>
+                <span class="bar-value">4,108</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 34%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Vocational</span>
+                <span class="bar-value">6,522</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 54%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Bachelor's degree</span>
+                <span class="bar-value">9,847</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 82%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Master's or higher</span>
+                <span class="bar-value">4,214</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 35%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Seniority level</h3>
+            <div class="bar-list">
+              <div class="bar-item">
+                <span class="bar-label">Entry level</span>
+                <span class="bar-value">10,442</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 76%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Mid level</span>
+                <span class="bar-value">9,318</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 68%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Senior level</span>
+                <span class="bar-value">3,887</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 28%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Lead / executive</span>
+                <span class="bar-value">1,044</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 8%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section animate-enter delay-3">
+        <div class="section-header">
+          <h2 class="section-title">Skills in demand and supply</h2>
+          <span class="section-note">Top general and ICT skills by job postings and seeker profiles</span>
+        </div>
+        <div class="bento bento-2">
+          <div class="card">
+            <h3 class="card-title">General / key skills</h3>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Skill</th>
+                  <th>Jobs requiring</th>
+                  <th>Seekers with skill</th>
+                  <th>Gap</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Project management</td>
+                  <td>612</td>
+                  <td>4,802</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+                <tr>
+                  <td>Customer communication</td>
+                  <td>548</td>
+                  <td>6,114</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+                <tr>
+                  <td>Data analysis</td>
+                  <td>489</td>
+                  <td>2,931</td>
+                  <td><span class="badge badge-warning">Tight</span></td>
+                </tr>
+                <tr>
+                  <td>Team leadership</td>
+                  <td>324</td>
+                  <td>3,847</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+                <tr>
+                  <td>Problem solving</td>
+                  <td>718</td>
+                  <td>8,221</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Computer and ICT skills</h3>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Skill</th>
+                  <th>Jobs requiring</th>
+                  <th>Seekers with skill</th>
+                  <th>Gap</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Python</td>
+                  <td>412</td>
+                  <td>1,847</td>
+                  <td><span class="badge badge-warning">Tight</span></td>
+                </tr>
+                <tr>
+                  <td>SQL</td>
+                  <td>378</td>
+                  <td>2,104</td>
+                  <td><span class="badge badge-warning">Tight</span></td>
+                </tr>
+                <tr>
+                  <td>Cloud platforms</td>
+                  <td>296</td>
+                  <td>1,032</td>
+                  <td><span class="badge badge-error">Shortage</span></td>
+                </tr>
+                <tr>
+                  <td>JavaScript / TypeScript</td>
+                  <td>514</td>
+                  <td>3,421</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+                <tr>
+                  <td>Cybersecurity basics</td>
+                  <td>187</td>
+                  <td>624</td>
+                  <td><span class="badge badge-error">Shortage</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section animate-enter delay-4">
+        <div class="section-header">
+          <h2 class="section-title">Jobs and applications</h2>
+          <span class="section-note">Hard-to-fill roles and the application funnel</span>
+        </div>
+        <div class="bento bento-mixed">
+          <div class="card">
+            <h3 class="card-title">Application funnel</h3>
+            <div class="funnel">
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 100%"></div>
+                  <span class="funnel-label">New applicants</span>
+                </div>
+                <span class="funnel-count">9,214</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 78%"></div>
+                  <span class="funnel-label">Qualified</span>
+                </div>
+                <span class="funnel-count">7,187</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 52%"></div>
+                  <span class="funnel-label">Call screening</span>
+                </div>
+                <span class="funnel-count">4,791</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 38%"></div>
+                  <span class="funnel-label">Background check</span>
+                </div>
+                <span class="funnel-count">3,501</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 29%"></div>
+                  <span class="funnel-label">Shortlisted</span>
+                </div>
+                <span class="funnel-count">2,672</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 18%"></div>
+                  <span class="funnel-label">Offer accepted</span>
+                </div>
+                <span class="funnel-count">1,658</span>
+              </div>
+              <div class="funnel-row">
+                <div class="funnel-stage">
+                  <div class="funnel-bar" style="width: 14%"></div>
+                  <span class="funnel-label">Hired</span>
+                </div>
+                <span class="funnel-count">1,290</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Hard-to-fill jobs</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: -8px; margin-bottom: 16px;">Roles with fewer than 5 applicants in 30 days</p>
+            <div class="bar-list">
+              <div class="bar-item">
+                <span class="bar-label">Cloud platform engineer</span>
+                <span class="bar-value">2 applicants</span>
+                <div class="bar-track"><div class="bar-fill muted" style="width: 12%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Cybersecurity analyst</span>
+                <span class="bar-value">3 applicants</span>
+                <div class="bar-track"><div class="bar-fill muted" style="width: 20%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Senior data engineer</span>
+                <span class="bar-value">4 applicants</span>
+                <div class="bar-track"><div class="bar-fill muted" style="width: 28%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Renewable energy technician</span>
+                <span class="bar-value">4 applicants</span>
+                <div class="bar-track"><div class="bar-fill muted" style="width: 28%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Healthcare IT specialist</span>
+                <span class="bar-value">1 applicant</span>
+                <div class="bar-track"><div class="bar-fill muted" style="width: 6%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section animate-enter delay-4">
+        <div class="section-header">
+          <h2 class="section-title">Recent workspace activity</h2>
+          <span class="section-note">Latest 20 actions across users and entities</span>
+        </div>
+        <div class="card">
+          <div class="activity-list">
+            <div class="activity-row">
+              <time class="activity-time">13 Jun, 14:38</time>
+              <p class="activity-text"><strong>Meron Tadesse</strong> approved entity <strong>Awash Analytics</strong></p>
+              <span class="activity-meta">Status: Pending → Approved</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">13 Jun, 13:52</time>
+              <p class="activity-text"><strong>Dawit Mengistu</strong> invited user <strong>helen.bekele@ethiogreenenergy.et</strong> as Admin</p>
+              <span class="activity-meta">Role: Admin</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">13 Jun, 11:20</time>
+              <p class="activity-text"><strong>System</strong> updated supported countries to include Rwanda and Ghana</p>
+              <span class="activity-meta">Workspace settings</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">13 Jun, 09:47</time>
+              <p class="activity-text"><strong>Meron Tadesse</strong> suspended entity <strong>Abyssinia Logistics</strong></p>
+              <span class="activity-meta">Comment: Inactive for 120 days</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">12 Jun, 16:15</time>
+              <p class="activity-text"><strong>Meseret Alemu</strong> generated a monthly activity report</p>
+              <span class="activity-meta">Format: PDF</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">12 Jun, 11:03</time>
+              <p class="activity-text"><strong>Dawit Mengistu</strong> rejected entity <strong>Sheger Consulting</strong></p>
+              <span class="activity-meta">Comment: Incomplete registration documents</span>
+            </div>
+            <div class="activity-row">
+              <time class="activity-time">11 Jun, 15:29</time>
+              <p class="activity-text"><strong>System</strong> added 47 new job seeker profiles</p>
+              <span class="activity-meta">Source: Direct registration</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    // Pretext-powered text reflow for metric tiles and card titles
+    const { prepare, layout } = window.Pretext;
+    await document.fonts.ready;
+
+    const pretextElements = document.querySelectorAll('[data-pretext]');
+    const prepared = new Map();
+
+    for (const el of pretextElements) {
+      const font = getComputedStyle(el).font;
+      prepared.set(el, prepare(el.textContent, font));
+    }
+
+    function relayout() {
+      for (const [el, handle] of prepared) {
+        const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+        const { height } = layout(handle, el.clientWidth, lineHeight);
+        el.style.height = `${height}px`;
+      }
+    }
+
+    const ro = new ResizeObserver(() => relayout());
+    ro.observe(document.body);
+    relayout();
+
+    for (const el of pretextElements) {
+      if (el.contentEditable === 'true') {
+        new MutationObserver(() => {
+          const font = getComputedStyle(el).font;
+          prepared.set(el, prepare(el.textContent, font));
+          relayout();
+        }).observe(el, { characterData: true, subtree: true, childList: true });
+      }
+    }
+  </script>
+</body>
+</html>
+l>

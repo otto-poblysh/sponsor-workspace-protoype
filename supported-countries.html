@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sponsor Workspace — Supported Countries</title>
+  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace supported countries prototype" />
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Grid country */
+    .country-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .country-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .country-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .country-row:last-child {
+      border-bottom: none;
+    }
+
+    .country-row:hover {
+      background: var(--surface);
+    }
+
+    .country-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .country-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .checkbox-col {
+      display: flex;
+      align-items: center;
+    }
+
+    .checkbox-custom {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* Alert / Warning Banner */
+    .alert-banner {
+      background: var(--info-bg);
+      color: var(--info-text);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .alert-banner i {
+      font-size: 18px;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .country-header { display: none; }
+      .country-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+      }
+      .checkbox-col {
+        justify-content: space-between;
+        padding-left: var(--space-xl);
+      }
+      .checkbox-col::before {
+        content: attr(data-label);
+        font-size: 12px;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Addis Jobs Consortium</div>
+          <div class="brand-sub">Sponsor Workspace</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Overview</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Insights</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Settings</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
+            <li><a class="nav-item is-active" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="user-mini">
+          <div class="user-avatar">MT</div>
+          <div>
+            <div class="user-name">Meron Tadesse</div>
+            <div class="user-role">Sponsor Owner</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Supported Countries</h1>
+          <p class="page-subtitle">Select countries where companies can register, jobs can be posted, and candidates can participate</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="saveCountries()"><i class="ph-bold ph-floppy-disk"></i> Save changes</button>
+        </div>
+      </header>
+
+      <div class="alert-banner animate-enter delay-1">
+        <i class="ph-bold ph-info"></i>
+        <span>Supported country settings apply strictly to the Addis Jobs Consortium Sponsor Workspace and enforce validations on portal interfaces.</span>
+      </div>
+
+      <div class="card animate-enter delay-2">
+        <div class="country-grid">
+          <div class="country-header">
+            <span>Country</span>
+            <span>Allow Company Reg.</span>
+            <span>Allow Job Seeking</span>
+            <span>Allow Job Posting</span>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Ethiopia</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Kenya</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Rwanda</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Cameroon</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Congo (Republic)</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Chad</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function saveCountries() {
+      alert('Supported countries configuration updated successfully. Rules have been applied.');
+    }
+  </script>
+</body>
+</html>
