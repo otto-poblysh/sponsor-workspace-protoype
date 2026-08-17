@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -482,6 +517,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="general-report.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/general-report.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/general-report.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -639,9 +679,20 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      generatingAlert: "Generating {reportName} in {format} format. Once complete, it will appear in the Recent Exports Log.",
+      statusGenerating: "Generating...",
+      statusWaiting: "Waiting",
+      statusReady: "Ready",
+      downloadLink: "Download"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function requestExport(reportName, selectId) {
       const format = document.getElementById(selectId).value;
-      alert(`Generating ${reportName} in ${format} format. Once complete, it will appear in the Recent Exports Log.`);
+      alert(fmt(STR.generatingAlert, { reportName, format }));
 
       const tableBody = document.querySelector('#exports-table tbody');
       const now = new Date();
@@ -653,16 +704,16 @@
         <td>${reportName}</td>
         <td>María Esono</td>
         <td><span class="badge badge-success">${format}</span></td>
-        <td><span style="color:var(--warning-text); font-weight:600;">Generating...</span></td>
-        <td style="text-align: right; color:var(--text-tertiary);"><i class="ph-bold ph-spinner"></i> Waiting</td>
+        <td><span style="color:var(--warning-text); font-weight:600;">${STR.statusGenerating}</span></td>
+        <td style="text-align: right; color:var(--text-tertiary);"><i class="ph-bold ph-spinner"></i> ${STR.statusWaiting}</td>
       `;
 
       tableBody.insertBefore(newRow, tableBody.firstChild);
 
       // Simulate completed report generation after 2.5 seconds
       setTimeout(() => {
-        newRow.querySelector('td:nth-child(5)').textContent = 'Ready';
-        newRow.querySelector('td:nth-child(6)').innerHTML = `<a href="#" style="color:var(--accent); font-weight:600; text-decoration:none;"><i class="ph-bold ph-download-simple"></i> Download</a>`;
+        newRow.querySelector('td:nth-child(5)').textContent = STR.statusReady;
+        newRow.querySelector('td:nth-child(6)').innerHTML = `<a href="#" style="color:var(--accent); font-weight:600; text-decoration:none;"><i class="ph-bold ph-download-simple"></i> ${STR.downloadLink}</a>`;
       }, 2500);
     }
   </script>

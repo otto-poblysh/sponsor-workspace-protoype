@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -575,6 +610,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="entities.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/entities.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/entities.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -800,6 +840,28 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      suspendTitle: "Suspend Employer",
+      returnTitle: "Return Employer Registration",
+      suspendConfirm: "Are you sure you want to suspend access for {name}? A comment is required to proceed.",
+      returnConfirm: "Are you sure you want to return the registration for {name}? A comment is required to proceed.",
+      commentRequired: "Please enter a comment before submitting.",
+      statusSuspended: "Suspended",
+      statusRejected: "Rejected",
+      actionActivate: "Activate",
+      actionSuspend: "Suspend",
+      reinvitedName: "Re-invited {name}",
+      actionProcessedSuccess: "Action processed successfully. Comment logged: \"{comment}\"",
+      fillAllFields: "Please fill out all fields.",
+      invitedJustNow: "Invited Just Now",
+      statusInvited: "Invited",
+      invitationResent: "Invitation re-sent",
+      actionResend: "Resend"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     let activeModRow = null;
     let activeModType = '';
     let activeModName = '';
@@ -841,10 +903,10 @@
     function openModeration(type, entityName) {
       activeModType = type;
       activeModName = entityName;
-      const title = type === 'suspend' ? 'Suspend Employer' : 'Return Employer Registration';
+      const title = type === 'suspend' ? STR.suspendTitle : STR.returnTitle;
       const desc = type === 'suspend'
-        ? `Are you sure you want to suspend access for ${entityName}? A comment is required to proceed.`
-        : `Are you sure you want to return the registration for ${entityName}? A comment is required to proceed.`;
+        ? fmt(STR.suspendConfirm, { name: entityName })
+        : fmt(STR.returnConfirm, { name: entityName });
 
       document.getElementById('mod-title').textContent = title;
       document.getElementById('mod-desc').textContent = desc;
@@ -858,7 +920,7 @@
     function submitModeration() {
       const comment = document.getElementById('mod-comment').value.trim();
       if(!comment) {
-        alert('Please enter a comment before submitting.');
+        alert(STR.commentRequired);
         return;
       }
 
@@ -868,18 +930,18 @@
         const actionTd = activeModRow.querySelector('td:nth-child(7)');
 
         if (activeModType === 'suspend') {
-          statusTd.innerHTML = '<span class="badge badge-error">Suspended</span>';
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusSuspended}</span>`;
           activeModRow.setAttribute('data-status', 'suspended');
-          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activate</button>`;
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
         } else if (activeModType === 'reject') {
-          statusTd.innerHTML = '<span class="badge badge-error">Rejected</span>';
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusRejected}</span>`;
           activeModRow.setAttribute('data-status', 'rejected');
-          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited ${activeModName}')">Re-invite</button>`;
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
         }
       }
 
       closeModal('moderation-modal');
-      alert(`Action processed successfully. Comment logged: "${comment}"`);
+      alert(fmt(STR.actionProcessedSuccess, { comment }));
     }
 
     function changeStatus(btn, statusName, badgeClass, nextActionLabel) {
@@ -901,7 +963,7 @@
       const sector = document.getElementById('invite-sector-sel').value;
 
       if(!name || !email) {
-        alert('Please fill out all fields.');
+        alert(STR.fillAllFields);
         return;
       }
 
@@ -913,11 +975,11 @@
       newRow.setAttribute('data-size', '1–49');
 
       newRow.innerHTML = `
-        <td><strong>${name}</strong><br><small style="color:var(--text-secondary)">Invited Just Now</small></td>
+        <td><strong>${name}</strong><br><small style="color:var(--text-secondary)">${STR.invitedJustNow}</small></td>
         <td>${email}</td>
         <td>${sector}</td>
         <td>1–49</td>
-        <td><span class="badge badge-warning">Invited</span></td>
+        <td><span class="badge badge-warning">${STR.statusInvited}</span></td>
         <td>
           <div class="progress-container">
             <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
@@ -925,7 +987,7 @@
           </div>
         </td>
         <td style="text-align: right;">
-          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation re-sent')">Resend</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${STR.invitationResent}')">${STR.actionResend}</button>
         </td>
       `;
 

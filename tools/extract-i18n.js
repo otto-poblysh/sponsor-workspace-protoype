@@ -176,7 +176,7 @@ function extractStringsFromHtml(htmlContent, doNotTranslateSet = new Set(), opti
   // - <style ...> ... </style>
   // - HTML tags: <tagName attrs> or </tagName>
   // - Text nodes: [^<]+
-  const tokenRegex = /<!--[\s\S]*?-->|<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<(?:\/([a-zA-Z0-9\-]+)|([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>)|([^<]+)/gi;
+  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<(?:\/([a-zA-Z0-9\-]+)|([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>)|([^<]+)/gi;
 
   let ignoreDepth = 0;
   let tokenMatch;
@@ -189,8 +189,8 @@ function extractStringsFromHtml(htmlContent, doNotTranslateSet = new Set(), opti
     const selfClosingSlash = tokenMatch[4];
     const textNode = tokenMatch[5];
 
-    // Comments, scripts, styles
-    if (fullMatch.startsWith('<!--') || fullMatch.toLowerCase().startsWith('<script') || fullMatch.toLowerCase().startsWith('<style')) {
+    // Comments, doctype, scripts, styles
+    if (fullMatch.startsWith('<!--') || fullMatch.toUpperCase().startsWith('<!DOCTYPE') || fullMatch.toLowerCase().startsWith('<script') || fullMatch.toLowerCase().startsWith('<style')) {
       continue;
     }
 
@@ -208,9 +208,16 @@ function extractStringsFromHtml(htmlContent, doNotTranslateSet = new Set(), opti
       const isVoid = VOID_ELEMENTS.has(tagLower) || selfClosingSlash === '/';
       const hasIgnoreAttr = /\bdata-i18n-ignore\b/i.test(attrString || '');
 
-      if (hasIgnoreAttr) {
+      if (ignoreDepth > 0) {
         if (!isVoid) {
           ignoreDepth++;
+        }
+        continue;
+      }
+
+      if (hasIgnoreAttr) {
+        if (!isVoid) {
+          ignoreDepth = 1;
         }
         continue;
       }

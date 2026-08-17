@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -572,6 +607,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="jobs-applications.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/jobs-applications.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/jobs-applications.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -730,6 +770,23 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      funnelTitle: "{jobTitle} Funnel",
+      funnelDesc: "{jobTitle} at {entity} ({count} applicants total)",
+      applicantCandidate: "Applicant #C-098{id}",
+      stageHired: "Hired",
+      stageOfferAccepted: "Offer Accepted",
+      stageShortlisted: "Shortlisted",
+      stageBackgroundCheck: "Background check",
+      stageCallScreening: "Call screening",
+      stageQualified: "Qualified",
+      stageNewApplicant: "New applicant",
+      moreApplicants: "... and {count} more applicants in earlier stages."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function openModal(id) {
       document.getElementById(id).classList.add('is-open');
     }
@@ -762,13 +819,21 @@
     }
 
     function viewFunnel(jobTitle, entity, count) {
-      document.getElementById('funnel-title').textContent = `${jobTitle} Funnel`;
-      document.getElementById('funnel-desc').textContent = `${jobTitle} at ${entity} (${count} applicants total)`;
+      document.getElementById('funnel-title').textContent = fmt(STR.funnelTitle, { jobTitle });
+      document.getElementById('funnel-desc').textContent = fmt(STR.funnelDesc, { jobTitle, entity, count });
 
       const box = document.getElementById('funnel-applicants-box');
       box.innerHTML = '';
 
-      const stages = ['Hired', 'Offer Accepted', 'Shortlisted', 'Background check', 'Call screening', 'Qualified', 'New applicant'];
+      const stages = [
+        STR.stageHired,
+        STR.stageOfferAccepted,
+        STR.stageShortlisted,
+        STR.stageBackgroundCheck,
+        STR.stageCallScreening,
+        STR.stageQualified,
+        STR.stageNewApplicant
+      ];
 
       // Generate mock applicants masked
       for(let i = 1; i <= Math.min(count, 5); i++) {
@@ -776,8 +841,8 @@
         const item = document.createElement('div');
         item.className = 'funnel-item';
         item.innerHTML = `
-          <span class="funnel-candidate">Applicant #C-098${i + 4}</span>
-          <span class="badge ${stage === 'Hired' ? 'badge-success' : 'badge-warning'}">${stage}</span>
+          <span class="funnel-candidate">${fmt(STR.applicantCandidate, { id: i + 4 })}</span>
+          <span class="badge ${stage === STR.stageHired ? 'badge-success' : 'badge-warning'}">${stage}</span>
         `;
         box.appendChild(item);
       }
@@ -788,7 +853,7 @@
         more.style.color = 'var(--text-secondary)';
         more.style.textAlign = 'center';
         more.style.marginTop = '8px';
-        more.textContent = `... and ${count - 5} more applicants in earlier stages.`;
+        more.textContent = fmt(STR.moreApplicants, { count: count - 5 });
         box.appendChild(more);
       }
 

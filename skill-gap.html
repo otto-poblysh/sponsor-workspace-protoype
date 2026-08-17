@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -604,6 +639,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="skill-gap.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/skill-gap.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/skill-gap.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -806,6 +846,37 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      badgeShortage: "Shortage",
+      badgeSurplus: "Surplus",
+      badgeTight: "Tight",
+      hotelOperations: "Hotel operations",
+      foodSafety: "Food safety",
+      propertyManagementSystems: "Property management systems",
+      hotelSystemsTrainingTitle: "Hotel Systems Training",
+      highImpact: "High Impact",
+      mediumImpact: "Medium Impact",
+      hotelSystemsTrainingDesc: "Only 3 seekers in this filter slice report experience with hotel property-management systems.",
+      occupationalHealthSafety: "Occupational health & safety",
+      customerService: "Customer service",
+      equipmentMaintenance: "Equipment maintenance",
+      constructionTrades: "Construction trades",
+      salesMerchandising: "Sales & merchandising",
+      industrialElectricalSystems: "Industrial electrical systems",
+      officeProductivityTools: "Office productivity tools",
+      weldingFabrication: "Welding & fabrication",
+      commercialDriving: "Commercial driving",
+      industrialElectricalCertTitle: "Industrial Electrical Certification",
+      industrialElectricalCertDesc: "Build practical competency in industrial power systems for 174 vacancies with limited qualified supply.",
+      certifiedWeldingProgTitle: "Certified Welding Programme",
+      certifiedWeldingProgDesc: "Expand accredited welding and fabrication training aligned with 148 current vacancies.",
+      commercialDriverUpskillingTitle: "Commercial Driver Upskilling",
+      commercialDriverUpskillingDesc: "Support commercial licensing, fleet safety and logistics readiness for job seekers."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function checkLowData() {
       const sector = document.getElementById('filter-sector').value;
       const location = document.getElementById('filter-location').value;
@@ -826,33 +897,33 @@
         // Update tables
         document.getElementById('general-skills-body').innerHTML = `
           <tr>
-            <td>Hotel operations</td>
+            <td>${STR.hotelOperations}</td>
             <td>12</td>
             <td>8</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Food safety</td>
+            <td>${STR.foodSafety}</td>
             <td>10</td>
             <td>42</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
           <tr>
-            <td>Property management systems</td>
+            <td>${STR.propertyManagementSystems}</td>
             <td>8</td>
             <td>3</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Hotel Systems Training</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.hotelSystemsTrainingTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Only 3 seekers in this filter slice report experience with hotel property-management systems.</p>
+            <p class="rec-body">${STR.hotelSystemsTrainingDesc}</p>
           </div>
         `;
       } else {
@@ -867,89 +938,89 @@
         // Restore table defaults
         document.getElementById('general-skills-body').innerHTML = `
           <tr>
-            <td>Occupational health & safety</td>
+            <td>${STR.occupationalHealthSafety}</td>
             <td>286</td>
             <td>1,094</td>
-            <td><span class="badge badge-warning">Tight</span></td>
+            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
           </tr>
           <tr>
-            <td>Customer service</td>
+            <td>${STR.customerService}</td>
             <td>264</td>
             <td>2,486</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Equipment maintenance</td>
+            <td>${STR.equipmentMaintenance}</td>
             <td>238</td>
             <td>724</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Construction trades</td>
+            <td>${STR.constructionTrades}</td>
             <td>219</td>
             <td>1,358</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Sales & merchandising</td>
+            <td>${STR.salesMerchandising}</td>
             <td>197</td>
             <td>2,104</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
           <tr>
-            <td>Industrial electrical systems</td>
+            <td>${STR.industrialElectricalSystems}</td>
             <td>174</td>
             <td>496</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Office productivity tools</td>
+            <td>${STR.officeProductivityTools}</td>
             <td>161</td>
             <td>2,104</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Welding & fabrication</td>
+            <td>${STR.weldingFabrication}</td>
             <td>148</td>
             <td>382</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Commercial driving</td>
+            <td>${STR.commercialDriving}</td>
             <td>132</td>
             <td>608</td>
-            <td><span class="badge badge-warning">Tight</span></td>
+            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
           </tr>
           <tr>
-            <td>Hospitality operations</td>
+            <td>${STR.hotelOperations}</td>
             <td>119</td>
             <td>354</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Industrial Electrical Certification</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.industrialElectricalCertTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Build practical competency in industrial power systems for 174 vacancies with limited qualified supply.</p>
+            <p class="rec-body">${STR.industrialElectricalCertDesc}</p>
           </div>
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Certified Welding Programme</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.certifiedWeldingProgTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Expand accredited welding and fabrication training aligned with 148 current vacancies.</p>
+            <p class="rec-body">${STR.certifiedWeldingProgDesc}</p>
           </div>
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Commercial Driver Upskilling</span>
-              <span class="rec-impact" style="color:var(--warning-text)">Medium Impact</span>
+              <span class="rec-title">${STR.commercialDriverUpskillingTitle}</span>
+              <span class="rec-impact" style="color:var(--warning-text)">${STR.mediumImpact}</span>
             </div>
-            <p class="rec-body">Support commercial licensing, fleet safety and logistics readiness for job seekers.</p>
+            <p class="rec-body">${STR.commercialDriverUpskillingDesc}</p>
           </div>
         `;
       }

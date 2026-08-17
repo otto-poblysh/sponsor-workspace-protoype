@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -504,6 +539,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="users-management.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/users-management.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/users-management.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -631,6 +671,31 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      provideEmailAlert: "Please provide an email address.",
+      roleDirector: "Director",
+      roleAdministrator: "Administrator",
+      roleRegionalOfficer: "Regional Officer",
+      roleLabourAnalyst: "Labour Analyst",
+      statusInvited: "Invited",
+      lastActiveNever: "Never",
+      actionResend: "Resend",
+      actionRemove: "Remove",
+      invitationResentGeneric: "Invitation email resent",
+      invitationSentToEmail: "Invitation sent to {email}",
+      roleChangeLogged: "Role change logged for {userName} to \"{role}\". This action has been appended to Activity Logs.",
+      statusActive: "Active",
+      statusDeactivated: "Deactivated",
+      actionActivate: "Activate",
+      actionDeactivate: "Deactivate",
+      userDeactivatedAlert: "User deactivated immediately. Access has been suspended.",
+      userReactivatedAlert: "User reactivated. Access has been restored.",
+      confirmRemoveInvitation: "Are you sure you want to permanently remove this invitation?"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function openModal(id) {
       document.getElementById(id).classList.add('is-open');
     }
@@ -644,7 +709,7 @@
       const role = document.getElementById('user-role-sel').value;
 
       if(!email) {
-        alert('Please provide an email address.');
+        alert(STR.provideEmailAlert);
         return;
       }
 
@@ -657,28 +722,28 @@
         <td><strong>${namePrefix}</strong><br><small style="color:var(--text-secondary)">${email}</small></td>
         <td>
           <select class="role-select" onchange="logRoleChange('${namePrefix}', this)">
-            <option ${role === 'Director' ? 'selected' : ''}>Director</option>
-            <option ${role === 'Administrator' ? 'selected' : ''}>Administrator</option>
-            <option ${role === 'Regional Officer' ? 'selected' : ''}>Regional Officer</option>
-            <option ${role === 'Labour Analyst' ? 'selected' : ''}>Labour Analyst</option>
+            <option ${role === 'Director' ? 'selected' : ''}>${STR.roleDirector}</option>
+            <option ${role === 'Administrator' ? 'selected' : ''}>${STR.roleAdministrator}</option>
+            <option ${role === 'Regional Officer' ? 'selected' : ''}>${STR.roleRegionalOfficer}</option>
+            <option ${role === 'Labour Analyst' ? 'selected' : ''}>${STR.roleLabourAnalyst}</option>
           </select>
         </td>
-        <td><span class="badge badge-warning">Invited</span></td>
-        <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Never</td>
+        <td><span class="badge badge-warning">${STR.statusInvited}</span></td>
+        <td style="font-family:var(--font-mono); color:var(--text-tertiary)">${STR.lastActiveNever}</td>
         <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent')">Resend</button>
-          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Remove</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${STR.invitationResentGeneric}')">${STR.actionResend}</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">${STR.actionRemove}</button>
         </td>
       `;
 
       tbody.appendChild(newRow);
       closeModal('invite-modal');
       document.getElementById('user-email').value = '';
-      alert(`Invitation sent to ${email}`);
+      alert(fmt(STR.invitationSentToEmail, { email }));
     }
 
     function logRoleChange(userName, selectEl) {
-      alert(`Role change logged for ${userName} to "${selectEl.value}". This action has been appended to Activity Logs.`);
+      alert(fmt(STR.roleChangeLogged, { userName, role: selectEl.value }));
     }
 
     function toggleUserStatus(btn) {
@@ -686,19 +751,19 @@
       const statusTd = row.querySelector('td:nth-child(3)');
       const currentStatus = statusTd.querySelector('span').textContent;
 
-      if(currentStatus === 'Active') {
-        statusTd.innerHTML = '<span class="badge badge-error">Deactivated</span>';
-        btn.textContent = 'Activate';
-        alert('User deactivated immediately. Access has been suspended.');
+      if(currentStatus === STR.statusActive) {
+        statusTd.innerHTML = `<span class="badge badge-error">${STR.statusDeactivated}</span>`;
+        btn.textContent = STR.actionActivate;
+        alert(STR.userDeactivatedAlert);
       } else {
-        statusTd.innerHTML = '<span class="badge badge-success">Active</span>';
-        btn.textContent = 'Deactivate';
-        alert('User reactivated. Access has been restored.');
+        statusTd.innerHTML = `<span class="badge badge-success">${STR.statusActive}</span>`;
+        btn.textContent = STR.actionDeactivate;
+        alert(STR.userReactivatedAlert);
       }
     }
 
     function removeUser(btn) {
-      if(confirm('Are you sure you want to permanently remove this invitation?')) {
+      if(confirm(STR.confirmRemoveInvitation)) {
         const row = btn.closest('tr');
         row.remove();
       }
@@ -706,4 +771,3 @@
   </script>
 </body>
 </html>
-tml>

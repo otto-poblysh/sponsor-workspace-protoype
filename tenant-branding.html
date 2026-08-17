@@ -184,6 +184,41 @@
       border-top: 1px solid var(--border);
     }
 
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
     .user-mini {
       display: flex;
       align-items: center;
@@ -467,6 +502,11 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="tenant-branding.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/tenant-branding.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/tenant-branding.html">ES</a>
+        </div>
         <div class="user-mini">
           <div class="user-avatar">ME</div>
           <div>
@@ -560,6 +600,13 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      brandingSavedAlert: "Branding modifications saved. Primary color updated to {activeColor}.\n\nNote: Public changes for \"{portalName}\" are submitted for Super Admin approval."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     let activeColor = '#1E3A5F';
 
     function changeThemeColor(swatchEl, hexColor) {
@@ -585,7 +632,7 @@
 
     function saveBranding() {
       const portalName = document.getElementById('portal-name').value;
-      alert(`Branding modifications saved. Primary color updated to ${activeColor}.\n\nNote: Public changes for "${portalName}" are submitted for Super Admin approval.`);
+      alert(fmt(STR.brandingSavedAlert, { activeColor, portalName }));
     }
   </script>
 </body>
