@@ -305,7 +305,7 @@ function translateHtml(htmlContent, options = {}) {
   processedHtml = rewriteLanguageToggle(processedHtml, locale, pageName, mergedCatalog, dntSet);
 
   // 3. Tokenize HTML to translate text nodes, whitelisted attributes, and JS STR blocks
-  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b([^>]*)>([\s\S]*?)<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<div\b[^>]*\bclass=["'][^"']*\blang-toggle\b[^"']*["'][^>]*>[\s\S]*?<\/div>|<(?:\/([a-zA-Z0-9\-]+)|([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>)|([^<]+)/gi;
+  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b([^>]*)>([\s\S]*?)<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<div\b[^>]*\bclass=["'][^"']*\blang-toggle\b[^"']*["'][^>]*>[\s\S]*?<\/div>|<\/([a-zA-Z0-9\-]+)\s*>|<([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>|([^<]+)/gi;
 
   let ignoreDepth = 0;
   let out = '';

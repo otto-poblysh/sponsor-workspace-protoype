@@ -176,7 +176,7 @@ function extractStringsFromHtml(htmlContent, doNotTranslateSet = new Set(), opti
   // - <style ...> ... </style>
   // - HTML tags: <tagName attrs> or </tagName>
   // - Text nodes: [^<]+
-  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<(?:\/([a-zA-Z0-9\-]+)|([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>)|([^<]+)/gi;
+  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<\/([a-zA-Z0-9\-]+)\s*>|<([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>|([^<]+)/gi;
 
   let ignoreDepth = 0;
   let tokenMatch;
