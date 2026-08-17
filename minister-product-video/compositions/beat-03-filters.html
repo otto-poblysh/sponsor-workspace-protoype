@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F7F6F3;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        .bg-grid {
+          position: absolute;
+          inset: 0;
+          background-image: linear-gradient(#EAEAEA 1px, transparent 1px), linear-gradient(90deg, #EAEAEA 1px, transparent 1px);
+          background-size: 80px 80px;
+          opacity: 0.4;
+          z-index: 0;
+        }
+
+        .headline {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          font-size: 64px;
+          font-weight: 600;
+          color: #111111;
+          margin: 0;
+          z-index: 2;
+        }
+
+        .filters-container {
+          position: absolute;
+          top: 240px;
+          left: 100px;
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          z-index: 3;
+        }
+
+        .filter-control {
+          width: 500px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 8px;
+          padding: 24px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: relative;
+        }
+
+        .filter-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          color: #787774;
+          text-transform: uppercase;
+        }
+
+        .filter-value {
+          font-size: 24px;
+          font-weight: 500;
+          color: #111111;
+        }
+        
+        .filter-value.unselected {
+          color: #A5A29A;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 0 0 8px 8px;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+          margin-top: -4px;
+          overflow: hidden;
+          z-index: 10;
+          height: 0; /* Animated */
+        }
+        
+        .dropdown-item {
+          padding: 16px 24px;
+          font-size: 20px;
+          border-bottom: 1px solid #F7F6F3;
+        }
+        .dropdown-item.active {
+          background: #F9F9F8;
+          color: #1E3A5F;
+          font-weight: 500;
+        }
+
+        .results-panel {
+          position: absolute;
+          top: 240px;
+          left: 700px;
+          width: 600px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 12px;
+          padding: 40px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+          z-index: 2;
+        }
+
+        .result-item {
+          margin-bottom: 40px;
+        }
+
+        .result-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          color: #787774;
+          margin-bottom: 16px;
+        }
+
+        .result-value {
+          font-size: 64px;
+          font-weight: 600;
+          color: #1E3A5F;
+          font-variant-numeric: tabular-nums;
+          margin-bottom: 16px;
+        }
+
+        .result-bar-bg {
+          height: 8px;
+          background: #EAEAEA;
+          border-radius: 4px;
+          overflow: hidden;
+        }
+        .result-bar-fill {
+          height: 100%;
+          background: #1E3A5F;
+          width: 100%;
+          border-radius: 4px;
+        }
+
+        .cursor {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23111111" d="M11 2L24 16L17 18L21 26L17 28L13 20L7 24Z"/></svg>');
+          z-index: 100;
+          pointer-events: none;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .resolve-line {
+          position: absolute;
+          bottom: 180px;
+          left: 100px;
+          font-size: 42px;
+          font-weight: 500;
+          color: #111111;
+          margin: 0;
+        }
+        
+        .benefit-line {
+          position: absolute;
+          bottom: 120px;
+          left: 100px;
+          font-size: 32px;
+          font-weight: 500;
+          color: #1E3A5F;
+          margin: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-ils3" id="root" data-composition-id="beat-03" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-yqqm" class="bg-grid"></div>
+
+        <h1 data-hf-id="hf-hwp5" class="headline" id="headline">Ask a precise question.</h1>
+
+        <div data-hf-id="hf-do2r" class="filters-container">
+          <div data-hf-id="hf-nzt7" class="filter-control" id="filter1">
+            <div data-hf-id="hf-dkah" class="filter-label">Sector</div>
+            <div data-hf-id="hf-zhys" class="filter-value unselected" id="val1">All sectors</div>
+            <div data-hf-id="hf-s1dn" class="dropdown" id="drop1">
+              <div data-hf-id="hf-vl9m" class="dropdown-item">Agriculture</div>
+              <div data-hf-id="hf-mae4" class="dropdown-item active">Construction</div>
+              <div data-hf-id="hf-qzu5" class="dropdown-item">Energy</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-fbxc" class="filter-control" id="filter2">
+            <div data-hf-id="hf-9eq3" class="filter-label">Province</div>
+            <div data-hf-id="hf-os31" class="filter-value unselected" id="val2">National</div>
+            <div data-hf-id="hf-h5w0" class="dropdown" id="drop2">
+              <div data-hf-id="hf-dt93" class="dropdown-item">Bioko Norte</div>
+              <div data-hf-id="hf-dvnq" class="dropdown-item active">Litoral</div>
+              <div data-hf-id="hf-tlia" class="dropdown-item">Centro Sur</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-g3l5" class="filter-control" id="filter3">
+            <div data-hf-id="hf-76di" class="filter-label">Period</div>
+            <div data-hf-id="hf-9abi" class="filter-value unselected" id="val3">All time</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-v4yl" class="results-panel" id="results">
+          <div data-hf-id="hf-3emp" class="result-item">
+            <div data-hf-id="hf-6tc8" class="result-label">Employers</div>
+            <div data-hf-id="hf-mknr" class="result-value" id="res-val1">386</div>
+            <div data-hf-id="hf-3tz1" class="result-bar-bg"><div data-hf-id="hf-5bi6" class="result-bar-fill" id="res-fill1" style="width: 100%"></div></div>
+          </div>
+          <div data-hf-id="hf-bryd" class="result-item">
+            <div data-hf-id="hf-blo1" class="result-label">Active Vacancies</div>
+            <div data-hf-id="hf-yxe9" class="result-value" id="res-val2">1,126</div>
+            <div data-hf-id="hf-ouc1" class="result-bar-bg"><div data-hf-id="hf-ya5t" class="result-bar-fill" id="res-fill2" style="width: 100%"></div></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-abpd" class="cursor" id="cursor" style="opacity: 0"></div>
+
+        <h2 data-hf-id="hf-m9ak" class="resolve-line" id="resolve">See the answer immediately.</h2>
+        <p data-hf-id="hf-sh7o" class="benefit-line" id="benefit">Faster regional and sector decisions.</p>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Headline anchors from x:-60
+        tl.fromTo("#headline",
+          { x: -60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" },
+          0.2
+        );
+
+        // Filter controls cascade upward
+        tl.fromTo(".filter-control",
+          { y: 60, opacity: 0, scale: 0.98 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: "power2.out" },
+          0.4
+        );
+        
+        // Results panel enters
+        tl.fromTo("#results",
+          { x: 60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
+          0.6
+        );
+
+        // Cursor glides to Construction (filter 1)
+        tl.set("#cursor", { opacity: 1 }, 1.0);
+        tl.to("#cursor", { x: 560, y: 280, duration: 0.6, ease: "power2.inOut" }, 1.0);
+        // Dropdown unfolds
+        tl.to("#drop1", { height: 168, duration: 0.3, ease: "power2.out" }, 1.6);
+        // Select
+        tl.to("#cursor", { y: 340, duration: 0.2, ease: "power1.inOut" }, 1.9);
+        tl.to("#drop1", { height: 0, duration: 0.2, ease: "power2.in" }, 2.1);
+        tl.to("#val1", { color: "#111111", duration: 0.1 }, 2.1);
+        tl.add(() => { document.getElementById("val1").innerText = "CONSTRUCTION"; }, 2.1);
+        tl.to("#val1", { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 }, 2.1);
+
+        // Cursor to Litoral
+        tl.to("#cursor", { x: 560, y: 390, duration: 0.5, ease: "power2.inOut" }, 2.3);
+        tl.to("#drop2", { height: 168, duration: 0.3, ease: "power2.out" }, 2.8);
+        tl.to("#cursor", { y: 450, duration: 0.2, ease: "power1.inOut" }, 3.1);
+        tl.to("#drop2", { height: 0, duration: 0.2, ease: "power2.in" }, 3.3);
+        tl.to("#val2", { color: "#111111", duration: 0.1 }, 3.3);
+        tl.add(() => { document.getElementById("val2").innerText = "LITORAL"; }, 3.3);
+        tl.to("#val2", { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 }, 3.3);
+
+        // Cursor to Period
+        tl.to("#cursor", { x: 560, y: 500, duration: 0.5, ease: "power2.inOut" }, 3.5);
+        // Snaps in place
+        tl.to("#val3", { color: "#111111", duration: 0.1 }, 4.3);
+        tl.add(() => { document.getElementById("val3").innerText = "LAST 30 DAYS"; }, 4.3);
+        tl.to("#val3", { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 }, 4.3);
+        
+        // Cursor fades out
+        tl.to("#cursor", { opacity: 0, duration: 0.4 }, 4.5);
+
+        // Results recalculate
+        let resProxy = { v1: 386, v2: 1126 };
+        tl.to(resProxy, {
+          v1: 112,
+          v2: 340,
+          duration: 1.2,
+          ease: "power2.out",
+          onUpdate: () => {
+            document.getElementById("res-val1").innerText = Math.round(resProxy.v1);
+            document.getElementById("res-val2").innerText = Math.round(resProxy.v2).toLocaleString();
+          }
+        }, 4.5);
+
+        tl.to("#res-fill1", { width: "29%", duration: 1.2, ease: "power2.out" }, 4.5);
+        tl.to("#res-fill2", { width: "30%", duration: 1.2, ease: "power2.out" }, 4.5);
+
+        // Resolve and benefit lines
+        tl.fromTo("#resolve",
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          6.0
+        );
+        tl.fromTo("#benefit",
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          7.0
+        );
+
+        window.__timelines["beat-03"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

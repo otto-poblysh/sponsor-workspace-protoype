@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #1E3A5F;
+          color: #FFFFFF;
+          font-family: 'Geist Sans', -apple-system, sans-serif;
+          overflow: hidden;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        .glow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 1400px;
+          height: 1400px;
+          background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 65%);
+          transform: translate(-50%, -50%);
+        }
+
+        .ghost-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 280px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          color: rgba(255, 255, 255, 0.015);
+          pointer-events: none;
+        }
+
+        .globe-mark {
+          position: absolute;
+          top: 80px;
+          left: 80px;
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          border: 2px solid rgba(255, 255, 255, 0.9);
+          opacity: 0;
+        }
+        
+        .globe-mark::before {
+          content: "";
+          position: absolute;
+          top: 20%;
+          left: 0;
+          width: 100%;
+          height: 60%;
+          border-top: 1px solid rgba(255,255,255,0.4);
+          border-bottom: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        .globe-mark::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 20%;
+          height: 100%;
+          width: 60%;
+          border-left: 1px solid rgba(255,255,255,0.4);
+          border-right: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .structural-rule {
+          position: absolute;
+          left: 240px;
+          top: 55%;
+          width: 1440px;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .phrase-container {
+          position: absolute;
+          top: 55%;
+          left: 240px;
+          width: 1440px;
+          display: flex;
+          align-items: baseline;
+          gap: 32px;
+          margin-top: -96px; /* align text baseline just above the rule */
+        }
+
+        .phrase-mask {
+          overflow: hidden;
+          padding-bottom: 16px;
+        }
+
+        .phrase {
+          font-size: 72px;
+          line-height: 1;
+          letter-spacing: -0.01em;
+          color: #FFFFFF;
+        }
+
+        .phrase-1, .phrase-2 {
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        .phrase-3 {
+          font-weight: 600;
+        }
+
+        .signature {
+          position: absolute;
+          bottom: 80px;
+          right: 80px;
+          font-family: 'Geist Mono', ui-monospace, monospace;
+          font-size: 22px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.7);
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .signature-rule {
+          width: 32px;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.3);
+        }
+
+        #fade-overlay {
+          position: absolute;
+          inset: 0;
+          background: #172E4C;
+          opacity: 0;
+          pointer-events: none;
+        }
+      </style>
+
+      <div data-hf-id="hf-gjkj" id="root" data-composition-id="beat-10" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-35j2" class="glow" id="glow"></div>
+        <div data-hf-id="hf-qieg" class="ghost-text" id="ghost-text">EMPLOYMENT</div>
+        
+        <div data-hf-id="hf-ojfu" class="globe-mark" id="globe-mark"></div>
+
+        <div data-hf-id="hf-mlnw" class="structural-rule" id="rule"></div>
+
+        <div data-hf-id="hf-dfdx" class="phrase-container">
+          <div data-hf-id="hf-2ifc" class="phrase-mask">
+            <div data-hf-id="hf-2k23" class="phrase phrase-1" id="phrase-1">Better data.</div>
+          </div>
+          <div data-hf-id="hf-wtvk" class="phrase-mask">
+            <div data-hf-id="hf-vsjh" class="phrase phrase-2" id="phrase-2">Faster reports.</div>
+          </div>
+          <div data-hf-id="hf-vmyh" class="phrase-mask">
+            <div data-hf-id="hf-rcvs" class="phrase phrase-3" id="phrase-3">Better employment decisions.</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-78wi" class="signature" id="signature">
+          <div data-hf-id="hf-hh8x" class="signature-rule"></div>
+          <div data-hf-id="hf-e0t9">Ministry of Labour · Labour Market Portal</div>
+        </div>
+
+        <div data-hf-id="hf-3ddw" id="fade-overlay"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Beat 10 base timeline
+        // 0.0s: Start of scene
+        
+        // Background glow and ghost text fade in
+        tl.fromTo("#glow", 
+          { opacity: 0, scale: 0.9 }, 
+          { opacity: 1, scale: 1, duration: 2, ease: "sine.inOut" },
+          0
+        );
+        
+        tl.fromTo("#ghost-text",
+          { opacity: 0 },
+          { opacity: 1, duration: 2, ease: "power1.inOut" },
+          0
+        );
+
+        // 0.2s (84.2s): Globe mark settles
+        tl.fromTo("#globe-mark", 
+          { opacity: 0, scale: 0.8, y: -10 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" },
+          0.2
+        );
+
+        // Draw structural rule
+        tl.fromTo("#rule", 
+          { scaleX: 0, transformOrigin: "left center" },
+          { scaleX: 1, duration: 1.2, ease: "power2.out" },
+          0.2
+        );
+
+        // Phrase 1: "Better data." appears with expo.out
+        tl.fromTo("#phrase-1",
+          { opacity: 0, y: 72 },
+          { opacity: 1, y: 0, duration: 1.0, ease: "expo.out" },
+          0.5
+        );
+
+        // Phrase 2: "Faster reports." follows with a different x entrance
+        tl.fromTo("#phrase-2",
+          { opacity: 0, x: -30, y: 72 },
+          { opacity: 1, x: 0, y: 0, duration: 1.0, ease: "expo.out" },
+          0.7
+        );
+
+        // Phrase 3: "Better employment decisions." expands from a mask with strongest visual weight
+        tl.fromTo("#phrase-3",
+          { opacity: 0, y: 100 },
+          { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" },
+          0.9
+        );
+
+        // 2.0s (86.0s): Signature rises
+        tl.fromTo("#signature",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" },
+          2.0
+        );
+
+        // 3.5s (87.5s): Fade gently toward deep navy in the last 0.5s
+        tl.fromTo("#fade-overlay",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5, ease: "none" },
+          3.5
+        );
+
+        window.__timelines["beat-10"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

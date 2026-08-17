@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Notification Preferences</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace notification preferences prototype" />
+  <title>Labour Market Portal — Notification Preferences</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal notification preferences prototype" />
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -422,8 +422,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -432,9 +432,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -442,7 +442,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -450,8 +450,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item is-active" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -460,10 +460,10 @@
 
       <div class="sidebar-foot">
         <div class="user-mini">
-          <div class="user-avatar">TH</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Tigist Haile</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -473,7 +473,7 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Notification Preferences</h1>
-          <p class="page-subtitle">Configure email alert settings for workspace activities and program events</p>
+          <p class="page-subtitle">Configure alerts for employer reporting, vacancies and Ministry operations</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="savePrefs()"><i class="ph-bold ph-floppy-disk"></i> Save preferences</button>
@@ -486,8 +486,8 @@
 
           <div class="pref-row">
             <div class="pref-info">
-              <span class="pref-title">Sponsor User invitations</span>
-              <span class="pref-desc">Receive notification when a new user is invited to this workspace.</span>
+              <span class="pref-title">Ministry User invitations</span>
+              <span class="pref-desc">Receive notification when a new user is invited to this Ministry portal.</span>
             </div>
             <label class="switch" aria-label="Notify on user invitations">
               <input type="checkbox" checked>
@@ -518,15 +518,15 @@
           </div>
         </section>
 
-        <section class="pref-card" aria-label="Entity Onboarding notifications">
-          <h3 class="pref-section-title">Entity Onboarding & Moderation</h3>
+        <section class="pref-card" aria-label="Employer registration notifications">
+          <h3 class="pref-section-title">Employer Registration &amp; Verification</h3>
 
           <div class="pref-row">
             <div class="pref-info">
-              <span class="pref-title">Entity registration request</span>
-              <span class="pref-desc">Receive notification when a new company registers and is pending review.</span>
+              <span class="pref-title">Employer registration request</span>
+              <span class="pref-desc">Receive notification when a private employer registers and is pending verification.</span>
             </div>
-            <label class="switch" aria-label="Notify on entity registration requests">
+            <label class="switch" aria-label="Notify on employer registration requests">
               <input type="checkbox" checked>
               <span class="slider"></span>
             </label>
@@ -534,10 +534,10 @@
 
           <div class="pref-row">
             <div class="pref-info">
-              <span class="pref-title">Entity moderation approval / rejection</span>
-              <span class="pref-desc">Notify workspace owners when an admin approves, rejects or suspends an entity.</span>
+              <span class="pref-title">Employer verification decision</span>
+              <span class="pref-desc">Notify Ministry administrators when an employer is verified, returned or suspended.</span>
             </div>
-            <label class="switch" aria-label="Notify on entity moderation approvals or rejections">
+            <label class="switch" aria-label="Notify on employer verification decisions">
               <input type="checkbox" checked>
               <span class="slider"></span>
             </label>
@@ -550,7 +550,7 @@
           <div class="pref-row">
             <div class="pref-info">
               <span class="pref-title">Job posting activity</span>
-              <span class="pref-desc">Notify when a new job posting is created by a participating entity.</span>
+              <span class="pref-desc">Notify when a registered employer reports a new private-sector vacancy.</span>
             </div>
             <label class="switch" aria-label="Notify on job posting activity">
               <input type="checkbox">

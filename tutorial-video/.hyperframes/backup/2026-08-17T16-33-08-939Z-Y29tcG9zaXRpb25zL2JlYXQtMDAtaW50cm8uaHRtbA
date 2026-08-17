@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      width: 1920px; height: 1080px;
+      overflow: hidden;
+    }
+    
+    #intro-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 1920px; height: 1080px;
+      background-color: #ffffff;
+      /* CSS dot grid pattern */
+      background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      font-family: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .left-column {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 65%;
+      height: 100%;
+    }
+
+    .right-column {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 35%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .right-top {
+      width: 100%;
+      height: 20%;
+      background-color: #2563eb; /* Bright blue */
+    }
+
+    .right-bottom {
+      width: 100%;
+      height: 80%;
+      background-color: #1e293b; /* Dark navy */
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 260px;
+      left: 120px;
+      z-index: 10;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .text-container {
+      position: absolute;
+      top: 360px;
+      left: 120px;
+      max-width: 900px;
+      z-index: 10;
+    }
+
+    .subtitle {
+      font-size: 96px;
+      font-weight: 800;
+      color: #2563eb;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cover-image {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center 30%;
+      z-index: 5;
+      /* Smooth fade into the background */
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="beat-00" data-width="1920" data-height="1080" data-duration="5" data-hf-id="hf-869z" id="intro-wrapper">
+    
+    <div data-hf-id="hf-lcol" class="left-column">
+      <div data-hf-id="hf-fh3o" class="logo-container" id="logo">
+        <img style="background-image: none" data-hf-id="hf-7dwn" src="https://jobs.icubefarm.com/_next/image?url=%2Fassets%2Fimages%2Flogo%2Ficf_logo.png&w=640&q=75" alt="iCUBEFARM" class="logo">
+      </div>
+      
+      <div style="clip-path: inset(0px)" data-hf-id="hf-txtc" class="text-container">
+        <div data-hf-id="hf-p3g1" class="subtitle" id="subtitle">Digital Workforce Solutions</div>
+        <div data-hf-id="hf-min" class="title" style="margin-top: 60px; color: #64748b; font-size: 32px; letter-spacing: 0.1em; font-weight: 600" id="ministry">Ministry of Labor</div>
+        <div style="font-size: 32px; font-weight: 700; clip-path: inset(0px)" data-hf-id="hf-j70o" class="title" id="title">Labor Management Information System (LMIS) Demo</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-rcol" class="right-column" id="right-column">
+      
+      <div style="clip-path: inset(0px 0px 0px 141.92px)" data-hf-id="hf-rbot" class="right-bottom"></div>
+    </div>
+    
+    <script>
+      // Initial states for animation
+      gsap.set(["#logo", "#subtitle", "#ministry", "#title"], { autoAlpha: 0 });
+      gsap.set("#right-column", { xPercent: 100 });
+
+      gsap.set("[data-hf-id=\"hf-txtc\"]", { x: 5, y: -12 });
+
+      gsap.set("[data-hf-id=\"hf-7dwn\"]", { x: -34, y: -6 });
+
+      gsap.set("[data-hf-id=\"hf-7dwn\"]", { x: -6, y: -6 });
+
+      gsap.set("[data-hf-id=\"hf-7dwn\"]", { x: -42, y: -8 });
+
+      gsap.set("[data-hf-id=\"hf-7dwn\"]", { x: 0, y: -68 });
+
+      gsap.set("[data-hf-id=\"hf-7dwn\"]", { x: -45, y: -8 });
+
+      gsap.set("[data-hf-id=\"hf-rbot\"]", { x: 81, y: 0 });
+
+      const tl = gsap.timeline();
+
+      // Animate the right block sliding in
+      tl.to("#right-column", {
+        xPercent: 0,
+        duration: 1.2,
+        ease: "power3.inOut"
+      }, 0);
+
+      // Fade out the whole wrapper at the end
+      tl.to("#intro-wrapper", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 4.2);
+      tl.set("[data-hf-id=\"hf-txtc\"]", { width: 1032, height: 465, immediateRender: true }, 0);
+      tl.to("#logo, #subtitle, #ministry, #title", { keyframes: { "0%": { x: -129, y: -13 }, "29.4%": { x: 0, y: 0 }, "100%": { x: 0, y: 0 } }, duration: 1.7 }, 0);
+      tl.to("#logo, #subtitle, #ministry, #title", { keyframes: { "29.4%": { autoAlpha: 0 }, "100%": { autoAlpha: 1 } }, duration: 1.7 }, 0);
+      tl.to("#logo, #subtitle, #ministry, #title", { keyframes: { "29.4%": { stagger: 0.2 }, "100%": { stagger: 0.2 } }, duration: 1.7 }, 0);
+      tl.set("[data-hf-id=\"hf-7dwn\"]", { width: 434, height: 76, immediateRender: true }, 0);
+      tl.to("#title", { keyframes: { "0%": { width: 1159, height: 116 }, "29.4%": { width: 1216, height: 122 }, "100%": { width: 1216, height: 122 } }, duration: 1.7 }, 0);
+      tl.set("[data-hf-id=\"hf-rbot\"]", { width: 1006, height: 1293, immediateRender: true }, 0);
+    </script>
+  </div>
+</body>
+</html>

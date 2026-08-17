@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F7F6F3;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        .bg-screen {
+          position: absolute;
+          inset: 40px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 12px;
+          opacity: 0.2;
+          z-index: 0;
+        }
+
+        .headline-container {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          overflow: hidden;
+          z-index: 2;
+        }
+
+        .headline {
+          font-size: 64px;
+          font-weight: 600;
+          margin: 0;
+          color: #111111;
+        }
+
+        .table-container {
+          position: absolute;
+          top: 280px;
+          left: 100px;
+          right: 100px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          z-index: 3;
+        }
+
+        .employer-row {
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 8px;
+          padding: 30px 40px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .emp-info {
+          display: flex;
+          flex-direction: column;
+          width: 400px;
+        }
+
+        .emp-name {
+          font-size: 32px;
+          font-weight: 600;
+          color: #111111;
+          margin-bottom: 8px;
+        }
+
+        .emp-meta {
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          color: #787774;
+        }
+
+        .process-line {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          width: 400px;
+          position: relative;
+        }
+
+        .process-track {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: #EAEAEA;
+          z-index: 0;
+        }
+
+        .status-badge {
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          font-weight: 600;
+          z-index: 1;
+        }
+
+        .badge-registered { background: #F7F6F3; color: #787774; }
+        .badge-review { background: #FBF3DB; color: #956400; }
+        .badge-verified { background: #EDF3EC; color: #346538; }
+
+        .onboarding-container {
+          width: 300px;
+        }
+        
+        .onboarding-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          color: #787774;
+          margin-bottom: 8px;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .ob-bar-bg {
+          height: 8px;
+          background: #EAEAEA;
+          border-radius: 4px;
+          overflow: hidden;
+        }
+
+        .ob-bar-fill {
+          height: 100%;
+          background: #1E3A5F;
+          width: 0%;
+          border-radius: 4px;
+        }
+
+        .footer-band {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 160px;
+          background: #1E3A5F;
+          display: flex;
+          align-items: center;
+          padding: 0 100px;
+          z-index: 4;
+        }
+
+        .benefit-line {
+          font-size: 36px;
+          font-weight: 500;
+          color: #FFFFFF;
+          margin: 0;
+        }
+        
+        .illustrative-label {
+          position: absolute;
+          top: 40px;
+          right: 40px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 18px;
+          color: #A5A29A;
+          z-index: 5;
+        }
+      </style>
+
+      <div data-hf-id="hf-txw6" id="root" data-composition-id="beat-04" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-nnn6" class="bg-screen" id="bg-screen"></div>
+        <div data-hf-id="hf-3rec" class="illustrative-label">Illustrative demo data</div>
+
+        <div data-hf-id="hf-oszy" class="headline-container">
+          <h1 data-hf-id="hf-5im3" class="headline" id="headline">Build a trusted network<br data-hf-id="hf-x5px">of reporting employers.</h1>
+        </div>
+
+        <div data-hf-id="hf-0psq" class="table-container">
+          <div data-hf-id="hf-3u77" class="employer-row" id="row1">
+            <div data-hf-id="hf-md7z" class="emp-info">
+              <div data-hf-id="hf-8gfk" class="emp-name">Bioko Marine Services</div>
+              <div data-hf-id="hf-zzg1" class="emp-meta">ENERGY · 1,204 EMPLOYEES</div>
+            </div>
+            <div data-hf-id="hf-mfcu" class="process-line">
+              <div data-hf-id="hf-bu79" class="process-track"></div>
+              <div data-hf-id="hf-w88e" class="status-badge badge-registered" id="badge1">REGISTERED</div>
+            </div>
+            <div data-hf-id="hf-zia9" class="onboarding-container">
+              <div data-hf-id="hf-wknq" class="onboarding-label"><span data-hf-id="hf-tx0k">ONBOARDING</span> <span data-hf-id="hf-k7an">100%</span></div>
+              <div data-hf-id="hf-zo4p" class="ob-bar-bg"><div data-hf-id="hf-2vhf" class="ob-bar-fill" style="width: 100%"></div></div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-v6bc" class="employer-row" id="row2">
+            <div data-hf-id="hf-5l73" class="emp-info">
+              <div data-hf-id="hf-vkxe" class="emp-name">Litoral Obras</div>
+              <div data-hf-id="hf-8sj4" class="emp-meta">CONSTRUCTION · 450 EMPLOYEES</div>
+            </div>
+            <div data-hf-id="hf-89wi" class="process-line">
+              <div data-hf-id="hf-s1dl" class="process-track"></div>
+              <div data-hf-id="hf-1uae" class="status-badge badge-verified">VERIFIED</div>
+            </div>
+            <div data-hf-id="hf-li9x" class="onboarding-container">
+              <div data-hf-id="hf-cjga" class="onboarding-label"><span data-hf-id="hf-5b8c">ONBOARDING</span> <span data-hf-id="hf-37bn" id="ob-val2">30%</span></div>
+              <div data-hf-id="hf-05p9" class="ob-bar-bg"><div data-hf-id="hf-i7ta" class="ob-bar-fill" id="ob-fill2" style="width: 30%"></div></div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-vxz5" class="employer-row" id="row3">
+            <div data-hf-id="hf-56w2" class="emp-info">
+              <div data-hf-id="hf-uwab" class="emp-name">Annobón Eco Tours</div>
+              <div data-hf-id="hf-cx1m" class="emp-meta">HOSPITALITY · 42 EMPLOYEES</div>
+            </div>
+            <div data-hf-id="hf-8o7j" class="process-line">
+              <div data-hf-id="hf-t8ao" class="process-track"></div>
+              <div data-hf-id="hf-gvfw" class="status-badge badge-registered" id="badge3">REGISTERED</div>
+            </div>
+            <div data-hf-id="hf-mp70" class="onboarding-container">
+              <div data-hf-id="hf-cxrb" class="onboarding-label"><span data-hf-id="hf-44b9">ONBOARDING</span> <span data-hf-id="hf-igwf">100%</span></div>
+              <div data-hf-id="hf-1cmc" class="ob-bar-bg"><div data-hf-id="hf-esir" class="ob-bar-fill" style="width: 100%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-vnvw" class="footer-band" id="footer">
+          <p data-hf-id="hf-gtxh" class="benefit-line" id="benefit">Improve reporting coverage, follow-up, and data quality.</p>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Employer screen enters from y:80
+        tl.fromTo("#bg-screen",
+          { y: 80, opacity: 0 },
+          { y: 0, opacity: 0.2, duration: 1.0, ease: "power3.out" },
+          0.2
+        );
+
+        // Headline reveals from horizontal crop
+        tl.fromTo("#headline",
+          { x: -100, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          0.4
+        );
+
+        // Three employer rows separate
+        tl.fromTo(".employer-row",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.11, ease: "power2.out" },
+          0.8
+        );
+
+        // Bioko status advances to Verified (row 1)
+        tl.to("#badge1", { x: 140, duration: 0.8, ease: "power2.inOut" }, 1.8);
+        tl.to("#badge1", { x: 260, duration: 0.8, ease: "power2.inOut" }, 2.8);
+        tl.add(() => {
+          const b = document.getElementById("badge1");
+          b.innerText = "VERIFIED";
+          b.className = "status-badge badge-verified";
+        }, 3.6);
+        // Glow semantic green
+        tl.fromTo("#badge1", 
+          { boxShadow: "0 0 0px #346538" },
+          { boxShadow: "0 0 20px #346538", duration: 0.3, yoyo: true, repeat: 1 },
+          3.6
+        );
+
+        // Annobón status settles at Pending Review (row 3)
+        tl.to("#badge3", { x: 120, duration: 0.8, ease: "power2.inOut" }, 2.0);
+        tl.add(() => {
+          const b = document.getElementById("badge3");
+          b.innerText = "PENDING REVIEW";
+          b.className = "status-badge badge-review";
+        }, 2.8);
+
+        // Litoral onboarding bar fills to 85% (row 2)
+        let obProxy = { val: 30 };
+        tl.to(obProxy, {
+          val: 85,
+          duration: 1.2,
+          ease: "power2.out",
+          onUpdate: () => {
+            document.getElementById("ob-val2").innerText = Math.round(obProxy.val) + "%";
+          }
+        }, 3.0);
+        tl.to("#ob-fill2", { width: "85%", duration: 1.2, ease: "power2.out" }, 3.0);
+
+        // Benefit line draws onto navy footer band at 6.2s
+        tl.fromTo("#footer",
+          { y: "100%" },
+          { y: "0%", duration: 0.8, ease: "power2.out" },
+          6.0
+        );
+        tl.fromTo("#benefit",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" },
+          6.4
+        );
+
+        window.__timelines["beat-04"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

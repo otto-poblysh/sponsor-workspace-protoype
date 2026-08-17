@@ -1,0 +1,216 @@
+[div] Ministry of Labour
+[div] Labour Market Portal
+[div] Overview
+[a] Dashboard
+[a] Registered Employers
+[a] Jobs and Applications
+[a] Ministry Users
+[div] Insights
+[a] Skill Gap Report
+[a] Labour Market Reports
+[a] Activity Logs
+[div] Settings
+[a] Portal Branding
+[a] Regional Coverage
+[a] Report Recipients
+[a] Notification Preferences
+[div] María Esono
+[div] Ministry Administrator
+[h1] Dashboard
+[p] National overview of registered private-sector employment in Equatorial Guinea
+[button] Export
+[button] Register employer
+[label] Date range
+[option] Last 30 days
+[option] Last 24 hours
+[option] Last 7 days
+[option] Last 90 days
+[option] Last 365 days
+[option] All time
+[label] Sector
+[option] All sectors
+[option] Oil & gas services
+[option] Construction
+[option] Hospitality & tourism
+[option] Agriculture & fisheries
+[option] Trade & logistics
+[label] Location
+[option] All locations
+[option] Malabo
+[option] Bata
+[option] Ebebiyín
+[option] Mongomo
+[option] Luba
+[label] Employer status
+[option] All statuses
+[option] Verified
+[option] Pending review
+[option] Invited
+[option] Suspended
+[label] Workforce size
+[option] All sizes
+[option] 1–49
+[option] 50–249
+[option] 250+
+[span] Refreshed 13 Aug, 14:42
+[div] Registered employers
+[div] 386
+[div] +21 this month
+[div] 351 verified, 12 pending, 23 invited
+[div] Active jobs
+[div] 1,126
+[div] +74 this month
+[div] 186 hard-to-fill roles
+[div] Registered job seekers
+[div] 18,742
+[div] +683 this month
+[div] 5,916 active in the last 30 days
+[div] Applications submitted
+[div] 6,408
+[div] +6% vs last month
+[div] Average 5.7 per vacancy
+[h2] People breakdown
+[span] Job seekers by experience, education, and seniority
+[h3] Years of experience
+[span] 0–2 years
+[span] 6,910
+[span] 2–5 years
+[span] 6,420
+[span] 5–10 years
+[span] 3,620
+[span] 10+ years
+[span] 1,792
+[h3] Education level
+[span] Primary or lower
+[span] 2,986
+[span] Secondary school
+[span] 7,264
+[span] Technical / vocational
+[span] 4,138
+[span] University degree
+[span] 4,354
+[h3] Seniority level
+[span] Entry level
+[span] 8,014
+[span] Mid level
+[span] 6,725
+[span] Senior level
+[span] 3,156
+[span] Lead / executive
+[span] 847
+[h2] Skills in demand and supply
+[span] Capabilities requested by private employers compared with registered worker profiles
+[h3] General / key skills
+[th] Skill
+[th] Jobs requiring
+[th] Seekers with skill
+[th] Gap
+[td] Occupational health & safety
+[td] 286
+[td] 1,094
+[span] Tight
+[td] Customer service
+[td] 264
+[td] 2,486
+[span] Surplus
+[td] Equipment maintenance
+[td] 238
+[td] 724
+[span] Shortage
+[td] Construction trades
+[td] 219
+[td] 1,358
+[span] Tight
+[td] Sales & merchandising
+[td] 197
+[td] 2,104
+[span] Surplus
+[h3] Technical and digital skills
+[th] Skill
+[th] Jobs requiring
+[th] Seekers with skill
+[th] Gap
+[td] Industrial electrical systems
+[td] 174
+[td] 496
+[span] Shortage
+[td] Office productivity tools
+[td] 161
+[td] 1,842
+[span] Tight
+[td] Welding & fabrication
+[td] 148
+[td] 382
+[span] Shortage
+[td] Commercial driving
+[td] 132
+[td] 608
+[span] Tight
+[td] Hospitality operations
+[td] 119
+[td] 354
+[span] Shortage
+[h2] Jobs and applications
+[span] Hard-to-fill roles and the application funnel
+[h3] Application funnel
+[span] New applicants
+[span] 6,408
+[span] Qualified
+[span] 4,550
+[span] Employer screening
+[span] 2,986
+[span] Background check
+[span] 2,114
+[span] Shortlisted
+[span] 1,628
+[span] Offer accepted
+[span] 982
+[span] Hired
+[span] 814
+[h3] Hard-to-fill jobs
+[p] Roles with fewer than 5 applicants in 30 days
+[span] Industrial electrician
+[span] 2 applicants
+[span] Offshore safety technician
+[span] 3 applicants
+[span] Certified welder
+[span] 4 applicants
+[span] Heavy equipment mechanic
+[span] 4 applicants
+[span] Hotel operations supervisor
+[span] 1 applicant
+[h2] Recent portal activity
+[span] Latest actions across ministry users and registered employers
+[time] 13 Aug, 14:38
+[strong] María Esono
+[p] verified employer
+[strong] Bioko Marine Services
+[span] Status: Pending → Verified
+[time] 13 Aug, 13:52
+[strong] Pedro Nsue
+[p] invited
+[strong] inspeccion.bata@trabajo.gob.gq
+[p] as Regional Officer
+[span] Office: Litoral
+[time] 13 Aug, 11:20
+[strong] System
+[p] imported 63 new vacancies from registered employers
+[span] National Employment Service
+[time] 13 Aug, 09:47
+[strong] María Esono
+[p] suspended employer
+[strong] Río Muni Logistics
+[span] Comment: Inactive for 120 days
+[time] 12 Aug, 16:15
+[strong] Ana Mangue
+[p] generated the monthly private-sector employment report
+[span] Format: PDF
+[time] 12 Aug, 11:03
+[strong] Pedro Nsue
+[p] returned employer registration
+[strong] Litoral Obras
+[span] Comment: Incomplete registration documents
+[time] 11 Aug, 15:29
+[strong] System
+[p] added 47 new job seeker profiles
+[span] Source: Direct registration

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Users Management</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace users management prototype" />
+  <title>Labour Market Portal — Users Management</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal users management prototype" />
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -467,8 +467,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -477,9 +477,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item is-active" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item is-active" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -487,7 +487,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -495,8 +495,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -505,10 +505,10 @@
 
       <div class="sidebar-foot">
         <div class="user-mini">
-          <div class="user-avatar">MT</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Meron Tadesse</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -517,7 +517,7 @@
     <main class="main">
       <header class="page-header animate-enter">
         <div>
-          <h1 class="page-title">Users Management</h1>
+          <h1 class="page-title">Ministry Users</h1>
           <p class="page-subtitle">Invite new users, assign roles, and manage active session states</p>
         </div>
         <div class="header-actions">
@@ -538,25 +538,25 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Meron Tadesse</strong><br><small style="color:var(--text-secondary)">meron.tadesse@uneca.org</small></td>
+              <td><strong>María Esono</strong><br><small style="color:var(--text-secondary)">maria.esono@trabajo.gob.gq</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Meron Tadesse', this)">
-                  <option selected>Owner</option>
-                  <option>Admin</option>
-                  <option>Reporter</option>
+                <select class="role-select" onchange="logRoleChange('María Esono', this)">
+                  <option selected>Director</option>
+                  <option>Administrator</option>
+                  <option>Labour Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">13 Jun 2026, 14:15</td>
-              <td style="text-align: right; color:var(--text-tertiary);">Owner (Permanent)</td>
+              <td style="text-align: right; color:var(--text-tertiary);">Director (Permanent)</td>
             </tr>
             <tr>
-              <td><strong>Dawit Mengistu</strong><br><small style="color:var(--text-secondary)">dawit.mengistu@uneca.org</small></td>
+              <td><strong>Pedro Nsue</strong><br><small style="color:var(--text-secondary)">pedro.nsue@trabajo.gob.gq</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Dawit Mengistu', this)">
-                  <option>Owner</option>
-                  <option selected>Admin</option>
-                  <option>Reporter</option>
+                <select class="role-select" onchange="logRoleChange('Pedro Nsue', this)">
+                  <option>Director</option>
+                  <option selected>Administrator</option>
+                  <option>Labour Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
@@ -566,12 +566,12 @@
               </td>
             </tr>
             <tr>
-              <td><strong>Meseret Alemu</strong><br><small style="color:var(--text-secondary)">meseret.alemu@uneca.org</small></td>
+              <td><strong>Ana Mangue</strong><br><small style="color:var(--text-secondary)">ana.mangue@trabajo.gob.gq</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Meseret Alemu', this)">
-                  <option>Owner</option>
-                  <option>Admin</option>
-                  <option selected>Reporter</option>
+                <select class="role-select" onchange="logRoleChange('Ana Mangue', this)">
+                  <option>Director</option>
+                  <option>Administrator</option>
+                  <option selected>Labour Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
@@ -581,18 +581,18 @@
               </td>
             </tr>
             <tr>
-              <td><strong>Helen Bekele</strong><br><small style="color:var(--text-secondary)">helen.bekele@uneca.org</small></td>
+              <td><strong>Lucía Obiang</strong><br><small style="color:var(--text-secondary)">lucia.obiang@trabajo.gob.gq</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Helen Bekele', this)">
-                  <option>Owner</option>
-                  <option selected>Admin</option>
-                  <option>Reporter</option>
+                <select class="role-select" onchange="logRoleChange('Lucía Obiang', this)">
+                  <option>Director</option>
+                  <option selected>Regional Officer</option>
+                  <option>Labour Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-warning">Invited</span></td>
               <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Never</td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Helen.')">Resend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Lucía.')">Resend</button>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Remove</button>
               </td>
             </tr>
@@ -605,20 +605,21 @@
   <!-- Invite User Modal -->
   <div class="modal-overlay" id="invite-modal">
     <div class="modal">
-      <h3 class="modal-title">Invite Workspace User</h3>
-      <p class="modal-desc">Invite a team member to collaborate within this Sponsor Workspace boundary.</p>
+      <h3 class="modal-title">Invite Ministry User</h3>
+      <p class="modal-desc">Invite an authorised Ministry officer to manage labour-market reporting.</p>
 
       <div class="form-group">
         <label class="form-label" for="user-email">Email Address</label>
-        <input type="email" id="user-email" class="form-input" placeholder="e.g. name@uneca.org" required>
+        <input type="email" id="user-email" class="form-input" placeholder="e.g. officer@trabajo.gob.gq" required>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="user-role-sel">Role / Scope</label>
         <select id="user-role-sel" class="form-select">
-          <option value="Owner">Owner (Full access)</option>
-          <option value="Admin" selected>Admin (Operational control)</option>
-          <option value="Reporter">Reporter (Read-only, export allowed)</option>
+          <option value="Director">Director (Full access)</option>
+          <option value="Administrator" selected>Administrator (Operational control)</option>
+          <option value="Regional Officer">Regional Officer (Province scope)</option>
+          <option value="Labour Analyst">Labour Analyst (Read-only, export allowed)</option>
         </select>
       </div>
 
@@ -656,9 +657,10 @@
         <td><strong>${namePrefix}</strong><br><small style="color:var(--text-secondary)">${email}</small></td>
         <td>
           <select class="role-select" onchange="logRoleChange('${namePrefix}', this)">
-            <option ${role === 'Owner' ? 'selected' : ''}>Owner</option>
-            <option ${role === 'Admin' ? 'selected' : ''}>Admin</option>
-            <option ${role === 'Reporter' ? 'selected' : ''}>Reporter</option>
+            <option ${role === 'Director' ? 'selected' : ''}>Director</option>
+            <option ${role === 'Administrator' ? 'selected' : ''}>Administrator</option>
+            <option ${role === 'Regional Officer' ? 'selected' : ''}>Regional Officer</option>
+            <option ${role === 'Labour Analyst' ? 'selected' : ''}>Labour Analyst</option>
           </select>
         </td>
         <td><span class="badge badge-warning">Invited</span></td>

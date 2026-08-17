@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F7F6F3;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        .headline-container {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          z-index: 2;
+        }
+
+        .headline {
+          font-size: 64px;
+          font-weight: 600;
+          margin: 0;
+          color: #111111;
+        }
+
+        .matrix-container {
+          position: absolute;
+          top: 260px;
+          left: 100px;
+          right: 100px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          overflow: hidden;
+          z-index: 1;
+        }
+        
+        .matrix-header {
+          display: flex;
+          background: #F9F9F8;
+          border-bottom: 1px solid #EAEAEA;
+          padding: 24px 40px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 14px;
+          color: #787774;
+          text-transform: uppercase;
+        }
+
+        .mh-col { flex: 1; }
+        .mh-role { flex: 2; }
+
+        .matrix-row {
+          display: flex;
+          padding: 30px 40px;
+          border-bottom: 1px solid #F7F6F3;
+          align-items: center;
+        }
+        .matrix-row:last-child {
+          border-bottom: none;
+        }
+
+        .mr-role {
+          flex: 2;
+          font-size: 24px;
+          font-weight: 500;
+          color: #111111;
+        }
+
+        .mr-toggle-col {
+          flex: 1;
+        }
+
+        .toggle {
+          width: 56px;
+          height: 32px;
+          background: #EAEAEA;
+          border-radius: 16px;
+          position: relative;
+          transition: background 0.2s;
+        }
+        .toggle-knob {
+          width: 24px;
+          height: 24px;
+          background: #FFFFFF;
+          border-radius: 50%;
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          transition: transform 0.2s;
+        }
+
+        .toggle.on { background: #346538; }
+        .toggle.on .toggle-knob { transform: translateX(24px); }
+
+        .cursor {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23111111" d="M11 2L24 16L17 18L21 26L17 28L13 20L7 24Z"/></svg>');
+          z-index: 100;
+          pointer-events: none;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .footer-band {
+          position: absolute;
+          bottom: 120px;
+          left: 100px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          z-index: 4;
+        }
+
+        .lock-icon {
+          width: 32px;
+          height: 32px;
+          background: #1E3A5F;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6z"/></svg>') center/contain no-repeat;
+          -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6z"/></svg>') center/contain no-repeat;
+        }
+
+        .benefit-line {
+          font-size: 32px;
+          font-weight: 500;
+          color: #1E3A5F;
+          margin: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-c53e" id="root" data-composition-id="beat-08" data-width="1920" data-height="1080">
+        
+        <div data-hf-id="hf-oszy" class="headline-container">
+          <h1 data-hf-id="hf-8j7e" class="headline" id="headline">Give the right people the right access.</h1>
+        </div>
+
+        <div data-hf-id="hf-q9eo" class="matrix-container" id="matrix">
+          <div data-hf-id="hf-r8mu" class="matrix-header" id="mh">
+            <div data-hf-id="hf-cs2o" class="mh-role">Role</div>
+            <div data-hf-id="hf-qp0g" class="mh-col">National Data</div>
+            <div data-hf-id="hf-k0x1" class="mh-col">Regional Data</div>
+            <div data-hf-id="hf-ah01" class="mh-col">Write Access</div>
+          </div>
+          <div data-hf-id="hf-7f71" class="matrix-row row1">
+            <div data-hf-id="hf-f6r1" class="mr-role">Minister</div>
+            <div data-hf-id="hf-5d0v" class="mr-toggle-col"><div data-hf-id="hf-j3o7" class="toggle on"><div data-hf-id="hf-x6d1" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-qybz" class="mr-toggle-col"><div data-hf-id="hf-085z" class="toggle on"><div data-hf-id="hf-a8ix" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-qk0y" class="mr-toggle-col"><div data-hf-id="hf-4iz0" class="toggle"><div data-hf-id="hf-bfg0" class="toggle-knob"></div></div></div>
+          </div>
+          <div data-hf-id="hf-bdb2" class="matrix-row row2">
+            <div data-hf-id="hf-vw2t" class="mr-role">Regional Director</div>
+            <div data-hf-id="hf-q5px" class="mr-toggle-col"><div data-hf-id="hf-i8tg" class="toggle"><div data-hf-id="hf-b14z" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-sxv4" class="mr-toggle-col"><div data-hf-id="hf-h1ay" class="toggle" id="target-toggle"><div data-hf-id="hf-91lu" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-sjk3" class="mr-toggle-col"><div data-hf-id="hf-h1wd" class="toggle"><div data-hf-id="hf-8nat" class="toggle-knob"></div></div></div>
+          </div>
+          <div data-hf-id="hf-fbf3" class="matrix-row row3">
+            <div data-hf-id="hf-bf87" class="mr-role">Employer</div>
+            <div data-hf-id="hf-s592" class="mr-toggle-col"><div data-hf-id="hf-hg7e" class="toggle"><div data-hf-id="hf-9u7w" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-rqy1" class="mr-toggle-col"><div data-hf-id="hf-jfqj" class="toggle"><div data-hf-id="hf-9fwv" class="toggle-knob"></div></div></div>
+            <div data-hf-id="hf-o66s" class="mr-toggle-col"><div data-hf-id="hf-ztuy" class="toggle on"><div data-hf-id="hf-7gdq" class="toggle-knob"></div></div></div>
+          </div>
+        </div>
+        
+        <div data-hf-id="hf-abpd" class="cursor" id="cursor" style="opacity: 0"></div>
+
+        <div data-hf-id="hf-bizv" class="footer-band">
+          <div data-hf-id="hf-w9n6" class="lock-icon" id="lock"></div>
+          <p data-hf-id="hf-2751" class="benefit-line" id="benefit">Secure by default.</p>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Matrix structure assembles from center outward at 0.2s
+        tl.fromTo("#matrix",
+          { scale: 0.9, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.0, ease: "expo.out" },
+          0.2
+        );
+        tl.fromTo("#headline",
+          { y: -40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          0.3
+        );
+
+        // Rows populate sequentially
+        tl.fromTo([".row1", ".row2", ".row3"],
+          { x: -20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power2.out" },
+          0.5
+        );
+
+        // Cursor glides to Regional Director at 1.5s
+        tl.set("#cursor", { opacity: 1 }, 1.0);
+        // target toggle position is approx left: 1040, y: 480
+        tl.to("#cursor", { x: 1020, y: 480, duration: 0.8, ease: "power2.inOut" }, 1.5);
+        
+        // Toggle switch snaps to ON with a sharp semantic green fill at 2.8s
+        tl.to("#cursor", { scale: 0.8, duration: 0.1, yoyo: true, repeat: 1 }, 2.7);
+        tl.add(() => {
+          document.getElementById("target-toggle").classList.add("on");
+        }, 2.8);
+        
+        // Cursor drifts away
+        tl.to("#cursor", { x: 1100, y: 600, duration: 1.0, ease: "power2.inOut" }, 3.0);
+        tl.to("#cursor", { opacity: 0, duration: 0.3 }, 3.5);
+
+        // Security lock icon pulses subtly at 4.5s
+        tl.fromTo("#lock",
+          { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)" },
+          4.0
+        );
+        tl.fromTo("#benefit",
+          { x: -20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+          4.2
+        );
+        
+        tl.to("#lock", { scale: 1.2, duration: 0.3, yoyo: true, repeat: 1, ease: "power1.inOut" }, 4.6);
+
+        window.__timelines["beat-08"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

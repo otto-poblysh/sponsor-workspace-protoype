@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Activity Logs</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace activity logs prototype" />
+  <title>Labour Market Portal — Activity Logs</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal activity logs prototype" />
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -431,8 +431,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -441,9 +441,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -451,7 +451,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item is-active" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -459,8 +459,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -469,10 +469,10 @@
 
       <div class="sidebar-foot">
         <div class="user-mini">
-          <div class="user-avatar">TH</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Tigist Haile</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -482,28 +482,28 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Activity Logs</h1>
-          <p class="page-subtitle">Track important actions inside the Sponsor Workspace for accountability and compliance</p>
+          <p class="page-subtitle">Track important actions inside the Labour Market Portal for accountability and compliance</p>
         </div>
       </header>
 
       <div class="alert-banner animate-enter delay-1">
         <i class="ph-bold ph-lock-keyhole"></i>
-        <span><strong>Compliance Invariant:</strong> Activity logs are read-only and immutable. Logs cannot be edited, deleted, or cleared by any Sponsor User. System keeps records for 365 days.</span>
+        <span><strong>Compliance Invariant:</strong> Activity logs are read-only and immutable. Logs cannot be edited, deleted, or cleared by any Ministry User. System keeps records for 365 days.</span>
       </div>
 
       <div class="filter-bar animate-enter delay-1" role="search" aria-label="Log filters">
         <div class="filter-group" style="flex:2;">
           <label class="filter-label" for="search-logs">Search actor or action</label>
-          <input type="text" id="search-logs" class="filter-input" placeholder="e.g. Meron, approved..." oninput="filterLogs()">
+          <input type="text" id="search-logs" class="filter-input" placeholder="e.g. María, verified..." oninput="filterLogs()">
         </div>
         <div class="filter-group">
           <label class="filter-label" for="filter-category">Category</label>
           <select id="filter-category" class="filter-select" onchange="filterLogs()">
             <option value="all">All categories</option>
             <option value="user management">User management</option>
-            <option value="entity moderation">Entity moderation</option>
+            <option value="entity moderation">Employer verification</option>
             <option value="branding">Tenant branding</option>
-            <option value="countries">Supported countries</option>
+            <option value="countries">Regional coverage</option>
             <option value="reports">Report exports</option>
           </select>
         </div>
@@ -523,57 +523,57 @@
           <tbody>
             <tr data-category="entity moderation">
               <td style="font-family: var(--font-mono);">13 Jun 2026, 14:38</td>
-              <td><strong>Tigist Haile</strong></td>
-              <td>Approved entity Awash Analytics</td>
-              <td>Entity moderation</td>
-              <td><small style="color:var(--text-secondary)">Status: Pending Review → Approved</small></td>
+              <td><strong>María Esono</strong></td>
+              <td>Verified employer Bioko Marine Services</td>
+              <td>Employer verification</td>
+              <td><small style="color:var(--text-secondary)">Status: Pending Review → Verified</small></td>
             </tr>
             <tr data-category="user management">
               <td style="font-family: var(--font-mono);">13 Jun 2026, 13:52</td>
-              <td><strong>Dawit Mengistu</strong></td>
-              <td>Invited user helen.bekele@ethiogreenenergy.et</td>
+              <td><strong>Pedro Nsue</strong></td>
+              <td>Invited user inspeccion.bata@trabajo.gob.gq</td>
               <td>User management</td>
-              <td><small style="color:var(--text-secondary)">Role: Admin (Invited)</small></td>
+              <td><small style="color:var(--text-secondary)">Role: Regional Officer (Invited)</small></td>
             </tr>
             <tr data-category="countries">
               <td style="font-family: var(--font-mono);">13 Jun 2026, 11:20</td>
               <td><strong>System</strong></td>
-              <td>Updated supported countries</td>
-              <td>Supported countries</td>
-              <td><small style="color:var(--text-secondary)">Added: Rwanda, Ghana</small></td>
+              <td>Updated regional coverage</td>
+              <td>Regional coverage</td>
+              <td><small style="color:var(--text-secondary)">Enabled vacancy reporting: Annobón</small></td>
             </tr>
             <tr data-category="entity moderation">
               <td style="font-family: var(--font-mono);">13 Jun 2026, 09:47</td>
-              <td><strong>Meron Tadesse</strong></td>
-              <td>Suspended entity Abyssinia Logistics</td>
-              <td>Entity moderation</td>
+              <td><strong>María Esono</strong></td>
+              <td>Suspended employer Río Muni Logistics</td>
+              <td>Employer verification</td>
               <td><small style="color:var(--text-secondary)">Comment: Inactive for 120 days</small></td>
             </tr>
             <tr data-category="reports">
               <td style="font-family: var(--font-mono);">12 Jun 2026, 16:15</td>
-              <td><strong>Meseret Alemu</strong></td>
-              <td>Generated monthly activity report</td>
+              <td><strong>Ana Mangue</strong></td>
+              <td>Generated monthly labour market summary</td>
               <td>Report exports</td>
               <td><small style="color:var(--text-secondary)">Format: PDF</small></td>
             </tr>
             <tr data-category="entity moderation">
               <td style="font-family: var(--font-mono);">12 Jun 2026, 11:03</td>
-              <td><strong>Dawit Mengistu</strong></td>
-              <td>Rejected entity Sheger Consulting</td>
-              <td>Entity moderation</td>
+              <td><strong>Pedro Nsue</strong></td>
+              <td>Returned employer registration for Litoral Obras</td>
+              <td>Employer verification</td>
               <td><small style="color:var(--text-secondary)">Comment: Incomplete registration documents</small></td>
             </tr>
             <tr data-category="branding">
               <td style="font-family: var(--font-mono);">10 Jun 2026, 10:11</td>
-              <td><strong>Meron Tadesse</strong></td>
+              <td><strong>María Esono</strong></td>
               <td>Updated primary brand color</td>
-              <td>Tenant branding</td>
+              <td>Portal branding</td>
               <td><small style="color:var(--text-secondary)">Accent: #0f5c58 → #1E3A5F</small></td>
             </tr>
             <tr data-category="user management">
               <td style="font-family: var(--font-mono);">09 Jun 2026, 15:44</td>
-              <td><strong>Meron Tadesse</strong></td>
-              <td>Deactivated user johannes.berg@addissmbjobs.et</td>
+              <td><strong>María Esono</strong></td>
+              <td>Deactivated user oficina.annobon@trabajo.gob.gq</td>
               <td>User management</td>
               <td><small style="color:var(--text-secondary)">Status: Active → Deactivated</small></td>
             </tr>

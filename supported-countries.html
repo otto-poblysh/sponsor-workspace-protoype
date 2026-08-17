@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Supported Countries</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace supported countries prototype" />
+  <title>Labour Market Portal — Supported Countries</title>
+  <meta name="description" content="Ministry of Labour regional coverage settings prototype" />
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -418,8 +418,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -428,9 +428,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -438,7 +438,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -446,8 +446,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item is-active" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item is-active" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -456,10 +456,10 @@
 
       <div class="sidebar-foot">
         <div class="user-mini">
-          <div class="user-avatar">MT</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Meron Tadesse</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -468,8 +468,8 @@
     <main class="main">
       <header class="page-header animate-enter">
         <div>
-          <h1 class="page-title">Supported Countries</h1>
-          <p class="page-subtitle">Select countries where companies can register, jobs can be posted, and candidates can participate</p>
+          <h1 class="page-title">Regional Coverage</h1>
+          <p class="page-subtitle">Configure employer reporting and job-seeker participation by province</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="saveCountries()"><i class="ph-bold ph-floppy-disk"></i> Save changes</button>
@@ -478,21 +478,21 @@
 
       <div class="alert-banner animate-enter delay-1">
         <i class="ph-bold ph-info"></i>
-        <span>Supported country settings apply strictly to the Addis Jobs Consortium Sponsor Workspace and enforce validations on portal interfaces.</span>
+        <span>Regional coverage applies across Equatorial Guinea and controls employer registration, vacancy reporting and job-seeker access by province.</span>
       </div>
 
       <div class="card animate-enter delay-2">
         <div class="country-grid">
           <div class="country-header">
-            <span>Country</span>
-            <span>Allow Company Reg.</span>
-            <span>Allow Job Seeking</span>
-            <span>Allow Job Posting</span>
+            <span>Province</span>
+            <span>Employer Registration</span>
+            <span>Job-Seeker Access</span>
+            <span>Vacancy Reporting</span>
           </div>
 
           <div class="country-row">
             <div class="country-info">
-              <span class="country-name">Ethiopia</span>
+              <span class="country-name">Bioko Norte</span>
             </div>
             <div class="checkbox-col" data-label="Company Reg.">
               <input type="checkbox" class="checkbox-custom" checked>
@@ -507,7 +507,7 @@
 
           <div class="country-row">
             <div class="country-info">
-              <span class="country-name">Kenya</span>
+              <span class="country-name">Litoral</span>
             </div>
             <div class="checkbox-col" data-label="Company Reg.">
               <input type="checkbox" class="checkbox-custom" checked>
@@ -522,7 +522,7 @@
 
           <div class="country-row">
             <div class="country-info">
-              <span class="country-name">Rwanda</span>
+              <span class="country-name">Wele-Nzas</span>
             </div>
             <div class="checkbox-col" data-label="Company Reg.">
               <input type="checkbox" class="checkbox-custom" checked>
@@ -537,22 +537,7 @@
 
           <div class="country-row">
             <div class="country-info">
-              <span class="country-name">Cameroon</span>
-            </div>
-            <div class="checkbox-col" data-label="Company Reg.">
-              <input type="checkbox" class="checkbox-custom">
-            </div>
-            <div class="checkbox-col" data-label="Job Seeking">
-              <input type="checkbox" class="checkbox-custom" checked>
-            </div>
-            <div class="checkbox-col" data-label="Job Posting">
-              <input type="checkbox" class="checkbox-custom">
-            </div>
-          </div>
-
-          <div class="country-row">
-            <div class="country-info">
-              <span class="country-name">Congo (Republic)</span>
+              <span class="country-name">Kié-Ntem</span>
             </div>
             <div class="checkbox-col" data-label="Company Reg.">
               <input type="checkbox" class="checkbox-custom">
@@ -567,7 +552,22 @@
 
           <div class="country-row">
             <div class="country-info">
-              <span class="country-name">Chad</span>
+              <span class="country-name">Centro Sur</span>
+            </div>
+            <div class="checkbox-col" data-label="Company Reg.">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+            <div class="checkbox-col" data-label="Job Seeking">
+              <input type="checkbox" class="checkbox-custom" checked>
+            </div>
+            <div class="checkbox-col" data-label="Job Posting">
+              <input type="checkbox" class="checkbox-custom">
+            </div>
+          </div>
+
+          <div class="country-row">
+            <div class="country-info">
+              <span class="country-name">Annobón</span>
             </div>
             <div class="checkbox-col" data-label="Company Reg.">
               <input type="checkbox" class="checkbox-custom">
@@ -586,7 +586,7 @@
 
   <script>
     function saveCountries() {
-      alert('Supported countries configuration updated successfully. Rules have been applied.');
+      alert('Regional coverage updated successfully. Province-level rules have been applied.');
     }
   </script>
 </body>

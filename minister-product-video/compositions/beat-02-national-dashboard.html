@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html><head></head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: 'Geist Sans', -apple-system, sans-serif;
+          background: #F7F6F3;
+          overflow: hidden;
+          color: #111111;
+          --canvas: #ffffff;
+          --surface: #f9f9f8;
+          --bone: #f7f6f3;
+          --border: #eaeaea;
+          --text: #111111;
+          --text-secondary: #787774;
+          --accent: #1E3A5F;
+        }
+
+        .bg-layer {
+          position: absolute;
+          inset: 0;
+          transform-style: preserve-3d;
+          perspective: 1200px;
+        }
+
+        .dashboard-screen {
+          position: absolute;
+          inset: 0;
+          background: url('capture/screenshots/index.png') center / cover no-repeat;
+          background-color: var(--surface);
+          box-shadow: inset 0 0 0 1px var(--border);
+          transform-origin: center center;
+        }
+        
+        .dashboard-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(247, 246, 243, 0.85);
+        }
+
+        .headline {
+          position: absolute;
+          top: 180px;
+          left: 140px;
+          font-size: 80px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--text);
+          z-index: 10;
+        }
+
+        .kpi-row {
+          position: absolute;
+          top: 360px;
+          left: 140px;
+          display: flex;
+          gap: 40px;
+          z-index: 20;
+          perspective: 1000px;
+        }
+
+        .kpi-card {
+          width: 380px;
+          height: 260px;
+          background: var(--canvas);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 40px;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 16px 48px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+          will-change: transform, opacity;
+        }
+
+        .kpi-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 20px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
+
+        .kpi-value {
+          margin-top: auto;
+          font-size: 88px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          color: var(--text);
+          font-variant-numeric: tabular-nums;
+          line-height: 1;
+          margin-bottom: 24px;
+        }
+
+        .kpi-context-track {
+          width: 100%;
+          height: 6px;
+          background: var(--bone);
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
+        .kpi-context-fill {
+          height: 100%;
+          background: var(--accent);
+          width: 0%;
+          border-radius: 3px;
+        }
+
+        .footer-section {
+          position: absolute;
+          top: 720px;
+          left: 140px;
+          display: flex;
+          align-items: center;
+          gap: 32px;
+          z-index: 10;
+        }
+
+        .navy-rule {
+          width: 0px;
+          height: 2px;
+          background: var(--accent);
+        }
+
+        .benefit-tag {
+          font-size: 36px;
+          font-weight: 400;
+          color: var(--accent);
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        .illustrative-label {
+          position: absolute;
+          bottom: 60px;
+          right: 80px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 20px;
+          color: var(--text-secondary);
+          z-index: 10;
+        }
+      </style>
+
+      <div data-hf-id="hf-a41s" id="root" data-composition-id="beat-02" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-g7rh" class="bg-layer">
+          <div data-hf-id="hf-0ohh" class="dashboard-screen">
+             <div data-hf-id="hf-qe1v" class="dashboard-overlay"></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-amd0" class="headline">Now, the Ministry can see the national picture.</div>
+
+        <div data-hf-id="hf-qqz1" class="kpi-row">
+          <div data-hf-id="hf-ckox" class="kpi-card">
+            <div data-hf-id="hf-xw71" class="kpi-label">Registered Employers</div>
+            <div data-hf-id="hf-febx" class="kpi-value" id="val-1">0</div>
+            <div data-hf-id="hf-ujqa" class="kpi-context-track"><div data-hf-id="hf-bxet" class="kpi-context-fill" id="fill-1"></div></div>
+          </div>
+          <div data-hf-id="hf-gout" class="kpi-card">
+            <div data-hf-id="hf-fcr4" class="kpi-label">Active Vacancies</div>
+            <div data-hf-id="hf-338c" class="kpi-value" id="val-2">0</div>
+            <div data-hf-id="hf-37ly" class="kpi-context-track"><div data-hf-id="hf-fviu" class="kpi-context-fill" id="fill-2"></div></div>
+          </div>
+          <div data-hf-id="hf-hvrw" class="kpi-card">
+            <div data-hf-id="hf-doj2" class="kpi-label">Job Seekers</div>
+            <div data-hf-id="hf-gjev" class="kpi-value" id="val-3">0</div>
+            <div data-hf-id="hf-3lwz" class="kpi-context-track"><div data-hf-id="hf-m18n" class="kpi-context-fill" id="fill-3"></div></div>
+          </div>
+          <div data-hf-id="hf-hhgv" class="kpi-card">
+            <div data-hf-id="hf-er7s" class="kpi-label">Applications</div>
+            <div data-hf-id="hf-ud9a" class="kpi-value" id="val-4">0</div>
+            <div data-hf-id="hf-4080" class="kpi-context-track"><div data-hf-id="hf-pzco" class="kpi-context-fill" id="fill-4"></div></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-o9yf" class="footer-section">
+          <div data-hf-id="hf-az27" class="navy-rule"></div>
+          <div data-hf-id="hf-jhg2" class="benefit-tag">A current executive briefing—at a glance.</div>
+        </div>
+
+        <div data-hf-id="hf-3rec" class="illustrative-label">Illustrative demo data</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        const root = document.querySelector('[data-composition-id="beat-02"]');
+        const dashboard = root.querySelector('.dashboard-screen');
+        const headline = root.querySelector('.headline');
+        const cards = root.querySelectorAll('.kpi-card');
+        const fills = root.querySelectorAll('.kpi-context-fill');
+        const navyRule = root.querySelector('.navy-rule');
+        const benefitTag = root.querySelector('.benefit-tag');
+        const illustrative = root.querySelector('.illustrative-label');
+
+        // 0.2s: Dashboard plane pushes forward from scale 0.94
+        tl.fromTo(dashboard, 
+          { scale: 0.94, rotationX: 3 }, 
+          { scale: 1, rotationX: 0, duration: 4, ease: "power2.out" }, 
+          0.2
+        );
+        // Dashboard continues a 2% scale push during the reading hold
+        tl.to(dashboard, { scale: 1.02, duration: 4, ease: "none" }, 4.2);
+
+        // 0.35s: Headline slides in from the left
+        tl.fromTo(headline, 
+          { x: -60, opacity: 0 }, 
+          { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 
+          0.35
+        );
+
+        // 0.7s: KPI cards lift from screen with 90ms stagger
+        tl.fromTo(cards, 
+          { y: 60, opacity: 0, scale: 0.96 }, 
+          { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: "power3.out", stagger: 0.09 }, 
+          0.7
+        );
+
+        // 1.0s to 2.5s: Values count up. Context fills grow from 0.
+        const targetVals = [
+          { id: '#val-1', end: 386 },
+          { id: '#val-2', end: 1126 },
+          { id: '#val-3', end: 18742 },
+          { id: '#val-4', end: 6408 }
+        ];
+        
+        targetVals.forEach((t, i) => {
+          const el = root.querySelector(t.id);
+          const proxy = { val: 0 };
+          tl.fromTo(proxy, 
+            { val: 0 }, 
+            {
+              val: t.end,
+              duration: 1.5,
+              ease: "power2.out",
+              onUpdate: function() {
+                el.innerText = Math.floor(proxy.val).toLocaleString('en-US');
+              }
+            }, 
+            1.0 + (i * 0.09)
+          );
+        });
+
+        const fillWidths = ["75%", "45%", "85%", "60%"];
+        fills.forEach((fill, i) => {
+          tl.fromTo(fill, 
+            { width: "0%" }, 
+            { width: fillWidths[i], duration: 1.5, ease: "power2.out" }, 
+            1.0 + (i * 0.09)
+          );
+        });
+
+        // 3.6s: Rule starts drawing, resolving benefit tag at 4.2s
+        tl.fromTo(navyRule, 
+          { width: "0px" }, 
+          { width: "120px", duration: 0.8, ease: "power3.inOut" }, 
+          3.6
+        );
+
+        tl.fromTo(benefitTag, 
+          { x: -20, opacity: 0 }, 
+          { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 
+          4.2
+        );
+
+        // Illustrative label quiet entrance
+        tl.fromTo(illustrative, 
+          { opacity: 0 }, 
+          { opacity: 1, duration: 1, ease: "power2.out" }, 
+          1.5
+        );
+
+        window.__timelines["beat-02"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
