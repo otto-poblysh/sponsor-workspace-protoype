@@ -18,7 +18,7 @@
 - Task 5: complete (commits c7633c1..e4d4792, review clean)
 - Task 6: complete (commits e4d4792..8f24e57, review clean)
 - Task 7: complete (commits 8f24e57..f36e926, review clean)
-- Task 8: complete (commits pending, review clean)
+- Task 8: complete (commits f36e926..b4f2372, review clean)
 - 2026-08-17: Task 1 completed. Implemented test fixtures (mini.html, 4 catalog fixtures), tools/validate-catalogs.js, and tests/catalog-validator.test.js (11/11 tests passing).
 - 2026-08-17: Task 2 completed. Implemented tools/extract-i18n.js, i18n/do-not-translate.json, and tests/extractor.test.js (8/8 tests passing).
 - 2026-08-17: Task 3 completed. Refactored all 11 English source HTML pages with language toggle markup, CSS styles, hoisted STR blocks, and tests/english-source-integrity.test.js (54/54 tests passing).
@@ -26,4 +26,4 @@
 - 2026-08-17: Task 5 completed. Implemented tools/check-i18n.js and tests/coverage-check.test.js covering Spec Tests 18-20 (8/8 tests passing, 92/92 across full suite).
 - 2026-08-17: Task 6 completed. Created i18n/glossary.md, updated i18n/do-not-translate.json, and authored 100% complete French and Spanish translations across 24 catalogs (1,540/1,540 strings translated, 100% coverage in FR and ES).
 - 2026-08-17: Task 7 completed. Implemented client-side language preference persistence (`localStorage.portalLang`), auto-redirect routing on root pages, `?lang=en` escape hatch, loop prevention on localized trees, locale-aware date/number formatting (R8, R9), and tests/persistence.test.js (34/34 tests passing, 126/126 across full suite).
-- 2026-08-17: Task 8 completed. Added standard npm scripts in package.json (R10), created playwright.config.js, implemented tests/e2e-i18n.spec.js covering Spec Tests 21-25 across all 33 pages (149/149 E2E tests passing, 126/126 unit/integration tests passing).
+- 2026-08-17: Task 8 completed. Added standard npm scripts (R10), configured Playwright test runner, built tests/e2e-i18n.spec.js (149/149 E2E tests passing covering Spec Tests 21-25 across all 33 pages), and verified complete build workflow.
