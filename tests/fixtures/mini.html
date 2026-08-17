@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labour Market Portal — Mini</title>
+  <meta name="description" content="Minimal test harness for i18n tooling">
+  <style>
+    body { font-family: sans-serif; margin: 0; display: flex; }
+    .sidebar { width: 260px; background: #111; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
+    .sidebar-nav { flex: 1; padding: 1rem; }
+    .sidebar-foot { padding: 1rem; border-top: 1px solid #333; }
+    .lang-toggle { display: flex; gap: 4px; background: #222; padding: 3px; border-radius: 6px; margin-bottom: 0.75rem; }
+    .lang-opt { flex: 1; text-align: center; color: #888; text-decoration: none; font-size: 12px; padding: 4px 0; border-radius: 4px; }
+    .lang-opt.is-active { background: #333; color: #fff; font-weight: bold; pointer-events: none; }
+    .user-block { font-size: 13px; color: #aaa; }
+    .main-content { flex: 1; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-nav">
+      <a href="mini.html">Dashboard</a>
+      <a href="mini.html">Registered Employers</a>
+    </div>
+    <div class="sidebar-foot">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <a class="lang-opt is-active" hreflang="en" href="mini.html">EN</a>
+        <a class="lang-opt" hreflang="fr" href="fr/mini.html">FR</a>
+        <a class="lang-opt" hreflang="es" href="es/mini.html">ES</a>
+      </div>
+      <div class="user-block">
+        <span class="user-name">Demo Admin</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <img src="logo.png" alt="Ministry Logo">
+      <h1>Labour Market Portal</h1>
+      <p>National overview of registered private-sector employment in Equatorial Guinea</p>
+    </header>
+
+    <section>
+      <input type="text" placeholder="Search employers..." aria-label="Search employers">
+      <button title="Export data to CSV">Export</button>
+      <button>Export Report</button>
+    </section>
+  </main>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      commentRequired: "Please enter a comment before submitting.",
+      returnTitle: "Return Employer Registration",
+      suspendConfirm: "Are you sure you want to suspend access for {name}? A comment is required to proceed.",
+      suspendTitle: "Suspend Employer"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? `{${k}}`);
+  </script>
+</body>
+</html>
