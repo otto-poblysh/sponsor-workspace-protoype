@@ -1,0 +1,115 @@
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      width: 1920px; height: 1080px;
+      overflow: hidden;
+      font-family: 'Geist Sans', -apple-system, sans-serif;
+      color: #ffffff;
+    }
+    
+    #outro-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 1920px; height: 1080px;
+      background-color: #1e293b;
+      font-family: 'Geist Sans', -apple-system, sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: rgba(255,255,255,0.03);
+      padding: 60px 100px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 32px;
+      filter: brightness(0) invert(1); /* Make it white */
+    }
+    
+    .message {
+      font-size: 28px;
+      font-weight: 400;
+      color: #cbd5e1;
+      margin-bottom: 40px;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .contact-item .label {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="beat-06" data-width="1920" data-height="1080" data-duration="6" data-hf-id="hf-rwck" id="outro-wrapper">
+    <div data-hf-id="hf-gycn" class="grid-overlay"></div>
+    <div data-hf-id="hf-rbco" class="container" id="content-container">
+      <img data-hf-id="hf-7dwn" src="https://jobs.icubefarm.com/_next/image?url=%2Fassets%2Fimages%2Flogo%2Ficf_logo.png&w=640&q=75" alt="iCUBEFARM" class="logo">
+      <div data-hf-id="hf-9sxx" class="message">
+        Pour personnaliser votre Système d'Information sur le Marché du Travail (SIMT)<br data-hf-id="hf-x5px">Contactez-nous :
+      </div>
+      <div data-hf-id="hf-y4kp" class="contact-details">
+        <div data-hf-id="hf-pyf9" class="contact-item">iCUBEFARM EG SL</div>
+        <div data-hf-id="hf-q479" class="contact-item"><span data-hf-id="hf-49e7" class="label">E-mail :</span> consulting@icubefarm.com</div>
+        <div data-hf-id="hf-tik0" class="contact-item"><span data-hf-id="hf-zfz3" class="label">WhatsApp :</span> +240555796552</div>
+      </div>
+    </div>
+
+    <script>
+      gsap.set("#outro-wrapper", { autoAlpha: 0 });
+      const tl = gsap.timeline();
+      
+      // Wrapper fades in over 1 second
+      tl.to("#outro-wrapper", { opacity: 1, duration: 1, ease: "power2.inOut" }, 0);
+      
+      // Content animates up
+      tl.from("#content-container", { y: 40, duration: 1.2, ease: "power3.out" }, 0.5);
+    </script>
+  </div>
+</body>
+</html>

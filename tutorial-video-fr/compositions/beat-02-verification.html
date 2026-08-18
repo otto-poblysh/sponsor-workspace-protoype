@@ -1,0 +1,1007 @@
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portail du Marché du Travail — Entités</title>
+  <meta name="description" content="Prototype des employeurs privés enregistrés du Ministère du Travail">
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    /* Progress bar */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--bone);
+      border-radius: 9999px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 9999px;
+    }
+
+    .progress-label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Modal dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(16px);
+      transition: transform 200ms ease;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-lg);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-textarea, .form-select {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>\n<div data-hf-id="hf-04aa" data-composition-id="beat-02" data-width="1920" data-height="1080" data-duration="19">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-fidg" class="brand-name">Ministère du Travail</div>
+          <div data-hf-id="hf-oyyb" class="brand-sub">Portail du Marché du Travail</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Vue d'ensemble</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-3uju" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Tableau de bord</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-l6no" class="nav-item is-active" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Employeurs enregistrés</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Offres et candidatures</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-eatl" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Utilisateurs du Ministère</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Analyses</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-zs5p" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Rapports du marché du travail</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Paramètres</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-90jk" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Couverture régionale</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-sicj" class="user-avatar">ME</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-wlyx" class="user-name">María Esono</div>
+            <div data-hf-id="hf-s3sy" class="user-role">Administrateur du Ministère</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-439g" class="page-title">Employeurs enregistrés</h1>
+          <p data-hf-id="hf-hfyv" class="page-subtitle">Enregistrer, vérifier et suivre les employeurs du secteur privé déclarant auprès du Ministère</p>
+        </div>
+        <div data-hf-id="hf-91nl" class="header-actions">
+          <button data-hf-id="hf-kxo7" class="btn btn-primary" onclick="openModal('invite-modal')"><i data-hf-id="hf-v891" class="ph-bold ph-plus"></i> Enregistrer un employeur</button>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-fq77" class="filter-bar animate-enter delay-1" role="search" aria-label="Filtres d'employeurs">
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-42fj" class="filter-label" for="filter-sector">Secteur</label>
+          <select data-hf-id="hf-f79n" id="filter-sector" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-rtx2" value="all">Tous les secteurs</option>
+            <option data-hf-id="hf-rlqc" value="oil and gas services">Services pétroliers et gaziers</option>
+            <option data-hf-id="hf-as4m" value="transportation">Commerce et logistique</option>
+            <option data-hf-id="hf-gukn" value="construction">Construction</option>
+            <option data-hf-id="hf-qjpq" value="hospitality">Hôtellerie et tourisme</option>
+            <option data-hf-id="hf-rq60" value="retail">Commerce et distribution</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-byak" class="filter-group">
+          <label data-hf-id="hf-jdq7" class="filter-label" for="filter-status">Statut</label>
+          <select data-hf-id="hf-6usj" id="filter-status" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-3ccl" value="all">Tous les statuts</option>
+            <option data-hf-id="hf-hayh" value="verified">Vérifié</option>
+            <option data-hf-id="hf-d85n" value="pending review">En attente d'examen</option>
+            <option data-hf-id="hf-5ext" value="invited">Invité</option>
+            <option data-hf-id="hf-nmrt" value="suspended">Suspendu</option>
+            <option data-hf-id="hf-jke7" value="inactive">Inactif</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-ardh" class="filter-group">
+          <label data-hf-id="hf-l8l5" class="filter-label" for="filter-size">Taille des effectifs</label>
+          <select data-hf-id="hf-2shm" id="filter-size" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-oz2n" value="all">Toutes les tailles</option>
+            <option data-hf-id="hf-wpob" value="1–49">1–49</option>
+            <option data-hf-id="hf-rrsj" value="50–249">50–249</option>
+            <option data-hf-id="hf-hb65" value="250+">250+</option>
+          </select>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-sot2" class="card animate-enter delay-2">
+        <table data-hf-id="hf-dibk" class="data-table" id="entities-table">
+          <thead data-hf-id="hf-zd89">
+            <tr data-hf-id="hf-p3r7">
+              <th data-hf-id="hf-8qyw">Employeur</th>
+              <th data-hf-id="hf-epmf">E-mail de contact</th>
+              <th data-hf-id="hf-wowj">Secteur</th>
+              <th data-hf-id="hf-f5cw">Taille</th>
+              <th data-hf-id="hf-308j">Statut</th>
+              <th data-hf-id="hf-7244">Intégration</th>
+              <th data-hf-id="hf-5y9l" style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody data-hf-id="hf-bsvf">
+            <tr data-hf-id="hf-tulo" data-sector="oil and gas services" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-54xx"><strong data-hf-id="hf-zmmg">Bioko Marine Services</strong><br data-hf-id="hf-x5px"><small data-hf-id="hf-t7n3" style="color:var(--text-secondary)">Inscrit le 10 juin 2026</small></td>
+              <td data-hf-id="hf-28o9">empleo@biokomarine.gq</td>
+              <td data-hf-id="hf-5yi0">Services pétroliers et gaziers</td>
+              <td data-hf-id="hf-k58i">50–249</td>
+              <td data-hf-id="hf-t9cp"><span data-hf-id="hf-zj6d" class="badge badge-success">Vérifié</span></td>
+              <td data-hf-id="hf-ug9s">
+                <div data-hf-id="hf-4tcz" class="progress-container">
+                  <div data-hf-id="hf-7gch" class="progress-bar"><div data-hf-id="hf-pppd" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-vln7" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-571i" style="text-align: right;">
+                <button data-hf-id="hf-iqan" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bioko Marine Services')">Suspendre</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-xpc0" data-sector="transportation" data-status="suspended" data-size="250+">
+              <td data-hf-id="hf-u1yr"><strong data-hf-id="hf-3s9o">Río Muni Logistics</strong><br data-hf-id="hf-rsrt"><small data-hf-id="hf-9zh9" style="color:var(--text-secondary)">Inscrit le 12 mai 2026</small></td>
+              <td data-hf-id="hf-pkll">rrhh@riomunilogistica.gq</td>
+              <td data-hf-id="hf-pgs0">Commerce et logistique</td>
+              <td data-hf-id="hf-pl6p">250+</td>
+              <td data-hf-id="hf-s2fm"><span data-hf-id="hf-6mkr" class="badge badge-error">Suspendu</span></td>
+              <td data-hf-id="hf-ro4l">
+                <div data-hf-id="hf-g1wj" class="progress-container">
+                  <div data-hf-id="hf-bogl" class="progress-bar"><div data-hf-id="hf-8ar9" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-bwkz" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-44tm" style="text-align: right;">
+                <button data-hf-id="hf-ze8h" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activer</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-l7tv" data-sector="construction" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-sv1o"><strong data-hf-id="hf-zo1m">Litoral Obras</strong><br data-hf-id="hf-szow"><small data-hf-id="hf-liwl" style="color:var(--text-secondary)">Inscrit le 01 juin 2026</small></td>
+              <td data-hf-id="hf-tr25">personal@litoralobras.gq</td>
+              <td data-hf-id="hf-cnjg">Construction</td>
+              <td data-hf-id="hf-3mqu">50–249</td>
+              <td data-hf-id="hf-sgqn"><span data-hf-id="hf-mznt" class="badge badge-success">Vérifié</span></td>
+              <td data-hf-id="hf-qh7i">
+                <div data-hf-id="hf-fnli" class="progress-container">
+                  <div data-hf-id="hf-cvdo" class="progress-bar"><div data-hf-id="hf-8scr" class="progress-fill" style="width: 85%"></div></div>
+                  <span data-hf-id="hf-0ash" class="progress-label">85%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-4j4n" style="text-align: right;">
+                <button data-hf-id="hf-zg7d" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Litoral Obras')">Suspendre</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-o5po" data-sector="hospitality" data-status="rejected" data-size="1–49">
+              <td data-hf-id="hf-q2wh"><strong data-hf-id="hf-zo19">Hotel Bahía Malabo</strong><br data-hf-id="hf-sldv"><small data-hf-id="hf-thwe" style="color:var(--text-secondary)">Invité le 08 juin 2026</small></td>
+              <td data-hf-id="hf-xdws">rrhh@bahiamalabo.gq</td>
+              <td data-hf-id="hf-r5aq">Hôtellerie et tourisme</td>
+              <td data-hf-id="hf-s3sm">1–49</td>
+              <td data-hf-id="hf-vuh7"><span data-hf-id="hf-qxks" class="badge badge-error">Rejeté</span></td>
+              <td data-hf-id="hf-w8s8">
+                <div data-hf-id="hf-f9ah" class="progress-container">
+                  <div data-hf-id="hf-ch2n" class="progress-bar"><div data-hf-id="hf-mmac" class="progress-fill" style="width: 40%"></div></div>
+                  <span data-hf-id="hf-g7qk" class="progress-label">40%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-4xfo" style="text-align: right;">
+                <button data-hf-id="hf-v6kw" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited Hotel Bahía Malabo')">Réinviter</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-eeah" data-sector="hospitality" data-status="pending review" data-size="1–49">
+              <td data-hf-id="hf-v1v5"><strong data-hf-id="hf-ua8b">Annobón Eco Tours</strong><br data-hf-id="hf-qluq"><small data-hf-id="hf-q7gd" style="color:var(--text-secondary)">Enregistré le 13 juin 2026</small></td>
+              <td data-hf-id="hf-04qm">empleo@annobonecotours.gq</td>
+              <td data-hf-id="hf-9sd2">Hôtellerie et tourisme</td>
+              <td data-hf-id="hf-7k4a">1–49</td>
+              <td data-hf-id="hf-vg66"><span data-hf-id="hf-e3px" class="badge badge-warning">En attente d'examen</span></td>
+              <td data-hf-id="hf-u993">
+                <div data-hf-id="hf-euzg" class="progress-container">
+                  <div data-hf-id="hf-dnzq" class="progress-bar"><div data-hf-id="hf-4gze" class="progress-fill" style="width: 20%"></div></div>
+                  <span data-hf-id="hf-20dy" class="progress-label">20%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-8sqb" style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
+                <button data-hf-id="hf-jtpg" class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Vérifier</button>
+                <button data-hf-id="hf-rqjd" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Annobón Eco Tours')">Rejeter</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-lbpt" data-sector="retail" data-status="inactive" data-size="250+">
+              <td data-hf-id="hf-unk4"><strong data-hf-id="hf-ueaz">Bata Comercio</strong><br data-hf-id="hf-q7jp"><small data-hf-id="hf-3az2" style="color:var(--text-secondary)">Inscrit le 15 mai 2026</small></td>
+              <td data-hf-id="hf-12kb">contratacion@batacomercio.gq</td>
+              <td data-hf-id="hf-ab6f">Commerce et distribution</td>
+              <td data-hf-id="hf-pvo5">250+</td>
+              <td data-hf-id="hf-tgn1"><span data-hf-id="hf-r0rd" class="badge badge-info">Inactif</span></td>
+              <td data-hf-id="hf-tuy2">
+                <div data-hf-id="hf-egof" class="progress-container">
+                  <div data-hf-id="hf-d9op" class="progress-bar"><div data-hf-id="hf-9hoc" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-bi9y" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-5bqp" style="text-align: right;">
+                <button data-hf-id="hf-7qkm" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bata Comercio')">Suspendre</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Register Employer Modal -->
+  <div data-hf-id="hf-7tid" class="modal-overlay" id="invite-modal">
+    <div data-hf-id="hf-keer" class="modal">
+      <h3 data-hf-id="hf-4u4g" class="modal-title">Enregistrer un employeur</h3>
+      <p data-hf-id="hf-o5qf" class="modal-desc">Inviter un employeur du secteur privé à soumettre ses données d'effectifs et d'offres au portail du Ministère.</p>
+
+      <div data-hf-id="hf-dx00" class="form-group">
+        <label data-hf-id="hf-52ch" class="form-label" for="invite-name">Raison sociale enregistrée</label>
+        <input data-hf-id="hf-f54b" type="text" id="invite-name" class="form-input" placeholder="ex. Servicios Industriales Bata" required>
+      </div>
+
+      <div data-hf-id="hf-1m3s" class="form-group">
+        <label data-hf-id="hf-ptax" class="form-label" for="invite-email">E-mail du responsable</label>
+        <input data-hf-id="hf-kbh2" type="email" id="invite-email" class="form-input" placeholder="ex. rrhh@empresa.gq" required>
+      </div>
+
+      <div data-hf-id="hf-0f6p" class="form-group">
+        <label data-hf-id="hf-b9p5" class="form-label" for="invite-sector-sel">Secteur principal</label>
+        <select data-hf-id="hf-lw7r" id="invite-sector-sel" class="form-select">
+          <option data-hf-id="hf-awap">Services pétroliers et gaziers</option>
+          <option data-hf-id="hf-3a1t">Construction</option>
+          <option data-hf-id="hf-y2rd">Hôtellerie et tourisme</option>
+          <option data-hf-id="hf-b0kr">Agriculture et pêche</option>
+          <option data-hf-id="hf-18z7">Commerce et logistique</option>
+        </select>
+      </div>
+
+      <div data-hf-id="hf-jfvp" class="modal-actions">
+        <button data-hf-id="hf-kklx" class="btn btn-secondary" onclick="closeModal('invite-modal')">Annuler</button>
+        <button data-hf-id="hf-q95z" class="btn btn-primary" onclick="submitInvite()">Envoyer l'invitation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moderation (Suspension / Rejection) Modal -->
+  <div data-hf-id="hf-ufm6" class="modal-overlay" id="moderation-modal">
+    <div data-hf-id="hf-cn6b" class="modal">
+      <h3 data-hf-id="hf-2ab8" class="modal-title" id="mod-title">Suspendre l'employeur</h3>
+      <p data-hf-id="hf-ujji" class="modal-desc" id="mod-desc">Veuillez fournir un commentaire. Cette action sera enregistrée dans les journaux d'activité.</p>
+
+      <div data-hf-id="hf-0thq" class="form-group">
+        <label data-hf-id="hf-of1x" class="form-label" for="mod-comment">Motif / Commentaires</label>
+        <textarea data-hf-id="hf-y7kk" id="mod-comment" class="form-textarea" placeholder="Fournir des précisions pour cette action de modération..." required></textarea>
+      </div>
+
+      <div data-hf-id="hf-27p5" class="modal-actions">
+        <button data-hf-id="hf-429u" class="btn btn-secondary" onclick="closeModal('moderation-modal')">Annuler</button>
+        <button data-hf-id="hf-9ivs" class="btn btn-primary" style="background:var(--error-text);" onclick="submitModeration()">Confirmer l'action</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeModRow = null;
+    let activeModType = '';
+    let activeModName = '';
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('is-open');
+      if(id === 'moderation-modal') {
+        document.getElementById('mod-comment').value = '';
+      }
+    }
+
+    function filterEntities() {
+      const sector = document.getElementById('filter-sector').value.toLowerCase();
+      const status = document.getElementById('filter-status').value.toLowerCase();
+      const size = document.getElementById('filter-size').value.toLowerCase();
+      const rows = document.querySelectorAll('#entities-table tbody tr');
+
+      rows.forEach(row => {
+        const rowSector = row.getAttribute('data-sector').toLowerCase();
+        const rowStatus = row.getAttribute('data-status').toLowerCase();
+        const rowSize = row.getAttribute('data-size').toLowerCase();
+
+        const matchSector = (sector === 'all' || rowSector === sector);
+        const matchStatus = (status === 'all' || rowStatus === status);
+        const matchSize = (size === 'all' || rowSize === size);
+
+        if(matchSector && matchStatus && matchSize) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function openModeration(type, entityName) {
+      activeModType = type;
+      activeModName = entityName;
+      const title = type === 'suspend' ? 'Suspend Employer' : 'Return Employer Registration';
+      const desc = type === 'suspend'
+        ? `Are you sure you want to suspend access for ${entityName}? A comment is required to proceed.`
+        : `Are you sure you want to return the registration for ${entityName}? A comment is required to proceed.`;
+
+      document.getElementById('mod-title').textContent = title;
+      document.getElementById('mod-desc').textContent = desc;
+
+      const triggerBtn = event.currentTarget;
+      activeModRow = triggerBtn.closest('tr');
+
+      openModal('moderation-modal');
+    }
+
+    function submitModeration() {
+      const comment = document.getElementById('mod-comment').value.trim();
+      if(!comment) {
+        alert('Please enter a comment before submitting.');
+        return;
+      }
+
+      // Perform simulated state change
+      if (activeModRow) {
+        const statusTd = activeModRow.querySelector('td:nth-child(5)');
+        const actionTd = activeModRow.querySelector('td:nth-child(7)');
+
+        if (activeModType === 'suspend') {
+          statusTd.innerHTML = '<span class="badge badge-error">Suspended</span>';
+          activeModRow.setAttribute('data-status', 'suspended');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activate</button>`;
+        } else if (activeModType === 'reject') {
+          statusTd.innerHTML = '<span class="badge badge-error">Rejected</span>';
+          activeModRow.setAttribute('data-status', 'rejected');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited ${activeModName}')">Re-invite</button>`;
+        }
+      }
+
+      closeModal('moderation-modal');
+      alert(`Action processed successfully. Comment logged: "${comment}"`);
+    }
+
+    function changeStatus(btn, statusName, badgeClass, nextActionLabel) {
+      const row = btn.closest('tr');
+      const statusTd = row.querySelector('td:nth-child(5)');
+      const actionTd = row.querySelector('td:nth-child(7)');
+
+      statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusName}</span>`;
+      row.setAttribute('data-status', statusName.toLowerCase());
+
+      if(statusName === 'Verified') {
+        actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
+      }
+    }
+
+    function submitInvite() {
+      const name = document.getElementById('invite-name').value.trim();
+      const email = document.getElementById('invite-email').value.trim();
+      const sector = document.getElementById('invite-sector-sel').value;
+
+      if(!name || !email) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      // Add to table dynamically
+      const tableBody = document.querySelector('#entities-table tbody');
+      const newRow = document.createElement('tr');
+      newRow.setAttribute('data-sector', sector.toLowerCase());
+      newRow.setAttribute('data-status', 'invited');
+      newRow.setAttribute('data-size', '1–49');
+
+      newRow.innerHTML = `
+        <td><strong>${name}</strong><br><small style="color:var(--text-secondary)">Invited Just Now</small></td>
+        <td>${email}</td>
+        <td>${sector}</td>
+        <td>1–49</td>
+        <td><span class="badge badge-warning">Invited</span></td>
+        <td>
+          <div class="progress-container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+            <span class="progress-label">0%</span>
+          </div>
+        </td>
+        <td style="text-align: right;">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation re-sent')">Resend</button>
+        </td>
+      `;
+
+      tableBody.insertBefore(newRow, tableBody.firstChild);
+      closeModal('invite-modal');
+
+      // Reset fields
+      document.getElementById('invite-name').value = '';
+      document.getElementById('invite-email').value = '';
+    }
+  </script>
+
+  <!-- GSAP & HyperFrames -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://hyperframes.dev/client.js"></script>
+
+  <!-- Video Overlays -->
+  <style>
+    #cursor {
+      position: absolute;
+      top: 0; left: 0;
+      width: 32px; height: 32px;
+      z-index: 9999;
+      transform-origin: 0 0;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      opacity: 0;
+      visibility: hidden;
+    }
+    #subtitle-container {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+      max-width: 80%;
+      z-index: 9998;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
+
+  <svg data-hf-id="hf-hxt5" id="cursor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path data-hf-id="hf-6jeo" d="M4 4 L11 26 L15 17 L24 21 L27 18 L18 14 L26 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"/>
+  </svg>
+
+  <div data-hf-id="hf-99q3" id="subtitle-container"></div>
+
+  <script>
+
+    gsap.set("#subtitle-container", { autoAlpha: 0 });
+    gsap.set("#cursor", { x: 100, y: 200, autoAlpha: 0 }); 
+
+    const tl = gsap.timeline();
+
+    tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
+      .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
+      .set("#subtitle-container", { textContent: "Les administrateurs suivent aisément la conformité du secteur privé..." })
+      .to("#cursor", { x: 790, y: 580, duration: 2, ease: "power2.inOut" }) 
+      .to({}, { duration: 1 })
+      .set("#subtitle-container", { textContent: "...et vérifient les employeurs nouvellement enregistrés en un seul clic." })
+      .to("#cursor", { scale: 0.8, duration: 0.1 })
+      .to("#cursor", { scale: 1, duration: 0.1 })
+      .to({}, { duration: 1.5 })
+      .to("#cursor", { autoAlpha: 0, duration: 0.5 })
+      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
+
+  </script>
+</div>
+</body>
+</html>

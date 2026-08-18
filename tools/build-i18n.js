@@ -269,11 +269,11 @@ function translateHtml(htmlContent, options = {}) {
 
   const locale = options.locale || 'fr';
   const pageName = options.pageName || 'index.html';
-  const pageCatalog = options.pageCatalog || {};
+  const pageCatalog = options.pageCatalog || options.catalog || {};
   const commonCatalog = options.commonCatalog || {};
-  const dntSet = options.doNotTranslateSet instanceof Set
-    ? options.doNotTranslateSet
-    : new Set(options.doNotTranslateSet || []);
+  const dntSet = (options.doNotTranslateSet instanceof Set ? options.doNotTranslateSet : null)
+    || (options.doNotTranslate instanceof Set ? options.doNotTranslate : null)
+    || new Set(options.doNotTranslateSet || options.doNotTranslate || []);
 
   /**
    * Catalog lookup: pageCatalog takes precedence over commonCatalog (Spec Test 9)
@@ -302,7 +302,9 @@ function translateHtml(htmlContent, options = {}) {
   });
 
   // 2. Rewrite language toggle container and child links
-  processedHtml = rewriteLanguageToggle(processedHtml, locale, pageName, mergedCatalog, dntSet);
+  if (options.rewriteToggle !== false) {
+    processedHtml = rewriteLanguageToggle(processedHtml, locale, pageName, mergedCatalog, dntSet);
+  }
 
   // 3. Tokenize HTML to translate text nodes, whitelisted attributes, and JS STR blocks
   const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b([^>]*)>([\s\S]*?)<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<div\b[^>]*\bclass=["'][^"']*\blang-toggle\b[^"']*["'][^>]*>[\s\S]*?<\/div>|<\/([a-zA-Z0-9\-]+)\s*>|<([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>|([^<]+)/gi;
@@ -438,7 +440,15 @@ function translateHtml(htmlContent, options = {}) {
   }
 
   // Prepend generated file header comment
-  const headerComment = `<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../${pageName} -->\n`;
+  if (options.headerComment === false || options.header === false) {
+    return out;
+  }
+  if (options.rewriteToggle === false && !options.headerComment) {
+    return out;
+  }
+  const headerComment = typeof options.headerComment === 'string'
+    ? options.headerComment
+    : `<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../${pageName} -->\n`;
   return `${headerComment}${out}`;
 }
 

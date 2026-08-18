@@ -1,0 +1,88 @@
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Tutorial Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+        @font-face { font-family: 'Geist Sans'; src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2'); }
+
+      body {
+        margin: 0;
+        background: #111111;
+        color: #111111;
+        font-family: 'Geist Sans', -apple-system, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* The Browser Window Frame */
+      .browser-window {
+        width: 1920px;
+        height: 1080px;
+        background: #F9F9F8;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 10;
+        transition: transform 1s ease;
+      }
+
+      /* The Viewport Container for the Clips */
+      .browser-viewport {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        background: #F9F9F8;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-i3pi" id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="60">
+      
+      <!-- Intro Cover (sits above everything, fades out after 5s) -->
+      <div data-hf-id="hf-intr" id="beat-00" class="clip" data-composition-id="beat-00" data-composition-src="compositions/beat-00-intro.html" data-start="0" data-duration="5" data-track-index="3" data-width="1920" data-height="1080" style="z-index: 20;"></div>
+
+      <div data-hf-id="hf-eija" class="browser-window" id="browser-window">
+        <div data-hf-id="hf-92z3" class="browser-viewport">
+            <div data-hf-id="hf-k0bc" id="beat-01" class="clip" data-composition-id="beat-01" data-composition-src="compositions/beat-01-dashboard.html" data-start="5" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+            <div data-hf-id="hf-t7uu" id="beat-02" class="clip" data-composition-id="beat-02" data-composition-src="compositions/beat-02-verification.html" data-start="15" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+            <div data-hf-id="hf-z0av" id="beat-03" class="clip" data-composition-id="beat-03" data-composition-src="compositions/beat-03-skill-gap.html" data-start="25" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+            <div data-hf-id="hf-c9u1" id="beat-04" class="clip" data-composition-id="beat-04" data-composition-src="compositions/beat-04-reports.html" data-start="35" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+            <div data-hf-id="hf-fkvm" id="beat-05" class="clip" data-composition-id="beat-05" data-composition-src="compositions/beat-05-audit.html" data-start="45" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+        </div>
+      </div>
+
+      <!-- Outro Cover (sits above everything, fades in at 55s) -->
+      <div data-hf-id="hf-outr" id="beat-06" class="clip" data-composition-id="beat-06" data-composition-src="compositions/beat-06-outro.html" data-start="55" data-duration="5" data-track-index="3" data-width="1920" data-height="1080" style="z-index: 20;"></div>
+
+      <!-- Background Music Track -->
+      <audio data-hf-id="hf-1lrm" id="bgm" class="clip" src="assets/bgm-icubefarm.mp3" data-start="0" data-duration="60" data-track-index="2" volume="0.15"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      
+      // Scale down and fade out the browser window precisely when beat-06 fades in
+      tl.to("#browser-window", { scale: 0.95, opacity: 0, duration: 1, ease: "power2.inOut" }, 55);
+      
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

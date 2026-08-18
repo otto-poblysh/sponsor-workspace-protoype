@@ -9,7 +9,10 @@
     "i18n:check": "node tools/check-i18n.js",
     "build": "node tools/build-i18n.js && node tools/check-i18n.js",
     "test": "node --test",
-    "test:e2e": "playwright test tests/e2e-i18n.spec.js"
+    "test:e2e": "playwright test tests/e2e-i18n.spec.js",
+    "video:build:fr": "node tools/build-video-i18n.js fr",
+    "video:check:fr": "cd tutorial-video-fr && npx hyperframes check",
+    "test:video": "node --test tests/build-video-i18n.test.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

@@ -105,3 +105,94 @@ test('translateSubtitles escapes double quotes in the translation', () => {
   assert.ok(html.includes('textContent: "Rapports « clés »"'));
 });
 
+const os = require('node:os');
+const { buildVideoLocale, BEAT_CATALOG_MAP } = require('../tools/build-video-i18n.js');
+
+function buildToTemp() {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tv-fr-'));
+  const result = buildVideoLocale({
+    srcDir: path.join(ROOT, 'tutorial-video'),
+    outDir,
+    i18nDir: path.join(ROOT, 'i18n'),
+    locale: 'fr'
+  });
+  return { outDir, result };
+}
+
+test('every referenced composition is generated, orphans are skipped', () => {
+  const { outDir } = buildToTemp();
+  const comps = fs.readdirSync(path.join(outDir, 'compositions')).sort();
+  assert.deepStrictEqual(comps, [
+    'beat-00-intro.html', 'beat-01-dashboard.html', 'beat-02-verification.html',
+    'beat-03-skill-gap.html', 'beat-04-reports.html', 'beat-05-audit.html',
+    'beat-06-outro.html'
+  ]);
+  assert.ok(!comps.includes('beat-02-verify.html'), 'orphan draft must not be ported');
+  assert.ok(!comps.includes('beat-03-skills.html'), 'orphan draft must not be ported');
+});
+
+test('timing attributes are preserved byte-for-byte', () => {
+  const { outDir } = buildToTemp();
+  const en = fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8');
+  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
+  const timing = (s) => (s.match(/data-(start|duration|track-index|width|height)="[^"]*"/g) || []).join('|');
+  assert.strictEqual(timing(fr), timing(en));
+});
+
+test('composition ids and hf ids are preserved', () => {
+  const { outDir } = buildToTemp();
+  const en = fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8');
+  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
+  const ids = (s) => (s.match(/data-(composition-id|hf-id)="[^"]*"/g) || []).join('|');
+  assert.strictEqual(ids(fr), ids(en));
+});
+
+test('embedded portal markup is translated in every screencast beat', () => {
+  const { outDir } = buildToTemp();
+  const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  assert.ok(b1.includes('Employeurs enregistrés'));
+  assert.ok(b1.includes('Tableau de bord'));
+  assert.ok(!/>\s*Registered Employers\s*</.test(b1));
+});
+
+test('subtitles are translated in every beat that has them', () => {
+  const { outDir } = buildToTemp();
+  const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  assert.ok(b1.includes('textContent: "Bienvenue sur le Portail du Marché du Travail."'));
+  const b5 = fs.readFileSync(path.join(outDir, 'compositions/beat-05-audit.html'), 'utf8');
+  assert.ok(b5.includes('journal d\'activité inaltérable'));
+});
+
+test('the stray literal backslash-n artifact is preserved', () => {
+  const { outDir } = buildToTemp();
+  const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  assert.ok(b1.includes('<body>\\n<div'), 'existing English artifact must survive verbatim');
+});
+
+test('assets are copied byte-identically', () => {
+  const { outDir } = buildToTemp();
+  for (const a of ['bgm-icubefarm.mp3', 'bgm-african-classical.mp3', 'corporate_writing_grayscale.jpg']) {
+    const src = fs.readFileSync(path.join(ROOT, 'tutorial-video/assets', a));
+    const out = fs.readFileSync(path.join(outDir, 'assets', a));
+    assert.ok(src.equals(out), `${a} must be copied, not re-encoded`);
+  }
+});
+
+test('html lang is set to the target locale', () => {
+  const { outDir } = buildToTemp();
+  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
+  assert.match(fr, /<html lang="fr">/);
+});
+
+test('build is idempotent', () => {
+  const { outDir } = buildToTemp();
+  const first = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  buildVideoLocale({
+    srcDir: path.join(ROOT, 'tutorial-video'), outDir,
+    i18nDir: path.join(ROOT, 'i18n'), locale: 'fr'
+  });
+  const second = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  assert.strictEqual(first, second);
+});
+
+
