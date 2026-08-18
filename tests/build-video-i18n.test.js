@@ -58,3 +58,50 @@ test('subtitle ellipsis continuation markers are preserved', () => {
     }
   }
 });
+
+const { translateSubtitles } = require('../tools/lib/translate-subtitles.js');
+
+const FIXTURE = fs.readFileSync(path.join(__dirname, 'fixtures/mini-beat.html'), 'utf8');
+
+const MINI_CAT = {
+  'Welcome to the Labour Market Portal.': 'Bienvenue sur le Portail du Marché du Travail.',
+  '...is simple and secure.': '...est simple et sécurisée.'
+};
+
+test('translateSubtitles replaces every textContent literal', () => {
+  const { html, translated, missing } = translateSubtitles(FIXTURE, MINI_CAT);
+  assert.strictEqual(translated, 2);
+  assert.deepStrictEqual(missing, []);
+  assert.ok(html.includes('textContent: "Bienvenue sur le Portail du Marché du Travail."'));
+  assert.ok(html.includes('textContent: "...est simple et sécurisée."'));
+  assert.ok(!html.includes('Welcome to the Labour Market Portal.'));
+});
+
+test('translateSubtitles leaves surrounding GSAP byte-identical', () => {
+  const { html } = translateSubtitles(FIXTURE, MINI_CAT);
+  assert.ok(html.includes('.to("#cursor", { x: 400, y: 200, duration: 2, ease: "power2.inOut" })'));
+  assert.ok(html.includes('data-hf-id="hf-mini"'));
+  assert.ok(html.includes('data-duration="5"'));
+});
+
+test('translateSubtitles reports missing keys instead of silently passing through', () => {
+  const { missing, translated } = translateSubtitles(FIXTURE, {
+    'Welcome to the Labour Market Portal.': 'Bienvenue.'
+  });
+  assert.strictEqual(translated, 1);
+  assert.deepStrictEqual(missing, ['...is simple and secure.']);
+});
+
+test('translateSubtitles throws in strict mode when a subtitle is untranslated', () => {
+  assert.throws(
+    () => translateSubtitles(FIXTURE, {}, { strict: true }),
+    /Untranslated subtitle/
+  );
+});
+
+test('translateSubtitles escapes double quotes in the translation', () => {
+  const src = 'tl.set("#subtitle-container", { textContent: "Reports" });';
+  const { html } = translateSubtitles(src, { Reports: 'Rapports « clés »' });
+  assert.ok(html.includes('textContent: "Rapports « clés »"'));
+});
+

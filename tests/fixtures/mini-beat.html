@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><style>.t{white-space:nowrap}</style></head>
+<body>
+<div data-composition-id="beat-mini" data-width="1920" data-height="1080" data-duration="5" data-hf-id="hf-mini">
+  <div data-hf-id="hf-lbl" class="t">Dashboard</div>
+  <div data-hf-id="hf-sub" id="subtitle-container"></div>
+  <script>
+    const tl = gsap.timeline();
+    tl.set("#subtitle-container", { textContent: "Welcome to the Labour Market Portal." })
+      .to("#cursor", { x: 400, y: 200, duration: 2, ease: "power2.inOut" })
+      .set("#subtitle-container", { textContent: "...is simple and secure." });
+  </script>
+</div>
+</body>
+</html>
