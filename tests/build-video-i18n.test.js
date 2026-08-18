@@ -202,4 +202,36 @@ test('build is idempotent', () => {
   assert.strictEqual(first, second);
 });
 
+test('video.es.json has exactly the same keys as video.fr.json', () => {
+  const fr = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.fr.json'), 'utf8'));
+  const es = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.es.json'), 'utf8'));
+  assert.deepStrictEqual(Object.keys(es).sort(), Object.keys(fr).sort());
+});
+
+test('video.es.json has no empty values', () => {
+  const es = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.es.json'), 'utf8'));
+  const empty = Object.entries(es).filter(([, v]) => typeof v !== 'string' || v.trim() === '');
+  assert.deepStrictEqual(empty, [], `Empty translations: ${JSON.stringify(empty)}`);
+});
+
+test('video.es.json preserves subtitle ellipsis continuation markers', () => {
+  const es = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.es.json'), 'utf8'));
+  for (const [en, val] of Object.entries(es)) {
+    if (en.startsWith('...')) assert.ok(val.startsWith('...'), `"${val}" must open with "..."`);
+    if (en.endsWith('...')) assert.ok(val.endsWith('...'), `"${val}" must close with "..."`);
+  }
+});
+
+test('video.es.json uses no French-style space before colon', () => {
+  const es = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.es.json'), 'utf8'));
+  const offenders = Object.entries(es).filter(([, v]) => /[\s  ]:/.test(v));
+  assert.deepStrictEqual(offenders, [], `Spanish takes no space before ":": ${JSON.stringify(offenders)}`);
+});
+
+test('video.es.json does not gender the viewer in the welcome subtitle', () => {
+  const es = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n/video.es.json'), 'utf8'));
+  const welcome = es['Welcome to the Labour Market Portal.'];
+  assert.ok(!/\bBienvenid[oa]\b/.test(welcome), `Use a gender-neutral formal welcome, got: "${welcome}"`);
+});
+
 

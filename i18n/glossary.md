@@ -83,12 +83,12 @@ This portal is built for the **Ministry of Labour, Employment Promotion and Soci
 
 Subtitles are on screen for a fixed duration inherited from the English cut. Prefer the shorter of two correct renderings.
 
-| English | French | Note |
-| :--- | :--- | :--- |
-| Labour Market Portal | Portail du Marché du Travail | Matches `common.fr.json` |
-| Skill Gap Report | Rapport sur le déficit de compétences | Matches `common.fr.json` |
-| Activity Log | Journal d'activité | Singular in subtitle context |
-| Digital Workforce Solutions | Solutions Numériques pour l'Emploi | iCUBEFARM tagline — see Open Question 1 |
-| LMIS | SIMT (*Système d'Information sur le Marché du Travail*) | Expand on first use, then acronym |
+| English | Spanish (*Español*) | French (*Français*) | Note |
+| :--- | :--- | :--- | :--- |
+| Labour Market Portal | Portal del Mercado Laboral | Portail du Marché du Travail | Matches `common.*.json` |
+| Skill Gap Report | Informe de brecha de competencias | Rapport sur le déficit de compétences | Matches `common.*.json` |
+| Activity Log | Registro de actividad | Journal d'activité | Singular in subtitle context |
+| Digital Workforce Solutions | Soluciones Digitales para el Empleo | Solutions Numériques pour l'Emploi | iCUBEFARM tagline — translated in both locales |
+| LMIS | SIML (*Sistema de Información del Mercado Laboral*) | SIMT (*Système d'Information sur le Marché du Travail*) | Expand on first use, then acronym |
 
-**Conventions:** formal register (`vous`); non-breaking space (` `) before `:`, `?`, `!`, `;`; leading/trailing `...` continuation markers preserved exactly so subtitle pairs still read as one sentence across a cut.
+**Conventions:** formal register (ES *usted* / FR *vous*); leading/trailing `...` continuation markers preserved exactly so subtitle pairs read as one sentence across a cut. **Punctuation differs by locale:** French takes a non-breaking space before `:` `?` `!` `;`; **Spanish takes none.**
