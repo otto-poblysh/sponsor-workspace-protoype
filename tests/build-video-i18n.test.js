@@ -105,6 +105,13 @@ test('translateSubtitles escapes double quotes in the translation', () => {
   assert.ok(html.includes('textContent: "Rapports « clés »"'));
 });
 
+test('translateSubtitles supports single-quoted subtitle literals and escapes single quotes', () => {
+  const src = "tl.set('#subtitle-container', { textContent: 'Skill Report' });";
+  const { html, translated } = translateSubtitles(src, { 'Skill Report': "Rapport sur l'emploi" });
+  assert.strictEqual(translated, 1);
+  assert.ok(html.includes("textContent: 'Rapport sur l\\'emploi'"));
+});
+
 const os = require('node:os');
 const { buildVideoLocale, BEAT_CATALOG_MAP } = require('../tools/build-video-i18n.js');
 
