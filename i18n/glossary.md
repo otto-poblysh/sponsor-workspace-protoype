@@ -76,3 +76,19 @@ This portal is built for the **Ministry of Labour, Employment Promotion and Soci
 1. **Placeholder Tokens**: All tokens enclosed in curly braces (e.g. `{name}`, `{count}`, `{amount}`, `{sector}`, `{entity}`) must be preserved exactly as-is in target strings.
 2. **Do-Not-Translate Compliance**: Any item in `i18n/do-not-translate.json` (cities such as *Malabo*, *Bata*; demo people such as *María Esono*, *Pedro Nsue*; company names such as *Bioko Marine Services*, *GETESA*; tokens such as *FCFA*, *CSV*, *PDF*) must not be translated or altered.
 3. **Punctuation and Formatting**: Preserve colon, semicolon, hyphens, and quotation marks consistent with standard official Spanish and French typography (e.g. appropriate non-breaking space before colons in French when applicable).
+
+---
+
+## Video Copy (tutorial-video)
+
+Subtitles are on screen for a fixed duration inherited from the English cut. Prefer the shorter of two correct renderings.
+
+| English | French | Note |
+| :--- | :--- | :--- |
+| Labour Market Portal | Portail du Marché du Travail | Matches `common.fr.json` |
+| Skill Gap Report | Rapport sur le déficit de compétences | Matches `common.fr.json` |
+| Activity Log | Journal d'activité | Singular in subtitle context |
+| Digital Workforce Solutions | Solutions Numériques pour l'Emploi | iCUBEFARM tagline — see Open Question 1 |
+| LMIS | SIMT (*Système d'Information sur le Marché du Travail*) | Expand on first use, then acronym |
+
+**Conventions:** formal register (`vous`); non-breaking space (` `) before `:`, `?`, `!`, `;`; leading/trailing `...` continuation markers preserved exactly so subtitle pairs still read as one sentence across a cut.
