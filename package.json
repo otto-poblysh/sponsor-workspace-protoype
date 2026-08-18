@@ -12,6 +12,8 @@
     "test:e2e": "playwright test tests/e2e-i18n.spec.js",
     "video:build:fr": "node tools/build-video-i18n.js fr",
     "video:check:fr": "cd tutorial-video-fr && npx hyperframes check",
+    "video:build:es": "node tools/build-video-i18n.js es",
+    "video:check:es": "cd tutorial-video-es && npx hyperframes check",
     "test:video": "node --test tests/build-video-i18n.test.js"
   },
   "devDependencies": {

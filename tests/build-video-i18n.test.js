@@ -115,91 +115,134 @@ test('translateSubtitles supports single-quoted subtitle literals and escapes si
 const os = require('node:os');
 const { buildVideoLocale, BEAT_CATALOG_MAP } = require('../tools/build-video-i18n.js');
 
-function buildToTemp() {
-  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tv-fr-'));
+function buildToTempFor(locale) {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), `tv-${locale}-`));
   const result = buildVideoLocale({
     srcDir: path.join(ROOT, 'tutorial-video'),
     outDir,
     i18nDir: path.join(ROOT, 'i18n'),
-    locale: 'fr'
+    locale
   });
   return { outDir, result };
 }
 
-test('every referenced composition is generated, orphans are skipped', () => {
-  const { outDir } = buildToTemp();
-  const comps = fs.readdirSync(path.join(outDir, 'compositions')).sort();
-  assert.deepStrictEqual(comps, [
-    'beat-00-intro.html', 'beat-01-dashboard.html', 'beat-02-verification.html',
-    'beat-03-skill-gap.html', 'beat-04-reports.html', 'beat-05-audit.html',
-    'beat-06-outro.html'
-  ]);
-  assert.ok(!comps.includes('beat-02-verify.html'), 'orphan draft must not be ported');
-  assert.ok(!comps.includes('beat-03-skills.html'), 'orphan draft must not be ported');
-});
+const EXPECTED_COMPOSITIONS = [
+  'beat-00-intro.html', 'beat-01-dashboard.html', 'beat-02-verification.html',
+  'beat-03-skill-gap.html', 'beat-04-reports.html', 'beat-05-audit.html',
+  'beat-06-outro.html'
+];
 
-test('timing attributes are preserved byte-for-byte', () => {
-  const { outDir } = buildToTemp();
-  const en = fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8');
-  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
-  const timing = (s) => (s.match(/data-(start|duration|track-index|width|height)="[^"]*"/g) || []).join('|');
-  assert.strictEqual(timing(fr), timing(en));
-});
+for (const locale of ['fr', 'es']) {
+  test(`[${locale}] generates exactly the referenced compositions`, () => {
+    const { outDir } = buildToTempFor(locale);
+    assert.deepStrictEqual(
+      fs.readdirSync(path.join(outDir, 'compositions')).sort(),
+      EXPECTED_COMPOSITIONS
+    );
+  });
 
-test('composition ids and hf ids are preserved', () => {
-  const { outDir } = buildToTemp();
-  const en = fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8');
-  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
-  const ids = (s) => (s.match(/data-(composition-id|hf-id)="[^"]*"/g) || []).join('|');
-  assert.strictEqual(ids(fr), ids(en));
-});
+  test(`[${locale}] preserves timing attributes byte-for-byte`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const timing = (s) =>
+      (s.match(/data-(start|duration|track-index|width|height)="[^"]*"/g) || []).join('|');
+    assert.strictEqual(
+      timing(fs.readFileSync(path.join(outDir, 'index.html'), 'utf8')),
+      timing(fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8'))
+    );
+  });
 
-test('embedded portal markup is translated in every screencast beat', () => {
-  const { outDir } = buildToTemp();
+  test(`[${locale}] preserves composition ids and hf ids`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const ids = (s) => (s.match(/data-(composition-id|hf-id)="[^"]*"/g) || []).join('|');
+    assert.strictEqual(
+      ids(fs.readFileSync(path.join(outDir, 'index.html'), 'utf8')),
+      ids(fs.readFileSync(path.join(ROOT, 'tutorial-video/index.html'), 'utf8'))
+    );
+  });
+
+  test(`[${locale}] sets html lang to the target locale`, () => {
+    const { outDir } = buildToTempFor(locale);
+    assert.match(
+      fs.readFileSync(path.join(outDir, 'index.html'), 'utf8'),
+      new RegExp(`<html lang="${locale}">`)
+    );
+  });
+
+  test(`[${locale}] preserves the stray backslash-n artifact`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+    assert.ok(b1.includes('<body>\\n<div'));
+  });
+
+  test(`[${locale}] copies assets byte-identically`, () => {
+    const { outDir } = buildToTempFor(locale);
+    for (const a of ['bgm-icubefarm.mp3', 'bgm-african-classical.mp3', 'corporate_writing_grayscale.jpg']) {
+      assert.ok(
+        fs.readFileSync(path.join(ROOT, 'tutorial-video/assets', a))
+          .equals(fs.readFileSync(path.join(outDir, 'assets', a))),
+        `${a} must be copied, not re-encoded`
+      );
+    }
+  });
+
+  test(`[${locale}] build is idempotent`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const first = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+    buildVideoLocale({
+      srcDir: path.join(ROOT, 'tutorial-video'), outDir,
+      i18nDir: path.join(ROOT, 'i18n'), locale
+    });
+    assert.strictEqual(
+      first,
+      fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8')
+    );
+  });
+
+  test(`[${locale}] no English subtitle survives translation`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const video = JSON.parse(fs.readFileSync(path.join(ROOT, `i18n/video.${locale}.json`), 'utf8'));
+    for (const file of EXPECTED_COMPOSITIONS) {
+      const html = fs.readFileSync(path.join(outDir, 'compositions', file), 'utf8');
+      for (const en of Object.keys(video)) {
+        assert.ok(
+          !html.includes(`textContent: "${en}"`) && !html.includes(`textContent: '${en}'`),
+          `${locale}/${file} still carries the English subtitle "${en}"`
+        );
+      }
+    }
+  });
+}
+
+test('[fr] embedded portal markup is translated in every screencast beat', () => {
+  const { outDir } = buildToTempFor('fr');
   const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
   assert.ok(b1.includes('Employeurs enregistrés'));
   assert.ok(b1.includes('Tableau de bord'));
   assert.ok(!/>\s*Registered Employers\s*</.test(b1));
 });
 
-test('subtitles are translated in every beat that has them', () => {
-  const { outDir } = buildToTemp();
+test('[fr] subtitles are translated in every beat that has them', () => {
+  const { outDir } = buildToTempFor('fr');
   const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
   assert.ok(b1.includes('textContent: "Bienvenue sur le Portail du Marché du Travail."'));
   const b5 = fs.readFileSync(path.join(outDir, 'compositions/beat-05-audit.html'), 'utf8');
   assert.ok(b5.includes('journal d\'activité inaltérable'));
 });
 
-test('the stray literal backslash-n artifact is preserved', () => {
-  const { outDir } = buildToTemp();
+test('[es] embedded portal markup is translated', () => {
+  const { outDir } = buildToTempFor('es');
   const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
-  assert.ok(b1.includes('<body>\\n<div'), 'existing English artifact must survive verbatim');
+  assert.ok(b1.includes('Empleadores registrados'));
+  assert.ok(b1.includes('Panel de control'));
+  assert.ok(!/>\s*Registered Employers\s*</.test(b1));
 });
 
-test('assets are copied byte-identically', () => {
-  const { outDir } = buildToTemp();
-  for (const a of ['bgm-icubefarm.mp3', 'bgm-african-classical.mp3', 'corporate_writing_grayscale.jpg']) {
-    const src = fs.readFileSync(path.join(ROOT, 'tutorial-video/assets', a));
-    const out = fs.readFileSync(path.join(outDir, 'assets', a));
-    assert.ok(src.equals(out), `${a} must be copied, not re-encoded`);
-  }
-});
-
-test('html lang is set to the target locale', () => {
-  const { outDir } = buildToTemp();
-  const fr = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
-  assert.match(fr, /<html lang="fr">/);
-});
-
-test('build is idempotent', () => {
-  const { outDir } = buildToTemp();
-  const first = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
-  buildVideoLocale({
-    srcDir: path.join(ROOT, 'tutorial-video'), outDir,
-    i18nDir: path.join(ROOT, 'i18n'), locale: 'fr'
-  });
-  const second = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
-  assert.strictEqual(first, second);
+test('[es] subtitles are translated', () => {
+  const { outDir } = buildToTempFor('es');
+  const b1 = fs.readFileSync(path.join(outDir, 'compositions/beat-01-dashboard.html'), 'utf8');
+  assert.ok(b1.includes('Le damos la bienvenida al Portal del Mercado Laboral.'));
+  const b5 = fs.readFileSync(path.join(outDir, 'compositions/beat-05-audit.html'), 'utf8');
+  assert.ok(b5.includes('registro de actividad inalterable'));
 });
 
 test('video.es.json has exactly the same keys as video.fr.json', () => {
