@@ -67,6 +67,10 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
     // Subtitles live outside i18n:STR blocks; strict so a gap fails the build.
     out = translateSubtitles(out, video, { strict: true }).html;
 
+    if (locale === 'fr' && file === 'beat-00-intro.html') {
+      out = out.replace(/<\/head>/, '<style>#title { font-size: 22px !important; }</style></head>');
+    }
+
     fs.writeFileSync(path.join(outDir, 'compositions', file), GENERATED_HEADER + out, 'utf8');
     generatedFiles.push(`compositions/${file}`);
   }
