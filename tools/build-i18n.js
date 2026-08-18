@@ -269,11 +269,11 @@ function translateHtml(htmlContent, options = {}) {
 
   const locale = options.locale || 'fr';
   const pageName = options.pageName || 'index.html';
-  const pageCatalog = options.pageCatalog || options.catalog || {};
+  const pageCatalog = options.pageCatalog || {};
   const commonCatalog = options.commonCatalog || {};
-  const dntSet = (options.doNotTranslateSet instanceof Set ? options.doNotTranslateSet : null)
-    || (options.doNotTranslate instanceof Set ? options.doNotTranslate : null)
-    || new Set(options.doNotTranslateSet || options.doNotTranslate || []);
+  const dntSet = options.doNotTranslateSet instanceof Set
+    ? options.doNotTranslateSet
+    : new Set(options.doNotTranslateSet || []);
 
   /**
    * Catalog lookup: pageCatalog takes precedence over commonCatalog (Spec Test 9)
@@ -441,9 +441,6 @@ function translateHtml(htmlContent, options = {}) {
 
   // Prepend generated file header comment
   if (options.headerComment === false || options.header === false) {
-    return out;
-  }
-  if (options.rewriteToggle === false && !options.headerComment) {
     return out;
   }
   const headerComment = typeof options.headerComment === 'string'

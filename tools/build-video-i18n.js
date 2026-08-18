@@ -42,10 +42,11 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
   // Host composition: no portal markup, but carries <html lang> and the title.
   const hostSrc = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
   const hostOut = translateHtml(hostSrc, {
-    catalog: { ...common, ...video },
-    doNotTranslate: dnt,
+    pageCatalog: { ...common, ...video },
+    doNotTranslateSet: dnt,
     locale,
-    rewriteToggle: false
+    rewriteToggle: false,
+    headerComment: false
   });
   fs.writeFileSync(path.join(outDir, 'index.html'), GENERATED_HEADER + hostOut, 'utf8');
   generatedFiles.push('index.html');
@@ -56,10 +57,11 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
     const catalog = { ...common, ...page, ...video };
 
     let out = translateHtml(src, {
-      catalog,
-      doNotTranslate: dnt,
+      pageCatalog: catalog,
+      doNotTranslateSet: dnt,
       locale,
-      rewriteToggle: false
+      rewriteToggle: false,
+      headerComment: false
     });
 
     // Subtitles live outside i18n:STR blocks; strict so a gap fails the build.
