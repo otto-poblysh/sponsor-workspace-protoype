@@ -36,6 +36,9 @@ const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tu
 const LOCALE_STYLE_OVERRIDES = {
   fr: {
     'beat-00-intro.html': '#title { font-size: 22px !important; }'
+  },
+  es: {
+    'beat-00-intro.html': '#title { font-size: 22px !important; }'
   }
 };
 
