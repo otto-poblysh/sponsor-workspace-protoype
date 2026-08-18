@@ -28,6 +28,17 @@ const ASSETS = ['bgm-icubefarm.mp3', 'bgm-african-classical.mp3', 'corporate_wri
 
 const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->\n';
 
+/**
+ * Per-locale CSS injected into a composition's <head> to absorb text expansion.
+ * Copy-level fixes are always preferred; an entry here means no acceptable
+ * shorter rendering existed. Keys are composition filenames.
+ */
+const LOCALE_STYLE_OVERRIDES = {
+  fr: {
+    'beat-00-intro.html': '#title { font-size: 22px !important; }'
+  }
+};
+
 function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
   const common = loadCatalog(path.join(i18nDir, `common.${locale}.json`));
   const video = loadCatalog(path.join(i18nDir, `video.${locale}.json`));
@@ -67,8 +78,9 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
     // Subtitles live outside i18n:STR blocks; strict so a gap fails the build.
     out = translateSubtitles(out, video, { strict: true }).html;
 
-    if (locale === 'fr' && file === 'beat-00-intro.html') {
-      out = out.replace(/<\/head>/, '<style>#title { font-size: 22px !important; }</style></head>');
+    const override = (LOCALE_STYLE_OVERRIDES[locale] || {})[file];
+    if (override) {
+      out = out.replace(/<\/head>/, `<style>${override}</style></head>`);
     }
 
     fs.writeFileSync(path.join(outDir, 'compositions', file), GENERATED_HEADER + out, 'utf8');
@@ -105,4 +117,5 @@ if (require.main === module) {
   );
 }
 
-module.exports = { buildVideoLocale, BEAT_CATALOG_MAP };
+module.exports = { buildVideoLocale, BEAT_CATALOG_MAP, LOCALE_STYLE_OVERRIDES };
+

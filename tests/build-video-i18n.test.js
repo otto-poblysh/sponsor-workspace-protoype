@@ -234,4 +234,43 @@ test('video.es.json does not gender the viewer in the welcome subtitle', () => {
   assert.ok(!/\bBienvenid[oa]\b/.test(welcome), `Use a gender-neutral formal welcome, got: "${welcome}"`);
 });
 
+const { LOCALE_STYLE_OVERRIDES } = require('../tools/build-video-i18n.js');
+
+test('LOCALE_STYLE_OVERRIDES is exported and retains the French intro override', () => {
+  assert.ok(LOCALE_STYLE_OVERRIDES, 'driver must export LOCALE_STYLE_OVERRIDES');
+  assert.strictEqual(
+    LOCALE_STYLE_OVERRIDES.fr['beat-00-intro.html'],
+    '#title { font-size: 22px !important; }'
+  );
+});
+
+test('refactor leaves the committed French intro byte-identical', () => {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tv-fr-regress-'));
+  buildVideoLocale({
+    srcDir: path.join(ROOT, 'tutorial-video'),
+    outDir,
+    i18nDir: path.join(ROOT, 'i18n'),
+    locale: 'fr'
+  });
+  const rebuilt = fs.readFileSync(path.join(outDir, 'compositions/beat-00-intro.html'), 'utf8');
+  const committed = fs.readFileSync(
+    path.join(ROOT, 'tutorial-video-fr/compositions/beat-00-intro.html'), 'utf8'
+  );
+  assert.strictEqual(rebuilt, committed, 'French output must not regress');
+});
+
+test('a locale with no override entry gets no injected style tag', () => {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tv-noover-'));
+  buildVideoLocale({
+    srcDir: path.join(ROOT, 'tutorial-video'),
+    outDir,
+    i18nDir: path.join(ROOT, 'i18n'),
+    locale: 'es'
+  });
+  const intro = fs.readFileSync(path.join(outDir, 'compositions/beat-00-intro.html'), 'utf8');
+  const injected = (intro.match(/font-size:\s*\d+px !important/g) || []);
+  assert.deepStrictEqual(injected, [], 'no override configured yet for es');
+});
+
+
 
