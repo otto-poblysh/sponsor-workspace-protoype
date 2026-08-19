@@ -1,5 +1,5 @@
-<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
 <!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -127,14 +127,16 @@
     }
 
     .title {
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 700;
       color: #0f172a;
       text-transform: uppercase;
       letter-spacing: 0.075em;
       line-height: 1.3;
-      white-space: nowrap;   /* must never wrap */
     }
+
+    /* Each line is set explicitly so every locale picks its own break point. */
+    .title-line { white-space: nowrap; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 </head>
@@ -159,7 +161,10 @@
       <div data-hf-id="hf-sig" class="signature" id="signature">
         <div data-hf-id="hf-srul" class="signature-rule" id="signature-rule"></div>
         <div data-hf-id="hf-min" class="ministry" id="ministry">Ministère du Travail</div>
-        <div data-hf-id="hf-j70o" class="title" id="title">Démonstration du SIMT</div>
+        <div data-hf-id="hf-j70o" class="title" id="title">
+          <div data-hf-id="hf-tln1" class="title-line">Système d'Information sur le Marché du Travail</div>
+          <div data-hf-id="hf-tln2" class="title-line">Démonstration pour la Création d'Emplois</div>
+        </div>
       </div>
     </div>
 

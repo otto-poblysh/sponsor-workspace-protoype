@@ -4,7 +4,7 @@ const path = require('node:path');
 const FR = path.join(__dirname, '..', 'tutorial-video-fr', 'compositions');
 
 const NOWRAP_TARGETS = [
-  { file: 'beat-00-intro.html', selector: '#title', container: '.text-container' },
+  { file: 'beat-00-intro.html', selector: '.title-line', container: '.text-container' },
   { file: 'beat-00-intro.html', selector: '.headline-line', container: '.text-container' }
 ];
 
@@ -16,12 +16,16 @@ for (const { file, selector, container } of NOWRAP_TARGETS) {
 
     const overflow = await page.evaluate(
       ([sel, cont]) => {
-        const box = document.querySelector(cont).clientWidth;
+        const sig = document.querySelector('.signature');
+        const pad = sig ? parseFloat(getComputedStyle(sig).paddingLeft) : 0;
+        const box = document.querySelector(cont).clientWidth - (sel === '.title-line' ? pad : 0);
         return [...document.querySelectorAll(sel)].map((el) => ({
           text: el.textContent.trim(),
-          width: Math.ceil(el.scrollWidth),
+          width: (() => { const r = document.createRange(); r.selectNodeContents(el);
+                          return Math.ceil(r.getBoundingClientRect().width); })(),
           available: box,
-          overflowBy: Math.ceil(el.scrollWidth) - box
+          overflowBy: (() => { const r = document.createRange(); r.selectNodeContents(el);
+                               return Math.ceil(r.getBoundingClientRect().width) - box; })()
         }));
       },
       [selector, container]

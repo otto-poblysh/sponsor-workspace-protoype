@@ -22,7 +22,8 @@ const REQUIRED_SUBTITLES = [
 const REQUIRED_ARTWORK = [
   'Digital Workforce',
   'Solutions',
-  'Labour Market Information System (LMIS) Demo',
+  'Labour Market Information System (LMIS)',
+  'Demo for Job Creation',
   'To customize your Labor Market Information System (LMIS)',
   'Contact:',
   'email:',
@@ -279,15 +280,17 @@ test('video.es.json does not gender the viewer in the welcome subtitle', () => {
 
 const { LOCALE_STYLE_OVERRIDES } = require('../tools/build-video-i18n.js');
 
-test('LOCALE_STYLE_OVERRIDES is exported and retains the French and Spanish intro overrides', () => {
+test('LOCALE_STYLE_OVERRIDES is exported and needs no per-locale intro shrink', () => {
   assert.ok(LOCALE_STYLE_OVERRIDES, 'driver must export LOCALE_STYLE_OVERRIDES');
   assert.strictEqual(
-    LOCALE_STYLE_OVERRIDES.fr['beat-00-intro.html'],
-    '#title { font-size: 22px !important; }'
+    LOCALE_STYLE_OVERRIDES.fr && LOCALE_STYLE_OVERRIDES.fr['beat-00-intro.html'],
+    undefined,
+    'the 32px two-line title fits French without an override'
   );
   assert.strictEqual(
-    LOCALE_STYLE_OVERRIDES.es['beat-00-intro.html'],
-    '#title { font-size: 22px !important; }'
+    LOCALE_STYLE_OVERRIDES.es && LOCALE_STYLE_OVERRIDES.es['beat-00-intro.html'],
+    undefined,
+    'the 32px two-line title fits Spanish without an override'
   );
 });
 
@@ -319,5 +322,34 @@ test('a composition with no override entry gets no injected style tag', () => {
   assert.deepStrictEqual(injected, [], 'no override configured for beat-01-dashboard.html');
 });
 
+for (const locale of ['fr', 'es']) {
+  test(`[${locale}] generated files start with <!DOCTYPE html>, not a comment`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const files = ['index.html', ...EXPECTED_COMPOSITIONS.map((f) => `compositions/${f}`)];
+    for (const f of files) {
+      const head = fs.readFileSync(path.join(outDir, f), 'utf8').slice(0, 200);
+      assert.ok(
+        /^<!DOCTYPE html>/i.test(head),
+        `${locale}/${f} must open with the doctype. A comment before it makes the ` +
+        `HyperFrames loader treat the file as a fragment, dropping <meta charset> ` +
+        `and rendering every accented character as mojibake.`
+      );
+      assert.ok(head.includes('GENERATED FILE'), `${locale}/${f} lost its generated banner`);
+    }
+  });
 
+  test(`[${locale}] accented characters survive as valid UTF-8`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const intro = fs.readFileSync(path.join(outDir, 'compositions/beat-00-intro.html'), 'utf8');
+    assert.ok(!/Ã[©¨«¢]/.test(intro), 'mojibake detected in the intro');
+    const expected = locale === 'fr' ? 'Marché' : 'Información';
+    assert.ok(intro.includes(expected), `expected "${expected}" in the ${locale} intro`);
+  });
 
+  test(`[${locale}] intro title renders as two explicit lines`, () => {
+    const { outDir } = buildToTempFor(locale);
+    const intro = fs.readFileSync(path.join(outDir, 'compositions/beat-00-intro.html'), 'utf8');
+    const lines = intro.match(/class="title-line">([^<]*)</g) || [];
+    assert.strictEqual(lines.length, 2, 'the cover title must be exactly two lines');
+  });
+}

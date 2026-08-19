@@ -34,13 +34,24 @@ const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tu
  * shorter rendering existed. Keys are composition filenames.
  */
 const LOCALE_STYLE_OVERRIDES = {
-  fr: {
-    'beat-00-intro.html': '#title { font-size: 22px !important; }'
-  },
-  es: {
-    'beat-00-intro.html': '#title { font-size: 22px !important; }'
-  }
+  // Empty: the 32px two-line intro title fits every locale, so no per-locale
+  // shrink is needed. Add entries here if a future locale overflows.
 };
+
+/**
+ * Prepends the generated-file banner *after* <!DOCTYPE html>.
+ *
+ * It must not come first: a comment before the doctype makes the HyperFrames
+ * sub-composition loader treat the file as a fragment rather than a document,
+ * which drops <meta charset="UTF-8"> and decodes the body as Latin-1 — every
+ * accented character then renders as mojibake (e-acute becomes A-tilde + (c)).
+ * This is also what the `root_composition_missing_html_wrapper` lint reports.
+ */
+function withGeneratedHeader(html) {
+  const m = html.match(/^\uFEFF?\s*<!DOCTYPE html>[^\n]*\r?\n?/i);
+  if (!m) return GENERATED_HEADER + html;
+  return html.slice(0, m[0].length) + GENERATED_HEADER + html.slice(m[0].length);
+}
 
 function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
   const common = loadCatalog(path.join(i18nDir, `common.${locale}.json`));
@@ -62,7 +73,7 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
     rewriteToggle: false,
     headerComment: false
   });
-  fs.writeFileSync(path.join(outDir, 'index.html'), GENERATED_HEADER + hostOut, 'utf8');
+  fs.writeFileSync(path.join(outDir, 'index.html'), withGeneratedHeader(hostOut), 'utf8');
   generatedFiles.push('index.html');
 
   for (const [file, pageName] of Object.entries(BEAT_CATALOG_MAP)) {
@@ -86,7 +97,7 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
       out = out.replace(/<\/head>/, `<style>${override}</style></head>`);
     }
 
-    fs.writeFileSync(path.join(outDir, 'compositions', file), GENERATED_HEADER + out, 'utf8');
+    fs.writeFileSync(path.join(outDir, 'compositions', file), withGeneratedHeader(out), 'utf8');
     generatedFiles.push(`compositions/${file}`);
   }
 
