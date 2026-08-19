@@ -14,6 +14,8 @@
     "video:check:fr": "cd tutorial-video-fr && npx hyperframes check",
     "video:build:es": "node tools/build-video-i18n.js es",
     "video:check:es": "cd tutorial-video-es && npx hyperframes check",
+    "video:poster": "node tools/attach-poster.js",
+    "video:poster:all": "node tools/attach-poster.js tutorial-video && node tools/attach-poster.js tutorial-video-fr && node tools/attach-poster.js tutorial-video-es",
     "test:video": "node --test tests/build-video-i18n.test.js"
   },
   "devDependencies": {
