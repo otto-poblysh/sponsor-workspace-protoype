@@ -89,3 +89,45 @@ test('the org do-not-translate list exists and excludes Equatorial Guinea nouns'
     assert.ok(!dnt.includes(n), `${n} belongs to the ministry list, not this one`);
   }
 });
+
+test('seeker home renders the seeker shell', () => {
+  const html = read('seeker-home.html');
+  for (const item of ['Home', 'Inbox', 'My Career', 'Jobs', 'Entities']) {
+    assert.ok(html.includes(`>${item}<`), `seeker nav missing "${item}"`);
+  }
+  assert.ok(html.includes('WhatsApp Support'), 'missing support link');
+  assert.ok(html.includes('Settings'), 'missing settings link');
+});
+
+test('seeker home renders a job feed with apply affordances', () => {
+  const html = read('seeker-home.html');
+  const cards = html.match(/class="[^"]*job-card[^"]*"/g) || [];
+  assert.ok(cards.length >= 4, `expected at least 4 job cards, got ${cards.length}`);
+  assert.ok(html.includes('CLOSES IN'), 'missing closing-date affordance');
+  assert.ok(html.includes('Apply'), 'missing Apply action');
+  assert.ok(html.includes('Share'), 'missing Share action');
+});
+
+test('seeker home renders both quick-action panels', () => {
+  const html = read('seeker-home.html');
+  for (const label of [
+    'My Career Profile', 'PDF Resume Builder', 'Web Resume Builder',
+    'My Job Applications', 'Post Job', 'Manage Users', 'Entity Dashboard'
+  ]) {
+    assert.ok(html.includes(label), `quick actions missing "${label}"`);
+  }
+});
+
+test('no raw i18n key leaks on the seeker page', () => {
+  const html = read('seeker-home.html');
+  const body = html.slice(html.indexOf('<body'));
+  const leaks = body.match(/>[A-Z][A-Z0-9_]*\.[A-Z0-9_.]+</g) || [];
+  assert.deepStrictEqual(leaks, [], `raw i18n keys visible: ${leaks.join(', ')}`);
+  assert.ok(!/myCareer\.recent/i.test(body), 'the live demo key leak must not be reproduced');
+});
+
+test('seeker home carries the language toggle', () => {
+  const html = read('seeker-home.html');
+  assert.ok(html.includes('hreflang="fr"'), 'missing FR toggle link');
+  assert.ok(html.includes('hreflang="es"'), 'missing ES toggle link');
+});
