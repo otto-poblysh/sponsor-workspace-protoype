@@ -652,9 +652,9 @@
           <a class="lang-opt" hreflang="es" href="../es/entities.html">ES</a>
         </div>
         <div class="user-mini">
-          <div class="user-avatar">ME</div>
+          <div class="user-avatar">SB</div>
           <div>
-            <div class="user-name">María Esono</div>
+            <div class="user-name">Selamawit Bekele</div>
             <div class="user-role">Programme Administrator</div>
           </div>
         </div>
@@ -665,23 +665,23 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Member Companies</h1>
-          <p class="page-subtitle">Onboard, verify and support member companies across the Alliance network</p>
+          <p class="page-subtitle">Onboard, verify and support the Alliance’s 386 member companies — 331 verified, 23 invited, 12 pending review, 14 suspended, 6 inactive</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="openModal('invite-modal')"><i class="ph-bold ph-plus"></i> Add member company</button>
         </div>
       </header>
 
-      <div class="filter-bar animate-enter delay-1" role="search" aria-label="Employer filters">
+      <div class="filter-bar animate-enter delay-1" role="search" aria-label="Member company filters">
         <div class="filter-group">
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="filterEntities()">
-            <option value="all">All sectors</option>
-            <option value="oil and gas services">Oil &amp; gas services</option>
-            <option value="transportation">Trade &amp; logistics</option>
-            <option value="construction">Construction</option>
-            <option value="hospitality">Hospitality &amp; tourism</option>
-            <option value="retail">Commerce &amp; retail</option>
+            <option value="all">All sectors (386)</option>
+            <option value="manufacturing and textiles">Manufacturing &amp; textiles (112)</option>
+            <option value="agriculture and agro-processing">Agriculture &amp; agro-processing (94)</option>
+            <option value="construction">Construction (71)</option>
+            <option value="logistics and transport">Logistics &amp; transport (63)</option>
+            <option value="tourism and hospitality">Tourism &amp; hospitality (46)</option>
           </select>
         </div>
         <div class="filter-group">
@@ -710,7 +710,7 @@
         <table class="data-table" id="entities-table">
           <thead>
             <tr>
-              <th>Employer</th>
+              <th>Member Company</th>
               <th>Contact Email</th>
               <th>Sector</th>
               <th>Size</th>
@@ -720,10 +720,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-sector="oil and gas services" data-status="verified" data-size="50–249">
-              <td><strong>Bioko Marine Services</strong><br><small style="color:var(--text-secondary)">Joined 10 Jun 2026</small></td>
-              <td>empleo@biokomarine.gq</td>
-              <td>Oil &amp; gas services</td>
+            <tr data-sector="agriculture and agro-processing" data-status="verified" data-size="50–249">
+              <td><strong>Rift Valley Agro-Processing</strong><br><small style="color:var(--text-secondary)">Hawassa, Sidama, Ethiopia · Joined 10 Jun 2026</small></td>
+              <td>jobs@riftvalleyagro.et</td>
+              <td>Agriculture &amp; agro-processing</td>
               <td>50–249</td>
               <td><span class="badge badge-success">Verified</span></td>
               <td>
@@ -733,13 +733,13 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bioko Marine Services')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Rift Valley Agro-Processing')">Suspend</button>
               </td>
             </tr>
-            <tr data-sector="transportation" data-status="suspended" data-size="250+">
-              <td><strong>Río Muni Logistics</strong><br><small style="color:var(--text-secondary)">Joined 12 May 2026</small></td>
-              <td>rrhh@riomunilogistica.gq</td>
-              <td>Trade &amp; logistics</td>
+            <tr data-sector="construction" data-status="suspended" data-size="250+">
+              <td><strong>Northern Highlands Construction</strong><br><small style="color:var(--text-secondary)">Bahir Dar, Amhara, Ethiopia · Joined 12 May 2026</small></td>
+              <td>hr@northernhighlands.et</td>
+              <td>Construction</td>
               <td>250+</td>
               <td><span class="badge badge-error">Suspended</span></td>
               <td>
@@ -752,10 +752,10 @@
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activate</button>
               </td>
             </tr>
-            <tr data-sector="construction" data-status="verified" data-size="50–249">
-              <td><strong>Litoral Obras</strong><br><small style="color:var(--text-secondary)">Joined 01 Jun 2026</small></td>
-              <td>personal@litoralobras.gq</td>
-              <td>Construction</td>
+            <tr data-sector="manufacturing and textiles" data-status="verified" data-size="50–249">
+              <td><strong>Highland Textile Works</strong><br><small style="color:var(--text-secondary)">Addis Ababa, Ethiopia · Joined 01 Jun 2026</small></td>
+              <td>careers@highlandtextile.et</td>
+              <td>Manufacturing &amp; textiles</td>
               <td>50–249</td>
               <td><span class="badge badge-success">Verified</span></td>
               <td>
@@ -765,15 +765,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Litoral Obras')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Highland Textile Works')">Suspend</button>
               </td>
             </tr>
-            <tr data-sector="hospitality" data-status="rejected" data-size="1–49">
-              <td><strong>Hotel Bahía Malabo</strong><br><small style="color:var(--text-secondary)">Invited 08 Jun 2026</small></td>
-              <td>rrhh@bahiamalabo.gq</td>
-              <td>Hospitality &amp; tourism</td>
+            <tr data-sector="logistics and transport" data-status="invited" data-size="1–49">
+              <td><strong>Savanna Freight Partners</strong><br><small style="color:var(--text-secondary)">Nairobi, Kenya · Invited 08 Jun 2026</small></td>
+              <td>careers@savannafreight.co.ke</td>
+              <td>Logistics &amp; transport</td>
               <td>1–49</td>
-              <td><span class="badge badge-error">Rejected</span></td>
+              <td><span class="badge badge-warning">Invited</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
@@ -781,13 +781,13 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited Hotel Bahía Malabo')">Re-invite</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited Savanna Freight Partners')">Re-invite</button>
               </td>
             </tr>
-            <tr data-sector="hospitality" data-status="pending review" data-size="1–49">
-              <td><strong>Annobón Eco Tours</strong><br><small style="color:var(--text-secondary)">Registered 13 Jun 2026</small></td>
-              <td>empleo@annobonecotours.gq</td>
-              <td>Hospitality &amp; tourism</td>
+            <tr data-sector="manufacturing and textiles" data-status="pending review" data-size="1–49">
+              <td><strong>Central Leather Works</strong><br><small style="color:var(--text-secondary)">Adama, Oromia, Ethiopia · Registered 13 Jun 2026</small></td>
+              <td>recruitment@centralleather.et</td>
+              <td>Manufacturing &amp; textiles</td>
               <td>1–49</td>
               <td><span class="badge badge-warning">Pending Review</span></td>
               <td>
@@ -798,13 +798,13 @@
               </td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
                 <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Verify</button>
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Annobón Eco Tours')">Reject</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Central Leather Works')">Reject</button>
               </td>
             </tr>
-            <tr data-sector="retail" data-status="inactive" data-size="250+">
-              <td><strong>Bata Comercio</strong><br><small style="color:var(--text-secondary)">Joined 15 May 2026</small></td>
-              <td>contratacion@batacomercio.gq</td>
-              <td>Commerce &amp; retail</td>
+            <tr data-sector="tourism and hospitality" data-status="inactive" data-size="250+">
+              <td><strong>Coastal Hospitality Group</strong><br><small style="color:var(--text-secondary)">Accra, Ghana · Joined 15 May 2026</small></td>
+              <td>jobs@coastalhospitality.com.gh</td>
+              <td>Tourism &amp; hospitality</td>
               <td>250+</td>
               <td><span class="badge badge-info">Inactive</span></td>
               <td>
@@ -814,7 +814,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bata Comercio')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Coastal Hospitality Group')">Suspend</button>
               </td>
             </tr>
           </tbody>
@@ -831,22 +831,22 @@
 
       <div class="form-group">
         <label class="form-label" for="invite-name">Company Name</label>
-        <input type="text" id="invite-name" class="form-input" placeholder="e.g. Servicios Industriales Bata" required>
+        <input type="text" id="invite-name" class="form-input" placeholder="e.g. Highland Textile Works" required>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="invite-email">Contact Person Email</label>
-        <input type="email" id="invite-email" class="form-input" placeholder="e.g. rrhh@empresa.gq" required>
+        <input type="email" id="invite-email" class="form-input" placeholder="e.g. careers@company.et" required>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="invite-sector-sel">Primary Sector</label>
         <select id="invite-sector-sel" class="form-select">
-          <option>Oil &amp; gas services</option>
+          <option>Manufacturing &amp; textiles</option>
+          <option>Agriculture &amp; agro-processing</option>
           <option>Construction</option>
-          <option>Hospitality &amp; tourism</option>
-          <option>Agriculture &amp; fisheries</option>
-          <option>Trade &amp; logistics</option>
+          <option>Logistics &amp; transport</option>
+          <option>Tourism &amp; hospitality</option>
         </select>
       </div>
 
@@ -860,7 +860,7 @@
   <!-- Moderation (Suspension / Rejection) Modal -->
   <div class="modal-overlay" id="moderation-modal">
     <div class="modal">
-      <h3 class="modal-title" id="mod-title">Suspend Employer</h3>
+      <h3 class="modal-title" id="mod-title">Suspend Member Company</h3>
       <p class="modal-desc" id="mod-desc">Please provide a comment. This action will be logged in the activity logs.</p>
 
       <div class="form-group">
@@ -878,10 +878,10 @@
   <script>
     /* i18n:STR:start */
     const STR = {
-      suspendTitle: "Suspend Employer",
-      returnTitle: "Return Employer Registration",
+      suspendTitle: "Suspend Member Company",
+      returnTitle: "Return Membership Application",
       suspendConfirm: "Are you sure you want to suspend access for {name}? A comment is required to proceed.",
-      returnConfirm: "Are you sure you want to return the registration for {name}? A comment is required to proceed.",
+      returnConfirm: "Are you sure you want to return the membership application for {name}? A comment is required to proceed.",
       commentRequired: "Please enter a comment before submitting.",
       statusSuspended: "Suspended",
       statusRejected: "Rejected",

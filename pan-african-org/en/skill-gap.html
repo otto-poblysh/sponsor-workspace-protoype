@@ -681,9 +681,9 @@
           <a class="lang-opt" hreflang="es" href="../es/skill-gap.html">ES</a>
         </div>
         <div class="user-mini">
-          <div class="user-avatar">ME</div>
+          <div class="user-avatar">SB</div>
           <div>
-            <div class="user-name">María Esono</div>
+            <div class="user-name">Selamawit Bekele</div>
             <div class="user-role">Programme Administrator</div>
           </div>
         </div>
@@ -706,20 +706,21 @@
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="checkLowData()">
             <option value="all">All sectors</option>
-            <option value="software">Oil & gas services</option>
-            <option value="healthcare">Construction</option>
-            <option value="hospitality">Hospitality & tourism</option>
-            <option value="manufacturing">Agriculture & fisheries</option>
+            <option value="manufacturing and textiles">Manufacturing & textiles</option>
+            <option value="agriculture and agro-processing">Agriculture & agro-processing</option>
+            <option value="construction">Construction</option>
+            <option value="logistics and transport">Logistics & transport</option>
+            <option value="tourism and hospitality">Tourism & hospitality</option>
           </select>
         </div>
         <div class="filter-group">
           <label class="filter-label" for="filter-location">Location</label>
           <select id="filter-location" class="filter-select" onchange="checkLowData()">
             <option value="all">All locations</option>
-            <option value="malabo">Malabo</option>
-            <option value="nairobi">Bata</option>
-            <option value="kigali">Ebebiyín</option>
-            <option value="lagos">Mongomo</option>
+            <option value="addis-ababa">Addis Ababa</option>
+            <option value="mekelle">Mekelle</option>
+            <option value="kigali">Kigali</option>
+            <option value="lagos">Lagos</option>
           </select>
         </div>
       </div>
@@ -737,7 +738,7 @@
         <article class="kpi-tile">
           <div class="kpi-label">Jobs analysed</div>
           <div class="kpi-value" id="kpi-jobs">1,126</div>
-          <div class="kpi-desc">Based on active employer vacancies</div>
+          <div class="kpi-desc">Based on active member-company vacancies</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Seeker profiles analysed</div>
@@ -746,8 +747,8 @@
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Critical shortage skills</div>
-          <div class="kpi-value" id="kpi-shortages">3</div>
-          <div class="kpi-desc">Supply covers less than 30% of demand</div>
+          <div class="kpi-value" id="kpi-shortages">4</div>
+          <div class="kpi-desc">Supply below 3x demand across both skill tables</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Recommendations</div>
@@ -792,7 +793,7 @@
                   <td>Construction trades</td>
                   <td>219</td>
                   <td>1,358</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
+                  <td><span class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr>
                   <td>Sales & merchandising</td>
@@ -825,7 +826,7 @@
                 <tr>
                   <td>Office productivity tools</td>
                   <td>161</td>
-                  <td>2,104</td>
+                  <td>1,842</td>
                   <td><span class="badge badge-success">Surplus</span></td>
                 </tr>
                 <tr>
@@ -918,8 +919,8 @@
       const location = document.getElementById('filter-location').value;
       const warningBanner = document.getElementById('low-data-warning');
 
-      // Demo a low-data slice for hospitality vacancies in Malabo.
-      if (sector === 'hospitality' && location === 'malabo') {
+      // Demo a low-data slice for tourism vacancies in Mekelle.
+      if (sector === 'tourism and hospitality' && location === 'mekelle') {
         document.getElementById('warn-jobs').textContent = '12';
         document.getElementById('warn-seekers').textContent = '45';
         warningBanner.classList.add('is-visible');
@@ -927,7 +928,7 @@
         // Update KPIs to match low data
         document.getElementById('kpi-jobs').textContent = '12';
         document.getElementById('kpi-seekers').textContent = '45';
-        document.getElementById('kpi-shortages').textContent = '1';
+        document.getElementById('kpi-shortages').textContent = '2';
         document.getElementById('kpi-recs').textContent = '1';
 
         // Update tables
@@ -968,7 +969,7 @@
         // Restore normal metrics
         document.getElementById('kpi-jobs').textContent = '1,126';
         document.getElementById('kpi-seekers').textContent = '18,742';
-        document.getElementById('kpi-shortages').textContent = '3';
+        document.getElementById('kpi-shortages').textContent = '4';
         document.getElementById('kpi-recs').textContent = '3';
 
         // Restore table defaults
@@ -995,7 +996,7 @@
             <td>${STR.constructionTrades}</td>
             <td>219</td>
             <td>1,358</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
           </tr>
           <tr>
             <td>${STR.salesMerchandising}</td>
@@ -1014,7 +1015,7 @@
           <tr>
             <td>${STR.officeProductivityTools}</td>
             <td>161</td>
-            <td>2,104</td>
+            <td>1,842</td>
             <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>

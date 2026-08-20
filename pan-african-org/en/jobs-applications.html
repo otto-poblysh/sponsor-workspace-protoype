@@ -649,9 +649,9 @@
           <a class="lang-opt" hreflang="es" href="../es/jobs-applications.html">ES</a>
         </div>
         <div class="user-mini">
-          <div class="user-avatar">ME</div>
+          <div class="user-avatar">SB</div>
           <div>
-            <div class="user-name">María Esono</div>
+            <div class="user-name">Selamawit Bekele</div>
             <div class="user-role">Programme Administrator</div>
           </div>
         </div>
@@ -687,21 +687,21 @@
 
       <div class="filter-bar animate-enter delay-1" role="search" aria-label="Job filters">
         <div class="filter-group">
-          <label class="filter-label" for="filter-entity">Employer</label>
+          <label class="filter-label" for="filter-entity">Member company</label>
           <select id="filter-entity" class="filter-select" onchange="filterJobs()">
-            <option value="all">All employers</option>
-            <option value="bioko marine">Bioko Marine Services</option>
-            <option value="litoral obras">Litoral Obras</option>
-            <option value="rio muni">Río Muni Logistics</option>
+            <option value="all">All member companies</option>
+            <option value="highland textile works">Highland Textile Works</option>
+            <option value="rift valley agro-processing">Rift Valley Agro-Processing</option>
+            <option value="coastal hospitality group">Coastal Hospitality Group</option>
           </select>
         </div>
         <div class="filter-group">
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="filterJobs()">
             <option value="all">All sectors</option>
-            <option value="oil and gas services">Oil &amp; gas services</option>
-            <option value="construction">Construction</option>
-            <option value="logistics">Logistics</option>
+            <option value="manufacturing and textiles">Manufacturing &amp; textiles</option>
+            <option value="agriculture and agro-processing">Agriculture &amp; agro-processing</option>
+            <option value="tourism and hospitality">Tourism &amp; hospitality</option>
           </select>
         </div>
         <div class="filter-group">
@@ -719,7 +719,7 @@
           <thead>
             <tr>
               <th>Job Title</th>
-              <th>Employer</th>
+              <th>Member Company</th>
               <th>Sector</th>
               <th>Location</th>
               <th>Date Posted</th>
@@ -729,52 +729,52 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-entity="bioko marine" data-sector="oil and gas services" data-status="active">
-              <td><strong>Offshore Safety Technician</strong></td>
-              <td>Bioko Marine Services</td>
-              <td>Oil &amp; gas services</td>
-              <td>Malabo</td>
+            <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
+              <td><strong>Textile Production Supervisor</strong></td>
+              <td>Highland Textile Works</td>
+              <td>Manufacturing &amp; textiles</td>
+              <td>Addis Ababa, Ethiopia</td>
               <td style="font-family:var(--font-mono)">28 May 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Hard-to-fill)</small></td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Offshore Safety Technician', 'Bioko Marine Services', 2)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Textile Production Supervisor', 'Highland Textile Works', 2)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="bioko marine" data-sector="oil and gas services" data-status="active">
+            <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
               <td><strong>Industrial Electrician</strong></td>
-              <td>Bioko Marine Services</td>
-              <td>Oil &amp; gas services</td>
-              <td>Luba</td>
+              <td>Highland Textile Works</td>
+              <td>Manufacturing &amp; textiles</td>
+              <td>Addis Ababa, Ethiopia</td>
               <td style="font-family:var(--font-mono)">01 Jun 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">18</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Industrial Electrician', 'Bioko Marine Services', 18)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Industrial Electrician', 'Highland Textile Works', 18)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="litoral obras" data-sector="construction" data-status="active">
-              <td><strong>Heavy Equipment Mechanic</strong></td>
-              <td>Litoral Obras</td>
-              <td>Construction</td>
-              <td>Bata</td>
+            <tr data-entity="rift valley agro-processing" data-sector="agriculture and agro-processing" data-status="active">
+              <td><strong>Agro-Processing Line Technician</strong></td>
+              <td>Rift Valley Agro-Processing</td>
+              <td>Agriculture &amp; agro-processing</td>
+              <td>Hawassa, Sidama</td>
               <td style="font-family:var(--font-mono)">03 Jun 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">12</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Heavy Equipment Mechanic', 'Litoral Obras', 12)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Agro-Processing Line Technician', 'Rift Valley Agro-Processing', 12)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="rio muni" data-sector="logistics" data-status="closed">
-              <td><strong>Logistics Coordinator</strong></td>
-              <td>Río Muni Logistics</td>
-              <td>Logistics</td>
-              <td>Bata</td>
+            <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="closed">
+              <td><strong>Front Office Supervisor</strong></td>
+              <td>Coastal Hospitality Group</td>
+              <td>Tourism &amp; hospitality</td>
+              <td>Accra, Ghana</td>
               <td style="font-family:var(--font-mono)">10 May 2026</td>
               <td><span class="badge badge-error">Closed</span></td>
               <td style="font-family:var(--font-mono)">45</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Río Muni Logistics', 45)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Front Office Supervisor', 'Coastal Hospitality Group', 45)">View Funnel</button>
               </td>
             </tr>
           </tbody>
@@ -787,7 +787,7 @@
   <div class="modal-overlay" id="funnel-modal">
     <div class="modal">
       <h3 class="modal-title" id="funnel-title">Application Funnel</h3>
-      <p class="modal-desc" id="funnel-desc">Job Details: Offshore Safety Technician at Bioko Marine Services</p>
+      <p class="modal-desc" id="funnel-desc">Job Details: Textile Production Supervisor at Highland Textile Works</p>
 
       <div class="privacy-box">
         <i class="ph-bold ph-shield-check"></i>

@@ -581,9 +581,9 @@
           <a class="lang-opt" hreflang="es" href="../es/users-management.html">ES</a>
         </div>
         <div class="user-mini">
-          <div class="user-avatar">ME</div>
+          <div class="user-avatar">SB</div>
           <div>
-            <div class="user-name">María Esono</div>
+            <div class="user-name">Selamawit Bekele</div>
             <div class="user-role">Programme Administrator</div>
           </div>
         </div>
@@ -614,9 +614,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>María Esono</strong><br><small style="color:var(--text-secondary)">maria.esono@trabajo.gob.gq</small></td>
+              <td><strong>Selamawit Bekele</strong><br><small style="color:var(--text-secondary)">selamawit.bekele@paea.africa</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('María Esono', this)">
+                <select class="role-select" onchange="logRoleChange('Selamawit Bekele', this)">
                   <option selected>Director</option>
                   <option>Administrator</option>
                   <option>Talent Analyst</option>
@@ -627,9 +627,9 @@
               <td style="text-align: right; color:var(--text-tertiary);">Director (Permanent)</td>
             </tr>
             <tr>
-              <td><strong>Pedro Nsue</strong><br><small style="color:var(--text-secondary)">pedro.nsue@trabajo.gob.gq</small></td>
+              <td><strong>Dawit Haile</strong><br><small style="color:var(--text-secondary)">dawit.haile@paea.africa</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Pedro Nsue', this)">
+                <select class="role-select" onchange="logRoleChange('Dawit Haile', this)">
                   <option>Director</option>
                   <option selected>Administrator</option>
                   <option>Talent Analyst</option>
@@ -642,9 +642,9 @@
               </td>
             </tr>
             <tr>
-              <td><strong>Ana Mangue</strong><br><small style="color:var(--text-secondary)">ana.mangue@trabajo.gob.gq</small></td>
+              <td><strong>Tigist Alemu</strong><br><small style="color:var(--text-secondary)">tigist.alemu@paea.africa</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Ana Mangue', this)">
+                <select class="role-select" onchange="logRoleChange('Tigist Alemu', this)">
                   <option>Director</option>
                   <option>Administrator</option>
                   <option selected>Talent Analyst</option>
@@ -657,18 +657,18 @@
               </td>
             </tr>
             <tr>
-              <td><strong>Lucía Obiang</strong><br><small style="color:var(--text-secondary)">lucia.obiang@trabajo.gob.gq</small></td>
+              <td><strong>Wanjiru Kamau</strong><br><small style="color:var(--text-secondary)">wanjiru.kamau@paea.africa</small></td>
               <td>
-                <select class="role-select" onchange="logRoleChange('Lucía Obiang', this)">
+                <select class="role-select" onchange="logRoleChange('Wanjiru Kamau', this)">
                   <option>Director</option>
-                  <option selected>Regional Officer</option>
+                  <option selected>Country Officer</option>
                   <option>Talent Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-warning">Invited</span></td>
               <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Never</td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Lucía.')">Resend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Wanjiru.')">Resend</button>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Remove</button>
               </td>
             </tr>
@@ -682,11 +682,11 @@
   <div class="modal-overlay" id="invite-modal">
     <div class="modal">
       <h3 class="modal-title">Invite Organization Team Member</h3>
-      <p class="modal-desc">Invite an authorised team member to manage employment reporting.</p>
+      <p class="modal-desc">Invite an authorised team member to manage member-company employment reporting.</p>
 
       <div class="form-group">
         <label class="form-label" for="user-email">Email Address</label>
-        <input type="email" id="user-email" class="form-input" placeholder="e.g. officer@trabajo.gob.gq" required>
+        <input type="email" id="user-email" class="form-input" placeholder="e.g. officer@paea.africa" required>
       </div>
 
       <div class="form-group">
@@ -694,7 +694,7 @@
         <select id="user-role-sel" class="form-select">
           <option value="Director">Director (Full access)</option>
           <option value="Administrator" selected>Administrator (Operational control)</option>
-          <option value="Regional Officer">Regional Officer (Province scope)</option>
+          <option value="Country Officer">Country Officer (Market scope)</option>
           <option value="Talent Analyst">Talent Analyst (Read-only, export allowed)</option>
         </select>
       </div>
@@ -712,7 +712,7 @@
       provideEmailAlert: "Please provide an email address.",
       roleDirector: "Director",
       roleAdministrator: "Administrator",
-      roleRegionalOfficer: "Regional Officer",
+      roleRegionalOfficer: "Country Officer",
       roleLabourAnalyst: "Talent Analyst",
       statusInvited: "Invited",
       lastActiveNever: "Never",
@@ -760,7 +760,7 @@
           <select class="role-select" onchange="logRoleChange('${namePrefix}', this)">
             <option ${role === 'Director' ? 'selected' : ''}>${STR.roleDirector}</option>
             <option ${role === 'Administrator' ? 'selected' : ''}>${STR.roleAdministrator}</option>
-            <option ${role === 'Regional Officer' ? 'selected' : ''}>${STR.roleRegionalOfficer}</option>
+            <option ${role === 'Country Officer' ? 'selected' : ''}>${STR.roleRegionalOfficer}</option>
             <option ${role === 'Talent Analyst' ? 'selected' : ''}>${STR.roleLabourAnalyst}</option>
           </select>
         </td>
