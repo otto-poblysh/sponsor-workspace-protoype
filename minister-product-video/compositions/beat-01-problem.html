@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F7F6F3;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+        
+        .bg-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 280px;
+          font-weight: 900;
+          color: rgba(30, 58, 95, 0.03); /* Faint navy tint */
+          letter-spacing: -4px;
+          z-index: 0;
+        }
+
+        .dashboard-silhouette {
+          position: absolute;
+          top: 180px;
+          left: 320px;
+          right: 320px;
+          bottom: 120px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 14px;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+          z-index: 1;
+          clip-path: inset(0 100% 0 0); /* For reveal */
+        }
+
+        .connectors {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+        }
+
+        .fragment-card {
+          position: absolute;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 6px;
+          padding: 24px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+          z-index: 3;
+          font-family: 'Geist Mono', monospace;
+          font-size: 14px;
+          color: #787774;
+        }
+
+        /* Initial randomized positions for fragments */
+        #frag1 { width: 240px; height: 160px; top: -200px; left: 100px; }
+        #frag2 { width: 300px; height: 120px; top: 800px; right: -100px; }
+        #frag3 { width: 200px; height: 280px; bottom: -300px; left: 400px; }
+        #frag4 { width: 340px; height: 140px; top: 300px; right: -400px; }
+        #frag5 { width: 260px; height: 180px; top: -100px; left: 800px; }
+
+        .brand-mark {
+          position: absolute;
+          top: 80px;
+          left: 80px;
+          width: 64px;
+          height: 64px;
+          background: #1E3A5F;
+          border-radius: 50%;
+          z-index: 4;
+        }
+
+        .headline-container {
+          position: absolute;
+          top: 80px;
+          left: 320px;
+          overflow: hidden; /* For masked crop */
+          z-index: 4;
+        }
+        
+        .headline {
+          font-size: 64px;
+          font-weight: 600;
+          color: #111111;
+          margin: 0;
+          line-height: 1.1;
+        }
+
+        .resolve-line-container {
+          position: absolute;
+          bottom: 80px;
+          right: 320px;
+          overflow: hidden;
+          z-index: 4;
+        }
+
+        .resolve-line {
+          font-size: 36px;
+          font-weight: 500;
+          color: #1E3A5F;
+          margin: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-oubh" id="root" data-composition-id="beat-01" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-v7c1" class="bg-text">EMPLOYMENT</div>
+        
+        <svg data-hf-id="hf-dxhj" class="connectors" viewBox="0 0 1920 1080">
+          <path data-hf-id="hf-wf28" id="path1" d="M300,100 L500,400" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+          <path data-hf-id="hf-ltvw" id="path2" d="M1600,800 L1200,600" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+          <path data-hf-id="hf-eidg" id="path3" d="M500,900 L800,500" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+          <path data-hf-id="hf-5ovr" id="path4" d="M1700,300 L1400,300" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+          <path data-hf-id="hf-tgx6" id="path5" d="M900,100 L1000,400" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+        </svg>
+
+        <div data-hf-id="hf-gezm" class="dashboard-silhouette" id="dashboard-silhouette"></div>
+
+        <div data-hf-id="hf-x6vb" class="fragment-card" id="frag1">EMPLOYER RETURN<br data-hf-id="hf-x5px"><br data-hf-id="hf-rsrt">STATUS: PENDING<br data-hf-id="hf-szow">ID: 994-A</div>
+        <div data-hf-id="hf-v8fq" class="fragment-card" id="frag2">VACANCY LIST<br data-hf-id="hf-sldv"><br data-hf-id="hf-qluq">COUNT: 14</div>
+        <div data-hf-id="hf-akx8" class="fragment-card" id="frag3">APPLICATIONS<br data-hf-id="hf-q7jp"><br data-hf-id="hf-regs">TOTAL: 1,204<br data-hf-id="hf-r05r">SHORTLIST: 42</div>
+        <div data-hf-id="hf-4lgs" class="fragment-card" id="frag4">REGIONAL UPDATE<br data-hf-id="hf-p0mm"><br data-hf-id="hf-ombl">LITORAL: +4%</div>
+        <div data-hf-id="hf-zvk7" class="fragment-card" id="frag5">TRAINING REQUEST<br data-hf-id="hf-qsyj"><br data-hf-id="hf-r79k">WELDING</div>
+
+        <div data-hf-id="hf-pgta" class="brand-mark" id="brand-mark"></div>
+
+        <div data-hf-id="hf-oszy" class="headline-container">
+          <h1 data-hf-id="hf-u6h7" class="headline" id="headline">Private-sector employment data<br data-hf-id="hf-q0ch">is often fragmented.</h1>
+        </div>
+
+        <div data-hf-id="hf-jemp" class="resolve-line-container">
+          <p data-hf-id="hf-t1rn" class="resolve-line" id="resolve-line">One Ministry needs one clear national view.</p>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Brand mark settles from scale 0.88 with expo.out at 0.2s
+        tl.fromTo("#brand-mark", 
+          { scale: 0.88, opacity: 0 }, 
+          { scale: 1, opacity: 1, duration: 0.8, ease: "expo.out" }, 
+          0.2
+        );
+
+        // Headline resolves from narrow masked crop at 0.55s
+        tl.fromTo("#headline", 
+          { y: 140 }, 
+          { y: 0, duration: 1.2, ease: "power3.out" }, 
+          0.55
+        );
+
+        // Fragment cards drift in from varied directions
+        // We'll give them target 'drift' positions first
+        const frags = ["#frag1", "#frag2", "#frag3", "#frag4", "#frag5"];
+        const driftTargets = [
+          { x: 300, y: 400, rotation: -12 },
+          { x: -400, y: -200, rotation: 8 },
+          { x: 300, y: -400, rotation: -5 },
+          { x: -500, y: 100, rotation: 15 },
+          { x: 100, y: 300, rotation: -20 }
+        ];
+        
+        frags.forEach((f, i) => {
+          tl.to(f, { 
+            x: driftTargets[i].x, 
+            y: driftTargets[i].y, 
+            rotation: driftTargets[i].rotation, 
+            duration: 2.0, 
+            ease: "power2.out" 
+          }, 0.55 + (i * 0.05));
+        });
+
+        // Connector paths draw between 1.2s and 2.2s
+        tl.to(".connectors path", {
+          strokeDashoffset: 0,
+          duration: 1.0,
+          stagger: 0.1,
+          ease: "power1.inOut"
+        }, 1.2);
+
+        // Cards align into the dashboard grid between 2.3s and 3.2s
+        const gridTargets = [
+          { x: 260, y: 420, rotation: 0, width: 240, height: 160 },
+          { x: -580, y: -580, rotation: 0, width: 300, height: 120 },
+          { x: -40, y: -640, rotation: 0, width: 200, height: 280 },
+          { x: -520, y: -80, rotation: 0, width: 340, height: 140 },
+          { x: -420, y: 120, rotation: 0, width: 260, height: 180 }
+        ];
+
+        frags.forEach((f, i) => {
+          tl.to(f, { 
+            x: gridTargets[i].x, 
+            y: gridTargets[i].y, 
+            rotation: 0,
+            duration: 0.9, 
+            ease: "power3.inOut" 
+          }, 2.3);
+        });
+
+        // Dashboard silhouette reveals beneath them at 3.0s
+        tl.fromTo("#dashboard-silhouette", 
+          { clipPath: "inset(0 100% 0 0)" }, 
+          { clipPath: "inset(0 0% 0 0)", duration: 1.2, ease: "power3.inOut" }, 
+          3.0
+        );
+
+        // Resolve line rises at 3.8s
+        tl.fromTo("#resolve-line", 
+          { y: 60, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 1.0, ease: "power2.out" }, 
+          3.8
+        );
+
+        window.__timelines["beat-01"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

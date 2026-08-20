@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #111111;
+          color: #F9F9F8;
+          font-family: 'Geist Mono', monospace; /* Logs are mono */
+          overflow: hidden;
+        }
+
+        .headline-container {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          z-index: 2;
+          font-family: 'Geist Sans', sans-serif;
+        }
+
+        .headline {
+          font-size: 64px;
+          font-weight: 600;
+          margin: 0;
+          color: #F9F9F8;
+        }
+
+        .log-container {
+          position: absolute;
+          top: 260px;
+          left: 100px;
+          right: 100px;
+          height: 600px;
+          background: #1A1A1A;
+          border: 1px solid #333333;
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          clip-path: inset(0 0 100% 0); /* For mask reveal */
+          z-index: 1;
+        }
+
+        .log-header {
+          display: flex;
+          padding: 20px 40px;
+          border-bottom: 1px solid #333333;
+          color: #787774;
+          font-size: 14px;
+          text-transform: uppercase;
+        }
+
+        .lh-time { flex: 1; }
+        .lh-user { flex: 1.5; }
+        .lh-action { flex: 1.5; }
+        .lh-entity { flex: 2; }
+
+        .log-body {
+          flex: 1;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .log-content {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          padding: 10px 0;
+        }
+
+        .log-row {
+          display: flex;
+          padding: 16px 40px;
+          font-size: 16px;
+          color: #D4D4D4;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .highlighted-row {
+          background: #FBF3DB;
+          color: #111111;
+          font-weight: 500;
+        }
+        
+        .highlighted-row .lr-time { color: #956400; }
+
+        .lr-time { flex: 1; color: #787774; }
+        .lr-user { flex: 1.5; }
+        .lr-action { flex: 1.5; }
+        .lr-entity { flex: 2; }
+        
+        /* The specific highlighted text should match storyboard */
+        
+        .scrollbar {
+          position: absolute;
+          top: 80px;
+          right: 10px;
+          bottom: 10px;
+          width: 8px;
+          background: #333333;
+          border-radius: 4px;
+        }
+        
+        .thumb {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 80px;
+          background: #787774;
+          border-radius: 4px;
+        }
+
+        .benefit-line {
+          position: absolute;
+          bottom: 80px;
+          left: 100px;
+          font-family: 'Geist Sans', sans-serif;
+          font-size: 36px;
+          font-weight: 500;
+          color: #A5A29A;
+          margin: 0;
+          z-index: 4;
+        }
+      </style>
+
+      <div data-hf-id="hf-9fwl" id="root" data-composition-id="beat-09" data-width="1920" data-height="1080">
+        
+        <div data-hf-id="hf-oszy" class="headline-container">
+          <h1 data-hf-id="hf-25vr" class="headline" id="headline">Every action leaves a trace.</h1>
+        </div>
+
+        <div data-hf-id="hf-4t0u" class="log-container" id="log-container">
+          <div data-hf-id="hf-ieeo" class="log-header">
+            <div data-hf-id="hf-23ji" class="lh-time">Timestamp</div>
+            <div data-hf-id="hf-1ns3" class="lh-user">User</div>
+            <div data-hf-id="hf-kmy1" class="lh-action">Action</div>
+            <div data-hf-id="hf-jqnr" class="lh-entity">Entity</div>
+          </div>
+          <div data-hf-id="hf-86fj" class="log-body">
+            <div data-hf-id="hf-pxje" class="log-content" id="log-content">
+              <!-- filler rows -->
+              <div data-hf-id="hf-4zyp" class="log-row">
+                <div data-hf-id="hf-rlhs" class="lr-time">13:58:12</div><div data-hf-id="hf-hv6f" class="lr-user">SYSTEM</div><div data-hf-id="hf-lype" class="lr-action">SYNC</div><div data-hf-id="hf-9zdo" class="lr-entity">REGIONAL_DB_LITORAL</div>
+              </div>
+              <div data-hf-id="hf-8fwl" class="log-row">
+                <div data-hf-id="hf-atam" class="lr-time">13:59:04</div><div data-hf-id="hf-4hlx" class="lr-user">LITORAL_OBRAS</div><div data-hf-id="hf-w5ik" class="lr-action">UPDATE</div><div data-hf-id="hf-yi36" class="lr-entity">VACANCY_ID_992</div>
+              </div>
+              <div data-hf-id="hf-9mto" class="log-row">
+                <div data-hf-id="hf-hc4x" class="lr-time">14:00:22</div><div data-hf-id="hf-n23t" class="lr-user">ANNOBON_TOURS</div><div data-hf-id="hf-j70a" class="lr-action">LOGIN</div><div data-hf-id="hf-gxdc" class="lr-entity">AUTH_SERVICE</div>
+              </div>
+              <div data-hf-id="hf-98in" class="log-row">
+                <div data-hf-id="hf-s0ba" class="lr-time">14:01:15</div><div data-hf-id="hf-xcri" class="lr-user">REG_DIR_LITORAL</div><div data-hf-id="hf-z1vk" class="lr-action">VIEW</div><div data-hf-id="hf-9emn" class="lr-entity">REPORT_DASHBOARD</div>
+              </div>
+              <div data-hf-id="hf-affq" class="log-row">
+                <div data-hf-id="hf-3dqq" class="lr-time">14:02:10</div><div data-hf-id="hf-i7kx" class="lr-user">MINISTER</div><div data-hf-id="hf-sq1q" class="lr-action">LOGIN</div><div data-hf-id="hf-pxvs" class="lr-entity">AUTH_SERVICE</div>
+              </div>
+              <div data-hf-id="hf-a14p" class="log-row">
+                <div data-hf-id="hf-2zfp" class="lr-time">14:02:11</div><div data-hf-id="hf-oik5" class="lr-user">MINISTER</div><div data-hf-id="hf-0to8" class="lr-action">VIEW</div><div data-hf-id="hf-swij" class="lr-entity">NATIONAL_DASHBOARD</div>
+              </div>
+              
+              <!-- target row -->
+              <div data-hf-id="hf-jfcr" class="log-row" id="target-row">
+                <div data-hf-id="hf-2lw3" class="lr-time">14:02:44</div><div data-hf-id="hf-pph8" class="lr-user">MINISTER</div><div data-hf-id="hf-zyu9" class="lr-action">EXPORT DATA</div><div data-hf-id="hf-3oak" class="lr-entity">NATIONAL_DASHBOARD_Q3</div>
+              </div>
+              
+              <div data-hf-id="hf-b81s" class="log-row">
+                <div data-hf-id="hf-3dbk" class="lr-time">14:03:02</div><div data-hf-id="hf-g6xt" class="lr-user">BIOKO_MARINE</div><div data-hf-id="hf-f7o5" class="lr-action">CREATE</div><div data-hf-id="hf-y3s5" class="lr-entity">VACANCY_ID_993</div>
+              </div>
+              <div data-hf-id="hf-atqr" class="log-row">
+                <div data-hf-id="hf-bb70" class="lr-time">14:04:18</div><div data-hf-id="hf-sljr" class="lr-user">SYSTEM</div><div data-hf-id="hf-h4v7" class="lr-action">INDEX</div><div data-hf-id="hf-6nmz" class="lr-entity">SEARCH_CLUSTER</div>
+              </div>
+              <div data-hf-id="hf-5nre" class="log-row">
+                <div data-hf-id="hf-txg0" class="lr-time">14:05:00</div><div data-hf-id="hf-s78q" class="lr-user">SYSTEM</div><div data-hf-id="hf-iz3b" class="lr-action">BACKUP</div><div data-hf-id="hf-5djy" class="lr-entity">DATA_WAREHOUSE</div>
+              </div>
+              <div data-hf-id="hf-59gd" class="log-row">
+                <div data-hf-id="hf-w9do" class="lr-time">14:05:22</div><div data-hf-id="hf-j6ds" class="lr-user">REG_DIR_CENTRO</div><div data-hf-id="hf-t4cr" class="lr-action">LOGIN</div><div data-hf-id="hf-oqyp" class="lr-entity">AUTH_SERVICE</div>
+              </div>
+              <div data-hf-id="hf-n7jj" class="log-row">
+                <div data-hf-id="hf-i4vo" class="lr-time">14:05:40</div><div data-hf-id="hf-0tt4" class="lr-user">REG_DIR_CENTRO</div><div data-hf-id="hf-46r9" class="lr-action">EXPORT DATA</div><div data-hf-id="hf-csn6" class="lr-entity">REGIONAL_REPORT</div>
+              </div>
+            </div>
+            
+            <div data-hf-id="hf-320i" class="scrollbar">
+              <div data-hf-id="hf-n7hy" class="thumb" id="thumb"></div>
+            </div>
+          </div>
+        </div>
+        
+        <p data-hf-id="hf-evsi" class="benefit-line" id="benefit">Total system accountability.</p>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Log container reveals from top with a mask at 0.2s
+        tl.fromTo("#log-container",
+          { clipPath: "inset(0 0 100% 0)" },
+          { clipPath: "inset(0 0 0% 0)", duration: 1.0, ease: "power3.inOut" },
+          0.2
+        );
+        tl.fromTo("#headline",
+          { y: -30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          0.4
+        );
+
+        // Log rows stream in rapidly
+        tl.fromTo(".log-row",
+          { opacity: 0, x: 20 },
+          { opacity: 1, x: 0, duration: 0.3, stagger: 0.04, ease: "power1.out" },
+          0.8
+        );
+
+        // Scrollbar thumb moves down, simulating a system scan at 2.0s
+        // Content moves up simultaneously
+        tl.to("#thumb", { y: 120, duration: 1.5, ease: "power2.inOut" }, 2.0);
+        tl.to("#log-content", { y: -140, duration: 1.5, ease: "power2.inOut" }, 2.0);
+
+        // The row highlights in warm bone at 3.5s
+        tl.add(() => {
+          document.getElementById("target-row").classList.add("highlighted-row");
+        }, 3.5);
+        tl.fromTo("#target-row",
+          { scale: 1 },
+          { scale: 1.02, duration: 0.4, ease: "power2.out" },
+          3.5
+        );
+
+        // Accountability statement anchors the composition at 5.0s
+        tl.fromTo("#benefit",
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.0, ease: "power2.out" },
+          5.0
+        );
+
+        window.__timelines["beat-09"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -3,8 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Report Recipients</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace report recipients prototype" />
+  <title>Labour Market Portal — Report Recipients</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal report recipients prototype" />
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -182,6 +218,41 @@
       margin-top: auto;
       padding-top: var(--space-lg);
       border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
     }
 
     .user-mini {
@@ -459,8 +530,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -469,9 +540,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -479,7 +550,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -487,8 +558,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item is-active" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -496,11 +567,16 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="report-recipients.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/report-recipients.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/report-recipients.html">ES</a>
+        </div>
         <div class="user-mini">
-          <div class="user-avatar">TH</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Tigist Haile</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -530,26 +606,26 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Meron Tadesse</strong></td>
-              <td>meron.tadesse@uneca.org</td>
-              <td>Monthly Activity, Entity Onboarding</td>
+              <td><strong>María Esono</strong></td>
+              <td>maria.esono@trabajo.gob.gq</td>
+              <td>Labour Market Summary, Employer Compliance</td>
               <td>Monthly</td>
               <td style="text-align: right;">
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeRecipient(this)">Remove</button>
               </td>
             </tr>
             <tr>
-              <td><strong>Albert Nguesso</strong></td>
-              <td>albert.nguesso@undp.org</td>
-              <td>Hiring Funnel, Job Postings</td>
+              <td><strong>Pedro Nsue</strong></td>
+              <td>pedro.nsue@trabajo.gob.gq</td>
+              <td>Recruitment Outcomes, Private-Sector Vacancies</td>
               <td>Weekly</td>
               <td style="text-align: right;">
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeRecipient(this)">Remove</button>
               </td>
             </tr>
             <tr>
-              <td><strong>Meseret Alemu</strong></td>
-              <td>meseret.alemu@uneca.org</td>
+              <td><strong>Ana Mangue</strong></td>
+              <td>ana.mangue@trabajo.gob.gq</td>
               <td>Skills Demand Report</td>
               <td>Monthly</td>
               <td style="text-align: right;">
@@ -583,9 +659,9 @@
       <div class="form-group">
         <label class="form-label" for="rec-sub">Report Type Subscriptions</label>
         <select id="rec-sub" class="form-select">
-          <option>Monthly Activity Report</option>
-          <option>Entity Onboarding Report</option>
-          <option>Job Posting Report</option>
+          <option>Monthly Labour Market Summary</option>
+          <option>Employer Compliance Report</option>
+          <option>Private-Sector Vacancy Report</option>
           <option>Skills Demand Report</option>
         </select>
       </div>
@@ -607,6 +683,17 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      fillAllFields: "Please fill out all fields.",
+      validEmailRequired: "Please enter a valid email address before saving.",
+      actionRemove: "Remove",
+      recipientAddedSuccess: "Report recipient \"{name}\" added successfully.",
+      confirmRemoveRecipient: "Are you sure you want to remove this report recipient?"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     let isEmailValid = false;
 
     function openModal(id) {
@@ -654,12 +741,12 @@
       const freq = document.getElementById('rec-freq').value;
 
       if(!name || !email) {
-        alert('Please fill out all fields.');
+        alert(STR.fillAllFields);
         return;
       }
 
       if(!isEmailValid) {
-        alert('Please enter a valid email address before saving.');
+        alert(STR.validEmailRequired);
         return;
       }
 
@@ -671,17 +758,17 @@
         <td>${sub}</td>
         <td>${freq}</td>
         <td style="text-align: right;">
-          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeRecipient(this)">Remove</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeRecipient(this)">${STR.actionRemove}</button>
         </td>
       `;
 
       tbody.appendChild(newRow);
       closeModal('add-recipient-modal');
-      alert(`Report recipient "${name}" added successfully.`);
+      alert(fmt(STR.recipientAddedSuccess, { name }));
     }
 
     function removeRecipient(btn) {
-      if(confirm('Are you sure you want to remove this report recipient?')) {
+      if(confirm(STR.confirmRemoveRecipient)) {
         btn.closest('tr').remove();
       }
     }

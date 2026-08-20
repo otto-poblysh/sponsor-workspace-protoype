@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Talent Portal — Recruiter Jobs</title>
+  <meta name="description" content="Pan-African Enterprise Alliance member-company employment dashboard prototype">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <!-- Pretext fallback -->
+  <script type="module">
+    import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+    window.Pretext = { prepare, layout };
+  </script>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter { animation: enter 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .delay-1 { animation-delay: 60ms; }
+    .delay-2 { animation-delay: 120ms; }
+    .delay-3 { animation-delay: 180ms; }
+    .delay-4 { animation-delay: 240ms; }
+
+    /* ===== Entity Admin shell: topbar + sidebar + main (distinct from both the org console and seeker shells) ===== */
+
+    .entity-shell {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar (carries the language toggle for this shell) */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-lg);
+      background: var(--canvas);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .icon-btn:hover { background: var(--surface); color: var(--text); }
+
+    .icon-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 3px;
+      border-radius: 9999px;
+      background: var(--error-text);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      display: grid;
+      place-items: center;
+      line-height: 1;
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      display: block;
+      text-align: center;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    /* Body: sidebar | main */
+    .entity-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      max-width: 1760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 64px;
+      height: calc(100dvh - 64px);
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .entity-tag {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .nav-item:hover { background: var(--surface); color: var(--text); }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      min-width: 0;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    /* Status tabs */
+    .status-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: var(--space-2xl);
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .status-tab {
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .status-tab:hover { background: var(--surface); color: var(--text); }
+
+    .status-tab.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .status-tab .count {
+      font-family: var(--font-mono);
+      color: var(--text-tertiary);
+      margin-left: 2px;
+    }
+
+    .status-tab.is-active .count { color: var(--text-secondary); }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .kpi-tile {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: box-shadow 200ms ease;
+      min-width: 0;
+    }
+
+    .kpi-tile:hover { box-shadow: var(--shadow-hover); }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    /* Chart panels */
+    .bento-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      min-width: 0;
+    }
+
+    .chart-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .chart-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin: 0 0 6px;
+    }
+
+    .chart-total {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+    }
+
+    .range-chips {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .range-chip {
+      padding: 5px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bone);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .range-chip.is-active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Vertical bar chart (styled divs, no charting library) */
+    .vbar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-sm);
+      height: 160px;
+      padding-top: var(--space-md);
+    }
+
+    .vbar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .vbar-track {
+      width: 100%;
+      max-width: 28px;
+      display: flex;
+      flex-direction: column-reverse;
+      border-radius: 4px 4px 0 0;
+      overflow: hidden;
+    }
+
+    .vbar-seg {
+      width: 100%;
+    }
+
+    .vbar-seg.applied { background: var(--accent); }
+    .vbar-seg.interview { background: var(--info-text); }
+    .vbar-seg.offer { background: var(--success-text); }
+    .vbar-seg.rejected { background: var(--error-text); }
+
+    .vbar-fill {
+      width: 100%;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .vbar-x-label {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.applied { background: var(--accent); }
+    .legend-dot.interview { background: var(--info-text); }
+    .legend-dot.offer { background: var(--success-text); }
+    .legend-dot.rejected { background: var(--error-text); }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .table-scroll { overflow-x: auto; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+    .badge-neutral { background: var(--bone); color: var(--text-secondary); }
+
+    .row-actions {
+      display: flex;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 1400px) {
+      .entity-body { grid-template-columns: 220px 1fr; }
+    }
+
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .entity-body { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .bento-2 { grid-template-columns: 1fr; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .topbar-brand .brand-name { max-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="entity-shell">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <div class="brand-mark"><i class="ph-bold ph-buildings"></i></div>
+        <div class="brand-name">Highland Textile Works</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" aria-label="Inbox" type="button">
+          <i class="ph-bold ph-tray"></i>
+          <span class="icon-badge">3</span>
+        </button>
+        <button class="icon-btn" aria-label="Notifications" type="button">
+          <i class="ph-bold ph-bell"></i>
+          <span class="icon-badge">2</span>
+        </button>
+        <div class="user-avatar">AT</div>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="recruiter-jobs.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="../fr/recruiter-jobs.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="../es/recruiter-jobs.html">ES</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="entity-body">
+      <aside class="sidebar">
+        <div>
+          <div class="brand-name" style="font-size:16px; margin-bottom:2px;">Highland Textile Works</div>
+          <div class="entity-tag">Entity Admin</div>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="#"><i class="ph-bold ph-house"></i> Home</a></li>
+            <li><a class="nav-item" href="#"><i class="ph-bold ph-tray"></i> Inbox</a></li>
+            <li><a class="nav-item" href="#"><i class="ph-bold ph-buildings"></i> Manage Entity</a></li>
+            <li><a class="nav-item" href="#"><i class="ph-bold ph-users-three"></i> Users &amp; Roles</a></li>
+            <li><a class="nav-item is-active" href="recruiter-jobs.html"><i class="ph-bold ph-briefcase"></i> Jobs</a></li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-foot">
+          <div class="user-mini">
+            <div class="user-avatar">AT</div>
+            <div>
+              <div class="user-name">Abebe Tesfaye</div>
+              <div class="user-role">Recruitment Lead</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="page-header animate-enter">
+          <h1 class="page-title">Overview</h1>
+          <button class="btn btn-primary" type="button"><i class="ph-bold ph-plus"></i> Post a Job</button>
+        </header>
+
+        <nav class="status-tabs animate-enter delay-1" aria-label="Job status">
+          <span class="status-tab is-active">Overview <span class="count">(6)</span></span>
+          <span class="status-tab">Active <span class="count">(4)</span></span>
+          <span class="status-tab">Draft <span class="count">(1)</span></span>
+          <span class="status-tab">Closed <span class="count">(1)</span></span>
+          <span class="status-tab">Expired <span class="count">(0)</span></span>
+          <span class="status-tab">Trash <span class="count">(0)</span></span>
+          <span class="status-tab">All <span class="count">(6)</span></span>
+        </nav>
+
+        <section class="kpi-grid animate-enter delay-2" aria-label="Key metrics">
+          <article class="kpi-tile">
+            <div class="kpi-label">Active Jobs</div>
+            <div class="kpi-value">4</div>
+          </article>
+          <article class="kpi-tile">
+            <div class="kpi-label">Applicants Awaiting Review</div>
+            <div class="kpi-value">21</div>
+          </article>
+          <article class="kpi-tile">
+            <div class="kpi-label">Upcoming Pre-Screening Calls</div>
+            <div class="kpi-value">6</div>
+          </article>
+          <article class="kpi-tile">
+            <div class="kpi-label">Interview Responses Awaiting Review</div>
+            <div class="kpi-value">3</div>
+          </article>
+        </section>
+
+        <section class="bento-2 animate-enter delay-3">
+          <div class="card">
+            <div class="chart-head">
+              <div>
+                <div class="chart-title">Job Applications</div>
+                <div class="chart-total">34</div>
+              </div>
+              <div class="range-chips">
+                <span class="range-chip">24H</span>
+                <span class="range-chip is-active">7D</span>
+                <span class="range-chip">30D</span>
+                <span class="range-chip">90D</span>
+                <span class="range-chip">365D</span>
+              </div>
+            </div>
+            <div class="vbar-chart">
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:38%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">14 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:63%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">15 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">16 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:75%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">17 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:63%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">18 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:88%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">19 Aug</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-x-label">20 Aug</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="chart-head">
+              <div>
+                <div class="chart-title">Applicants by Recruitment Stage</div>
+                <div class="chart-total">56</div>
+              </div>
+              <div class="range-chips">
+                <span class="range-chip">Today</span>
+                <span class="range-chip">This Week</span>
+                <span class="range-chip">This Month</span>
+                <span class="range-chip is-active">This Year</span>
+                <span class="range-chip">All Time</span>
+              </div>
+            </div>
+            <div class="vbar-chart">
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:100%;">
+                  <div class="vbar-seg rejected" style="height:33%;"></div>
+                  <div class="vbar-seg offer" style="height:8%;"></div>
+                  <div class="vbar-seg interview" style="height:17%;"></div>
+                  <div class="vbar-seg applied" style="height:42%;"></div>
+                </div>
+                <div class="vbar-x-label">Mar</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:2%;"></div>
+                <div class="vbar-x-label">Apr</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:8%;">
+                  <div class="vbar-seg applied" style="height:100%;"></div>
+                </div>
+                <div class="vbar-x-label">May</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:75%;">
+                  <div class="vbar-seg rejected" style="height:11%;"></div>
+                  <div class="vbar-seg offer" style="height:6%;"></div>
+                  <div class="vbar-seg interview" style="height:28%;"></div>
+                  <div class="vbar-seg applied" style="height:55%;"></div>
+                </div>
+                <div class="vbar-x-label">Jun</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:50%;">
+                  <div class="vbar-seg rejected" style="height:17%;"></div>
+                  <div class="vbar-seg offer" style="height:8%;"></div>
+                  <div class="vbar-seg interview" style="height:25%;"></div>
+                  <div class="vbar-seg applied" style="height:50%;"></div>
+                </div>
+                <div class="vbar-x-label">Jul</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:2%;"></div>
+                <div class="vbar-x-label">Aug</div>
+              </div>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-dot applied"></span> Applied</div>
+              <div class="legend-item"><span class="legend-dot interview"></span> Interview</div>
+              <div class="legend-item"><span class="legend-dot offer"></span> Offer</div>
+              <div class="legend-item"><span class="legend-dot rejected"></span> Rejected</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card animate-enter delay-4">
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Posted By</th>
+                  <th>Posted On</th>
+                  <th>Expires On</th>
+                  <th>Sponsored Status</th>
+                  <th>Applicants</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Textile Production Supervisor</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">28 May 2026</td>
+                  <td style="font-family:var(--font-mono)">28 Aug 2026</td>
+                  <td><span class="badge badge-info">Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Hard-to-fill)</small></td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">View Applicants</button>
+                      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Industrial Electrician</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">01 Jun 2026</td>
+                  <td style="font-family:var(--font-mono)">25 Aug 2026</td>
+                  <td><span class="badge badge-neutral">Not Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">18</td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">View Applicants</button>
+                      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Quality Control Inspector</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">15 Jul 2026</td>
+                  <td style="font-family:var(--font-mono)">15 Sep 2026</td>
+                  <td><span class="badge badge-neutral">Not Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">7</td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">View Applicants</button>
+                      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Warehouse Coordinator</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">20 Jul 2026</td>
+                  <td style="font-family:var(--font-mono)">20 Sep 2026</td>
+                  <td><span class="badge badge-info">Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">5</td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">View Applicants</button>
+                      <button class="btn btn-secondary btn-sm" type="button">Edit</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Textile Design Apprentice</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">—</td>
+                  <td style="font-family:var(--font-mono)">—</td>
+                  <td><span class="badge badge-neutral">Not Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">0</td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">Continue Editing</button>
+                      <button class="btn btn-primary btn-sm" type="button">Publish</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Machine Maintenance Technician</strong></td>
+                  <td>Abebe Tesfaye</td>
+                  <td style="font-family:var(--font-mono)">02 Mar 2026</td>
+                  <td style="font-family:var(--font-mono)">02 Jun 2026</td>
+                  <td><span class="badge badge-neutral">Not Sponsored</span></td>
+                  <td style="font-family:var(--font-mono)">24</td>
+                  <td style="text-align:right;">
+                    <div class="row-actions">
+                      <button class="btn btn-secondary btn-sm" type="button">View Applicants</button>
+                      <button class="btn btn-secondary btn-sm" type="button">Repost</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

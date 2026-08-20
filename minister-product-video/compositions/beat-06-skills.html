@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F9F9F8;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        .headline-container {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          z-index: 2;
+        }
+
+        .headline {
+          font-size: 64px;
+          font-weight: 600;
+          margin: 0;
+          color: #111111;
+        }
+
+        .grid-container {
+          position: absolute;
+          top: 260px;
+          left: 100px;
+          display: flex;
+          gap: 30px;
+          z-index: 1;
+        }
+
+        .course-card {
+          width: 380px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 10px;
+          padding: 30px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          position: relative;
+        }
+        
+        /* The Welding Course */
+        #course-welding {
+          z-index: 3;
+        }
+
+        .course-title {
+          font-size: 28px;
+          font-weight: 600;
+          color: #111111;
+          margin-bottom: 12px;
+        }
+
+        .course-meta {
+          font-family: 'Geist Mono', monospace;
+          font-size: 14px;
+          color: #787774;
+          text-transform: uppercase;
+        }
+        
+        .waitlist-panel {
+          position: absolute;
+          top: 100%;
+          left: -1px;
+          right: -1px;
+          background: #FBF3DB;
+          border: 1px solid #F3E0B5;
+          border-top: none;
+          border-radius: 0 0 10px 10px;
+          padding: 24px 30px;
+          overflow: hidden;
+          height: 0;
+          opacity: 0;
+          margin-top: -8px; /* overlap slighty */
+          box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+          z-index: 2;
+        }
+        
+        .waitlist-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 14px;
+          color: #956400;
+          margin-bottom: 8px;
+        }
+        
+        .waitlist-value {
+          font-size: 48px;
+          font-weight: 600;
+          color: #956400;
+          font-variant-numeric: tabular-nums;
+          margin-bottom: 24px;
+        }
+        
+        .action-button {
+          display: inline-block;
+          background: #1E3A5F;
+          color: #FFFFFF;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 14px 24px;
+          border-radius: 6px;
+          text-align: center;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        .cursor {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23111111" d="M11 2L24 16L17 18L21 26L17 28L13 20L7 24Z"/></svg>');
+          z-index: 100;
+          pointer-events: none;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .footer-band {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 160px;
+          background: #111111;
+          display: flex;
+          align-items: center;
+          padding: 0 100px;
+          z-index: 4;
+        }
+
+        .benefit-line {
+          font-size: 36px;
+          font-weight: 500;
+          color: #FFFFFF;
+          margin: 0;
+        }
+        
+        .illustrative-label {
+          position: absolute;
+          top: 40px;
+          right: 40px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 18px;
+          color: #A5A29A;
+          z-index: 5;
+        }
+      </style>
+
+      <div data-hf-id="hf-r910" id="root" data-composition-id="beat-06" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-3rec" class="illustrative-label">Illustrative demo data</div>
+        
+        <div data-hf-id="hf-oszy" class="headline-container">
+          <!-- Split text for typing effect -->
+          <h1 data-hf-id="hf-347k" class="headline" id="headline">Track skills gaps to plan interventions.</h1>
+        </div>
+
+        <div data-hf-id="hf-7cmk" class="grid-container" id="grid">
+          <div data-hf-id="hf-rr3e" class="course-card">
+            <div data-hf-id="hf-6j1t" class="course-title">IT Support Specialist</div>
+            <div data-hf-id="hf-43l8" class="course-meta">CAPACITY: 120 · ENROLLED: 114</div>
+          </div>
+          
+          <div data-hf-id="hf-0q6g" class="course-card" id="course-welding">
+            <div data-hf-id="hf-ekvu" class="course-title">Welding &amp; Fabrication</div>
+            <div data-hf-id="hf-qqzn" class="course-meta">CAPACITY: 80 · ENROLLED: 80</div>
+            
+            <div data-hf-id="hf-egof" class="waitlist-panel" id="waitlist">
+              <div data-hf-id="hf-vgkv" class="waitlist-label">WAITLIST</div>
+              <div data-hf-id="hf-ud8t" class="waitlist-value">
+                <span data-hf-id="hf-6q84" id="wl-num">0</span> CANDIDATES
+              </div>
+              <div data-hf-id="hf-iotx" class="action-button" id="btn">ALLOCATE FUNDING</div>
+            </div>
+          </div>
+          
+          <div data-hf-id="hf-atv2" class="course-card">
+            <div data-hf-id="hf-q6gl" class="course-title">Industrial Safety</div>
+            <div data-hf-id="hf-6ygk" class="course-meta">CAPACITY: 200 · ENROLLED: 186</div>
+          </div>
+        </div>
+        
+        <div data-hf-id="hf-abpd" class="cursor" id="cursor" style="opacity: 0"></div>
+
+        <div data-hf-id="hf-vnvw" class="footer-band" id="footer">
+          <p data-hf-id="hf-ko1x" class="benefit-line" id="benefit">Turn data into targeted action.</p>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Split text manually for typing effect
+        const text = "Track skills gaps to plan interventions.";
+        const hl = document.getElementById("headline");
+        hl.innerHTML = "";
+        for (let i = 0; i < text.length; i++) {
+          const s = document.createElement("span");
+          s.innerText = text[i];
+          s.style.opacity = 0;
+          hl.appendChild(s);
+        }
+
+        // Training grid drifts up from y:120 at 0.2s
+        tl.fromTo("#grid",
+          { y: 120, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.0, ease: "power2.out" },
+          0.2
+        );
+
+        // Headline types out starting at 0.5s
+        tl.to("#headline span", { opacity: 1, duration: 0.01, stagger: 0.03 }, 0.5);
+
+        // Cursor glides to Welding course and selects at 1.8s
+        tl.set("#cursor", { opacity: 1 }, 1.0);
+        tl.to("#cursor", { x: 740, y: 380, duration: 0.7, ease: "power2.inOut" }, 1.0);
+        
+        // Select (click animation)
+        tl.to("#course-welding", { scale: 0.98, duration: 0.1, yoyo: true, repeat: 1 }, 1.8);
+        tl.to("#cursor", { scale: 0.8, duration: 0.1, yoyo: true, repeat: 1 }, 1.8);
+
+        // Waitlist UI unfolds beneath it at 1.9s
+        tl.to("#course-welding", { borderBottomLeftRadius: 0, borderBottomRightRadius: 0, duration: 0.1 }, 1.9);
+        tl.to("#waitlist", { height: 200, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.9);
+
+        // Number ticks up rapidly to 412 by 3.5s (duration 1.5 starting at 2.0)
+        let wlProxy = { val: 0 };
+        tl.to(wlProxy, {
+          val: 412,
+          duration: 1.5,
+          ease: "power2.out",
+          onUpdate: () => {
+            document.getElementById("wl-num").innerText = Math.floor(wlProxy.val);
+          }
+        }, 2.0);
+
+        // Cursor drifts away
+        tl.to("#cursor", { x: 800, y: 480, duration: 0.8, ease: "power2.inOut" }, 2.5);
+        tl.to("#cursor", { opacity: 0, duration: 0.3 }, 3.3);
+
+        // Funding button pulses gently at 5.0s
+        tl.to("#btn", { scale: 1.05, filter: "brightness(1.2)", duration: 0.4, yoyo: true, repeat: 1, ease: "power1.inOut" }, 5.0);
+
+        // Benefit line settles on the footer (let's animate the whole footer)
+        tl.fromTo("#footer",
+          { y: "100%" },
+          { y: "0%", duration: 0.8, ease: "power2.out" },
+          6.0
+        );
+        tl.fromTo("#benefit",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" },
+          6.4
+        );
+
+        window.__timelines["beat-06"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

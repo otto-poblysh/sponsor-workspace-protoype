@@ -3,8 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Tenant Branding</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace tenant branding prototype" />
+  <title>Labour Market Portal — Portal Branding</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal portal branding prototype" />
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -182,6 +218,41 @@
       margin-top: auto;
       padding-top: var(--space-lg);
       border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
     }
 
     .user-mini {
@@ -430,8 +501,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -440,9 +511,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -450,7 +521,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -458,8 +529,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item is-active" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item is-active" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -467,11 +538,16 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="tenant-branding.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/tenant-branding.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/tenant-branding.html">ES</a>
+        </div>
         <div class="user-mini">
-          <div class="user-avatar">MT</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Meron Tadesse</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -480,8 +556,8 @@
     <main class="main">
       <header class="page-header animate-enter">
         <div>
-          <h1 class="page-title">Tenant Branding</h1>
-          <p class="page-subtitle">Configure the public identity, workspace names and primary colors</p>
+          <h1 class="page-title">Portal Branding</h1>
+          <p class="page-subtitle">Configure the Ministry's public employment portal identity and colours</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="saveBranding()"><i class="ph-bold ph-floppy-disk"></i> Save changes</button>
@@ -490,24 +566,24 @@
 
       <div class="badge-approval animate-enter delay-1">
         <i class="ph-bold ph-warning"></i>
-        <span><strong>Moderation Guardrail:</strong> Modifying portal name or display name requires approval from Addis Jobs Consortium Super Admin before public propagation.</span>
+        <span><strong>Moderation Guardrail:</strong> Modifying portal name or display name requires approval from Ministry of Labour Super Admin before public propagation.</span>
       </div>
 
       <div class="split-layout animate-enter delay-2">
         <section class="card" aria-label="Branding settings form">
           <div class="form-group">
             <label class="form-label" for="portal-name">Portal Name</label>
-            <input type="text" id="portal-name" class="form-input" value="Addis SMB Jobs portal" oninput="updatePreviewText()">
+            <input type="text" id="portal-name" class="form-input" value="Equatorial Guinea Employment Portal" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="legal-name">Legal Entity Name</label>
-            <input type="text" id="legal-name" class="form-input" value="Addis Jobs Consortium" oninput="updatePreviewText()">
+            <label class="form-label" for="legal-name">Institution Name</label>
+            <input type="text" id="legal-name" class="form-input" value="Ministry of Labour, Employment Promotion and Social Security" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="address">Corporate Address</label>
-            <textarea id="address" class="form-textarea" oninput="updatePreviewText()">Menelik II Rd, Addis Ababa, Ethiopia</textarea>
+            <label class="form-label" for="address">Ministry Address</label>
+            <textarea id="address" class="form-textarea" oninput="updatePreviewText()">Malabo, Bioko Norte, Equatorial Guinea</textarea>
           </div>
 
           <div class="form-group">
@@ -521,13 +597,13 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="display-name">Sponsor Display Name</label>
-            <input type="text" id="display-name" class="form-input" value="Addis Jobs Consortium" oninput="updatePreviewText()">
+            <label class="form-label" for="display-name">Ministry Display Name</label>
+            <input type="text" id="display-name" class="form-input" value="Ministry of Labour" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
             <label class="form-label" for="footer-copyright">Footer copyright details</label>
-            <input type="text" id="footer-copyright" class="form-input" value="© 2026 Addis Jobs Consortium. Powered by iCUBEFARM." oninput="updatePreviewText()">
+            <input type="text" id="footer-copyright" class="form-input" value="© 2026 Ministry of Labour. Powered by iCUBEFARM." oninput="updatePreviewText()">
           </div>
         </section>
 
@@ -539,18 +615,18 @@
               <div class="mock-header">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <div id="prev-header-icon" style="width:28px; height:28px; background:#1E3A5F; border-radius:4px; display:grid; place-items:center; color:white; font-size:14px;"><i class="ph-bold ph-globe"></i></div>
-                  <strong style="font-size:13px;" id="prev-portal-name">Addis SMB Jobs portal</strong>
+                  <strong style="font-size:13px;" id="prev-portal-name">Equatorial Guinea Employment Portal</strong>
                 </div>
-                <button class="btn btn-primary" id="prev-header-btn" style="padding: 6px 12px; font-size:11px; background:#1E3A5F;">Register Entity</button>
+                <button class="btn btn-primary" id="prev-header-btn" style="padding: 6px 12px; font-size:11px; background:#1E3A5F;">Register Employer</button>
               </div>
             </div>
 
             <div>
               <small style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; display:block; margin-bottom:4px;">Portal Footer Preview</small>
               <div class="mock-footer">
-                <p id="prev-legal-name" style="font-weight:600; margin: 0 0 4px 0;">Addis Jobs Consortium</p>
-                <p id="prev-address" style="margin:0 0 8px 0; color:var(--text-tertiary);">Menelik II Rd, Addis Ababa, Ethiopia</p>
-                <div style="border-top: 1px solid var(--border); padding-top:8px;" id="prev-copyright">© 2026 Addis Jobs Consortium. Powered by iCUBEFARM.</div>
+                <p id="prev-legal-name" style="font-weight:600; margin: 0 0 4px 0;">Ministry of Labour, Employment Promotion and Social Security</p>
+                <p id="prev-address" style="margin:0 0 8px 0; color:var(--text-tertiary);">Malabo, Bioko Norte, Equatorial Guinea</p>
+                <div style="border-top: 1px solid var(--border); padding-top:8px;" id="prev-copyright">© 2026 Ministry of Labour. Powered by iCUBEFARM.</div>
               </div>
             </div>
           </div>
@@ -560,6 +636,13 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      brandingSavedAlert: "Branding modifications saved. Primary color updated to {activeColor}.\n\nNote: Public changes for \"{portalName}\" are submitted for Super Admin approval."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     let activeColor = '#1E3A5F';
 
     function changeThemeColor(swatchEl, hexColor) {
@@ -585,7 +668,7 @@
 
     function saveBranding() {
       const portalName = document.getElementById('portal-name').value;
-      alert(`Branding modifications saved. Primary color updated to ${activeColor}.\n\nNote: Public changes for "${portalName}" are submitted for Super Admin approval.`);
+      alert(fmt(STR.brandingSavedAlert, { activeColor, portalName }));
     }
   </script>
 </body>

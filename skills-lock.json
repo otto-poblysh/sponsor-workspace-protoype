@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "critique-composition": {
+      "source": "owl-listener/designer-skills",
+      "sourceType": "github",
+      "skillPath": "visual-critique/skills/critique-composition/SKILL.md",
+      "computedHash": "16b16914c243a55071e9e7a8e5775530ffa7751729169eb96a6be37873833911"
+    },
+    "layout-analyzer": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "skillPath": "layout-analyzer/SKILL.md",
+      "computedHash": "5ef6e2b921b1ee66cb1b23cb5d85e7b258f611b337b879ca4e6318bdf1035210"
+    }
+  }
+}

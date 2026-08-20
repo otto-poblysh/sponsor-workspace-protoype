@@ -3,8 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Jobs and Applications</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace jobs and applications prototype" />
+  <title>Labour Market Portal — Jobs and Applications</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal jobs and applications prototype" />
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -182,6 +218,41 @@
       margin-top: auto;
       padding-top: var(--space-lg);
       border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
     }
 
     .user-mini {
@@ -535,8 +606,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -545,9 +616,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item is-active" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -555,7 +626,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -563,8 +634,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -572,11 +643,16 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="jobs-applications.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/jobs-applications.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/jobs-applications.html">ES</a>
+        </div>
         <div class="user-mini">
-          <div class="user-avatar">TH</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Tigist Haile</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -593,38 +669,38 @@
       <section class="kpi-grid animate-enter delay-1">
         <article class="kpi-tile">
           <div class="kpi-label">Active Job Postings</div>
-          <div class="kpi-value">1,847</div>
+          <div class="kpi-value">1,126</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Total Applications</div>
-          <div class="kpi-value">9,214</div>
+          <div class="kpi-value">6,408</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Avg. Applications / Job</div>
-          <div class="kpi-value">5.0</div>
+          <div class="kpi-value">5.7</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Hard-to-fill Roles</div>
-          <div class="kpi-value" style="color:var(--error-text);">312</div>
+          <div class="kpi-value" style="color:var(--error-text);">186</div>
         </article>
       </section>
 
       <div class="filter-bar animate-enter delay-1" role="search" aria-label="Job filters">
         <div class="filter-group">
-          <label class="filter-label" for="filter-entity">Entity</label>
+          <label class="filter-label" for="filter-entity">Employer</label>
           <select id="filter-entity" class="filter-select" onchange="filterJobs()">
-            <option value="all">All entities</option>
-            <option value="awash">Awash Analytics</option>
-            <option value="ethio green">Ethio Green Energy</option>
-            <option value="abyssinia">Abyssinia Logistics</option>
+            <option value="all">All employers</option>
+            <option value="bioko marine">Bioko Marine Services</option>
+            <option value="litoral obras">Litoral Obras</option>
+            <option value="rio muni">Río Muni Logistics</option>
           </select>
         </div>
         <div class="filter-group">
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="filterJobs()">
             <option value="all">All sectors</option>
-            <option value="software">Software</option>
-            <option value="green energy">Green energy</option>
+            <option value="oil and gas services">Oil &amp; gas services</option>
+            <option value="construction">Construction</option>
             <option value="logistics">Logistics</option>
           </select>
         </div>
@@ -643,7 +719,7 @@
           <thead>
             <tr>
               <th>Job Title</th>
-              <th>Entity</th>
+              <th>Employer</th>
               <th>Sector</th>
               <th>Location</th>
               <th>Date Posted</th>
@@ -653,52 +729,52 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-entity="awash" data-sector="software" data-status="active">
-              <td><strong>Cloud Platform Engineer</strong></td>
-              <td>Awash Analytics</td>
-              <td>Software</td>
-              <td>Addis Ababa</td>
+            <tr data-entity="bioko marine" data-sector="oil and gas services" data-status="active">
+              <td><strong>Offshore Safety Technician</strong></td>
+              <td>Bioko Marine Services</td>
+              <td>Oil &amp; gas services</td>
+              <td>Malabo</td>
               <td style="font-family:var(--font-mono)">28 May 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Hard-to-fill)</small></td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Cloud Platform Engineer', 'Awash Analytics', 2)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Offshore Safety Technician', 'Bioko Marine Services', 2)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="awash" data-sector="software" data-status="active">
-              <td><strong>Senior React Developer</strong></td>
-              <td>Awash Analytics</td>
-              <td>Software</td>
-              <td>Addis Ababa</td>
+            <tr data-entity="bioko marine" data-sector="oil and gas services" data-status="active">
+              <td><strong>Industrial Electrician</strong></td>
+              <td>Bioko Marine Services</td>
+              <td>Oil &amp; gas services</td>
+              <td>Luba</td>
               <td style="font-family:var(--font-mono)">01 Jun 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">18</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Senior React Developer', 'Awash Analytics', 18)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Industrial Electrician', 'Bioko Marine Services', 18)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="ethio green" data-sector="green energy" data-status="active">
-              <td><strong>Wind Turbine Technician</strong></td>
-              <td>Ethio Green Energy</td>
-              <td>Green energy</td>
-              <td>Hawassa</td>
+            <tr data-entity="litoral obras" data-sector="construction" data-status="active">
+              <td><strong>Heavy Equipment Mechanic</strong></td>
+              <td>Litoral Obras</td>
+              <td>Construction</td>
+              <td>Bata</td>
               <td style="font-family:var(--font-mono)">03 Jun 2026</td>
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">12</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Wind Turbine Technician', 'Ethio Green Energy', 12)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Heavy Equipment Mechanic', 'Litoral Obras', 12)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="abyssinia" data-sector="logistics" data-status="closed">
+            <tr data-entity="rio muni" data-sector="logistics" data-status="closed">
               <td><strong>Logistics Coordinator</strong></td>
-              <td>Abyssinia Logistics</td>
+              <td>Río Muni Logistics</td>
               <td>Logistics</td>
-              <td>Adama</td>
+              <td>Bata</td>
               <td style="font-family:var(--font-mono)">10 May 2026</td>
               <td><span class="badge badge-error">Closed</span></td>
               <td style="font-family:var(--font-mono)">45</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Abyssinia Logistics', 45)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Río Muni Logistics', 45)">View Funnel</button>
               </td>
             </tr>
           </tbody>
@@ -711,11 +787,11 @@
   <div class="modal-overlay" id="funnel-modal">
     <div class="modal">
       <h3 class="modal-title" id="funnel-title">Application Funnel</h3>
-      <p class="modal-desc" id="funnel-desc">Job Details: Cloud Platform Engineer at Awash Analytics</p>
+      <p class="modal-desc" id="funnel-desc">Job Details: Offshore Safety Technician at Bioko Marine Services</p>
 
       <div class="privacy-box">
         <i class="ph-bold ph-shield-check"></i>
-        <span>Individual applicant identities are masked in compliance with program privacy guidelines.</span>
+        <span>Individual applicant identities are masked in accordance with Ministry labour-data privacy controls.</span>
       </div>
 
       <h4 style="font-size: 13px; font-weight:600; margin-bottom:8px;">Pipeline Status:</h4>
@@ -730,6 +806,23 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      funnelTitle: "{jobTitle} Funnel",
+      funnelDesc: "{jobTitle} at {entity} ({count} applicants total)",
+      applicantCandidate: "Applicant #C-098{id}",
+      stageHired: "Hired",
+      stageOfferAccepted: "Offer Accepted",
+      stageShortlisted: "Shortlisted",
+      stageBackgroundCheck: "Background check",
+      stageCallScreening: "Call screening",
+      stageQualified: "Qualified",
+      stageNewApplicant: "New applicant",
+      moreApplicants: "... and {count} more applicants in earlier stages."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function openModal(id) {
       document.getElementById(id).classList.add('is-open');
     }
@@ -762,13 +855,21 @@
     }
 
     function viewFunnel(jobTitle, entity, count) {
-      document.getElementById('funnel-title').textContent = `${jobTitle} Funnel`;
-      document.getElementById('funnel-desc').textContent = `${jobTitle} at ${entity} (${count} applicants total)`;
+      document.getElementById('funnel-title').textContent = fmt(STR.funnelTitle, { jobTitle });
+      document.getElementById('funnel-desc').textContent = fmt(STR.funnelDesc, { jobTitle, entity, count });
 
       const box = document.getElementById('funnel-applicants-box');
       box.innerHTML = '';
 
-      const stages = ['Hired', 'Offer Accepted', 'Shortlisted', 'Background check', 'Call screening', 'Qualified', 'New applicant'];
+      const stages = [
+        STR.stageHired,
+        STR.stageOfferAccepted,
+        STR.stageShortlisted,
+        STR.stageBackgroundCheck,
+        STR.stageCallScreening,
+        STR.stageQualified,
+        STR.stageNewApplicant
+      ];
 
       // Generate mock applicants masked
       for(let i = 1; i <= Math.min(count, 5); i++) {
@@ -776,8 +877,8 @@
         const item = document.createElement('div');
         item.className = 'funnel-item';
         item.innerHTML = `
-          <span class="funnel-candidate">Applicant #C-098${i + 4}</span>
-          <span class="badge ${stage === 'Hired' ? 'badge-success' : 'badge-warning'}">${stage}</span>
+          <span class="funnel-candidate">${fmt(STR.applicantCandidate, { id: i + 4 })}</span>
+          <span class="badge ${stage === STR.stageHired ? 'badge-success' : 'badge-warning'}">${stage}</span>
         `;
         box.appendChild(item);
       }
@@ -788,7 +889,7 @@
         more.style.color = 'var(--text-secondary)';
         more.style.textAlign = 'center';
         more.style.marginTop = '8px';
-        more.textContent = `... and ${count - 5} more applicants in earlier stages.`;
+        more.textContent = fmt(STR.moreApplicants, { count: count - 5 });
         box.appendChild(more);
       }
 

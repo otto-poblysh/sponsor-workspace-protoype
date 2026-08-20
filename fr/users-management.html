@@ -1,0 +1,810 @@
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../users-management.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portail du Marché du Travail — Gestion des Utilisateurs</title>
+  <meta name="description" content="Prototype de gestion des utilisateurs du Portail du Marché du Travail — Ministère du Travail"/>
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+
+    .role-select {
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* Modal dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(16px);
+      transition: transform 200ms ease;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-lg);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-select {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Ministère du Travail</div>
+          <div class="brand-sub">Portail du Marché du Travail</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Vue d'ensemble</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Tableau de bord</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Employeurs enregistrés</a></li>
+            <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Offres et candidatures</a></li>
+            <li><a class="nav-item is-active" href="users-management.html"><i class="ph-bold ph-users"></i> Utilisateurs du Ministère</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Analyses</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Rapports du marché du travail</a></li>
+            <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Paramètres</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Couverture régionale</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Langue">
+          <a class="lang-opt" hreflang="en" href="../users-management.html">EN</a>
+          <a class="lang-opt is-active" hreflang="fr" href="users-management.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="../es/users-management.html">ES</a>
+        </div>
+        <div class="user-mini">
+          <div class="user-avatar">ME</div>
+          <div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Administrateur du Ministère</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Utilisateurs du Ministère</h1>
+          <p class="page-subtitle">Inviter de nouveaux utilisateurs, attribuer des rôles et gérer les états des sessions actives</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="openModal('invite-modal')"><i class="ph-bold ph-plus"></i> Inviter un utilisateur</button>
+        </div>
+      </header>
+
+      <div class="card animate-enter delay-2">
+        <table class="data-table" id="users-table">
+          <thead>
+            <tr>
+              <th>Nom / E-mail</th>
+              <th>Rôle</th>
+              <th>Statut</th>
+              <th>Dernière connexion</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>María Esono</strong><br><small style="color:var(--text-secondary)">maria.esono@trabajo.gob.gq</small></td>
+              <td>
+                <select class="role-select" onchange="logRoleChange('María Esono', this)">
+                  <option selected>Directeur</option>
+                  <option>Administrateur</option>
+                  <option>Analyste du marché du travail</option>
+                </select>
+              </td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">13 juin 2026, 14:15</td>
+              <td style="text-align: right; color:var(--text-tertiary);">Directeur (Permanent)</td>
+            </tr>
+            <tr>
+              <td><strong>Pedro Nsue</strong><br><small style="color:var(--text-secondary)">pedro.nsue@trabajo.gob.gq</small></td>
+              <td>
+                <select class="role-select" onchange="logRoleChange('Pedro Nsue', this)">
+                  <option>Directeur</option>
+                  <option selected>Administrateur</option>
+                  <option>Analyste du marché du travail</option>
+                </select>
+              </td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">13 juin 2026, 11:02</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="toggleUserStatus(this)">Désactiver</button>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Ana Mangue</strong><br><small style="color:var(--text-secondary)">ana.mangue@trabajo.gob.gq</small></td>
+              <td>
+                <select class="role-select" onchange="logRoleChange('Ana Mangue', this)">
+                  <option>Directeur</option>
+                  <option>Administrateur</option>
+                  <option selected>Analyste du marché du travail</option>
+                </select>
+              </td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">12 juin 2026, 16:10</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="toggleUserStatus(this)">Désactiver</button>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Lucía Obiang</strong><br><small style="color:var(--text-secondary)">lucia.obiang@trabajo.gob.gq</small></td>
+              <td>
+                <select class="role-select" onchange="logRoleChange('Lucía Obiang', this)">
+                  <option>Directeur</option>
+                  <option selected>Délégué Régional</option>
+                  <option>Analyste du marché du travail</option>
+                </select>
+              </td>
+              <td><span class="badge badge-warning">Invité</span></td>
+              <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Jamais</td>
+              <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Lucía.')">Renvoyer</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Invite User Modal -->
+  <div class="modal-overlay" id="invite-modal">
+    <div class="modal">
+      <h3 class="modal-title">Inviter un utilisateur du Ministère</h3>
+      <p class="modal-desc">Inviter un agent autorisé du Ministère à gérer les rapports sur le marché du travail.</p>
+
+      <div class="form-group">
+        <label class="form-label" for="user-email">Adresse e-mail</label>
+        <input type="email" id="user-email" class="form-input" placeholder="ex. agent@trabajo.gob.gq" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="user-role-sel">Rôle / Portée</label>
+        <select id="user-role-sel" class="form-select">
+          <option value="Director">Directeur (Accès complet)</option>
+          <option value="Administrator" selected>Administrateur (Contrôle opérationnel)</option>
+          <option value="Regional Officer">Délégué Régional (Portée provinciale)</option>
+          <option value="Labour Analyst">Analyste du marché du travail (Lecture seule, exportation autorisée)</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeModal('invite-modal')">Annuler</button>
+        <button class="btn btn-primary" onclick="submitUserInvite()">Inviter un utilisateur</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      provideEmailAlert: "Veuillez fournir une adresse e-mail.",
+      roleDirector: "Directeur",
+      roleAdministrator: "Administrateur",
+      roleRegionalOfficer: "Délégué Régional",
+      roleLabourAnalyst: "Analyste du marché du travail",
+      statusInvited: "Invité",
+      lastActiveNever: "Jamais",
+      actionResend: "Renvoyer",
+      actionRemove: "Supprimer",
+      invitationResentGeneric: "E-mail d'invitation renvoyé",
+      invitationSentToEmail: "Invitation envoyée à {email}",
+      roleChangeLogged: "Changement de rôle enregistré pour {userName} vers « {role} ». Cette action a été ajoutée aux Journaux d'activité.",
+      statusActive: "Actif",
+      statusDeactivated: "Désactivé",
+      actionActivate: "Activer",
+      actionDeactivate: "Désactiver",
+      userDeactivatedAlert: "Utilisateur désactivé immédiatement. L'accès a été suspendu.",
+      userReactivatedAlert: "Utilisateur réactivé. L'accès a été rétabli.",
+      confirmRemoveInvitation: "Êtes-vous sûr de vouloir supprimer définitivement cette invitation ?"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('is-open');
+    }
+
+    function submitUserInvite() {
+      const email = document.getElementById('user-email').value.trim();
+      const role = document.getElementById('user-role-sel').value;
+
+      if(!email) {
+        alert(STR.provideEmailAlert);
+        return;
+      }
+
+      // Generate a mock name prefix from email
+      const namePrefix = email.split('@')[0].split('.').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+      const tbody = document.querySelector('#users-table tbody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td><strong>${namePrefix}</strong><br><small style="color:var(--text-secondary)">${email}</small></td>
+        <td>
+          <select class="role-select" onchange="logRoleChange('${namePrefix}', this)">
+            <option ${role === 'Director' ? 'selected' : ''}>${STR.roleDirector}</option>
+            <option ${role === 'Administrator' ? 'selected' : ''}>${STR.roleAdministrator}</option>
+            <option ${role === 'Regional Officer' ? 'selected' : ''}>${STR.roleRegionalOfficer}</option>
+            <option ${role === 'Labour Analyst' ? 'selected' : ''}>${STR.roleLabourAnalyst}</option>
+          </select>
+        </td>
+        <td><span class="badge badge-warning">${STR.statusInvited}</span></td>
+        <td style="font-family:var(--font-mono); color:var(--text-tertiary)">${STR.lastActiveNever}</td>
+        <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${STR.invitationResentGeneric}')">${STR.actionResend}</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">${STR.actionRemove}</button>
+        </td>
+      `;
+
+      tbody.appendChild(newRow);
+      closeModal('invite-modal');
+      document.getElementById('user-email').value = '';
+      alert(fmt(STR.invitationSentToEmail, { email }));
+    }
+
+    function logRoleChange(userName, selectEl) {
+      alert(fmt(STR.roleChangeLogged, { userName, role: selectEl.value }));
+    }
+
+    function toggleUserStatus(btn) {
+      const row = btn.closest('tr');
+      const statusTd = row.querySelector('td:nth-child(3)');
+      const currentStatus = statusTd.querySelector('span').textContent;
+
+      if(currentStatus === STR.statusActive) {
+        statusTd.innerHTML = `<span class="badge badge-error">${STR.statusDeactivated}</span>`;
+        btn.textContent = STR.actionActivate;
+        alert(STR.userDeactivatedAlert);
+      } else {
+        statusTd.innerHTML = `<span class="badge badge-success">${STR.statusActive}</span>`;
+        btn.textContent = STR.actionDeactivate;
+        alert(STR.userReactivatedAlert);
+      }
+    }
+
+    function removeUser(btn) {
+      if(confirm(STR.confirmRemoveInvitation)) {
+        const row = btn.closest('tr');
+        row.remove();
+      }
+    }
+  </script>
+</body>
+</html>

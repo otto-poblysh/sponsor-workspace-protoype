@@ -1,1 +1,7 @@
 .vercel
+node_modules/
+.DS_Store
+.thumbnails/
+screenshots/
+test-results/
+playwright-report/

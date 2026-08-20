@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Geist Sans'; src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2'); }
+        
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F9F9F8;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+          display: flex;
+        }
+
+        .sidebar {
+          width: 260px;
+          background: #FFFFFF;
+          border-right: 1px solid #EAEAEA;
+          display: flex;
+          flex-direction: column;
+          padding: 32px 0;
+        }
+
+        .logo {
+          font-size: 20px;
+          font-weight: 600;
+          padding: 0 32px;
+          margin-bottom: 48px;
+          color: #1E3A5F;
+        }
+
+        .nav-item {
+          padding: 12px 32px;
+          font-size: 16px;
+          color: #787774;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .nav-item.active {
+          background: #F4F4F3;
+          color: #111111;
+          font-weight: 500;
+        }
+
+        .main-content {
+          flex: 1;
+          padding: 48px 64px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 48px;
+        }
+
+        .page-title {
+          font-size: 32px;
+          font-weight: 600;
+          margin: 0;
+        }
+        
+        .chart-card {
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 12px;
+          padding: 32px;
+          width: 100%;
+          max-width: 800px;
+          opacity: 0; /* Animated */
+        }
+        
+        .chart-title {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 32px;
+        }
+        
+        .chart-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 24px;
+        }
+        
+        .chart-label {
+          width: 200px;
+          font-size: 14px;
+          color: #787774;
+        }
+        
+        .chart-bar-container {
+          flex: 1;
+          height: 24px;
+          background: #F4F4F3;
+          border-radius: 4px;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .chart-bar {
+          height: 100%;
+          background: #1E3A5F;
+          border-radius: 4px;
+        }
+        
+        .tooltip {
+          position: absolute;
+          background: #111111;
+          color: white;
+          padding: 12px 16px;
+          border-radius: 8px;
+          font-size: 14px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          pointer-events: none;
+          opacity: 0;
+          z-index: 50;
+        }
+        
+        .tooltip::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -6px;
+          border-width: 6px;
+          border-style: solid;
+          border-color: #111111 transparent transparent transparent;
+        }
+
+        .cursor {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23111111" d="M11 2L24 16L17 18L21 26L17 28L13 20L7 24Z"/><path fill="white" d="M11 2L24 16L17 18L21 26L17 28L13 20L7 24Z" style="mix-blend-mode: exclusion;"/></svg>');
+          z-index: 300;
+          pointer-events: none;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        /* Subtitle */
+        .subtitle-container {
+          position: absolute;
+          bottom: 10%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0,0,0,0.7);
+          border-radius: 30px;
+          padding: 16px 32px;
+          z-index: 200;
+          text-align: center;
+          opacity: 0;
+        }
+        .subtitle-text {
+          color: #FFFFFF;
+          font-size: 32px;
+          margin: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-ils3" id="root" data-composition-id="beat-03" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-96rw" class="sidebar">
+          <div data-hf-id="hf-29m0" class="logo">Labour Market Portal</div>
+          <div data-hf-id="hf-qwgj" class="nav-item">Dashboard</div>
+          <div data-hf-id="hf-x7xt" class="nav-item active" id="nav-reg">Registered Employers</div>
+          <div data-hf-id="hf-ak3k" class="nav-item" id="nav-skills">Skill Gap Report</div>
+          <div data-hf-id="hf-36ep" class="nav-item">Labour Market Reports</div>
+          <div data-hf-id="hf-giav" class="nav-item">Activity Logs</div>
+        </div>
+
+        <div data-hf-id="hf-aeb3" class="main-content">
+          <div data-hf-id="hf-4y7z" class="header">
+            <h1 data-hf-id="hf-m8cb" class="page-title">Skill Gap Report</h1>
+          </div>
+          
+          <div data-hf-id="hf-wpse" class="chart-card" id="chart-card">
+              <div data-hf-id="hf-mta6" class="chart-title">Hard-to-fill roles (Top 5)</div>
+              
+              <div data-hf-id="hf-rq6f" class="chart-row">
+                  <div data-hf-id="hf-czpz" class="chart-label">Industrial Electrician</div>
+                  <div data-hf-id="hf-8dev" class="chart-bar-container" id="bar-target">
+                      <div data-hf-id="hf-bd7w" class="chart-bar" style="width: 85%"></div>
+                  </div>
+              </div>
+              <div data-hf-id="hf-5isn" class="chart-row">
+                  <div data-hf-id="hf-m8tg" class="chart-label">Heavy Machinery Operator</div>
+                  <div data-hf-id="hf-313y" class="chart-bar-container">
+                      <div data-hf-id="hf-9tyy" class="chart-bar" style="width: 72%"></div>
+                  </div>
+              </div>
+              <div data-hf-id="hf-54hm" class="chart-row">
+                  <div data-hf-id="hf-p1yd" class="chart-label">Civil Engineer</div>
+                  <div data-hf-id="hf-xzr6" class="chart-bar-container">
+                      <div data-hf-id="hf-6rt1" class="chart-bar" style="width: 64%"></div>
+                  </div>
+              </div>
+              <div data-hf-id="hf-4q6l" class="chart-row">
+                  <div data-hf-id="hf-1ek2" class="chart-label">Welder (Certified)</div>
+                  <div data-hf-id="hf-ye27" class="chart-bar-container">
+                      <div data-hf-id="hf-0j6i" class="chart-bar" style="width: 58%"></div>
+                  </div>
+              </div>
+              <div data-hf-id="hf-7ibs" class="chart-row">
+                  <div data-hf-id="hf-l2eh" class="chart-label">Project Manager</div>
+                  <div data-hf-id="hf-ysd8" class="chart-bar-container">
+                      <div data-hf-id="hf-ivd4" class="chart-bar" style="width: 45%"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        
+        <div data-hf-id="hf-xnjt" class="tooltip" id="tooltip" style="left: 600px; top: 180px;">
+            Demand: 240<br data-hf-id="hf-x5px">Supply: 35
+        </div>
+
+        <div data-hf-id="hf-q8uc" class="subtitle-container" id="subtitle-box">
+          <p data-hf-id="hf-uuyt" class="subtitle-text" id="subtitle-text"></p>
+        </div>
+
+        <div data-hf-id="hf-c0g2" class="cursor" id="cursor"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Set initial cursor position
+        gsap.set("#cursor", { x: 1100, y: 620 });
+
+        // Helper for subtitle changes
+        function showSubtitle(text, startTime, duration) {
+          tl.add(() => { document.getElementById("subtitle-text").innerText = text; }, startTime);
+          tl.to("#subtitle-box", { opacity: 1, duration: 0.4 }, startTime);
+          tl.to("#subtitle-box", { opacity: 0, duration: 0.4 }, startTime + duration - 0.4);
+        }
+
+        // Initially we should be on entities state
+        gsap.set("#nav-reg", { className: "nav-item active" });
+        gsap.set("#nav-skills", { className: "nav-item" });
+        gsap.set(".main-content", { opacity: 0 });
+
+        // 38-42s: Navigation to 'Skill Gap Report' (0-4 local)
+        showSubtitle("Use the platform to inform your vocational training strategies.", 0, 4);
+        tl.to("#cursor", { x: 100, y: 230, duration: 1.5, ease: "power2.inOut" }, 0.5);
+        tl.to("#cursor", { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 }, 2);
+        
+        // Page transition
+        tl.set("#nav-reg", { className: "nav-item" }, 2.1);
+        tl.set("#nav-skills", { className: "nav-item active" }, 2.1);
+        tl.to(".main-content", { opacity: 1, duration: 0.5 }, 2.1);
+        
+        // Chart animates in
+        tl.to("#chart-card", { opacity: 1, y: -20, duration: 0.8, ease: "power2.out" }, 2.3);
+
+        // 42-49s: Hover over 'Hard-to-fill roles' chart (4-11 local)
+        showSubtitle("When planning training budgets, identify roles with high employer demand and low worker supply.", 4.5, 6);
+        
+        // Move cursor to first bar
+        tl.to("#cursor", { x: 650, y: 280, duration: 2, ease: "power2.inOut" }, 5);
+        
+        // Show tooltip
+        tl.to("#tooltip", { opacity: 1, y: -10, duration: 0.2 }, 7);
+
+        window.__timelines["beat-03"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

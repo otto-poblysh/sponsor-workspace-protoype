@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Minister Product Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+      body {
+        margin: 0;
+        background: radial-gradient(circle at center, #2C2C2E 0%, #111111 100%);
+        color: #111111;
+        font-family: 'Geist Sans', -apple-system, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* The Browser Window Frame */
+      .browser-window {
+        width: 1728px;
+        height: 1024px;
+        background: #F9F9F8;
+        border-radius: 12px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* macOS-style Header */
+      .browser-header {
+        height: 52px;
+        background: #F4F4F3;
+        border-bottom: 1px solid #E5E5E5;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: relative;
+      }
+
+      /* Traffic Lights */
+      .traffic-lights {
+        display: flex;
+        gap: 8px;
+      }
+      .traffic-light {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .tl-red { background: #FF5F56; }
+      .tl-yellow { background: #FFBD2E; }
+      .tl-green { background: #27C93F; }
+
+      /* URL Bar */
+      .url-bar {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #FFFFFF;
+        border: 1px solid #E5E5E5;
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-family: 'Geist Sans', sans-serif;
+        font-size: 14px;
+        color: #787774;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 400px;
+        justify-content: center;
+      }
+      .url-lock {
+        width: 10px;
+        height: 12px;
+        border: 1.5px solid #A5A29A;
+        border-radius: 3px 3px 0 0;
+        position: relative;
+      }
+      .url-lock::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: -2.5px;
+        width: 12px;
+        height: 8px;
+        background: #A5A29A;
+        border-radius: 2px;
+      }
+
+      /* The Viewport Container for the Clips */
+      .browser-viewport {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        background: #F9F9F8;
+      }
+
+      /* The scaled container that holds 1920x1080 clips */
+      .scale-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1920px;
+        height: 1080px;
+        transform: scale(0.9);
+        transform-origin: top left;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-g832" id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="88">
+      <div data-hf-id="hf-eox9" class="browser-window">
+        <div data-hf-id="hf-4e8i" class="browser-header">
+          <div data-hf-id="hf-q5cz" class="traffic-lights">
+            <div data-hf-id="hf-vasi" class="traffic-light tl-red"></div>
+            <div data-hf-id="hf-c57t" class="traffic-light tl-yellow"></div>
+            <div data-hf-id="hf-sfte" class="traffic-light tl-green"></div>
+          </div>
+          <div data-hf-id="hf-u8d5" class="url-bar">
+            <div data-hf-id="hf-pex5" class="url-lock"></div>
+            app.labour.gov.gq
+          </div>
+        </div>
+        <div data-hf-id="hf-92z3" class="browser-viewport">
+          <div data-hf-id="hf-bzko" class="scale-container">
+            <div data-hf-id="hf-1hal" id="beat-01" class="clip" data-composition-id="beat-01" data-composition-src="compositions/beat-01-problem.html" data-start="0" data-duration="6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-wdb7" id="beat-02" class="clip" data-composition-id="beat-02" data-composition-src="compositions/beat-02-national-dashboard.html" data-start="6" data-duration="9" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-t0ly" id="beat-03" class="clip" data-composition-id="beat-03" data-composition-src="compositions/beat-03-filters.html" data-start="15" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-fhgl" id="beat-04" class="clip" data-composition-id="beat-04" data-composition-src="compositions/beat-04-employers.html" data-start="25" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-n368" id="beat-05" class="clip" data-composition-id="beat-05" data-composition-src="compositions/beat-05-recruitment.html" data-start="35" data-duration="11" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-wtbg" id="beat-06" class="clip" data-composition-id="beat-06" data-composition-src="compositions/beat-06-skills.html" data-start="46" data-duration="12" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-0vtb" id="beat-07" class="clip" data-composition-id="beat-07" data-composition-src="compositions/beat-07-reports.html" data-start="58" data-duration="10" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-xr01" id="beat-08" class="clip" data-composition-id="beat-08" data-composition-src="compositions/beat-08-roles.html" data-start="68" data-duration="9" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-69t8" id="beat-09" class="clip" data-composition-id="beat-09" data-composition-src="compositions/beat-09-accountability.html" data-start="77" data-duration="7" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-t23g" id="beat-10" class="clip" data-composition-id="beat-10" data-composition-src="compositions/beat-10-close.html" data-start="84" data-duration="4" data-track-index="1" data-width="1920" data-height="1080"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "Are you sure you want to suspend access for {name}? A comment is required to proceed.": "Êtes-vous sûr de vouloir suspendre l'accès pour {name} ? Un commentaire est requis pour continuer.",
+  "Dashboard": "Tableau de bord",
+  "Demo Admin": "Administrateur de démonstration",
+  "Export": "Exporter",
+  "Export Report": "Exporter le rapport",
+  "Export data to CSV": "Exporter les données au format CSV",
+  "Labour Market Portal": "Portail du Marché du Travail",
+  "Labour Market Portal — Mini": "Portail du Marché du Travail — Mini",
+  "Language": "Langue",
+  "Minimal test harness for i18n tooling": "Harnais de test minimal pour les outils d'i18n",
+  "Ministry Logo": "Logo du Ministère",
+  "National overview of registered private-sector employment in Equatorial Guinea": "Aperçu national de l'emploi déclaré dans le secteur privé en Guinée équatoriale",
+  "Please enter a comment before submitting.": "Veuillez saisir un commentaire avant de soumettre.",
+  "Registered Employers": "Employeurs enregistrés",
+  "Return Employer Registration": "Retourner l'enregistrement de l'employeur",
+  "Search employers": "Rechercher des employeurs",
+  "Search employers...": "Rechercher des employeurs...",
+  "Suspend Employer": "Suspendre l'employeur"
+}

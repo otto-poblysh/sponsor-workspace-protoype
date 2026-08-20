@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #F9F9F8;
+          color: #111111;
+          font-family: 'Geist Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        .bg-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 280px;
+          font-weight: 900;
+          color: rgba(30, 58, 95, 0.03);
+          letter-spacing: -4px;
+          z-index: 0;
+        }
+        
+        .flow-lines {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+        }
+
+        .headline {
+          position: absolute;
+          top: 100px;
+          left: 100px;
+          font-size: 64px;
+          font-weight: 600;
+          color: #111111;
+          margin: 0;
+          z-index: 2;
+          transform-origin: left top;
+        }
+
+        .funnel-container {
+          position: absolute;
+          top: 260px;
+          left: 100px;
+          width: 800px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          z-index: 2;
+        }
+        
+        .funnel-stage {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+        
+        .stage-label {
+          font-family: 'Geist Mono', monospace;
+          font-size: 18px;
+          color: #787774;
+          text-transform: uppercase;
+          width: 180px;
+          text-align: right;
+        }
+        
+        .stage-bar-container {
+          flex: 1;
+          height: 64px;
+          border: 1px solid #EAEAEA;
+          border-radius: 8px;
+          background: #FFFFFF;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .stage-bar-fill {
+          position: absolute;
+          top: 0; left: 0; bottom: 0;
+          background: #1E3A5F;
+          width: 0%;
+        }
+
+        .stage-value {
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%);
+          font-size: 24px;
+          font-weight: 600;
+          color: #111111;
+          font-variant-numeric: tabular-nums;
+          z-index: 2;
+        }
+        
+        /* Hired stage */
+        .stage-hired .stage-bar-fill {
+          background: #346538;
+        }
+
+        .vacancies-container {
+          position: absolute;
+          top: 260px;
+          left: 1100px;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          z-index: 2;
+        }
+
+        .vacancy-card {
+          width: 500px;
+          background: #FFFFFF;
+          border: 1px solid #EAEAEA;
+          border-radius: 10px;
+          padding: 24px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: relative;
+        }
+        
+        .vacancy-red-outline {
+          position: absolute;
+          inset: -1px;
+          border: 2px solid transparent;
+          border-radius: 10px;
+          z-index: 3;
+          pointer-events: none;
+        }
+
+        .vac-title {
+          font-size: 24px;
+          font-weight: 600;
+          color: #111111;
+        }
+        .vac-meta {
+          font-family: 'Geist Mono', monospace;
+          font-size: 14px;
+          color: #787774;
+          margin-top: 8px;
+        }
+        .vac-callout {
+          font-family: 'Geist Mono', monospace;
+          font-size: 16px;
+          font-weight: 600;
+          color: #9F2F2D;
+          background: #FDEBEC;
+          padding: 6px 12px;
+          border-radius: 20px;
+          opacity: 0;
+        }
+
+        .constraint-statement {
+          position: absolute;
+          bottom: 120px;
+          left: 1100px;
+          font-size: 28px;
+          font-weight: 500;
+          color: #9F2F2D;
+          margin: 0;
+        }
+        
+        .illustrative-label {
+          position: absolute;
+          top: 40px;
+          right: 40px;
+          font-family: 'Geist Mono', monospace;
+          font-size: 18px;
+          color: #A5A29A;
+          z-index: 5;
+        }
+      </style>
+
+      <div data-hf-id="hf-muxd" id="root" data-composition-id="beat-05" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-c37u" class="bg-text">PLACEMENT</div>
+        <div data-hf-id="hf-3rec" class="illustrative-label">Illustrative demo data</div>
+        
+        <svg data-hf-id="hf-3w2d" class="flow-lines" viewBox="0 0 1920 1080">
+          <path data-hf-id="hf-dv73" id="flow-path" d="M1060,300 C1000,300 950,290 900,290" stroke="#1E3A5F" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="200" stroke-dashoffset="200" />
+        </svg>
+
+        <h1 data-hf-id="hf-9f34" class="headline" id="headline">See where recruitment moves—<br data-hf-id="hf-x5px">and where it stalls.</h1>
+
+        <div data-hf-id="hf-2vte" class="funnel-container">
+          <div data-hf-id="hf-8851" class="funnel-stage">
+            <div data-hf-id="hf-gh8g" class="stage-label">Applicants</div>
+            <div data-hf-id="hf-c41o" class="stage-bar-container">
+              <div data-hf-id="hf-xy3z" class="stage-bar-fill" id="stage-fill1"></div>
+              <div data-hf-id="hf-d2qb" class="stage-value" id="stage-val1">0</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-nxbd" class="funnel-stage">
+            <div data-hf-id="hf-ldre" class="stage-label">Shortlisted</div>
+            <div data-hf-id="hf-ecj8" class="stage-bar-container">
+              <div data-hf-id="hf-pa84" class="stage-bar-fill" id="stage-fill2"></div>
+              <div data-hf-id="hf-9i6u" class="stage-value" id="stage-val2">0</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-p48g" class="funnel-stage">
+            <div data-hf-id="hf-914t" class="stage-label">Offers Accepted</div>
+            <div data-hf-id="hf-d5m5" class="stage-bar-container">
+              <div data-hf-id="hf-q1vx" class="stage-bar-fill" id="stage-fill3"></div>
+              <div data-hf-id="hf-1vo9" class="stage-value" id="stage-val3">0</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-p70e" class="funnel-stage stage-hired">
+            <div data-hf-id="hf-qcan" class="stage-label">Hired</div>
+            <div data-hf-id="hf-djx6" class="stage-bar-container">
+              <div data-hf-id="hf-8tlm" class="stage-bar-fill" id="stage-fill4"></div>
+              <div data-hf-id="hf-tjhq" class="stage-value" id="stage-val4" style="color: #FFFFFF">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-jleh" class="vacancies-container">
+          <div data-hf-id="hf-jfdb" class="vacancy-card" id="vac1">
+            <div data-hf-id="hf-zjs0" class="vacancy-red-outline" id="vac1-outline"></div>
+            <div data-hf-id="hf-yeow">
+              <div data-hf-id="hf-a9lx" class="vac-title">Offshore Safety Technician</div>
+              <div data-hf-id="hf-n274" class="vac-meta">BIOKO NORTE</div>
+            </div>
+            <div data-hf-id="hf-264i" class="vac-callout" id="vac1-callout">2 APPLICANTS</div>
+          </div>
+          <div data-hf-id="hf-arhg" class="vacancy-card" id="vac2">
+            <div data-hf-id="hf-y7yw">
+              <div data-hf-id="hf-1qkl" class="vac-title">Industrial Electrician</div>
+              <div data-hf-id="hf-e2zl" class="vac-meta">LITORAL</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-bj59" class="vacancy-card" id="vac3">
+            <div data-hf-id="hf-x11t">
+              <div data-hf-id="hf-u9ps" class="vac-title">Heavy Equipment Mechanic</div>
+              <div data-hf-id="hf-th63" class="vac-meta">CENTRO SUR</div>
+            </div>
+          </div>
+        </div>
+
+        <p data-hf-id="hf-skvu" class="constraint-statement" id="constraint">186 hard-to-fill roles need attention.</p>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Headline lands from slight scale
+        tl.fromTo("#headline",
+          { scale: 0.95, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out" },
+          0.2
+        );
+
+        // Vacancy cards slide from the right
+        tl.fromTo(".vacancy-card",
+          { x: 100, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out" },
+          0.6
+        );
+
+        // Funnel outline draws (flow line)
+        tl.to("#flow-path", { strokeDashoffset: 0, duration: 1.0, ease: "power1.inOut" }, 1.2);
+        
+        tl.fromTo(".stage-bar-container", 
+          { opacity: 0 }, 
+          { opacity: 1, duration: 0.4, stagger: 0.1 }, 
+          1.2
+        );
+
+        // Applicant counts to 6408, subsequent stages fill
+        const targets = [6408, 1628, 982, 814];
+        const widths = [100, 25, 15, 12];
+        const els = ["#stage-val1", "#stage-val2", "#stage-val3", "#stage-val4"];
+        const fills = ["#stage-fill1", "#stage-fill2", "#stage-fill3", "#stage-fill4"];
+        
+        targets.forEach((target, i) => {
+          let proxy = { val: 0 };
+          tl.to(proxy, {
+            val: target,
+            duration: 2.0,
+            ease: "power2.out",
+            onUpdate: () => {
+              document.querySelector(els[i]).innerText = Math.round(proxy.val).toLocaleString();
+            }
+          }, 1.5 + (i * 0.2));
+          
+          tl.to(fills[i], {
+            width: widths[i] + "%",
+            duration: 2.0,
+            ease: "power2.out"
+          }, 1.5 + (i * 0.2));
+        });
+        
+        // Hired stage settles in green at 4.8s (already done via CSS, just a slight glow)
+        tl.fromTo("#stage-fill4",
+          { filter: "brightness(1.5)" },
+          { filter: "brightness(1)", duration: 0.6 },
+          4.2
+        );
+
+        // Hard-to-fill vacancy receives its red outline and 2 APPLICANTS callout
+        tl.fromTo("#vac1-outline",
+          { borderColor: "transparent" },
+          { borderColor: "#9F2F2D", duration: 0.4 },
+          5.0
+        );
+        tl.fromTo("#vac1-callout",
+          { x: 20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" },
+          5.2
+        );
+
+        // Constraint statement anchors beneath the vacancy cards at 7.0s
+        tl.fromTo("#constraint",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          7.0
+        );
+
+        window.__timelines["beat-05"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

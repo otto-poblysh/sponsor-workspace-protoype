@@ -1,0 +1,343 @@
+<template>
+  <style>
+
+        @font-face { font-family: 'Geist Sans'; src: url('capture/assets/fonts/Geist-Variable.woff2'); }
+        @font-face { font-family: 'Geist Mono'; src: url('capture/assets/fonts/GeistMono-Variable.woff2'); }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      background-color: #F7F6F3;
+      color: #111111;
+      font-family: 'Geist Sans', sans-serif;
+      overflow: hidden;
+      display: flex;
+    }
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, #EAEAEA 1px, transparent 1px),
+                        linear-gradient(to bottom, #EAEAEA 1px, transparent 1px);
+      opacity: 0.4;
+      z-index: 1;
+    }
+    .screen-left {
+      position: absolute;
+      left: 120px;
+      top: 140px;
+      width: 500px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+    }
+    .headline {
+      font-size: 76px;
+      font-weight: 600;
+      color: #111111;
+      line-height: 1.05;
+      margin-bottom: 60px;
+      letter-spacing: -0.02em;
+      z-index: 10;
+    }
+    
+    .template-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    
+    .template-card {
+      background: #FFFFFF;
+      border: 1px solid #EAEAEA;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      will-change: transform, opacity;
+      width: 480px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    
+    .template-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      background: #F9F9F8;
+      border: 1px solid #EAEAEA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .template-card-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #111111;
+      letter-spacing: -0.01em;
+    }
+    
+    .format-selector {
+      margin-top: 40px;
+      background: #FFFFFF;
+      border: 1px solid #EAEAEA;
+      border-radius: 10px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 320px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .format-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 18px;
+      color: #787774;
+      font-weight: 600;
+    }
+    .format-value {
+      font-family: 'Geist Mono', monospace;
+      font-size: 20px;
+      color: #111111;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .format-value::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #111111;
+      margin-top: 2px;
+    }
+
+    .processing-band {
+      position: absolute;
+      left: 720px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #1E3A5F;
+      z-index: 5;
+    }
+    
+    .report-output-area {
+      position: absolute;
+      left: 880px;
+      top: 100px;
+      right: 120px;
+      bottom: 120px;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .document-cover {
+      width: 520px;
+      height: 700px;
+      background: #FFFFFF;
+      border: 1px solid #EAEAEA;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+      border-radius: 4px;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      position: relative;
+      box-sizing: border-box;
+    }
+    
+    .doc-globe-mark {
+      width: 72px;
+      height: 72px;
+      background: #1E3A5F;
+      border-radius: 50%;
+      margin-bottom: 32px;
+    }
+    
+    .doc-ministry-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #787774;
+      margin-bottom: 180px;
+      line-height: 1.4;
+    }
+    
+    .doc-report-title {
+      font-size: 52px;
+      font-weight: 600;
+      color: #111111;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    
+    .doc-date {
+      font-family: 'Geist Mono', monospace;
+      font-size: 20px;
+      color: #787774;
+    }
+    
+    .metadata-line {
+      margin-top: 48px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 22px;
+      color: #787774;
+      letter-spacing: 4px;
+    }
+    
+    .benefit-statement {
+      position: absolute;
+      bottom: 80px;
+      left: 880px;
+      font-size: 36px;
+      font-weight: 400;
+      color: #1E3A5F;
+      z-index: 10;
+      letter-spacing: -0.01em;
+    }
+  </style>
+  <div data-hf-id="hf-w5g7" id="root" data-composition-id="beat-07" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-q4u8" class="grid-bg"></div>
+    
+    <div data-hf-id="hf-tl6c" class="processing-band" id="processing-band"></div>
+
+    <div data-hf-id="hf-u6m6" class="screen-left">
+      <div data-hf-id="hf-tjn2" class="headline">Generate clear<br data-hf-id="hf-x5px">ministerial reports<br data-hf-id="hf-rsrt">in minutes.</div>
+      
+      <div data-hf-id="hf-hexx" class="template-stack">
+        <div data-hf-id="hf-kx6v" class="template-card" id="card-1">
+          <div data-hf-id="hf-5wap" class="template-card-icon">
+             <svg data-hf-id="hf-gq01" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E3A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-e4lr" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline data-hf-id="hf-5bqq" points="14 2 14 8 20 8" /><line data-hf-id="hf-x9lb" x1="16" y1="13" x2="8" y2="13" /><line data-hf-id="hf-msun" x1="16" y1="17" x2="8" y2="17" /><polyline data-hf-id="hf-50af" points="10 9 9 9 8 9" /></svg>
+          </div>
+          <div data-hf-id="hf-p5ol" class="template-card-title" style="color: #1E3A5F;">LABOUR MARKET SUMMARY</div>
+        </div>
+        <div data-hf-id="hf-c9b0" class="template-card" id="card-2">
+          <div data-hf-id="hf-8rf9" class="template-card-icon">
+             <svg data-hf-id="hf-khpe" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#787774" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-qvan" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline data-hf-id="hf-ovhy" points="14 2 14 8 20 8" /><line data-hf-id="hf-mnzj" x1="16" y1="13" x2="8" y2="13" /><line data-hf-id="hf-i0tr" x1="16" y1="17" x2="8" y2="17" /><polyline data-hf-id="hf-ka7r" points="10 9 9 9 8 9" /></svg>
+          </div>
+          <div data-hf-id="hf-xo6c" class="template-card-title">EMPLOYER COMPLIANCE</div>
+        </div>
+        <div data-hf-id="hf-d0yt" class="template-card" id="card-3">
+          <div data-hf-id="hf-9ycc" class="template-card-icon">
+             <svg data-hf-id="hf-gsqu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#787774" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-qgzm" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline data-hf-id="hf-tbs3" points="14 2 14 8 20 8" /><line data-hf-id="hf-m9oi" x1="16" y1="13" x2="8" y2="13" /><line data-hf-id="hf-hmiq" x1="16" y1="17" x2="8" y2="17" /><polyline data-hf-id="hf-jvwq" points="10 9 9 9 8 9" /></svg>
+          </div>
+          <div data-hf-id="hf-p34l" class="template-card-title">PRIVATE-SECTOR VACANCIES</div>
+        </div>
+        <div data-hf-id="hf-tl2q" class="template-card" id="card-4">
+          <div data-hf-id="hf-9k1b" class="template-card-icon">
+             <svg data-hf-id="hf-h71v" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#787774" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-q2ol" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline data-hf-id="hf-tq34" points="14 2 14 8 20 8" /><line data-hf-id="hf-lvdh" x1="16" y1="13" x2="8" y2="13" /><line data-hf-id="hf-h87p" x1="16" y1="17" x2="8" y2="17" /><polyline data-hf-id="hf-jhlp" points="10 9 9 9 8 9" /></svg>
+          </div>
+          <div data-hf-id="hf-579x" class="template-card-title">SKILLS DEMAND</div>
+        </div>
+      </div>
+      
+      <div data-hf-id="hf-l6sc" class="format-selector" id="format-selector">
+        <div data-hf-id="hf-nmeb" class="format-label">FORMAT</div>
+        <div data-hf-id="hf-v3yo" class="format-value" id="format-value">PDF</div>
+      </div>
+    </div>
+    
+    <div data-hf-id="hf-uu4i" class="report-output-area">
+      <div data-hf-id="hf-cn12" class="document-cover" id="document-cover">
+        <div data-hf-id="hf-ax78" class="doc-globe-mark"></div>
+        <div data-hf-id="hf-8k3n" class="doc-ministry-title">Ministry of Labour<br data-hf-id="hf-szow">Republic of Equatorial Guinea</div>
+        <div data-hf-id="hf-lt51" class="doc-report-title">Labour Market Summary</div>
+        <div data-hf-id="hf-79wy" class="doc-date">13 AUGUST 2026</div>
+      </div>
+      <div data-hf-id="hf-4ug1" class="metadata-line" id="metadata-line"><span data-hf-id="hf-9bh6" style="color: #111111; font-weight: 600;">PDF</span> · EXCEL · CSV</div>
+    </div>
+    
+    <div data-hf-id="hf-kmco" class="benefit-statement" id="benefit-statement">Less consolidation. More time for analysis.</div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // 0.0s: Headline enters from x:-80
+    tl.fromTo(".headline", 
+      { opacity: 0, x: -80 }, 
+      { opacity: 1, x: 0, duration: 1, ease: "power3.out" }, 
+      0.0
+    );
+    
+    // 0.4s: Report cards cascade with a 70ms stagger.
+    tl.fromTo(".template-card", 
+      { opacity: 0, y: 30 }, 
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", stagger: 0.07 }, 
+      0.4
+    );
+
+    // 1.5s: Format selector unfolds
+    tl.fromTo("#format-selector",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+      1.5
+    );
+    
+    // 2.0s: PDF confirms (60.2s global)
+    tl.fromTo("#format-value",
+      { color: "#787774", scale: 0.95 },
+      { color: "#111111", scale: 1, duration: 0.4, ease: "back.out(2)" },
+      2.0
+    );
+
+    // 2.2s: Processing band grows
+    tl.fromTo("#processing-band", 
+      { scaleY: 0, transformOrigin: "center center" }, 
+      { scaleY: 1, duration: 0.6, ease: "expo.inOut" }, 
+      2.2
+    );
+
+    // 2.6s: Selected report card travels through the navy band
+    tl.fromTo("#card-1",
+      { x: 0, opacity: 1 },
+      { x: 300, opacity: 0, duration: 0.8, ease: "power2.in" },
+      2.6
+    );
+    
+    // 3.2s: Band does a pulse when the card goes through
+    tl.fromTo("#processing-band",
+      { width: 4 },
+      { width: 8, duration: 0.2, yoyo: true, repeat: 1, ease: "power1.inOut" },
+      3.2
+    );
+
+    // 3.0s -> 3.8s: Completed report emerges with slight rotation and settles flat at 62.0s (3.8s internal).
+    tl.fromTo("#document-cover",
+      { opacity: 0, x: -100, rotationY: 45, rotationZ: -5, scale: 0.9, transformPerspective: 1000 },
+      { opacity: 1, x: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 0.8, ease: "power3.out" },
+      3.0
+    );
+
+    // 4.2s: `PDF · EXCEL · CSV` appears as a mono metadata line. (62.4s global)
+    tl.fromTo("#metadata-line",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+      4.2
+    );
+
+    // 5.8s: Benefit statement expands across the lower third. (64.0s global)
+    tl.fromTo("#benefit-statement",
+      { opacity: 0, clipPath: "inset(0% 100% 0% 0%)", y: 20 },
+      { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 1, ease: "power3.out" },
+      5.8
+    );
+    
+    window.__timelines["beat-07"] = tl;
+  </script>
+</template>

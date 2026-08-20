@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labour Market Portal — Activity Logs</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal activity logs prototype">
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filter-input {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .data-table td strong {
+      color: var(--text);
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Alert / Warning Banner */
+    .alert-banner {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border: 1px solid rgba(149, 100, 0, 0.2);
+    }
+
+    .alert-banner i {
+      font-size: 18px;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>\n<div data-hf-id="hf-d238" data-composition-id="beat-05" data-width="1920" data-height="1080" data-duration="16">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-fidg" class="brand-name">Ministry of Labour</div>
+          <div data-hf-id="hf-oyyb" class="brand-sub">Labour Market Portal</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Overview</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-3uju" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Dashboard</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-il3t" class="nav-item" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Registered Employers</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-eatl" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Ministry Users</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Insights</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-zs5p" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-1yfe" class="nav-item is-active" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Settings</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-90jk" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Regional Coverage</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Report Recipients</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Notification Preferences</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-sicj" class="user-avatar">ME</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-wlyx" class="user-name">María Esono</div>
+            <div data-hf-id="hf-s3sy" class="user-role">Ministry Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-0quy" class="page-title">Activity Logs</h1>
+          <p data-hf-id="hf-5fn5" class="page-subtitle">Track important actions inside the Labour Market Portal for accountability and compliance</p>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-me1i" class="alert-banner animate-enter delay-1">
+        <i data-hf-id="hf-crg0" class="ph-bold ph-lock-keyhole"></i>
+        <span data-hf-id="hf-zwa9"><strong data-hf-id="hf-3f65">Compliance Invariant:</strong> Activity logs are read-only and immutable. Logs cannot be edited, deleted, or cleared by any Ministry User. System keeps records for 365 days.</span>
+      </div>
+
+      <div data-hf-id="hf-pvhw" class="filter-bar animate-enter delay-1" role="search" aria-label="Log filters">
+        <div data-hf-id="hf-0gl0" class="filter-group" style="flex:2;">
+          <label data-hf-id="hf-r720" class="filter-label" for="search-logs">Search actor or action</label>
+          <input data-hf-id="hf-bvms" type="text" id="search-logs" class="filter-input" placeholder="e.g. María, verified..." oninput="filterLogs()">
+        </div>
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-v40v" class="filter-label" for="filter-category">Category</label>
+          <select data-hf-id="hf-t2hh" id="filter-category" class="filter-select" onchange="filterLogs()">
+            <option data-hf-id="hf-26qr" value="all">All categories</option>
+            <option data-hf-id="hf-pkol" value="user management">User management</option>
+            <option data-hf-id="hf-phyg" value="entity moderation">Employer verification</option>
+            <option data-hf-id="hf-bdaz" value="branding">Tenant branding</option>
+            <option data-hf-id="hf-ust6" value="countries">Regional coverage</option>
+            <option data-hf-id="hf-ohjz" value="reports">Report exports</option>
+          </select>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-sot2" class="card animate-enter delay-2">
+        <table data-hf-id="hf-mmzo" class="data-table" id="logs-table">
+          <thead data-hf-id="hf-zd89">
+            <tr data-hf-id="hf-p3r7">
+              <th data-hf-id="hf-txyt" style="width: 150px;">Timestamp</th>
+              <th data-hf-id="hf-2gl0" style="width: 150px;">Actor</th>
+              <th data-hf-id="hf-468z">Action</th>
+              <th data-hf-id="hf-1lxe" style="width: 180px;">Category</th>
+              <th data-hf-id="hf-xj9h">Details (Before → After)</th>
+            </tr>
+          </thead>
+          <tbody data-hf-id="hf-bsvf">
+            <tr data-hf-id="hf-m2un" data-category="entity moderation">
+              <td data-hf-id="hf-l7l7" style="font-family: var(--font-mono);">13 Jun 2026, 14:38</td>
+              <td data-hf-id="hf-54xx"><strong data-hf-id="hf-7in6">María Esono</strong></td>
+              <td data-hf-id="hf-rez4">Verified employer Bioko Marine Services</td>
+              <td data-hf-id="hf-f9bb">Employer verification</td>
+              <td data-hf-id="hf-t9cp"><small data-hf-id="hf-1fg9" style="color:var(--text-secondary)">Status: Pending Review → Verified</small></td>
+            </tr>
+            <tr data-hf-id="hf-ewwq" data-category="user management">
+              <td data-hf-id="hf-ghfc" style="font-family: var(--font-mono);">13 Jun 2026, 13:52</td>
+              <td data-hf-id="hf-ug9s"><strong data-hf-id="hf-opv9">Pedro Nsue</strong></td>
+              <td data-hf-id="hf-7rq5">Invited user inspeccion.bata@trabajo.gob.gq</td>
+              <td data-hf-id="hf-6ix9">User management</td>
+              <td data-hf-id="hf-u1yr"><small data-hf-id="hf-epar" style="color:var(--text-secondary)">Role: Regional Officer (Invited)</small></td>
+            </tr>
+            <tr data-hf-id="hf-fzxm" data-category="countries">
+              <td data-hf-id="hf-wpyr" style="font-family: var(--font-mono);">13 Jun 2026, 11:20</td>
+              <td data-hf-id="hf-s2fm"><strong data-hf-id="hf-zllf">System</strong></td>
+              <td data-hf-id="hf-3znx">Updated regional coverage</td>
+              <td data-hf-id="hf-6uua">Regional coverage</td>
+              <td data-hf-id="hf-ro4l"><small data-hf-id="hf-x7iv" style="color:var(--text-secondary)">Enabled vacancy reporting: Annobón</small></td>
+            </tr>
+            <tr data-hf-id="hf-oqof" data-category="entity moderation">
+              <td data-hf-id="hf-8mtz" style="font-family: var(--font-mono);">13 Jun 2026, 09:47</td>
+              <td data-hf-id="hf-sv1o"><strong data-hf-id="hf-zoxy">María Esono</strong></td>
+              <td data-hf-id="hf-h0cr">Suspended employer Río Muni Logistics</td>
+              <td data-hf-id="hf-5u9z">Employer verification</td>
+              <td data-hf-id="hf-sgqn"><small data-hf-id="hf-820j" style="color:var(--text-secondary)">Comment: Inactive for 120 days</small></td>
+            </tr>
+            <tr data-hf-id="hf-a0f1" data-category="reports">
+              <td data-hf-id="hf-e2zz" style="font-family: var(--font-mono);">12 Jun 2026, 16:15</td>
+              <td data-hf-id="hf-qh7i"><strong data-hf-id="hf-tkzr">Ana Mangue</strong></td>
+              <td data-hf-id="hf-4wye">Generated monthly labour market summary</td>
+              <td data-hf-id="hf-4xi4">Report exports</td>
+              <td data-hf-id="hf-q2wh"><small data-hf-id="hf-mk7p" style="color:var(--text-secondary)">Format: PDF</small></td>
+            </tr>
+            <tr data-hf-id="hf-ocde" data-category="entity moderation">
+              <td data-hf-id="hf-4hmf" style="font-family: var(--font-mono);">12 Jun 2026, 11:03</td>
+              <td data-hf-id="hf-vuh7"><strong data-hf-id="hf-psmh">Pedro Nsue</strong></td>
+              <td data-hf-id="hf-m0i3">Returned employer registration for Litoral Obras</td>
+              <td data-hf-id="hf-5fyy">Employer verification</td>
+              <td data-hf-id="hf-w8s8"><small data-hf-id="hf-li4m" style="color:var(--text-secondary)">Comment: Incomplete registration documents</small></td>
+            </tr>
+            <tr data-hf-id="hf-y5c5" data-category="branding">
+              <td data-hf-id="hf-jjk3" style="font-family: var(--font-mono);">10 Jun 2026, 10:11</td>
+              <td data-hf-id="hf-v1v5"><strong data-hf-id="hf-038z">María Esono</strong></td>
+              <td data-hf-id="hf-q17s">Updated primary brand color</td>
+              <td data-hf-id="hf-mg1i">Portal branding</td>
+              <td data-hf-id="hf-vg66"><small data-hf-id="hf-m9z8" style="color:var(--text-secondary)">Accent: #0f5c58 → #1E3A5F</small></td>
+            </tr>
+            <tr data-hf-id="hf-8gfy" data-category="user management">
+              <td data-hf-id="hf-dniy" style="font-family: var(--font-mono);">09 Jun 2026, 15:44</td>
+              <td data-hf-id="hf-u993"><strong data-hf-id="hf-0hk0">María Esono</strong></td>
+              <td data-hf-id="hf-kr9p">Deactivated user oficina.annobon@trabajo.gob.gq</td>
+              <td data-hf-id="hf-xwn5">User management</td>
+              <td data-hf-id="hf-unk4"><small data-hf-id="hf-62c6" style="color:var(--text-secondary)">Status: Active → Deactivated</small></td>
+            </tr>
+            <tr data-hf-id="hf-aai9" data-category="reports">
+              <td data-hf-id="hf-3b6e" style="font-family: var(--font-mono);">08 Jun 2026, 09:00</td>
+              <td data-hf-id="hf-tgn1"><strong data-hf-id="hf-km7n">System</strong></td>
+              <td data-hf-id="hf-1f9p">Automated report recipients delivery</td>
+              <td data-hf-id="hf-pfo4">Report exports</td>
+              <td data-hf-id="hf-tuy2"><small data-hf-id="hf-86pm" style="color:var(--text-secondary)">Sent to: 3 configured recipients</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function filterLogs() {
+      const query = document.getElementById('search-logs').value.toLowerCase();
+      const category = document.getElementById('filter-category').value.toLowerCase();
+      const rows = document.querySelectorAll('#logs-table tbody tr');
+
+      rows.forEach(row => {
+        const actor = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        const action = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+        const rowCategory = row.getAttribute('data-category').toLowerCase();
+
+        const matchQuery = (actor.includes(query) || action.includes(query));
+        const matchCategory = (category === 'all' || rowCategory === category);
+
+        if(matchQuery && matchCategory) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <!-- GSAP & HyperFrames -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://hyperframes.dev/client.js"></script>
+
+  <!-- Video Overlays -->
+  <style>
+    #cursor {
+      position: absolute;
+      top: 0; left: 0;
+      width: 32px; height: 32px;
+      z-index: 9999;
+      transform-origin: 0 0;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      opacity: 0;
+      visibility: hidden;
+    }
+    #subtitle-container {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+      max-width: 80%;
+      z-index: 9998;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
+
+  <svg data-hf-id="hf-hxt5" id="cursor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path data-hf-id="hf-6jeo" d="M4 4 L11 26 L15 17 L24 21 L27 18 L18 14 L26 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-linejoin="round" />
+  </svg>
+
+  <div data-hf-id="hf-99q3" id="subtitle-container"></div>
+
+  <script>
+
+    gsap.set("#subtitle-container", { autoAlpha: 0 });
+    gsap.set("#cursor", { x: 100, y: 450, autoAlpha: 0 });
+
+    const tl = gsap.timeline();
+
+    tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
+      .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
+      .set("#subtitle-container", { textContent: "Finally, the immutable Activity Log ensures total transparency..." })
+      .to("#cursor", { x: 500, y: 150, duration: 1.5, ease: "power2.inOut" }) 
+      .to({}, { duration: 1 })
+      .set("#subtitle-container", { textContent: "...and accountability across all ministry actions." })
+      .to("#cursor", { x: 400, y: 400, duration: 2, ease: "power2.inOut" }) 
+      .to({}, { duration: 1.5 })
+      .to("#cursor", { autoAlpha: 0, duration: 0.5 })
+      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
+
+  </script>
+</div>
+</body>
+</html>

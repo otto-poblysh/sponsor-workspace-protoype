@@ -1,0 +1,31 @@
+{
+  "name": "sponsor-workspace-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "i18n:extract": "node tools/extract-i18n.js",
+    "i18n:validate": "node tools/validate-catalogs.js",
+    "i18n:build": "node tools/build-i18n.js",
+    "i18n:check": "node tools/check-i18n.js",
+    "build": "node tools/build-i18n.js && node tools/check-i18n.js",
+    "test": "node --test",
+    "test:e2e": "playwright test tests/e2e-i18n.spec.js",
+    "video:build:fr": "node tools/build-video-i18n.js fr",
+    "video:check:fr": "cd tutorial-video-fr && npx hyperframes check",
+    "video:build:es": "node tools/build-video-i18n.js es",
+    "video:check:es": "cd tutorial-video-es && npx hyperframes check",
+    "video:poster": "node tools/attach-poster.js",
+    "video:poster:all": "node tools/attach-poster.js tutorial-video && node tools/attach-poster.js tutorial-video-fr && node tools/attach-poster.js tutorial-video-es",
+    "test:video": "node --test tests/build-video-i18n.test.js",
+    "org:build": "node tools/build-i18n.js --site pan-african-org",
+    "org:check": "node tools/check-i18n.js --site pan-african-org",
+    "org:extract": "node tools/extract-i18n.js --site pan-african-org",
+    "org:validate": "node tools/validate-catalogs.js pan-african-org/i18n",
+    "org:video:build:fr": "node tools/build-video-i18n.js fr --src pan-african-org/video-en --out pan-african-org --i18n pan-african-org/i18n",
+    "org:video:build:es": "node tools/build-video-i18n.js es --src pan-african-org/video-en --out pan-african-org --i18n pan-african-org/i18n"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "playwright": "^1.62.1"
+  }
+}

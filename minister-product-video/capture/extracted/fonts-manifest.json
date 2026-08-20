@@ -1,0 +1,110 @@
+{
+  "files": [
+    {
+      "file": "Geist-Variable.woff2",
+      "family": "Geist Variable",
+      "rawFamily": "Geist Variable",
+      "subfamily": "Regular",
+      "postscript": "GeistVariable-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "GeistMono-Variable.woff2",
+      "family": "Geist Mono Variable",
+      "rawFamily": "Geist Mono Variable",
+      "subfamily": "Regular",
+      "postscript": "GeistMonoVariable-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "Phosphor-Bold.ttf",
+      "family": "Phosphor-Bold",
+      "rawFamily": "Phosphor-Bold",
+      "subfamily": "Regular",
+      "postscript": "Phosphor-Bold",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "Phosphor-Bold.woff",
+      "family": "Phosphor-Bold",
+      "rawFamily": "Phosphor-Bold",
+      "subfamily": "Regular",
+      "postscript": "Phosphor-Bold",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "Phosphor-Bold.woff2",
+      "family": "Phosphor-Bold",
+      "rawFamily": "Phosphor-Bold",
+      "subfamily": "Regular",
+      "postscript": "Phosphor-Bold",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    }
+  ],
+  "families": [
+    {
+      "family": "Geist Mono Variable",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 1,
+      "files": [
+        "GeistMono-Variable.woff2"
+      ]
+    },
+    {
+      "family": "Geist Variable",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 1,
+      "files": [
+        "Geist-Variable.woff2"
+      ]
+    },
+    {
+      "family": "Phosphor-Bold",
+      "weights": [
+        400
+      ],
+      "variable": false,
+      "fileCount": 3,
+      "files": [
+        "Phosphor-Bold.ttf",
+        "Phosphor-Bold.woff",
+        "Phosphor-Bold.woff2"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-08-13T14:42:11.031Z",
+    "tool": "fontkit"
+  }
+}

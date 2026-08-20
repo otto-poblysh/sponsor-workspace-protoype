@@ -3,8 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sponsor Workspace — Skill Gap Report</title>
-  <meta name="description" content="Addis Jobs Consortium Sponsor Workspace skill gap report prototype" />
+  <title>Labour Market Portal — Skill Gap Report</title>
+  <meta name="description" content="Ministry of Labour — Labour Market Portal skill gap report prototype" />
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
 
   <!-- Geist Sans + Mono -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -182,6 +218,41 @@
       margin-top: auto;
       padding-top: var(--space-lg);
       border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
     }
 
     .user-mini {
@@ -567,8 +638,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Addis Jobs Consortium</div>
-          <div class="brand-sub">Sponsor Workspace</div>
+          <div class="brand-name">Ministry of Labour</div>
+          <div class="brand-sub">Labour Market Portal</div>
         </div>
       </div>
 
@@ -577,9 +648,9 @@
           <div class="nav-label">Overview</div>
           <ul class="nav-list">
             <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Dashboard</a></li>
-            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Entities</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Registered Employers</a></li>
             <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
-            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Users Management</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Ministry Users</a></li>
           </ul>
         </div>
 
@@ -587,7 +658,7 @@
           <div class="nav-label">Insights</div>
           <ul class="nav-list">
             <li><a class="nav-item is-active" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
-            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> General Report</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Labour Market Reports</a></li>
             <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
           </ul>
         </div>
@@ -595,8 +666,8 @@
         <div class="nav-group">
           <div class="nav-label">Settings</div>
           <ul class="nav-list">
-            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Tenant Branding</a></li>
-            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Supported Countries</a></li>
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Regional Coverage</a></li>
             <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Report Recipients</a></li>
             <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Notification Preferences</a></li>
           </ul>
@@ -604,11 +675,16 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <a class="lang-opt is-active" hreflang="en" href="skill-gap.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="fr/skill-gap.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="es/skill-gap.html">ES</a>
+        </div>
         <div class="user-mini">
-          <div class="user-avatar">TH</div>
+          <div class="user-avatar">ME</div>
           <div>
-            <div class="user-name">Tigist Haile</div>
-            <div class="user-role">Sponsor Owner</div>
+            <div class="user-name">María Esono</div>
+            <div class="user-role">Ministry Administrator</div>
           </div>
         </div>
       </div>
@@ -618,7 +694,7 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Skill Gap Report</h1>
-          <p class="page-subtitle">Understand skills demand vs supply and recommendations within the workspace</p>
+          <p class="page-subtitle">Compare private-sector skill demand with registered worker supply across Equatorial Guinea</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-secondary" onclick="alert('Exporting Report...')"><i class="ph-bold ph-download-simple"></i> Export report</button>
@@ -630,20 +706,20 @@
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="checkLowData()">
             <option value="all">All sectors</option>
-            <option value="software">Software</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="green-energy">Green energy</option>
-            <option value="manufacturing">Manufacturing</option>
+            <option value="software">Oil & gas services</option>
+            <option value="healthcare">Construction</option>
+            <option value="hospitality">Hospitality & tourism</option>
+            <option value="manufacturing">Agriculture & fisheries</option>
           </select>
         </div>
         <div class="filter-group">
           <label class="filter-label" for="filter-location">Location</label>
           <select id="filter-location" class="filter-select" onchange="checkLowData()">
             <option value="all">All locations</option>
-            <option value="addis-ababa">Addis Ababa</option>
-            <option value="nairobi">Nairobi</option>
-            <option value="kigali">Kigali</option>
-            <option value="lagos">Lagos</option>
+            <option value="malabo">Malabo</option>
+            <option value="nairobi">Bata</option>
+            <option value="kigali">Ebebiyín</option>
+            <option value="lagos">Mongomo</option>
           </select>
         </div>
       </div>
@@ -660,12 +736,12 @@
       <section class="kpi-grid animate-enter delay-1">
         <article class="kpi-tile">
           <div class="kpi-label">Jobs analysed</div>
-          <div class="kpi-value" id="kpi-jobs">1,847</div>
-          <div class="kpi-desc">Based on active workspace postings</div>
+          <div class="kpi-value" id="kpi-jobs">1,126</div>
+          <div class="kpi-desc">Based on active employer vacancies</div>
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Seeker profiles analysed</div>
-          <div class="kpi-value" id="kpi-seekers">24,691</div>
+          <div class="kpi-value" id="kpi-seekers">18,742</div>
           <div class="kpi-desc">Based on aggregated portal seekers</div>
         </article>
         <article class="kpi-tile">
@@ -675,7 +751,7 @@
         </article>
         <article class="kpi-tile">
           <div class="kpi-label">Recommendations</div>
-          <div class="kpi-value" id="kpi-recs">4</div>
+          <div class="kpi-value" id="kpi-recs">3</div>
           <div class="kpi-desc">Actionable training programs</div>
         </article>
       </section>
@@ -695,33 +771,33 @@
               </thead>
               <tbody id="general-skills-body">
                 <tr>
-                  <td>Project management</td>
-                  <td>612</td>
-                  <td>4,802</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
-                </tr>
-                <tr>
-                  <td>Customer communication</td>
-                  <td>548</td>
-                  <td>6,114</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
-                </tr>
-                <tr>
-                  <td>Data analysis</td>
-                  <td>489</td>
-                  <td>2,931</td>
+                  <td>Occupational health & safety</td>
+                  <td>286</td>
+                  <td>1,094</td>
                   <td><span class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr>
-                  <td>Team leadership</td>
-                  <td>324</td>
-                  <td>3,847</td>
+                  <td>Customer service</td>
+                  <td>264</td>
+                  <td>2,486</td>
                   <td><span class="badge badge-success">Surplus</span></td>
                 </tr>
                 <tr>
-                  <td>Problem solving</td>
-                  <td>718</td>
-                  <td>8,221</td>
+                  <td>Equipment maintenance</td>
+                  <td>238</td>
+                  <td>724</td>
+                  <td><span class="badge badge-error">Shortage</span></td>
+                </tr>
+                <tr>
+                  <td>Construction trades</td>
+                  <td>219</td>
+                  <td>1,358</td>
+                  <td><span class="badge badge-success">Surplus</span></td>
+                </tr>
+                <tr>
+                  <td>Sales & merchandising</td>
+                  <td>197</td>
+                  <td>2,104</td>
                   <td><span class="badge badge-success">Surplus</span></td>
                 </tr>
               </tbody>
@@ -729,7 +805,7 @@
           </div>
 
           <div class="card">
-            <h3 class="card-title">Computer and ICT Skills Demand vs Supply</h3>
+            <h3 class="card-title">Technical and Digital Skills Demand vs Supply</h3>
             <table class="data-table">
               <thead>
                 <tr>
@@ -741,33 +817,33 @@
               </thead>
               <tbody id="ict-skills-body">
                 <tr>
-                  <td>Python</td>
-                  <td>412</td>
-                  <td>1,847</td>
-                  <td><span class="badge badge-warning">Tight</span></td>
-                </tr>
-                <tr>
-                  <td>SQL</td>
-                  <td>378</td>
-                  <td>2,104</td>
-                  <td><span class="badge badge-warning">Tight</span></td>
-                </tr>
-                <tr>
-                  <td>Cloud platforms</td>
-                  <td>296</td>
-                  <td>1,032</td>
+                  <td>Industrial electrical systems</td>
+                  <td>174</td>
+                  <td>496</td>
                   <td><span class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr>
-                  <td>JavaScript / TypeScript</td>
-                  <td>514</td>
-                  <td>3,421</td>
+                  <td>Office productivity tools</td>
+                  <td>161</td>
+                  <td>2,104</td>
                   <td><span class="badge badge-success">Surplus</span></td>
                 </tr>
                 <tr>
-                  <td>Cybersecurity basics</td>
-                  <td>187</td>
-                  <td>624</td>
+                  <td>Welding & fabrication</td>
+                  <td>148</td>
+                  <td>382</td>
+                  <td><span class="badge badge-error">Shortage</span></td>
+                </tr>
+                <tr>
+                  <td>Commercial driving</td>
+                  <td>132</td>
+                  <td>608</td>
+                  <td><span class="badge badge-warning">Tight</span></td>
+                </tr>
+                <tr>
+                  <td>Hospitality operations</td>
+                  <td>119</td>
+                  <td>354</td>
                   <td><span class="badge badge-error">Shortage</span></td>
                 </tr>
               </tbody>
@@ -780,24 +856,24 @@
           <div class="rec-list" id="recommendations-box">
             <div class="rec-item">
               <div class="rec-header">
-                <span class="rec-title">Cloud Infrastructure Bootcamp</span>
+                <span class="rec-title">Industrial Electrical Certification</span>
                 <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
               </div>
-              <p class="rec-body">Focus on AWS/Azure fundamentals. 296 job postings require these skills with limited candidate supply.</p>
+              <p class="rec-body">Build practical competency in industrial power systems for 174 vacancies with limited qualified supply.</p>
             </div>
             <div class="rec-item">
               <div class="rec-header">
-                <span class="rec-title">Cybersecurity Fundamentals</span>
+                <span class="rec-title">Certified Welding Programme</span>
                 <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
               </div>
-              <p class="rec-body">Introduce key security concepts. Seeker supply is very low (624 profiles) relative to growing demand (187 jobs).</p>
+              <p class="rec-body">Expand accredited welding and fabrication training aligned with 148 current vacancies.</p>
             </div>
             <div class="rec-item">
               <div class="rec-header">
-                <span class="rec-title">Advanced Data Analysis & SQL</span>
+                <span class="rec-title">Commercial Driver Upskilling</span>
                 <span class="rec-impact" style="color:var(--warning-text)">Medium Impact</span>
               </div>
-              <p class="rec-body">Upskill existing SQL users in data manipulation and intermediate warehousing concepts.</p>
+              <p class="rec-body">Support commercial licensing, fleet safety and logistics readiness for job seekers.</p>
             </div>
           </div>
         </div>
@@ -806,13 +882,44 @@
   </div>
 
   <script>
+    /* i18n:STR:start */
+    const STR = {
+      badgeShortage: "Shortage",
+      badgeSurplus: "Surplus",
+      badgeTight: "Tight",
+      hotelOperations: "Hotel operations",
+      foodSafety: "Food safety",
+      propertyManagementSystems: "Property management systems",
+      hotelSystemsTrainingTitle: "Hotel Systems Training",
+      highImpact: "High Impact",
+      mediumImpact: "Medium Impact",
+      hotelSystemsTrainingDesc: "Only 3 seekers in this filter slice report experience with hotel property-management systems.",
+      occupationalHealthSafety: "Occupational health & safety",
+      customerService: "Customer service",
+      equipmentMaintenance: "Equipment maintenance",
+      constructionTrades: "Construction trades",
+      salesMerchandising: "Sales & merchandising",
+      industrialElectricalSystems: "Industrial electrical systems",
+      officeProductivityTools: "Office productivity tools",
+      weldingFabrication: "Welding & fabrication",
+      commercialDriving: "Commercial driving",
+      industrialElectricalCertTitle: "Industrial Electrical Certification",
+      industrialElectricalCertDesc: "Build practical competency in industrial power systems for 174 vacancies with limited qualified supply.",
+      certifiedWeldingProgTitle: "Certified Welding Programme",
+      certifiedWeldingProgDesc: "Expand accredited welding and fabrication training aligned with 148 current vacancies.",
+      commercialDriverUpskillingTitle: "Commercial Driver Upskilling",
+      commercialDriverUpskillingDesc: "Support commercial licensing, fleet safety and logistics readiness for job seekers."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
     function checkLowData() {
       const sector = document.getElementById('filter-sector').value;
       const location = document.getElementById('filter-location').value;
       const warningBanner = document.getElementById('low-data-warning');
 
-      // Simple mock trigger: if sector is Green Energy and location is Addis Ababa, trigger warning
-      if (sector === 'green-energy' && location === 'addis-ababa') {
+      // Demo a low-data slice for hospitality vacancies in Malabo.
+      if (sector === 'hospitality' && location === 'malabo') {
         document.getElementById('warn-jobs').textContent = '12';
         document.getElementById('warn-seekers').textContent = '45';
         warningBanner.classList.add('is-visible');
@@ -826,130 +933,130 @@
         // Update tables
         document.getElementById('general-skills-body').innerHTML = `
           <tr>
-            <td>Turbine maintenance</td>
+            <td>${STR.hotelOperations}</td>
             <td>12</td>
             <td>8</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Safety protocols</td>
+            <td>${STR.foodSafety}</td>
             <td>10</td>
             <td>42</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
           <tr>
-            <td>SCADA systems</td>
+            <td>${STR.propertyManagementSystems}</td>
             <td>8</td>
             <td>3</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">SCADA Systems Training</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.hotelSystemsTrainingTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Only 3 seekers possess SCADA skills out of the filtered set.</p>
+            <p class="rec-body">${STR.hotelSystemsTrainingDesc}</p>
           </div>
         `;
       } else {
         warningBanner.classList.remove('is-visible');
 
         // Restore normal metrics
-        document.getElementById('kpi-jobs').textContent = '1,847';
-        document.getElementById('kpi-seekers').textContent = '24,691';
+        document.getElementById('kpi-jobs').textContent = '1,126';
+        document.getElementById('kpi-seekers').textContent = '18,742';
         document.getElementById('kpi-shortages').textContent = '3';
-        document.getElementById('kpi-recs').textContent = '4';
+        document.getElementById('kpi-recs').textContent = '3';
 
         // Restore table defaults
         document.getElementById('general-skills-body').innerHTML = `
           <tr>
-            <td>Project management</td>
-            <td>612</td>
-            <td>4,802</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td>${STR.occupationalHealthSafety}</td>
+            <td>286</td>
+            <td>1,094</td>
+            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
           </tr>
           <tr>
-            <td>Customer communication</td>
-            <td>548</td>
-            <td>6,114</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td>${STR.customerService}</td>
+            <td>264</td>
+            <td>2,486</td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Data analysis</td>
-            <td>489</td>
-            <td>2,931</td>
-            <td><span class="badge badge-warning">Tight</span></td>
+            <td>${STR.equipmentMaintenance}</td>
+            <td>238</td>
+            <td>724</td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>Team leadership</td>
-            <td>324</td>
-            <td>3,847</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td>${STR.constructionTrades}</td>
+            <td>219</td>
+            <td>1,358</td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Problem solving</td>
-            <td>718</td>
-            <td>8,221</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td>${STR.salesMerchandising}</td>
+            <td>197</td>
+            <td>2,104</td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
           <tr>
-            <td>Python</td>
-            <td>412</td>
-            <td>1,847</td>
-            <td><span class="badge badge-warning">Tight</span></td>
+            <td>${STR.industrialElectricalSystems}</td>
+            <td>174</td>
+            <td>496</td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>SQL</td>
-            <td>378</td>
+            <td>${STR.officeProductivityTools}</td>
+            <td>161</td>
             <td>2,104</td>
-            <td><span class="badge badge-warning">Tight</span></td>
+            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
           </tr>
           <tr>
-            <td>Cloud platforms</td>
-            <td>296</td>
-            <td>1,032</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td>${STR.weldingFabrication}</td>
+            <td>148</td>
+            <td>382</td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
           <tr>
-            <td>JavaScript / TypeScript</td>
-            <td>514</td>
-            <td>3,421</td>
-            <td><span class="badge badge-success">Surplus</span></td>
+            <td>${STR.commercialDriving}</td>
+            <td>132</td>
+            <td>608</td>
+            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
           </tr>
           <tr>
-            <td>Cybersecurity basics</td>
-            <td>187</td>
-            <td>624</td>
-            <td><span class="badge badge-error">Shortage</span></td>
+            <td>${STR.hotelOperations}</td>
+            <td>119</td>
+            <td>354</td>
+            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Cloud Infrastructure Bootcamp</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.industrialElectricalCertTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Focus on AWS/Azure fundamentals. 296 job postings require these skills with limited candidate supply.</p>
+            <p class="rec-body">${STR.industrialElectricalCertDesc}</p>
           </div>
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Cybersecurity Fundamentals</span>
-              <span class="rec-impact" style="color:var(--error-text)">High Impact</span>
+              <span class="rec-title">${STR.certifiedWeldingProgTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
             </div>
-            <p class="rec-body">Introduce key security concepts. Seeker supply is very low (624 profiles) relative to growing demand (187 jobs).</p>
+            <p class="rec-body">${STR.certifiedWeldingProgDesc}</p>
           </div>
           <div class="rec-item">
             <div class="rec-header">
-              <span class="rec-title">Advanced Data Analysis & SQL</span>
-              <span class="rec-impact" style="color:var(--warning-text)">Medium Impact</span>
+              <span class="rec-title">${STR.commercialDriverUpskillingTitle}</span>
+              <span class="rec-impact" style="color:var(--warning-text)">${STR.mediumImpact}</span>
             </div>
-            <p class="rec-body">Upskill existing SQL users in data manipulation and intermediate warehousing concepts.</p>
+            <p class="rec-body">${STR.commercialDriverUpskillingDesc}</p>
           </div>
         `;
       }
