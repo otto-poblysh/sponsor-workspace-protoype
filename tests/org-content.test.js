@@ -131,3 +131,52 @@ test('seeker home carries the language toggle', () => {
   assert.ok(html.includes('hreflang="fr"'), 'missing FR toggle link');
   assert.ok(html.includes('hreflang="es"'), 'missing ES toggle link');
 });
+
+test('recruiter page renders the entity-admin shell', () => {
+  const html = read('recruiter-jobs.html');
+  assert.ok(html.includes('Entity Admin'), 'missing entity-admin label');
+  for (const item of ['Manage Entity', 'Users &amp; Roles', 'Jobs']) {
+    assert.ok(html.includes(item), `recruiter nav missing "${item}"`);
+  }
+});
+
+test('recruiter page renders status tabs with counts', () => {
+  const html = read('recruiter-jobs.html');
+  for (const tab of ['Overview', 'Active', 'Draft', 'Closed', 'Expired', 'Trash', 'All']) {
+    assert.ok(html.includes(tab), `missing status tab "${tab}"`);
+  }
+  assert.ok(/\(\d+\)/.test(html), 'status tabs must carry counts');
+});
+
+test('recruiter page renders the four KPI tiles', () => {
+  const html = read('recruiter-jobs.html');
+  for (const kpi of [
+    'Active Jobs', 'Applicants Awaiting Review',
+    'Upcoming Pre-Screening Calls', 'Interview Responses Awaiting Review'
+  ]) {
+    assert.ok(html.toLowerCase().includes(kpi.toLowerCase()), `missing KPI "${kpi}"`);
+  }
+});
+
+test('recruiter page renders both charts with recruitment stages', () => {
+  const html = read('recruiter-jobs.html');
+  assert.ok(html.includes('Job Applications') || html.includes('JOB APPLICATIONS'));
+  assert.ok(html.includes('Applicants by Recruitment Stage') ||
+            html.includes('APPLICANTS BY RECRUITMENT STAGES'));
+  for (const stage of ['Applied', 'Interview', 'Offer', 'Rejected']) {
+    assert.ok(html.includes(stage), `missing stage "${stage}"`);
+  }
+});
+
+test('recruiter jobs table has the right columns and no misspelling', () => {
+  const html = read('recruiter-jobs.html');
+  for (const col of ['Title', 'Posted By', 'Posted On', 'Expires On',
+                     'Sponsored Status', 'Applicants', 'Actions']) {
+    assert.ok(html.includes(col), `jobs table missing column "${col}"`);
+  }
+  assert.ok(!/SPONORED/i.test(html), 'the live demo misspelling must not be reproduced');
+});
+
+test('recruiter page offers Post a Job', () => {
+  assert.ok(read('recruiter-jobs.html').includes('Post a Job'));
+});
