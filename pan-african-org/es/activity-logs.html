@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../activity-logs.html -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="../../gate.js"></script>
+  <title>Portal de Talento Comunitario — Registros de actividad</title>
+  <meta name="description" content="Pan-African Enterprise Alliance — Prototipo de registros de actividad del Portal de Talento Comunitario"/>
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filter-input {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .data-table td strong {
+      color: var(--text);
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Alert / Warning Banner */
+    .alert-banner {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border: 1px solid rgba(149, 100, 0, 0.2);
+    }
+
+    .alert-banner i {
+      font-size: 18px;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Abrir navegación" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Pan-African Enterprise Alliance</div>
+          <div class="brand-sub">Portal de Talento Comunitario</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Visión general</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Panel de la Red</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Empresas Miembro</a></li>
+            <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Ofertas y solicitudes</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Equipo de la Organización</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Análisis</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Informe de brecha de competencias</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Informes de Impacto Comunitario</a></li>
+            <li><a class="nav-item is-active" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Registros de actividad</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Configuración</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Personalización del portal</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Países Miembro</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Destinatarios de informes</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Preferencias de notificación</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Idioma">
+          <a class="lang-opt" hreflang="en" href="../en/activity-logs.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="../fr/activity-logs.html">FR</a>
+          <a class="lang-opt is-active" hreflang="es" href="activity-logs.html">ES</a>
+        </div>
+        <div class="user-mini">
+          <div class="user-avatar">SB</div>
+          <div>
+            <div class="user-name">Selamawit Bekele</div>
+            <div class="user-role">Administrador de Programa</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Registros de actividad</h1>
+          <p class="page-subtitle">Registrar las acciones importantes realizadas en el Portal de Talento Comunitario para garantizar la responsabilidad y la buena gobernanza</p>
+        </div>
+      </header>
+
+      <div class="alert-banner animate-enter delay-1">
+        <i class="ph-bold ph-lock-keyhole"></i>
+        <span><strong>Garantía de conservación de registros:</strong> Los registros de actividad son de solo lectura e inmutables. Ningún miembro del Equipo de la Organización puede editarlos, eliminarlos o borrarlos. El sistema conserva los registros durante 365 días.</span>
+      </div>
+
+      <div class="filter-bar animate-enter delay-1" role="search" aria-label="Filtros de registros">
+        <div class="filter-group" style="flex:2;">
+          <label class="filter-label" for="search-logs">Buscar autor o acción</label>
+          <input type="text" id="search-logs" class="filter-input" placeholder="p. ej. Selamawit, verificado..." oninput="filterLogs()">
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-category">Categoría</label>
+          <select id="filter-category" class="filter-select" onchange="filterLogs()">
+            <option value="all">Todas las categorías</option>
+            <option value="user management">Gestión de usuarios</option>
+            <option value="entity moderation">Verificación de empresas miembro</option>
+            <option value="branding">Personalización del portal</option>
+            <option value="countries">Países miembro</option>
+            <option value="reports">Exportaciones de informes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card animate-enter delay-2">
+        <table class="data-table" id="logs-table">
+          <thead>
+            <tr>
+              <th style="width: 150px;">Marca de tiempo</th>
+              <th style="width: 150px;">Autor</th>
+              <th>Acción</th>
+              <th style="width: 180px;">Categoría</th>
+              <th>Detalles (Antes → Después)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-category="entity moderation">
+              <td style="font-family: var(--font-mono);">13 jun 2026, 14:38</td>
+              <td><strong>Selamawit Bekele</strong></td>
+              <td>Verificó la empresa miembro Rift Valley Agro-Processing</td>
+              <td>Verificación de empresas miembro</td>
+              <td><small style="color:var(--text-secondary)">Estado: Pendiente de revisión → Verificado</small></td>
+            </tr>
+            <tr data-category="user management">
+              <td style="font-family: var(--font-mono);">13 jun 2026, 13:52</td>
+              <td><strong>Dawit Haile</strong></td>
+              <td>Usuario invitado wanjiru.kamau@paea.africa</td>
+              <td>Gestión de usuarios</td>
+              <td><small style="color:var(--text-secondary)">Rol: Responsable de País (Invitado)</small></td>
+            </tr>
+            <tr data-category="countries">
+              <td style="font-family: var(--font-mono);">13 jun 2026, 11:20</td>
+              <td><strong>Sistema</strong></td>
+              <td>Actualizó la cobertura de países miembro</td>
+              <td>Países miembro</td>
+              <td><small style="color:var(--text-secondary)">Reporte de vacantes habilitado: Rwanda</small></td>
+            </tr>
+            <tr data-category="entity moderation">
+              <td style="font-family: var(--font-mono);">13 jun 2026, 09:47</td>
+              <td><strong>Selamawit Bekele</strong></td>
+              <td>Suspendió la empresa miembro Northern Highlands Construction</td>
+              <td>Verificación de empresas miembro</td>
+              <td><small style="color:var(--text-secondary)">Comentario: Inactivo durante 120 días</small></td>
+            </tr>
+            <tr data-category="reports">
+              <td style="font-family: var(--font-mono);">12 jun 2026, 16:15</td>
+              <td><strong>Tigist Alemu</strong></td>
+              <td>Generó el resumen mensual de empleo</td>
+              <td>Exportaciones de informes</td>
+              <td><small style="color:var(--text-secondary)">Formato: PDF</small></td>
+            </tr>
+            <tr data-category="entity moderation">
+              <td style="font-family: var(--font-mono);">12 jun 2026, 11:03</td>
+              <td><strong>Dawit Haile</strong></td>
+              <td>Devolvió la solicitud de membresía de Central Leather Works</td>
+              <td>Verificación de empresas miembro</td>
+              <td><small style="color:var(--text-secondary)">Comentario: Documentos de membresía incompletos</small></td>
+            </tr>
+            <tr data-category="branding">
+              <td style="font-family: var(--font-mono);">10 jun 2026, 10:11</td>
+              <td><strong>Selamawit Bekele</strong></td>
+              <td>Color principal de la marca actualizado</td>
+              <td>Personalización del portal</td>
+              <td><small style="color:var(--text-secondary)">Énfasis: #0f5c58 → #1E3A5F</small></td>
+            </tr>
+            <tr data-category="user management">
+              <td style="font-family: var(--font-mono);">09 jun 2026, 15:44</td>
+              <td><strong>Selamawit Bekele</strong></td>
+              <td>Usuario desactivado yonas.mekonnen@paea.africa</td>
+              <td>Gestión de usuarios</td>
+              <td><small style="color:var(--text-secondary)">Estado: Activo → Desactivado</small></td>
+            </tr>
+            <tr data-category="reports">
+              <td style="font-family: var(--font-mono);">08 jun 2026, 09:00</td>
+              <td><strong>Sistema</strong></td>
+              <td>Envío automatizado a destinatarios de informes</td>
+              <td>Exportaciones de informes</td>
+              <td><small style="color:var(--text-secondary)">Enviado a: 3 destinatarios configurados</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function filterLogs() {
+      const query = document.getElementById('search-logs').value.toLowerCase();
+      const category = document.getElementById('filter-category').value.toLowerCase();
+      const rows = document.querySelectorAll('#logs-table tbody tr');
+
+      rows.forEach(row => {
+        const actor = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        const action = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+        const rowCategory = row.getAttribute('data-category').toLowerCase();
+
+        const matchQuery = (actor.includes(query) || action.includes(query));
+        const matchCategory = (category === 'all' || rowCategory === category);
+
+        if(matchQuery && matchCategory) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
