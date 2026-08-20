@@ -750,7 +750,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activate</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Activate</button>
               </td>
             </tr>
             <tr data-sector="manufacturing and textiles" data-status="verified" data-size="50–249">
@@ -798,7 +798,7 @@
                 </div>
               </td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Verify</button>
+                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Verify</button>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Central Leather Works')">Reject</button>
               </td>
             </tr>
@@ -920,6 +920,7 @@
       statusRejected: "Rejected",
       actionActivate: "Activate",
       actionSuspend: "Suspend",
+      statusVerified: "Verified",
       reinvitedName: "Re-invited {name}",
       actionProcessedSuccess: "Action processed successfully. Comment logged: \"{comment}\"",
       fillAllFields: "Please fill out all fields.",
@@ -1001,7 +1002,7 @@
         if (activeModType === 'suspend') {
           statusTd.innerHTML = `<span class="badge badge-error">${STR.statusSuspended}</span>`;
           activeModRow.setAttribute('data-status', 'suspended');
-          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusVerified}', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
         } else if (activeModType === 'reject') {
           statusTd.innerHTML = `<span class="badge badge-error">${STR.statusRejected}</span>`;
           activeModRow.setAttribute('data-status', 'rejected');
@@ -1013,17 +1014,21 @@
       alert(fmt(STR.actionProcessedSuccess, { comment }));
     }
 
-    function changeStatus(btn, statusName, badgeClass, nextActionLabel) {
+    function changeStatus(btn, statusLabel, badgeClass, nextActionLabel) {
+      // statusLabel is the localized text shown in the badge. All current
+      // callers transition a row to the "verified" state, so the internal
+      // data-status key (used by the sector/status/size filters above) and
+      // the branch below are keyed off that fixed, locale-invariant string
+      // rather than off statusLabel — comparing statusLabel to a literal
+      // would silently stop matching once statusLabel is translated.
       const row = btn.closest('tr');
       const statusTd = row.querySelector('td:nth-child(5)');
       const actionTd = row.querySelector('td:nth-child(7)');
 
-      statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusName}</span>`;
-      row.setAttribute('data-status', statusName.toLowerCase());
+      statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusLabel}</span>`;
+      row.setAttribute('data-status', 'verified');
 
-      if(statusName === 'Verified') {
-        actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
-      }
+      actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
     }
 
     function submitInvite() {

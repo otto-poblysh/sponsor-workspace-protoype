@@ -550,7 +550,12 @@ function buildAll(options = {}) {
         englishDir,
         headerComment: false
       });
-      const headerComment = `<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../${pageName} -->\n`;
+      // Ministry layout (no englishDir): source sits at the repo/site root,
+      // one level up from fr/es -> ../pageName. Nested layout (englishDir
+      // set, e.g. 'en' for pan-african-org): source sits in a sibling
+      // directory alongside fr/es -> ../en/pageName.
+      const sourceRelPath = englishDir ? `../${englishDir}/${pageName}` : `../${pageName}`;
+      const headerComment = `<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ${sourceRelPath} -->\n`;
       const translated = insertHeaderAfterDoctype(translatedBody, headerComment);
 
       const outPagePath = path.join(localeDir, pageName);
