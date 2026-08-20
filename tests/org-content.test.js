@@ -19,8 +19,11 @@ test('no ministry vocabulary survives on any org page', () => {
   const hits = [];
   for (const f of pages()) {
     const html = read(f);
+    const haystack = html.toLowerCase();
     for (const term of MINISTRY_TERMS) {
-      if (html.includes(term)) hits.push(`${f}: "${term}"`);
+      // Case-insensitive: sentence-case residues such as "Regional coverage"
+      // must fail just as loudly as the Title Case form.
+      if (haystack.includes(term.toLowerCase())) hits.push(`${f}: "${term}"`);
     }
   }
   assert.deepStrictEqual(hits, [], `Ministry vocabulary found:\n  ${hits.join('\n  ')}`);
