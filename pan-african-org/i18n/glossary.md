@@ -14,7 +14,7 @@ industry federations. **Not a government body.** Avoid regulatory language
 
 | English | Spanish | French |
 | :--- | :--- | :--- |
-| Pan-African Enterprise Alliance | Alianza Panafricana de Empresas | Alliance Panafricaine des Entreprises |
+| Pan-African Enterprise Alliance | *(do-not-translate — see `do-not-translate.json`)* | *(do-not-translate — see `do-not-translate.json`)* |
 | Community Talent Portal | Portal de Talento Comunitario | Portail de Talents Communautaire |
 | Member Companies | Empresas Miembro | Entreprises Membres |
 | Member Countries | Países Miembro | Pays Membres |
