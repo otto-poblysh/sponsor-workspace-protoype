@@ -385,13 +385,14 @@ function writeCatalogSkeletons(extractedData, i18nDir, locales = ['fr', 'es'], o
 
 // CLI runner
 if (require.main === module) {
-  const rootDir = process.cwd();
-  const i18nDir = path.join(rootDir, 'i18n');
+  const { resolveSite } = require('./build-i18n.js');
+  const { srcDir: rootDir, i18nDir } = resolveSite(process.argv.slice(2));
   const dntPath = path.join(i18nDir, 'do-not-translate.json');
   const doNotTranslateSet = loadDoNotTranslate(dntPath);
 
+  const pageList = fs.readdirSync(rootDir).filter((f) => f.endsWith('.html')).sort();
   const pagesMap = {};
-  for (const pageName of DEFAULT_PROTOTYPE_PAGES) {
+  for (const pageName of pageList) {
     const fullPath = path.join(rootDir, pageName);
     if (fs.existsSync(fullPath)) {
       pagesMap[pageName] = fs.readFileSync(fullPath, 'utf-8');

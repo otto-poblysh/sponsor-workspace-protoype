@@ -389,7 +389,14 @@ if (require.main === module) {
   let silent = false;
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--src' && args[i + 1]) {
+    if (args[i] === '--site' && args[i + 1]) {
+      const { resolveSite } = require('./build-i18n.js');
+      const s = resolveSite(['--site', args[++i]]);
+      srcDir = s.srcDir;
+      genDir = s.outDir;
+      i18nDir = s.i18nDir;
+      pages = fs.readdirSync(srcDir).filter((f) => f.endsWith('.html')).sort();
+    } else if (args[i] === '--src' && args[i + 1]) {
       srcDir = args[++i];
     } else if (args[i] === '--gen' && args[i + 1]) {
       genDir = args[++i];

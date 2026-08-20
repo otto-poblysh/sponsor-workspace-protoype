@@ -118,15 +118,19 @@ if (require.main === module) {
     console.error('Usage: node tools/build-video-i18n.js <locale>   e.g. fr');
     process.exit(1);
   }
+  const args = process.argv.slice(2);
+  const flag = (name, fallback) => {
+    const i = args.indexOf(name);
+    return i !== -1 && args[i + 1] ? path.resolve(args[i + 1]) : fallback;
+  };
   const root = process.cwd();
-  const result = buildVideoLocale({
-    srcDir: path.join(root, 'tutorial-video'),
-    outDir: path.join(root, `tutorial-video-${locale}`),
-    i18nDir: path.join(root, 'i18n'),
-    locale
-  });
+  const srcDir = flag('--src', path.join(root, 'tutorial-video'));
+  const outBase = flag('--out', root);
+  const i18nDir = flag('--i18n', path.join(root, 'i18n'));
+  const outDir = path.join(outBase, `${path.basename(srcDir).replace(/-en$/, '')}-${locale}`);
+  const result = buildVideoLocale({ srcDir, outDir, i18nDir, locale });
   console.log(
-    `✓ tutorial-video-${locale}: ${result.generatedFiles.length} compositions, ` +
+    `✓ ${path.relative(root, outDir)}: ${result.generatedFiles.length} compositions, ` +
     `${result.copiedAssets.length} assets copied.`
   );
 }

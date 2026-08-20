@@ -46,3 +46,29 @@ test('the active segment still tracks the locale when englishDir is set', () => 
   assert.match(fr, /class="lang-opt is-active" hreflang="fr"/);
   assert.match(fr, /class="lang-opt" hreflang="en"/);
 });
+
+const path = require('node:path');
+const { resolveSite } = require('../tools/build-i18n.js');
+const ROOT = path.join(__dirname, '..');
+
+test('no --site resolves to repo root with no englishDir', () => {
+  const s = resolveSite([], ROOT);
+  assert.strictEqual(s.srcDir, ROOT);
+  assert.strictEqual(s.outDir, ROOT);
+  assert.strictEqual(s.i18nDir, path.join(ROOT, 'i18n'));
+  assert.strictEqual(s.englishDir, null);
+});
+
+test('--site with an en/ subdirectory sources from it', () => {
+  const s = resolveSite(['--site', 'pan-african-org'], ROOT);
+  assert.strictEqual(s.srcDir, path.join(ROOT, 'pan-african-org', 'en'));
+  assert.strictEqual(s.outDir, path.join(ROOT, 'pan-african-org'));
+  assert.strictEqual(s.i18nDir, path.join(ROOT, 'pan-african-org', 'i18n'));
+  assert.strictEqual(s.englishDir, 'en');
+});
+
+test('--site without an en/ subdirectory sources from the site root', () => {
+  const s = resolveSite(['--site', 'tutorial-video'], ROOT);
+  assert.strictEqual(s.srcDir, path.join(ROOT, 'tutorial-video'));
+  assert.strictEqual(s.englishDir, null);
+});

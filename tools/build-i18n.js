@@ -525,21 +525,44 @@ function buildAll(options = {}) {
   };
 }
 
+/**
+ * Resolves site paths from CLI args.
+ *
+ * `--site <dir>` points the build at a nested site. If `<dir>/en` exists it is
+ * the English source and locales are siblings inside `<dir>`; otherwise `<dir>`
+ * itself is the source and locales nest under it (the ministry layout).
+ * With no `--site`, everything resolves to the repo root exactly as before.
+ *
+ * @param {string[]} args
+ * @param {string} [cwd]
+ * @returns {{srcDir: string, outDir: string, i18nDir: string, englishDir: string|null}}
+ */
+function resolveSite(args, cwd = process.cwd()) {
+  const i = args.indexOf('--site');
+  if (i === -1 || !args[i + 1]) {
+    return { srcDir: cwd, outDir: cwd, i18nDir: path.join(cwd, 'i18n'), englishDir: null };
+  }
+  const siteDir = path.resolve(cwd, args[i + 1]);
+  const enDir = path.join(siteDir, 'en');
+  const hasEn = fs.existsSync(enDir);
+  return {
+    srcDir: hasEn ? enDir : siteDir,
+    outDir: siteDir,
+    i18nDir: path.join(siteDir, 'i18n'),
+    englishDir: hasEn ? 'en' : null
+  };
+}
+
 // CLI runner
 if (require.main === module) {
-  const rootDir = process.cwd();
-  const i18nDir = path.join(rootDir, 'i18n');
+  const args = process.argv.slice(2);
+  const { srcDir, outDir, i18nDir, englishDir } = resolveSite(args);
   const locales = ['fr', 'es'];
+  const pages = fs.readdirSync(srcDir).filter((f) => f.endsWith('.html')).sort();
 
-  console.log('Compiling static i18n trees (/fr and /es)...');
-  const result = buildAll({
-    srcDir: rootDir,
-    outDir: rootDir,
-    i18nDir,
-    locales,
-    pages: DEFAULT_PROTOTYPE_PAGES
-  });
-  console.log(`✓ Successfully generated ${result.generatedFiles.length} pages across [${locales.join(', ')}].`);
+  console.log(`Compiling i18n trees for ${path.relative(process.cwd(), outDir) || '.'} ...`);
+  const result = buildAll({ srcDir, outDir, i18nDir, locales, pages, englishDir });
+  console.log(`✓ Generated ${result.generatedFiles.length} pages across [${locales.join(', ')}].`);
 }
 
 module.exports = {
@@ -554,6 +577,7 @@ module.exports = {
   unescapeJsString,
   escapeHtmlText,
   escapeHtmlAttr,
+  resolveSite,
   DEFAULT_PROTOTYPE_PAGES,
   WHITELISTED_ATTRS
 };
