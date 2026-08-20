@@ -152,25 +152,31 @@ function escapeHtmlAttr(str, quoteChar = '"') {
  * @param {string} pageName
  * @returns {string}
  */
-function rewriteToggleLinks(toggleInnerHtml, locale, pageName) {
+function rewriteToggleLinks(toggleInnerHtml, locale, pageName, englishDir = null) {
   let enHref, frHref, esHref;
   let enActive = false, frActive = false, esActive = false;
 
+  // englishDir set => English lives in its own sibling directory (e.g. `en/`),
+  // so every cross-locale link is `../<locale>/<page>`. Unset => English is the
+  // site root, which is how the ministry site is laid out.
+  const enPrefix = englishDir ? `../${englishDir}/` : '../';
+
   if (locale === 'fr') {
-    enHref = `../${pageName}`;
+    enHref = `${enPrefix}${pageName}`;
     frHref = `${pageName}`;
     esHref = `../es/${pageName}`;
     frActive = true;
   } else if (locale === 'es') {
-    enHref = `../${pageName}`;
+    enHref = `${enPrefix}${pageName}`;
     frHref = `../fr/${pageName}`;
     esHref = `${pageName}`;
     esActive = true;
   } else {
-    // Root / EN
+    // English: siblings sit one level up when English has its own directory.
+    const sibPrefix = englishDir ? '../' : '';
     enHref = `${pageName}`;
-    frHref = `fr/${pageName}`;
-    esHref = `es/${pageName}`;
+    frHref = `${sibPrefix}fr/${pageName}`;
+    esHref = `${sibPrefix}es/${pageName}`;
     enActive = true;
   }
 
@@ -201,9 +207,10 @@ function rewriteToggleLinks(toggleInnerHtml, locale, pageName) {
  * @param {string} pageName
  * @param {Record<string, string>} [catalog]
  * @param {Set<string>} [dntSet]
+ * @param {string} [englishDir]
  * @returns {string}
  */
-function rewriteLanguageToggle(htmlContent, locale, pageName, catalog = {}, dntSet = new Set()) {
+function rewriteLanguageToggle(htmlContent, locale, pageName, catalog = {}, dntSet = new Set(), englishDir = null) {
   const toggleRegex = /<div\b([^>]*\bclass=["'][^"']*\blang-toggle\b[^"']*["'][^>]*)>([\s\S]*?)<\/div>/gi;
   return htmlContent.replace(toggleRegex, (fullMatch, divAttrs, innerContent) => {
     // Translate aria-label if present on .lang-toggle container
@@ -220,7 +227,7 @@ function rewriteLanguageToggle(htmlContent, locale, pageName, catalog = {}, dntS
         );
       }
     }
-    const rewrittenInner = rewriteToggleLinks(innerContent, locale, pageName);
+    const rewrittenInner = rewriteToggleLinks(innerContent, locale, pageName, englishDir);
     return `<div${translatedDivAttrs}>${rewrittenInner}</div>`;
   });
 }
@@ -303,7 +310,7 @@ function translateHtml(htmlContent, options = {}) {
 
   // 2. Rewrite language toggle container and child links
   if (options.rewriteToggle !== false) {
-    processedHtml = rewriteLanguageToggle(processedHtml, locale, pageName, mergedCatalog, dntSet);
+    processedHtml = rewriteLanguageToggle(processedHtml, locale, pageName, mergedCatalog, dntSet, options.englishDir);
   }
 
   // 3. Tokenize HTML to translate text nodes, whitelisted attributes, and JS STR blocks
@@ -468,6 +475,7 @@ function buildAll(options = {}) {
   const locales = options.locales || ['fr', 'es'];
   const pages = options.pages || DEFAULT_PROTOTYPE_PAGES;
   const dntPath = options.doNotTranslatePath || path.join(i18nDir, 'do-not-translate.json');
+  const englishDir = options.englishDir || null;
 
   const doNotTranslateSet = loadDoNotTranslate(dntPath);
   const generatedFiles = [];
@@ -501,7 +509,8 @@ function buildAll(options = {}) {
         commonCatalog,
         locale,
         pageName,
-        doNotTranslateSet
+        doNotTranslateSet,
+        englishDir
       });
 
       const outPagePath = path.join(localeDir, pageName);
