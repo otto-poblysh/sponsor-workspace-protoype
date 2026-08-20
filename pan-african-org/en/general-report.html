@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Labour Market Portal — General Report</title>
-  <meta name="description" content="Ministry of Labour — Labour Market Portal general report prototype"/>
+  <title>Community Talent Portal — General Report</title>
+  <meta name="description" content="Pan-African Enterprise Alliance — Community Talent Portal general report prototype"/>
 
   <!-- Language Routing & Preference Persistence (R8) -->
   <script>
@@ -578,7 +578,7 @@
 
       <div class="alert-banner animate-enter delay-1">
         <i class="ph-bold ph-info"></i>
-        <span>All exports carry Ministry of Labour branding and contain aggregated private-sector labour-market data. Downloads remain available for 24 hours.</span>
+        <span>All exports carry Pan-African Enterprise Alliance branding and contain aggregated member-company employment data. Downloads remain available for 24 hours.</span>
       </div>
 
       <section class="section animate-enter delay-1">
@@ -589,15 +589,15 @@
           <div class="template-list">
             <div class="template-row">
               <div class="template-info">
-                <span class="template-name">Monthly Labour Market Summary</span>
-                <span class="template-desc">Registered employers, vacancies, applications, placements and sector movements.</span>
+                <span class="template-name">Monthly Community Impact Summary</span>
+                <span class="template-desc">Member companies, vacancies, applications, placements and sector movements.</span>
               </div>
               <select class="template-format-select" id="fmt-monthly">
                 <option value="PDF">PDF Document (.pdf)</option>
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Monthly Labour Market Summary', 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Monthly Community Impact Summary', 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -652,15 +652,15 @@
 
             <div class="template-row">
               <div class="template-info">
-                <span class="template-name">Inactive Employer Report</span>
-                <span class="template-desc">Registered employers with overdue workforce returns, no vacancies or no recent portal activity.</span>
+                <span class="template-name">Inactive Member Report</span>
+                <span class="template-desc">Member companies with overdue employment updates, no vacancies or no recent portal activity.</span>
               </div>
               <select class="template-format-select" id="fmt-inactive">
                 <option value="PDF">PDF Document (.pdf)</option>
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Inactive Employer Report', 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Inactive Member Report', 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
           </div>
         </div>
@@ -685,7 +685,7 @@
             <tbody>
               <tr>
                 <td style="font-family: var(--font-mono);">12 Jun 2026, 16:15</td>
-                <td>Monthly Labour Market Summary</td>
+                <td>Monthly Community Impact Summary</td>
                 <td>Ana Mangue</td>
                 <td><span class="badge badge-success">PDF</span></td>
                 <td>Ready</td>
@@ -701,7 +701,7 @@
               </tr>
               <tr>
                 <td style="font-family: var(--font-mono);">10 Jun 2026, 14:02</td>
-                <td>Inactive Employer Report</td>
+                <td>Inactive Member Report</td>
                 <td>Pedro Nsue</td>
                 <td><span class="badge badge-info">CSV</span></td>
                 <td>Expired</td>

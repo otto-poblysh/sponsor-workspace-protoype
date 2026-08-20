@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Labour Market Portal — Users Management</title>
-  <meta name="description" content="Ministry of Labour — Labour Market Portal users management prototype"/>
+  <title>Community Talent Portal — Users Management</title>
+  <meta name="description" content="Pan-African Enterprise Alliance — Community Talent Portal users management prototype"/>
 
   <!-- Language Routing & Preference Persistence (R8) -->
   <script>
@@ -619,7 +619,7 @@
                 <select class="role-select" onchange="logRoleChange('María Esono', this)">
                   <option selected>Director</option>
                   <option>Administrator</option>
-                  <option>Labour Analyst</option>
+                  <option>Talent Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
@@ -632,7 +632,7 @@
                 <select class="role-select" onchange="logRoleChange('Pedro Nsue', this)">
                   <option>Director</option>
                   <option selected>Administrator</option>
-                  <option>Labour Analyst</option>
+                  <option>Talent Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
@@ -647,7 +647,7 @@
                 <select class="role-select" onchange="logRoleChange('Ana Mangue', this)">
                   <option>Director</option>
                   <option>Administrator</option>
-                  <option selected>Labour Analyst</option>
+                  <option selected>Talent Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-success">Active</span></td>
@@ -662,7 +662,7 @@
                 <select class="role-select" onchange="logRoleChange('Lucía Obiang', this)">
                   <option>Director</option>
                   <option selected>Regional Officer</option>
-                  <option>Labour Analyst</option>
+                  <option>Talent Analyst</option>
                 </select>
               </td>
               <td><span class="badge badge-warning">Invited</span></td>
@@ -681,8 +681,8 @@
   <!-- Invite User Modal -->
   <div class="modal-overlay" id="invite-modal">
     <div class="modal">
-      <h3 class="modal-title">Invite Ministry User</h3>
-      <p class="modal-desc">Invite an authorised Ministry officer to manage labour-market reporting.</p>
+      <h3 class="modal-title">Invite Organization Team Member</h3>
+      <p class="modal-desc">Invite an authorised team member to manage employment reporting.</p>
 
       <div class="form-group">
         <label class="form-label" for="user-email">Email Address</label>
@@ -695,7 +695,7 @@
           <option value="Director">Director (Full access)</option>
           <option value="Administrator" selected>Administrator (Operational control)</option>
           <option value="Regional Officer">Regional Officer (Province scope)</option>
-          <option value="Labour Analyst">Labour Analyst (Read-only, export allowed)</option>
+          <option value="Talent Analyst">Talent Analyst (Read-only, export allowed)</option>
         </select>
       </div>
 
@@ -713,7 +713,7 @@
       roleDirector: "Director",
       roleAdministrator: "Administrator",
       roleRegionalOfficer: "Regional Officer",
-      roleLabourAnalyst: "Labour Analyst",
+      roleLabourAnalyst: "Talent Analyst",
       statusInvited: "Invited",
       lastActiveNever: "Never",
       actionResend: "Resend",
@@ -761,7 +761,7 @@
             <option ${role === 'Director' ? 'selected' : ''}>${STR.roleDirector}</option>
             <option ${role === 'Administrator' ? 'selected' : ''}>${STR.roleAdministrator}</option>
             <option ${role === 'Regional Officer' ? 'selected' : ''}>${STR.roleRegionalOfficer}</option>
-            <option ${role === 'Labour Analyst' ? 'selected' : ''}>${STR.roleLabourAnalyst}</option>
+            <option ${role === 'Talent Analyst' ? 'selected' : ''}>${STR.roleLabourAnalyst}</option>
           </select>
         </td>
         <td><span class="badge badge-warning">${STR.statusInvited}</span></td>
