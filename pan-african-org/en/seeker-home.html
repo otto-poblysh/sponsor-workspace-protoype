@@ -413,8 +413,15 @@
       flex-shrink: 0;
     }
 
+    .user-mini > div:last-child { min-width: 0; }
     .user-name { font-size: 13px; font-weight: 600; }
-    .user-role { font-size: 12px; color: var(--text-secondary); word-break: break-all; }
+    .user-role {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     /* Centre feed */
     .seeker-feed {
@@ -670,7 +677,7 @@
             <div class="user-avatar">MA</div>
             <div>
               <div class="user-name">Meron Alemayehu</div>
-              <div class="user-role">meron.alemayehu@gmail.com</div>
+              <div class="user-role">meron.a@gmail.com</div>
             </div>
           </div>
         </div>
@@ -737,30 +744,15 @@
 
           <article class="job-card animate-enter delay-2">
             <span class="job-tag">JOB</span>
-            <div class="job-card-logo">NHC</div>
+            <div class="job-card-logo">TCP</div>
             <div class="job-card-body">
               <h3 class="job-card-title">Construction Site Supervisor</h3>
               <div class="job-closes">CLOSES IN 6 Days</div>
-              <div class="job-mode-location">On-site · Bahir Dar</div>
-              <div class="job-employer">NORTHERN HIGHLANDS CONSTRUCTION</div>
+              <div class="job-mode-location">On-site · Mekelle</div>
+              <div class="job-employer">TIGRAY CONSTRUCTION PARTNERS</div>
               <div class="job-chips">
                 <span class="job-chip">Business Unit: Site Operations</span>
               </div>
-              <div class="job-actions">
-                <button class="btn btn-primary" type="button">Apply <i class="ph-bold ph-arrow-right"></i></button>
-                <button class="btn btn-secondary" type="button">Share</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="job-card animate-enter delay-3">
-            <span class="job-tag">JOB</span>
-            <div class="job-card-logo">CLW</div>
-            <div class="job-card-body">
-              <h3 class="job-card-title">Leather Grading Technician</h3>
-              <div class="job-closes">CLOSES IN 9 Days</div>
-              <div class="job-mode-location">On-site · Adama</div>
-              <div class="job-employer">CENTRAL LEATHER WORKS</div>
               <div class="job-actions">
                 <button class="btn btn-primary" type="button">Apply <i class="ph-bold ph-arrow-right"></i></button>
                 <button class="btn btn-secondary" type="button">Share</button>
@@ -788,12 +780,12 @@
 
           <article class="job-card animate-enter delay-3">
             <span class="job-tag">JOB</span>
-            <div class="job-card-logo">SFP</div>
+            <div class="job-card-logo">MRL</div>
             <div class="job-card-body">
               <h3 class="job-card-title">Logistics Coordinator</h3>
               <div class="job-closes">CLOSES IN 14 Days</div>
               <div class="job-mode-location">Remote · Nairobi</div>
-              <div class="job-employer">SAVANNA FREIGHT PARTNERS</div>
+              <div class="job-employer">MOMBASA ROAD LOGISTICS</div>
               <div class="job-actions">
                 <button class="btn btn-primary" type="button">Apply <i class="ph-bold ph-arrow-right"></i></button>
                 <button class="btn btn-secondary" type="button">Share</button>

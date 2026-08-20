@@ -693,6 +693,8 @@
             <option value="highland textile works">Highland Textile Works</option>
             <option value="rift valley agro-processing">Rift Valley Agro-Processing</option>
             <option value="coastal hospitality group">Coastal Hospitality Group</option>
+            <option value="tigray construction partners">Tigray Construction Partners</option>
+            <option value="mombasa road logistics">Mombasa Road Logistics</option>
           </select>
         </div>
         <div class="filter-group">
@@ -702,6 +704,8 @@
             <option value="manufacturing and textiles">Manufacturing &amp; textiles</option>
             <option value="agriculture and agro-processing">Agriculture &amp; agro-processing</option>
             <option value="tourism and hospitality">Tourism &amp; hospitality</option>
+            <option value="construction">Construction</option>
+            <option value="logistics and transport">Logistics &amp; transport</option>
           </select>
         </div>
         <div class="filter-group">
@@ -765,16 +769,40 @@
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Agro-Processing Line Technician', 'Rift Valley Agro-Processing', 12)">View Funnel</button>
               </td>
             </tr>
-            <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="closed">
+            <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="active">
               <td><strong>Front Office Supervisor</strong></td>
               <td>Coastal Hospitality Group</td>
               <td>Tourism &amp; hospitality</td>
               <td>Accra, Ghana</td>
               <td style="font-family:var(--font-mono)">10 May 2026</td>
-              <td><span class="badge badge-error">Closed</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">45</td>
               <td style="text-align: right;">
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Front Office Supervisor', 'Coastal Hospitality Group', 45)">View Funnel</button>
+              </td>
+            </tr>
+            <tr data-entity="tigray construction partners" data-sector="construction" data-status="active">
+              <td><strong>Construction Site Supervisor</strong></td>
+              <td>Tigray Construction Partners</td>
+              <td>Construction</td>
+              <td>Mekelle, Tigray</td>
+              <td style="font-family:var(--font-mono)">22 May 2026</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td style="font-family:var(--font-mono)">6</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Construction Site Supervisor', 'Tigray Construction Partners', 6)">View Funnel</button>
+              </td>
+            </tr>
+            <tr data-entity="mombasa road logistics" data-sector="logistics and transport" data-status="active">
+              <td><strong>Logistics Coordinator</strong></td>
+              <td>Mombasa Road Logistics</td>
+              <td>Logistics &amp; transport</td>
+              <td>Nairobi, Kenya</td>
+              <td style="font-family:var(--font-mono)">04 Jun 2026</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td style="font-family:var(--font-mono)">9</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Mombasa Road Logistics', 9)">View Funnel</button>
               </td>
             </tr>
           </tbody>

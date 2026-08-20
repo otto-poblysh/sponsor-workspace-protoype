@@ -665,7 +665,7 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Member Companies</h1>
-          <p class="page-subtitle">Onboard, verify and support the Alliance’s 386 member companies — 331 verified, 23 invited, 12 pending review, 14 suspended, 6 inactive</p>
+          <p class="page-subtitle">Onboard, verify and support the Alliance’s 388 member companies — 334 verified, 23 invited, 12 pending review, 14 suspended, 5 inactive</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="openModal('invite-modal')"><i class="ph-bold ph-plus"></i> Add member company</button>
@@ -676,11 +676,11 @@
         <div class="filter-group">
           <label class="filter-label" for="filter-sector">Sector</label>
           <select id="filter-sector" class="filter-select" onchange="filterEntities()">
-            <option value="all">All sectors (386)</option>
+            <option value="all">All sectors (388)</option>
             <option value="manufacturing and textiles">Manufacturing &amp; textiles (112)</option>
             <option value="agriculture and agro-processing">Agriculture &amp; agro-processing (94)</option>
-            <option value="construction">Construction (71)</option>
-            <option value="logistics and transport">Logistics &amp; transport (63)</option>
+            <option value="construction">Construction (72)</option>
+            <option value="logistics and transport">Logistics &amp; transport (64)</option>
             <option value="tourism and hospitality">Tourism &amp; hospitality (46)</option>
           </select>
         </div>
@@ -801,12 +801,12 @@
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Central Leather Works')">Reject</button>
               </td>
             </tr>
-            <tr data-sector="tourism and hospitality" data-status="inactive" data-size="250+">
+            <tr data-sector="tourism and hospitality" data-status="verified" data-size="250+">
               <td><strong>Coastal Hospitality Group</strong><br><small style="color:var(--text-secondary)">Accra, Ghana · Joined 15 May 2026</small></td>
               <td>jobs@coastalhospitality.com.gh</td>
               <td>Tourism &amp; hospitality</td>
               <td>250+</td>
-              <td><span class="badge badge-info">Inactive</span></td>
+              <td><span class="badge badge-success">Verified</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -815,6 +815,38 @@
               </td>
               <td style="text-align: right;">
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Coastal Hospitality Group')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-sector="construction" data-status="verified" data-size="50–249">
+              <td><strong>Tigray Construction Partners</strong><br><small style="color:var(--text-secondary)">Mekelle, Tigray, Ethiopia · Joined 22 May 2026</small></td>
+              <td>careers@tigrayconstruction.et</td>
+              <td>Construction</td>
+              <td>50–249</td>
+              <td><span class="badge badge-success">Verified</span></td>
+              <td>
+                <div class="progress-container">
+                  <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                  <span class="progress-label">100%</span>
+                </div>
+              </td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Tigray Construction Partners')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-sector="logistics and transport" data-status="verified" data-size="50–249">
+              <td><strong>Mombasa Road Logistics</strong><br><small style="color:var(--text-secondary)">Nairobi, Kenya · Joined 04 Jun 2026</small></td>
+              <td>jobs@mombasaroad.co.ke</td>
+              <td>Logistics &amp; transport</td>
+              <td>50–249</td>
+              <td><span class="badge badge-success">Verified</span></td>
+              <td>
+                <div class="progress-container">
+                  <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                  <span class="progress-label">100%</span>
+                </div>
+              </td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Mombasa Road Logistics')">Suspend</button>
               </td>
             </tr>
           </tbody>
