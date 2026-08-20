@@ -457,6 +457,22 @@ function translateHtml(htmlContent, options = {}) {
 }
 
 /**
+ * Points the demo-gate script at repo-root gate.js from a generated locale page.
+ * @param {string} html
+ * @param {string} outPagePath
+ * @param {string} repoRoot
+ * @returns {string}
+ */
+function rewriteGateScriptSrc(html, outPagePath, repoRoot) {
+  if (!html || html.indexOf('gate.js') === -1) {
+    return html;
+  }
+  const rel = path.relative(path.dirname(outPagePath), repoRoot);
+  const src = (rel ? rel.split(path.sep).join('/') + '/' : '') + 'gate.js';
+  return html.replace(/src="(?:\.\/|\.\.\/)*gate\.js"/g, `src="${src}"`);
+}
+
+/**
  * Builds static trees for all configured locales and pages (R3, R5).
  * Wipes previous output directories to eliminate orphan files.
  * @param {object} options
@@ -514,7 +530,12 @@ function buildAll(options = {}) {
       });
 
       const outPagePath = path.join(localeDir, pageName);
-      fs.writeFileSync(outPagePath, translated, 'utf-8');
+      const withGateSrc = rewriteGateScriptSrc(
+        translated,
+        outPagePath,
+        options.repoRoot || process.cwd()
+      );
+      fs.writeFileSync(outPagePath, withGateSrc, 'utf-8');
       generatedFiles.push(outPagePath);
     }
   }
@@ -578,6 +599,7 @@ module.exports = {
   escapeHtmlText,
   escapeHtmlAttr,
   resolveSite,
+  rewriteGateScriptSrc,
   DEFAULT_PROTOTYPE_PAGES,
   WHITELISTED_ATTRS
 };
