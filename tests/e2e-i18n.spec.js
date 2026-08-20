@@ -34,6 +34,15 @@ function getPageUrl(locale, page, query = '') {
 }
 
 test.describe('Trilingual Portal E2E Test Suite (Spec Tests 21–25)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      try {
+        sessionStorage.setItem('icubefarm-demo-unlocked', '1');
+      } catch (err) {
+        /* ignore */
+      }
+    });
+  });
 
   // --------------------------------------------------------------------------
   // Spec Test 21: All 33 pages load with zero console errors or runtime exceptions
