@@ -486,6 +486,11 @@
       line-height: 1;
     }
 
+    .kpi-context {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
     /* Chart panels */
     .bento-2 {
       display: grid;
@@ -784,18 +789,22 @@
           <article class="kpi-tile">
             <div class="kpi-label">Active Jobs</div>
             <div class="kpi-value">4</div>
+            <div class="kpi-context">rows in the Active tab below</div>
           </article>
           <article class="kpi-tile">
             <div class="kpi-label">Applicants Awaiting Review</div>
-            <div class="kpi-value">21</div>
+            <div class="kpi-value">32</div>
+            <div class="kpi-context">sum of Applicants on the 4 active postings</div>
           </article>
           <article class="kpi-tile">
             <div class="kpi-label">Upcoming Pre-Screening Calls</div>
-            <div class="kpi-value">6</div>
+            <div class="kpi-value">9</div>
+            <div class="kpi-context">of 15 in Interview stage (This Year)</div>
           </article>
           <article class="kpi-tile">
             <div class="kpi-label">Interview Responses Awaiting Review</div>
-            <div class="kpi-value">3</div>
+            <div class="kpi-value">6</div>
+            <div class="kpi-context">remaining of the 15 in Interview stage</div>
           </article>
         </section>
 
@@ -804,7 +813,7 @@
             <div class="chart-head">
               <div>
                 <div class="chart-title">Job Applications</div>
-                <div class="chart-total">34</div>
+                <div class="chart-total">7</div>
               </div>
               <div class="range-chips">
                 <span class="range-chip">24H</span>
@@ -816,31 +825,31 @@
             </div>
             <div class="vbar-chart">
               <div class="vbar-col">
-                <div class="vbar-track" style="height:38%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
                 <div class="vbar-x-label">14 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:63%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
                 <div class="vbar-x-label">15 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:0%;"></div>
                 <div class="vbar-x-label">16 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:75%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:100%;"><div class="vbar-fill" style="height:100%;"></div></div>
                 <div class="vbar-x-label">17 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:63%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
                 <div class="vbar-x-label">18 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:88%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:100%;"><div class="vbar-fill" style="height:100%;"></div></div>
                 <div class="vbar-x-label">19 Aug</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:50%;"><div class="vbar-fill" style="height:100%;"></div></div>
+                <div class="vbar-track" style="height:0%;"></div>
                 <div class="vbar-x-label">20 Aug</div>
               </div>
             </div>
@@ -863,43 +872,56 @@
             <div class="vbar-chart">
               <div class="vbar-col">
                 <div class="vbar-track" style="height:100%;">
-                  <div class="vbar-seg rejected" style="height:33%;"></div>
+                  <div class="vbar-seg rejected" style="height:58%;"></div>
                   <div class="vbar-seg offer" style="height:8%;"></div>
                   <div class="vbar-seg interview" style="height:17%;"></div>
-                  <div class="vbar-seg applied" style="height:42%;"></div>
+                  <div class="vbar-seg applied" style="height:17%;"></div>
                 </div>
                 <div class="vbar-x-label">Mar</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:2%;"></div>
+                <div class="vbar-track" style="height:50%;">
+                  <div class="vbar-seg rejected" style="height:66%;"></div>
+                  <div class="vbar-seg offer" style="height:0%;"></div>
+                  <div class="vbar-seg interview" style="height:17%;"></div>
+                  <div class="vbar-seg applied" style="height:17%;"></div>
+                </div>
                 <div class="vbar-x-label">Apr</div>
-              </div>
-              <div class="vbar-col">
-                <div class="vbar-track" style="height:8%;">
-                  <div class="vbar-seg applied" style="height:100%;"></div>
-                </div>
-                <div class="vbar-x-label">May</div>
-              </div>
-              <div class="vbar-col">
-                <div class="vbar-track" style="height:75%;">
-                  <div class="vbar-seg rejected" style="height:11%;"></div>
-                  <div class="vbar-seg offer" style="height:6%;"></div>
-                  <div class="vbar-seg interview" style="height:28%;"></div>
-                  <div class="vbar-seg applied" style="height:55%;"></div>
-                </div>
-                <div class="vbar-x-label">Jun</div>
               </div>
               <div class="vbar-col">
                 <div class="vbar-track" style="height:50%;">
                   <div class="vbar-seg rejected" style="height:17%;"></div>
+                  <div class="vbar-seg offer" style="height:0%;"></div>
+                  <div class="vbar-seg interview" style="height:33%;"></div>
+                  <div class="vbar-seg applied" style="height:50%;"></div>
+                </div>
+                <div class="vbar-x-label">May</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:100%;">
+                  <div class="vbar-seg rejected" style="height:9%;"></div>
                   <div class="vbar-seg offer" style="height:8%;"></div>
-                  <div class="vbar-seg interview" style="height:25%;"></div>
+                  <div class="vbar-seg interview" style="height:33%;"></div>
+                  <div class="vbar-seg applied" style="height:50%;"></div>
+                </div>
+                <div class="vbar-x-label">Jun</div>
+              </div>
+              <div class="vbar-col">
+                <div class="vbar-track" style="height:83%;">
+                  <div class="vbar-seg rejected" style="height:10%;"></div>
+                  <div class="vbar-seg offer" style="height:10%;"></div>
+                  <div class="vbar-seg interview" style="height:30%;"></div>
                   <div class="vbar-seg applied" style="height:50%;"></div>
                 </div>
                 <div class="vbar-x-label">Jul</div>
               </div>
               <div class="vbar-col">
-                <div class="vbar-track" style="height:2%;"></div>
+                <div class="vbar-track" style="height:83%;">
+                  <div class="vbar-seg rejected" style="height:0%;"></div>
+                  <div class="vbar-seg offer" style="height:10%;"></div>
+                  <div class="vbar-seg interview" style="height:30%;"></div>
+                  <div class="vbar-seg applied" style="height:60%;"></div>
+                </div>
                 <div class="vbar-x-label">Aug</div>
               </div>
             </div>
