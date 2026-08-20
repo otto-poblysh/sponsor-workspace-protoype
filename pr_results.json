@@ -1,0 +1,1790 @@
+{
+  "status": "analyzed",
+  "summary": {
+    "files_changed": 176,
+    "total_additions": 47316,
+    "total_deletions": 866,
+    "complexity_score": 7,
+    "complexity_label": "Very Complex",
+    "commits": 12
+  },
+  "risks": {
+    "critical": [],
+    "high": [
+      {
+        "name": "csharp_blocking_async",
+        "severity": "high",
+        "message": "Blocking call on async operation \u2014 can deadlock in ASP.NET contexts",
+        "file": "minister-product-video/compositions/beat-03-filters.html",
+        "count": 5
+      }
+    ],
+    "medium": [
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "capture_screenshots.js",
+        "count": 2
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "generate_beats.js",
+        "count": 2
+      },
+      {
+        "name": "loose_type",
+        "severity": "medium",
+        "message": "Loose type used (TypeScript 'any' or C# 'dynamic')",
+        "file": "i18n/glossary.md",
+        "count": 1
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "tests/extractor.test.js",
+        "count": 1
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "tools/build-i18n.js",
+        "count": 4
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "tools/check-i18n.js",
+        "count": 2
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "tools/extract-i18n.js",
+        "count": 6
+      },
+      {
+        "name": "console_log",
+        "severity": "medium",
+        "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+        "file": "tools/validate-catalogs.js",
+        "count": 4
+      }
+    ],
+    "low": []
+  },
+  "files": [
+    {
+      "path": "minister-product-video/capture/extracted/tokens.json",
+      "status": "added",
+      "category": "critical",
+      "priority_weight": 5,
+      "additions": 353,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "playwright.config.js",
+      "status": "added",
+      "category": "high",
+      "priority_weight": 4,
+      "additions": 21,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": ".agents/skills",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": ".claude/skills/critique-composition",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": ".gitignore",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 6,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "activity-logs.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 115,
+      "deletions": 39,
+      "risks": []
+    },
+    {
+      "path": "capture_screenshots.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 42,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "capture_screenshots.js",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "path": "entities.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 179,
+      "deletions": 81,
+      "risks": []
+    },
+    {
+      "path": "es/activity-logs.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 693,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/entities.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1040,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/general-report.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 760,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/index.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1289,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/jobs-applications.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 901,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/notification-preferences.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 681,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/report-recipients.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 778,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/skill-gap.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1067,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/supported-countries.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 677,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/tenant-branding.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 676,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "es/users-management.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 810,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/activity-logs.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 693,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/entities.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1040,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/general-report.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 760,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/index.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1289,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/jobs-applications.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 901,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/notification-preferences.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 681,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/report-recipients.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 778,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/skill-gap.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1067,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/supported-countries.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 677,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/tenant-branding.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 676,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "fr/users-management.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 810,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "general-report.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 131,
+      "deletions": 42,
+      "risks": []
+    },
+    {
+      "path": "generate_beats.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 185,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "generate_beats.js",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "path": "i18n/activity-logs.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 50,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/activity-logs.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 50,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/common.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 22,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/common.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 22,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/do-not-translate.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 48,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/entities.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 73,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/entities.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 73,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/general-report.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 46,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/general-report.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 46,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/index.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 131,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/index.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 131,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/jobs-applications.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 53,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/jobs-applications.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 53,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/notification-preferences.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 39,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/notification-preferences.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 39,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/report-recipients.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 39,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/report-recipients.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 39,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/skill-gap.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 61,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/skill-gap.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 61,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/supported-countries.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 12,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/supported-countries.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 12,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/tenant-branding.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 25,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/tenant-branding.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 25,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/users-management.es.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 49,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/users-management.fr.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 49,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "index.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 431,
+      "deletions": 354,
+      "risks": []
+    },
+    {
+      "path": "jobs-applications.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 155,
+      "deletions": 54,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/.cursorrules",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 23,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/assets/fonts/Geist-Variable.woff2",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/assets/fonts/GeistMono-Variable.woff2",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/assets/fonts/Phosphor-Bold.ttf",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/assets/fonts/Phosphor-Bold.woff",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/assets/fonts/Phosphor-Bold.woff2",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/animations.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 425,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/design-styles.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 205,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/fonts-manifest.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 110,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/page.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 5831,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/visible-text.txt",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 216,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 4,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/screenshots/contact-sheet.jpg",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/screenshots/full-page.png",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/screenshots/scroll-000.png",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/screenshots/scroll-052.png",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/screenshots/scroll-100.png",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-01-problem.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 231,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-02-national-dashboard.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 286,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-03-filters.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 321,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "csharp_blocking_async",
+          "severity": "high",
+          "message": "Blocking call on async operation \u2014 can deadlock in ASP.NET contexts",
+          "file": "minister-product-video/compositions/beat-03-filters.html",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "path": "minister-product-video/compositions/beat-04-employers.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 313,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-05-recruitment.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 333,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-06-skills.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 272,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-07-reports.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 343,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-08-roles.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 240,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-09-accountability.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 249,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/compositions/beat-10-close.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 248,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/dist/minister-film.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/fix.py",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 32,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/index.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 165,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "notification-preferences.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 108,
+      "deletions": 25,
+      "risks": []
+    },
+    {
+      "path": "package-lock.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 76,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "package.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 18,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "report-recipients.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 115,
+      "deletions": 28,
+      "risks": []
+    },
+    {
+      "path": "skill-gap.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 235,
+      "deletions": 128,
+      "risks": []
+    },
+    {
+      "path": "skills-lock.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 17,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "supported-countries.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 109,
+      "deletions": 26,
+      "risks": []
+    },
+    {
+      "path": "tenant-branding.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 112,
+      "deletions": 29,
+      "risks": []
+    },
+    {
+      "path": "tools/build-i18n.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 543,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "tools/build-i18n.js",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "path": "tools/check-i18n.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 434,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "tools/check-i18n.js",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "path": "tools/extract-i18n.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 429,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "tools/extract-i18n.js",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "path": "tools/validate-catalogs.js",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 207,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "tools/validate-catalogs.js",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-31-11-396Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-32-20-938Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-32-27-644Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-32-38-235Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-32-57-599Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-33-08-939Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-33-14-197Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-34-21-641Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-34-32-915Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 172,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.hyperframes/backup/2026-08-17T16-45-03-213Z-Y29tcG9zaXRpb25zL2JlYXQtMDAtaW50cm8uaHRtbA",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 173,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.waveform-cache/v2_assets_bgm-african-classical.mp3_9387300-1786736770771.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/.waveform-cache/v2_assets_bgm-icubefarm.mp3_6568495-1786961888556.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/assets/bgm-african-classical.mp3",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/assets/bgm-icubefarm.mp3",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/assets/corporate_writing_grayscale.jpg",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-00-intro.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 191,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-01-dashboard.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1279,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-02-verification.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1006,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-02-verify.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 405,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-03-skill-gap.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1023,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-03-skills.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 277,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-04-reports.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 735,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-05-audit.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 680,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/compositions/beat-06-outro.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 114,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/index.html",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 87,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-14_21-14-46.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-14_21-14-46.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_11-41-20.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_12-20-10.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_12-20-10.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_13-34-56.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_13-34-56.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_15-01-55.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_15-01-55.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_15-29-26.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_15-29-26.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_16-39-33.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_16-39-33.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_17-56-56.meta.json",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 1,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/renders/tutorial-video_2026-08-17_17-56-56.mp4",
+      "status": "added",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 0,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "users-management.html",
+      "status": "modified",
+      "category": "medium",
+      "priority_weight": 2,
+      "additions": 162,
+      "deletions": 60,
+      "risks": []
+    },
+    {
+      "path": ".superpowers/sdd/i18n-plan/progress.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 29,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": ".superpowers/sdd/i18n-plan/task-5-report.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 80,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": ".superpowers/sdd/i18n-plan/task-8-report.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 132,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "docs/i18n-plan.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 201,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "docs/i18n-spec.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 389,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "i18n/glossary.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 78,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "loose_type",
+          "severity": "medium",
+          "message": "Loose type used (TypeScript 'any' or C# 'dynamic')",
+          "file": "i18n/glossary.md",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "minister-product-video/ASSET_AUDIT.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 137,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/CONTENT_MATRIX.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 106,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/DESIGN.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 84,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/LOCALIZATION_PLAN.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 155,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/PRODUCTION_PLAN.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 426,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/README.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 58,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/REVIEW_PLAN.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 231,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/SCRIPT.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 195,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/STORYBOARD.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 702,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/AGENTS.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 23,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/CLAUDE.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 23,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/capture/extracted/asset-descriptions.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 11,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "minister-product-video/sub-agents/frame-worker.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 30,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/catalog-validator.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 153,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/coverage-check.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 426,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/e2e-i18n.spec.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 370,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/english-source-integrity.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 162,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/extractor.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 307,
+      "deletions": 0,
+      "risks": [
+        {
+          "name": "console_log",
+          "severity": "medium",
+          "message": "Debug output statement found (console.* / Debug.WriteLine / System.out / printStackTrace)",
+          "file": "tests/extractor.test.js",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/fixtures/catalogs/empty.fr.json",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 5,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/fixtures/catalogs/mismatch.fr.json",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 5,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/fixtures/catalogs/stale.fr.json",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 6,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/fixtures/catalogs/valid.fr.json",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 20,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/fixtures/mini.html",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 64,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/generator.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 525,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tests/persistence.test.js",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 393,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/README.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 32,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/SCRIPT.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 88,
+      "deletions": 0,
+      "risks": []
+    },
+    {
+      "path": "tutorial-video/STORYBOARD.md",
+      "status": "added",
+      "category": "low",
+      "priority_weight": 1,
+      "additions": 118,
+      "deletions": 0,
+      "risks": []
+    }
+  ],
+  "commit_issues": [
+    {
+      "commit": "67b5cb8",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "f36e926",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "8f24e57",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "e4d4792",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "c7633c1",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "ca920c8",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "7efa220",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "4a8965b",
+      "issue": "Commit message exceeds 72 characters"
+    },
+    {
+      "commit": "0ea3ef6",
+      "issue": "Commit message exceeds 72 characters"
+    }
+  ],
+  "review_order": [
+    "minister-product-video/capture/extracted/tokens.json",
+    "playwright.config.js",
+    ".agents/skills",
+    ".claude/skills/critique-composition",
+    ".gitignore",
+    "activity-logs.html",
+    "capture_screenshots.js",
+    "entities.html",
+    "es/activity-logs.html",
+    "es/entities.html"
+  ]
+}

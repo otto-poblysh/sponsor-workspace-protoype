@@ -1,0 +1,432 @@
+{
+  "directory": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests",
+  "files_analyzed": 7,
+  "average_score": 89.1,
+  "overall_grade": "B",
+  "total_code_smells": 37,
+  "total_solid_violations": 0,
+  "files": [
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/coverage-check.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 427,
+          "code": 349,
+          "blank": 57,
+          "comment": 21
+        },
+        "functions": 0,
+        "classes": 0,
+        "avg_complexity": 0.0
+      },
+      "quality_score": 72,
+      "grade": "C",
+      "smells": [
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 121"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 135"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 160"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 268"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 271"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 276"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 282"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 297"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 298"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 305"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 332"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 333"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 334"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 399"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/generator.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 526,
+          "code": 427,
+          "blank": 63,
+          "comment": 36
+        },
+        "functions": 2,
+        "classes": 0,
+        "avg_complexity": 3.0
+      },
+      "quality_score": 79,
+      "grade": "C",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'fmt' has 194 lines (max: 50)",
+          "location": "fmt"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 123 should be a named constant",
+          "location": "line 100"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 999 should be a named constant",
+          "location": "line 101"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 001 should be a named constant",
+          "location": "line 102"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 123 should be a named constant",
+          "location": "line 136"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 999 should be a named constant",
+          "location": "line 137"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 001 should be a named constant",
+          "location": "line 138"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 000 should be a named constant",
+          "location": "line 265"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 000 should be a named constant",
+          "location": "line 272"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "fmt",
+          "parameters": 1,
+          "lines": 194,
+          "complexity": 5
+        },
+        {
+          "name": "getFileChecksum",
+          "parameters": 0,
+          "lines": 50,
+          "complexity": 1
+        }
+      ],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/extractor.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 308,
+          "code": 255,
+          "blank": 39,
+          "comment": 14
+        },
+        "functions": 1,
+        "classes": 1,
+        "avg_complexity": 7.0
+      },
+      "quality_score": 88,
+      "grade": "B",
+      "smells": [
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 123 should be a named constant",
+          "location": "line 61"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 234 should be a named constant",
+          "location": "line 62"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 500 should be a named constant",
+          "location": "line 63"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 64"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 234 should be a named constant",
+          "location": "line 85"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 500 should be a named constant",
+          "location": "line 86"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "helper",
+          "parameters": 0,
+          "lines": 46,
+          "complexity": 7
+        }
+      ],
+      "class_details": [
+        {
+          "name": "attribute",
+          "methods": 5,
+          "lines": 164
+        }
+      ]
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/persistence.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 394,
+          "code": 332,
+          "blank": 53,
+          "comment": 9
+        },
+        "functions": 1,
+        "classes": 0,
+        "avg_complexity": 8.0
+      },
+      "quality_score": 89,
+      "grade": "B",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'executeRoutingScript' has 96 lines (max: 50)",
+          "location": "executeRoutingScript"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 1234567 should be a named constant",
+          "location": "line 355"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 234 should be a named constant",
+          "location": "line 358"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 234 should be a named constant",
+          "location": "line 362"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "executeRoutingScript",
+          "parameters": 0,
+          "lines": 96,
+          "complexity": 8
+        }
+      ],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/catalog-validator.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 154,
+          "code": 131,
+          "blank": 20,
+          "comment": 3
+        },
+        "functions": 0,
+        "classes": 0,
+        "avg_complexity": 0.0
+      },
+      "quality_score": 98,
+      "grade": "A",
+      "smells": [
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 12345 should be a named constant",
+          "location": "line 79"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/english-source-integrity.test.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 163,
+          "code": 134,
+          "blank": 23,
+          "comment": 6
+        },
+        "functions": 0,
+        "classes": 0,
+        "avg_complexity": 0.0
+      },
+      "quality_score": 98,
+      "grade": "A",
+      "smells": [
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 300 should be a named constant",
+          "location": "line 159"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tests/e2e-i18n.spec.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 371,
+          "code": 256,
+          "blank": 63,
+          "comment": 52
+        },
+        "functions": 2,
+        "classes": 0,
+        "avg_complexity": 4.5
+      },
+      "quality_score": 100,
+      "grade": "A",
+      "smells": [
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 1920 should be a named constant",
+          "location": "line 210"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 768 should be a named constant",
+          "location": "line 211"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "getPagePath",
+          "parameters": 0,
+          "lines": 8,
+          "complexity": 2
+        },
+        {
+          "name": "getPageUrl",
+          "parameters": 0,
+          "lines": 45,
+          "complexity": 7
+        }
+      ],
+      "class_details": []
+    }
+  ]
+}

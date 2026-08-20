@@ -1,0 +1,438 @@
+{
+  "directory": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tools",
+  "files_analyzed": 4,
+  "average_score": 66.2,
+  "overall_grade": "D",
+  "total_code_smells": 26,
+  "total_solid_violations": 0,
+  "files": [
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tools/check-i18n.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 435,
+          "code": 358,
+          "blank": 58,
+          "comment": 19
+        },
+        "functions": 8,
+        "classes": 0,
+        "avg_complexity": 10.8
+      },
+      "quality_score": 50,
+      "grade": "F",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'record' has 137 lines (max: 50)",
+          "location": "record"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'checkAllCoverage' has 92 lines (max: 50)",
+          "location": "checkAllCoverage"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'formatCoverageReport' has 67 lines (max: 50)",
+          "location": "formatCoverageReport"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "high",
+          "message": "Function 'record' has complexity 30 (max: 10)",
+          "location": "record"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'checkAllCoverage' has complexity 11 (max: 10)",
+          "location": "checkAllCoverage"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "high",
+          "message": "Function 'formatCoverageReport' has complexity 27 (max: 10)",
+          "location": "formatCoverageReport"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 168 should be a named constant",
+          "location": "line 11"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 245"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 318"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 335"
+        },
+        {
+          "type": "magic_number",
+          "severity": "low",
+          "message": "Magic number 100 should be a named constant",
+          "location": "line 375"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "unescapeHtml",
+          "parameters": 0,
+          "lines": 15,
+          "complexity": 2
+        },
+        {
+          "name": "unescapeJsString",
+          "parameters": 0,
+          "lines": 19,
+          "complexity": 4
+        },
+        {
+          "name": "getLineNumber",
+          "parameters": 0,
+          "lines": 17,
+          "complexity": 4
+        },
+        {
+          "name": "extractStringsWithLocations",
+          "parameters": 0,
+          "lines": 5,
+          "complexity": 1
+        },
+        {
+          "name": "record",
+          "parameters": 0,
+          "lines": 137,
+          "complexity": 30
+        },
+        {
+          "name": "checkPageCoverage",
+          "parameters": 0,
+          "lines": 47,
+          "complexity": 7
+        },
+        {
+          "name": "checkAllCoverage",
+          "parameters": 0,
+          "lines": 92,
+          "complexity": 11
+        },
+        {
+          "name": "formatCoverageReport",
+          "parameters": 0,
+          "lines": 67,
+          "complexity": 27
+        }
+      ],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tools/extract-i18n.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 430,
+          "code": 348,
+          "blank": 53,
+          "comment": 29
+        },
+        "functions": 8,
+        "classes": 0,
+        "avg_complexity": 11.8
+      },
+      "quality_score": 65,
+      "grade": "D",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'extractStringsFromHtml' has 128 lines (max: 50)",
+          "location": "extractStringsFromHtml"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'extractAllPages' has 51 lines (max: 50)",
+          "location": "extractAllPages"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'writeCatalogSkeletons' has 65 lines (max: 50)",
+          "location": "writeCatalogSkeletons"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "high",
+          "message": "Function 'extractStringsFromHtml' has complexity 44 (max: 10)",
+          "location": "extractStringsFromHtml"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'extractAllPages' has complexity 12 (max: 10)",
+          "location": "extractAllPages"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'writeCatalogSkeletons' has complexity 14 (max: 10)",
+          "location": "writeCatalogSkeletons"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "loadDoNotTranslate",
+          "parameters": 0,
+          "lines": 20,
+          "complexity": 3
+        },
+        {
+          "name": "unescapeHtml",
+          "parameters": 0,
+          "lines": 20,
+          "complexity": 2
+        },
+        {
+          "name": "unescapeJsString",
+          "parameters": 0,
+          "lines": 22,
+          "complexity": 7
+        },
+        {
+          "name": "isTranslatable",
+          "parameters": 0,
+          "lines": 25,
+          "complexity": 9
+        },
+        {
+          "name": "parseAttributes",
+          "parameters": 0,
+          "lines": 22,
+          "complexity": 3
+        },
+        {
+          "name": "extractStringsFromHtml",
+          "parameters": 0,
+          "lines": 128,
+          "complexity": 44
+        },
+        {
+          "name": "extractAllPages",
+          "parameters": 0,
+          "lines": 51,
+          "complexity": 12
+        },
+        {
+          "name": "writeCatalogSkeletons",
+          "parameters": 0,
+          "lines": 65,
+          "complexity": 14
+        }
+      ],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tools/build-i18n.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 544,
+          "code": 449,
+          "blank": 62,
+          "comment": 33
+        },
+        "functions": 12,
+        "classes": 0,
+        "avg_complexity": 9.4
+      },
+      "quality_score": 70,
+      "grade": "C",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'rewriteToggleLinks' has 52 lines (max: 50)",
+          "location": "rewriteToggleLinks"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'lookup' has 175 lines (max: 50)",
+          "location": "lookup"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'buildAll' has 62 lines (max: 50)",
+          "location": "buildAll"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "high",
+          "message": "Function 'lookup' has complexity 52 (max: 10)",
+          "location": "lookup"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'buildAll' has complexity 15 (max: 10)",
+          "location": "buildAll"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "loadDoNotTranslate",
+          "parameters": 0,
+          "lines": 20,
+          "complexity": 3
+        },
+        {
+          "name": "loadCatalog",
+          "parameters": 0,
+          "lines": 19,
+          "complexity": 3
+        },
+        {
+          "name": "unescapeHtml",
+          "parameters": 0,
+          "lines": 20,
+          "complexity": 2
+        },
+        {
+          "name": "unescapeJsString",
+          "parameters": 0,
+          "lines": 18,
+          "complexity": 3
+        },
+        {
+          "name": "escapeHtmlText",
+          "parameters": 0,
+          "lines": 15,
+          "complexity": 3
+        },
+        {
+          "name": "escapeHtmlAttr",
+          "parameters": 0,
+          "lines": 22,
+          "complexity": 7
+        },
+        {
+          "name": "rewriteToggleLinks",
+          "parameters": 0,
+          "lines": 52,
+          "complexity": 5
+        },
+        {
+          "name": "rewriteLanguageToggle",
+          "parameters": 0,
+          "lines": 30,
+          "complexity": 7
+        },
+        {
+          "name": "translateStrBlock",
+          "parameters": 0,
+          "lines": 31,
+          "complexity": 5
+        },
+        {
+          "name": "translateHtml",
+          "parameters": 0,
+          "lines": 19,
+          "complexity": 8
+        }
+      ],
+      "class_details": []
+    },
+    {
+      "file": "/Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tools/validate-catalogs.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": {
+          "total": 208,
+          "code": 172,
+          "blank": 23,
+          "comment": 13
+        },
+        "functions": 4,
+        "classes": 0,
+        "avg_complexity": 10.0
+      },
+      "quality_score": 80,
+      "grade": "B",
+      "smells": [
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'validateCatalog' has 80 lines (max: 50)",
+          "location": "validateCatalog"
+        },
+        {
+          "type": "long_function",
+          "severity": "medium",
+          "message": "Function 'validateAllCatalogs' has 74 lines (max: 50)",
+          "location": "validateAllCatalogs"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'validateCatalog' has complexity 16 (max: 10)",
+          "location": "validateCatalog"
+        },
+        {
+          "type": "high_complexity",
+          "severity": "medium",
+          "message": "Function 'validateAllCatalogs' has complexity 18 (max: 10)",
+          "location": "validateAllCatalogs"
+        }
+      ],
+      "solid_violations": [],
+      "function_details": [
+        {
+          "name": "extractPlaceholders",
+          "parameters": 0,
+          "lines": 16,
+          "complexity": 3
+        },
+        {
+          "name": "validateCatalog",
+          "parameters": 0,
+          "lines": 80,
+          "complexity": 16
+        },
+        {
+          "name": "validateCatalogFile",
+          "parameters": 0,
+          "lines": 20,
+          "complexity": 3
+        },
+        {
+          "name": "validateAllCatalogs",
+          "parameters": 0,
+          "lines": 74,
+          "complexity": 18
+        }
+      ],
+      "class_details": []
+    }
+  ]
+}
