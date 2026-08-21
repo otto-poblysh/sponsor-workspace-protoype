@@ -53,7 +53,7 @@ function withGeneratedHeader(html) {
   return html.slice(0, m[0].length) + GENERATED_HEADER + html.slice(m[0].length);
 }
 
-function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
+function buildVideoLocale({ srcDir, outDir, i18nDir, locale, catalogMap = BEAT_CATALOG_MAP }) {
   const common = loadCatalog(path.join(i18nDir, `common.${locale}.json`));
   const video = loadCatalog(path.join(i18nDir, `video.${locale}.json`));
   const dnt = loadDoNotTranslate(path.join(i18nDir, 'do-not-translate.json'));
@@ -76,7 +76,7 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
   fs.writeFileSync(path.join(outDir, 'index.html'), withGeneratedHeader(hostOut), 'utf8');
   generatedFiles.push('index.html');
 
-  for (const [file, pageName] of Object.entries(BEAT_CATALOG_MAP)) {
+  for (const [file, pageName] of Object.entries(catalogMap)) {
     const src = fs.readFileSync(path.join(srcDir, 'compositions', file), 'utf8');
     const page = pageName ? loadCatalog(path.join(i18nDir, `${pageName}.${locale}.json`)) : {};
     const catalog = { ...common, ...page, ...video };
@@ -128,7 +128,17 @@ if (require.main === module) {
   const outBase = flag('--out', root);
   const i18nDir = flag('--i18n', path.join(root, 'i18n'));
   const outDir = path.join(outBase, `${path.basename(srcDir).replace(/-en$/, '')}-${locale}`);
-  const result = buildVideoLocale({ srcDir, outDir, i18nDir, locale });
+  const isOrg = srcDir.includes('pan-african-org');
+  const catalogMap = isOrg ? {
+    'beat-00-intro.html': null,
+    'beat-01-dashboard.html': 'index',
+    'beat-02-members.html': 'entities',
+    'beat-03-recruiter.html': 'recruiter-jobs',
+    'beat-04-seeker.html': 'seeker-home',
+    'beat-05-skill-gap.html': 'skill-gap',
+    'beat-06-outro.html': null
+  } : BEAT_CATALOG_MAP;
+  const result = buildVideoLocale({ srcDir, outDir, i18nDir, locale, catalogMap });
   console.log(
     `✓ ${path.relative(root, outDir)}: ${result.generatedFiles.length} compositions, ` +
     `${result.copiedAssets.length} assets copied.`
