@@ -201,16 +201,27 @@ function stripInterpolations(value) {
   return out;
 }
 
+// Round 5: matches an on*= attribute name case-insensitively (onClick=,
+// ONCLICK=, ...) and captures which HTML quote character (" or ') opens
+// its value, rather than assuming double quotes. Round 4 fixed "invisible,
+// uncounted, silently passed" at the JS-string-delimiter layer; this was
+// the same failure shape one layer up, at the HTML-attribute-delimiter
+// layer: `onclick='alert("Leak")'` extracted zero literals under the old
+// `="([^"]*)"`-only regex - not unclassified, never even matched.
 function extractOnAttrLiterals(html) {
   const results = [];
-  const re = /\bon[a-z]+="([^"]*)"/g;
+  const re = /\bon[a-z]+\s*=\s*(["'])/gi;
   let m;
   while ((m = re.exec(html))) {
-    const attrValue = m[1];
-    const attrValueStart = m.index + m[0].indexOf(attrValue);
+    const quote = m[1];
+    const valueStart = re.lastIndex; // just past the opening quote
+    const closeIdx = html.indexOf(quote, valueStart);
+    if (closeIdx === -1) continue; // malformed HTML - nothing usable to scan
+    const attrValue = html.slice(valueStart, closeIdx);
     for (const lit of scanLiterals(attrValue)) {
-      results.push({ value: lit.value, index: attrValueStart + lit.index, source: 'on*-attribute' });
+      results.push({ value: lit.value, index: valueStart + lit.index, source: 'on*-attribute' });
     }
+    re.lastIndex = closeIdx + 1;
   }
   return results;
 }
@@ -452,5 +463,35 @@ test('round 4 / Important 2: a hardcoded literal riding alongside a real STR. re
     classify('Totally Unrouted English Text'),
     null,
     'co-location with a real STR. reference in the same interpolation must not launder unrouted English text into bucket 4'
+  );
+});
+
+test('round 5: extractOnAttrLiterals finds literals in single-quoted HTML on*= attributes, not just double-quoted', () => {
+  // Round 4 fixed "invisible, uncounted, silently passed" at the JS
+  // string-delimiter layer. This is the same failure shape one syntax
+  // layer up, at the HTML attribute-delimiter layer: the old regex
+  // (`/\bon[a-z]+="([^"]*)"/g`) only matched double-quoted attribute
+  // values. A handler written the other valid HTML way -
+  // `onclick='alert("Leak")'` - matched nothing at all: zero literals,
+  // not "unclassified". Also covers mixed-case attribute names
+  // (`onClick=`), which the old case-sensitive `on[a-z]+` missed too.
+  const html = '<div onclick=\'alert("Leak via single quoted html attr")\'></div>';
+
+  const found = extractOnAttrLiterals(html).map((l) => l.value);
+  assert.ok(
+    found.includes('Leak via single quoted html attr'),
+    `literal inside a single-quoted on*= attribute must be extracted; got ${JSON.stringify(found)}`
+  );
+  assert.strictEqual(
+    classify('Leak via single quoted html attr'),
+    null,
+    'this is unrouted English text and must fail classification'
+  );
+
+  const mixedCaseHtml = '<div onClick="alert(\'Leak via mixed-case attribute name\')"></div>';
+  const foundMixedCase = extractOnAttrLiterals(mixedCaseHtml).map((l) => l.value);
+  assert.ok(
+    foundMixedCase.includes('Leak via mixed-case attribute name'),
+    `literal inside an onClick= (mixed case) attribute must be extracted; got ${JSON.stringify(foundMixedCase)}`
   );
 });
