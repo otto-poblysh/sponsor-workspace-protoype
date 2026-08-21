@@ -64,12 +64,6 @@
   <!-- Phosphor Icons Bold -->
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
 
-  <!-- Pretext fallback -->
-  <script type="module">
-    import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
-    window.Pretext = { prepare, layout };
-  </script>
-
   <style>
     :root {
       --canvas: #ffffff;
@@ -1089,7 +1083,8 @@
     gsap.set("#subtitle-container", { autoAlpha: 0 });
     gsap.set("#cursor", { x: 500, y: 800, autoAlpha: 0 });
 
-    const tl = gsap.timeline();
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
 
     tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
@@ -1102,6 +1097,7 @@
       .to("#cursor", { autoAlpha: 0, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
 
+  window.__timelines["beat-03"] = tl;
   </script>
 
 </div>
