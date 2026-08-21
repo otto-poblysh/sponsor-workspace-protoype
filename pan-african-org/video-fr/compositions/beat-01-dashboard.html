@@ -1251,16 +1251,6 @@
 
   <!-- Video Overlays -->
   <style>
-    #cursor {
-      position: absolute;
-      top: 0; left: 0;
-      width: 32px; height: 32px;
-      z-index: 9999;
-      transform-origin: 0 0;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-      opacity: 0;
-      visibility: hidden;
-    }
     #subtitle-container {
       position: fixed;
       bottom: 40px;
@@ -1282,30 +1272,22 @@
     }
   </style>
 
-  <svg id="cursor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 4 L11 26 L15 17 L24 21 L27 18 L18 14 L26 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"/>
-  </svg>
-
   <div id="subtitle-container"></div>
 
   <script>
 
     gsap.set("#subtitle-container", { autoAlpha: 0 });
-    gsap.set("#cursor", { x: 500, y: 800, autoAlpha: 0 });
-
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
 
-    tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
-      .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
+    tl.to("#subtitle-container", { autoAlpha: 1, duration: 0.5 })
       .set("#subtitle-container", { textContent: 'Consultez l\'emploi de chaque entreprise membre en temps réel...' })
-      .to("#cursor", { x: 700, y: 460, duration: 3, ease: "power2.inOut" })
+      .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
       .set("#subtitle-container", { textContent: '...sans attendre les enquêtes annuelles.' })
-      .to("#cursor", { x: 960, y: 740, duration: 3, ease: "power2.inOut" })
+      .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
-      .to("#cursor", { autoAlpha: 0, duration: 0.5 })
-      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
+      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 });
 
   window.__timelines["beat-01"] = tl;
   </script>

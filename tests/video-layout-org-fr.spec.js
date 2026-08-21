@@ -42,8 +42,10 @@ for (const { file, selector, container } of NOWRAP_TARGETS) {
 
 test('subtitle containers stay within 80% frame width', async ({ page }) => {
   for (const file of [
-    'beat-01-dashboard.html', 'beat-02-members.html', 'beat-03-recruiter.html',
-    'beat-04-seeker.html', 'beat-05-skill-gap.html'
+    'beat-01-dashboard.html', 'beat-02-members.html',
+    'beat-03-skill-gap.html',
+    'beat-04-reports.html',
+    'beat-05-audit.html'
   ]) {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto('file://' + path.join(FR, file));

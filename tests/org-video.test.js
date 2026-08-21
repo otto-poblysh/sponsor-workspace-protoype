@@ -15,9 +15,9 @@ function buildTo(locale) {
     'beat-00-intro.html': null,
     'beat-01-dashboard.html': 'index',
     'beat-02-members.html': 'entities',
-    'beat-03-recruiter.html': 'recruiter-jobs',
-    'beat-04-seeker.html': 'seeker-home',
-    'beat-05-skill-gap.html': 'skill-gap',
+    'beat-03-skill-gap.html': 'skill-gap',
+    'beat-04-reports.html': 'general-report',
+    'beat-05-audit.html': 'activity-logs',
     'beat-06-outro.html': null
   };
   buildVideoLocale({ srcDir: SRC, outDir, i18nDir: I18N, locale, catalogMap });

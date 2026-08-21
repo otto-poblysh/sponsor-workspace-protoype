@@ -1,0 +1,67 @@
+[2026-08-06 14:32:04 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-06 14:32:04 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/4743.sock
+[2026-08-06 14:32:04 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-06 14:32:04 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/4743.sock
+[2026-08-06 14:32:04 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/4743.sock
+[2026-08-06 14:32:04 INFO chrome-native-host] Entering main message loop
+[2026-08-06 14:32:04 INFO chrome-native-host] Socket server listening for connections
+[2026-08-06 14:42:48 INFO chrome-native-host] Chrome disconnected (EOF received)
+[2026-08-06 14:42:48 INFO chrome-native-host] Shutting down chrome native host
+[2026-08-06 14:42:48 INFO chrome-native-host] Cleaned up socket: /tmp/claude-mcp-browser-bridge-akamaotto/4743.sock
+[2026-08-06 14:42:48 INFO chrome-native-host] Removed empty socket directory
+[2026-08-06 14:42:48 INFO chrome-native-host] Chrome native host stopped
+[2026-08-07 08:20:21 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-07 08:20:21 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/4586.sock
+[2026-08-07 08:20:21 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-07 08:20:21 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/4586.sock
+[2026-08-07 08:20:21 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/4586.sock
+[2026-08-07 08:20:21 INFO chrome-native-host] Entering main message loop
+[2026-08-07 08:20:21 INFO chrome-native-host] Socket server listening for connections
+[2026-08-07 19:41:03 INFO chrome-native-host] Chrome disconnected (EOF received)
+[2026-08-07 19:41:03 INFO chrome-native-host] Shutting down chrome native host
+[2026-08-07 19:41:03 INFO chrome-native-host] Cleaned up socket: /tmp/claude-mcp-browser-bridge-akamaotto/4586.sock
+[2026-08-07 19:41:03 INFO chrome-native-host] Removed empty socket directory
+[2026-08-07 19:41:03 INFO chrome-native-host] Chrome native host stopped
+[2026-08-07 19:47:28 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-07 19:47:28 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/2537.sock
+[2026-08-07 19:47:28 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-07 19:47:28 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/2537.sock
+[2026-08-07 19:47:28 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/2537.sock
+[2026-08-07 19:47:28 INFO chrome-native-host] Entering main message loop
+[2026-08-07 19:47:28 INFO chrome-native-host] Socket server listening for connections
+[2026-08-10 12:14:57 INFO chrome-native-host] Chrome disconnected (EOF received)
+[2026-08-10 12:14:57 INFO chrome-native-host] Shutting down chrome native host
+[2026-08-10 12:14:57 INFO chrome-native-host] Cleaned up socket: /tmp/claude-mcp-browser-bridge-akamaotto/2537.sock
+[2026-08-10 12:14:57 INFO chrome-native-host] Removed empty socket directory
+[2026-08-10 12:14:57 INFO chrome-native-host] Chrome native host stopped
+[2026-08-10 12:22:36 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-10 12:22:36 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/3422.sock
+[2026-08-10 12:22:36 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-10 12:22:36 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/3422.sock
+[2026-08-10 12:22:36 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/3422.sock
+[2026-08-10 12:22:36 INFO chrome-native-host] Entering main message loop
+[2026-08-10 12:22:36 INFO chrome-native-host] Socket server listening for connections
+[2026-08-15 08:25:17 INFO chrome-native-host] Chrome disconnected (EOF received)
+[2026-08-15 08:25:17 INFO chrome-native-host] Shutting down chrome native host
+[2026-08-15 08:25:17 INFO chrome-native-host] Cleaned up socket: /tmp/claude-mcp-browser-bridge-akamaotto/3422.sock
+[2026-08-15 08:25:17 INFO chrome-native-host] Removed empty socket directory
+[2026-08-15 08:25:17 INFO chrome-native-host] Chrome native host stopped
+[2026-08-15 09:56:55 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-15 09:56:55 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/3328.sock
+[2026-08-15 09:56:55 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-15 09:56:55 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/3328.sock
+[2026-08-15 09:56:55 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/3328.sock
+[2026-08-15 09:56:55 INFO chrome-native-host] Entering main message loop
+[2026-08-15 09:56:55 INFO chrome-native-host] Socket server listening for connections
+[2026-08-15 12:44:10 INFO chrome-native-host] Chrome disconnected (EOF received)
+[2026-08-15 12:44:10 INFO chrome-native-host] Shutting down chrome native host
+[2026-08-15 12:44:10 INFO chrome-native-host] Cleaned up socket: /tmp/claude-mcp-browser-bridge-akamaotto/3328.sock
+[2026-08-15 12:44:10 INFO chrome-native-host] Removed empty socket directory
+[2026-08-15 12:44:10 INFO chrome-native-host] Chrome native host stopped
+[2026-08-16 02:55:21 INFO chrome-native-host] Chrome native host starting (version 0.1.0)
+[2026-08-16 02:55:21 INFO chrome-native-host] Creating socket listener: /tmp/claude-mcp-browser-bridge-akamaotto/3875.sock
+[2026-08-16 02:55:21 INFO chrome-native-host] Created socket directory: /tmp/claude-mcp-browser-bridge-akamaotto
+[2026-08-16 02:55:21 INFO chrome-native-host] Socket created successfully at: /tmp/claude-mcp-browser-bridge-akamaotto/3875.sock
+[2026-08-16 02:55:21 INFO chrome-native-host] Socket location: /tmp/claude-mcp-browser-bridge-akamaotto/3875.sock
+[2026-08-16 02:55:21 INFO chrome-native-host] Entering main message loop
+[2026-08-16 02:55:21 INFO chrome-native-host] Socket server listening for connections

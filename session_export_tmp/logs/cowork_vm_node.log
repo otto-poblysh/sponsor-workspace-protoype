@@ -1,0 +1,119 @@
+2026-08-05 10:41:02 [info] [Bundle:status] rootfs.img missing
+2026-08-05 10:41:02 [info] [VM] Loading @ant/claude-swift module...
+2026-08-05 10:41:02 [info] [VM] Module loaded successfully
+2026-08-05 10:41:46 [info] [Bundle:status] rootfs.img missing
+2026-08-05 10:41:46 [info] [Bundle:status] rootfs.img missing
+2026-08-05 10:41:46 [info] [Bundle:status] vmlinuz missing
+2026-08-05 10:41:46 [info] [Bundle:status] initrd missing
+2026-08-06 14:31:15 [info] [VM] Loading @ant/claude-swift module...
+2026-08-06 14:31:15 [info] [VM] Module loaded successfully
+2026-08-06 14:31:17 [info] [Bundle:status] rootfs.img missing
+2026-08-06 14:31:17 [info] [Bundle:status] rootfs.img missing
+2026-08-06 14:31:17 [info] [Bundle:status] rootfs.img missing
+2026-08-06 14:31:17 [info] [Bundle:status] vmlinuz missing
+2026-08-06 14:31:17 [info] [Bundle:status] initrd missing
+2026-08-12 13:54:11 [info] [Bundle:status] rootfs.img missing
+2026-08-12 13:54:11 [info] [VM] Loading @ant/claude-swift module...
+2026-08-12 13:54:11 [info] [VM] Module loaded successfully
+2026-08-12 13:54:11 [info] [Bundle:status] rootfs.img missing
+2026-08-12 13:54:11 [info] [Bundle:status] rootfs.img missing
+2026-08-12 13:54:11 [info] [Bundle:status] vmlinuz missing
+2026-08-12 13:54:11 [info] [Bundle:status] initrd missing
+2026-08-12 13:59:07 [info] [Bundle:status] rootfs.img missing
+2026-08-12 13:59:07 [info] [Bundle:status] vmlinuz missing
+2026-08-12 13:59:07 [info] [Bundle:status] initrd missing
+2026-08-12 13:59:07 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-12 15:00:10 [info] [VM] Loading @ant/claude-swift module...
+2026-08-12 15:00:10 [info] [VM] Module loaded successfully
+2026-08-12 15:00:10 [info] [Bundle:status] rootfs.img missing
+2026-08-12 15:00:10 [info] [Bundle:status] rootfs.img missing
+2026-08-12 15:00:10 [info] [Bundle:status] rootfs.img missing
+2026-08-12 15:00:10 [info] [Bundle:status] vmlinuz missing
+2026-08-12 15:00:10 [info] [Bundle:status] initrd missing
+2026-08-14 00:47:02 [info] [Bundle:status] rootfs.img missing
+2026-08-14 00:47:02 [info] [Bundle:status] vmlinuz missing
+2026-08-14 00:47:02 [info] [Bundle:status] initrd missing
+2026-08-14 00:47:02 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-14 21:35:55 [info] [VM] Loading @ant/claude-swift module...
+2026-08-14 21:35:55 [info] [VM] Module loaded successfully
+2026-08-14 21:35:55 [info] [Bundle:status] rootfs.img missing
+2026-08-14 21:35:55 [info] [Bundle:status] rootfs.img missing
+2026-08-14 21:35:55 [info] [Bundle:status] rootfs.img missing
+2026-08-14 21:35:55 [info] [Bundle:status] vmlinuz missing
+2026-08-14 21:35:55 [info] [Bundle:status] initrd missing
+2026-08-15 05:44:51 [info] [Bundle:status] rootfs.img missing
+2026-08-15 05:44:51 [info] [Bundle:status] vmlinuz missing
+2026-08-15 05:44:51 [info] [Bundle:status] initrd missing
+2026-08-15 05:44:51 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-17 17:42:12 [info] [Bundle:status] rootfs.img missing
+2026-08-17 17:42:12 [info] [VM] Loading @ant/claude-swift module...
+2026-08-17 17:42:12 [info] [VM] Module loaded successfully
+2026-08-17 17:42:12 [info] [Bundle:status] rootfs.img missing
+2026-08-17 17:42:12 [info] [Bundle:status] rootfs.img missing
+2026-08-17 17:42:12 [info] [Bundle:status] vmlinuz missing
+2026-08-17 17:42:12 [info] [Bundle:status] initrd missing
+2026-08-17 17:43:37 [info] [Bundle:status] rootfs.img missing
+2026-08-17 17:43:37 [info] [Bundle:status] vmlinuz missing
+2026-08-17 17:43:37 [info] [Bundle:status] initrd missing
+2026-08-17 17:43:37 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-17 21:14:49 [info] [VM] Loading @ant/claude-swift module...
+2026-08-17 21:14:49 [info] [VM] Module loaded successfully
+2026-08-17 21:14:50 [info] [Bundle:status] rootfs.img missing
+2026-08-17 21:14:50 [info] [Bundle:status] rootfs.img missing
+2026-08-17 21:14:50 [info] [Bundle:status] rootfs.img missing
+2026-08-17 21:14:50 [info] [Bundle:status] vmlinuz missing
+2026-08-17 21:14:50 [info] [Bundle:status] initrd missing
+2026-08-17 21:24:27 [info] [Bundle:status] rootfs.img missing
+2026-08-17 21:24:27 [info] [Bundle:status] vmlinuz missing
+2026-08-17 21:24:27 [info] [Bundle:status] initrd missing
+2026-08-17 21:24:27 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-17 22:03:20 [info] [VM] Loading @ant/claude-swift module...
+2026-08-17 22:03:20 [info] [VM] Module loaded successfully
+2026-08-17 22:03:20 [info] [Bundle:status] rootfs.img missing
+2026-08-17 22:03:20 [info] [Bundle:status] rootfs.img missing
+2026-08-17 22:03:20 [info] [Bundle:status] rootfs.img missing
+2026-08-17 22:03:20 [info] [Bundle:status] vmlinuz missing
+2026-08-17 22:03:20 [info] [Bundle:status] initrd missing
+2026-08-17 22:03:20 [info] [Bundle:status] initrd-micro missing
+2026-08-18 07:03:57 [info] [Bundle:status] rootfs.img missing
+2026-08-18 07:03:57 [info] [Bundle:status] vmlinuz missing
+2026-08-18 07:03:57 [info] [Bundle:status] initrd missing
+2026-08-18 07:03:57 [info] [Bundle:status] initrd-micro missing
+2026-08-18 07:03:57 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-19 14:08:45 [info] [VM] Loading @ant/claude-swift module...
+2026-08-19 14:08:45 [info] [VM] Module loaded successfully
+2026-08-19 14:08:45 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:08:45 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:08:45 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:08:45 [info] [Bundle:status] vmlinuz missing
+2026-08-19 14:08:45 [info] [Bundle:status] initrd missing
+2026-08-19 14:08:45 [info] [Bundle:status] initrd-micro missing
+2026-08-19 14:09:04 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:11:39 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:11:39 [info] [Bundle:status] vmlinuz missing
+2026-08-19 14:11:39 [info] [Bundle:status] initrd missing
+2026-08-19 14:11:39 [info] [Bundle:status] initrd-micro missing
+2026-08-19 14:11:39 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-19 14:20:40 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:20:40 [info] [VM] Loading @ant/claude-swift module...
+2026-08-19 14:20:40 [info] [VM] Module loaded successfully
+2026-08-19 14:20:41 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:20:41 [info] [Bundle:status] rootfs.img missing
+2026-08-19 14:20:41 [info] [Bundle:status] vmlinuz missing
+2026-08-19 14:20:41 [info] [Bundle:status] initrd missing
+2026-08-19 14:20:41 [info] [Bundle:status] initrd-micro missing
+2026-08-21 01:36:42 [info] [Bundle:status] rootfs.img missing
+2026-08-21 01:36:42 [info] [Bundle:status] vmlinuz missing
+2026-08-21 01:36:42 [info] [Bundle:status] initrd missing
+2026-08-21 01:36:42 [info] [Bundle:status] initrd-micro missing
+2026-08-21 01:36:42 [info] [warm] No VM bundle present; swept stale warm dirs, skipping prefetch
+2026-08-21 02:42:11 [info] [VM] Loading @ant/claude-swift module...
+2026-08-21 02:42:11 [info] [VM] Module loaded successfully
+2026-08-21 06:05:48 [info] [VM] Loading @ant/claude-swift module...
+2026-08-21 06:05:48 [info] [VM] Module loaded successfully
+2026-08-21 06:05:48 [info] [Bundle:status] rootfs.img missing
+2026-08-21 06:05:48 [info] [Bundle:status] rootfs.img missing
+2026-08-21 06:05:48 [info] [Bundle:status] rootfs.img missing
+2026-08-21 06:05:48 [info] [Bundle:status] vmlinuz missing
+2026-08-21 06:05:48 [info] [Bundle:status] initrd missing
+2026-08-21 06:05:48 [info] [Bundle:status] initrd-micro missing

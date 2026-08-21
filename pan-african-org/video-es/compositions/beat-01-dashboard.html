@@ -803,10 +803,10 @@
       </nav>
 
       <div data-hf-id="hf-37m9" class="sidebar-foot">
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <a class="lang-opt is-active" hreflang="en" href="index.html">EN</a>
-          <a class="lang-opt" hreflang="fr" href="#">FR</a>
-          <a class="lang-opt" hreflang="es" href="#">ES</a>
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-hny8" class="lang-opt is-active" hreflang="en" href="index.html">EN</a>
+          <a data-hf-id="hf-nz4f" class="lang-opt" hreflang="fr" href="#">FR</a>
+          <a data-hf-id="hf-ztqb" class="lang-opt" hreflang="es" href="#">ES</a>
         </div>
         <div data-hf-id="hf-0qfb" class="user-mini">
           <div data-hf-id="hf-sicj" class="user-avatar">SB</div>
@@ -1251,16 +1251,6 @@
 
   <!-- Video Overlays -->
   <style>
-    #cursor {
-      position: absolute;
-      top: 0; left: 0;
-      width: 32px; height: 32px;
-      z-index: 9999;
-      transform-origin: 0 0;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-      opacity: 0;
-      visibility: hidden;
-    }
     #subtitle-container {
       position: fixed;
       bottom: 40px;
@@ -1282,30 +1272,22 @@
     }
   </style>
 
-  <svg id="cursor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 4 L11 26 L15 17 L24 21 L27 18 L18 14 L26 10 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"/>
-  </svg>
-
-  <div id="subtitle-container"></div>
+  <div data-hf-id="hf-99q3" id="subtitle-container"></div>
 
   <script>
 
     gsap.set("#subtitle-container", { autoAlpha: 0 });
-    gsap.set("#cursor", { x: 500, y: 800, autoAlpha: 0 });
-
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
 
-    tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
-      .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
+    tl.to("#subtitle-container", { autoAlpha: 1, duration: 0.5 })
       .set("#subtitle-container", { textContent: 'Consulte el empleo de cada empresa miembro en tiempo real...' })
-      .to("#cursor", { x: 700, y: 460, duration: 3, ease: "power2.inOut" })
+      .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
       .set("#subtitle-container", { textContent: '...sin esperar a las encuestas anuales.' })
-      .to("#cursor", { x: 960, y: 740, duration: 3, ease: "power2.inOut" })
+      .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
-      .to("#cursor", { autoAlpha: 0, duration: 0.5 })
-      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
+      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 });
 
   window.__timelines["beat-01"] = tl;
   </script>
