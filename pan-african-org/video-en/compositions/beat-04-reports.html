@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="../../gate.js"></script>
   <title>Community Talent Portal — General Report</title>
   <meta name="description" content="Pan-African Enterprise Alliance — Community Talent Portal general report prototype"/>
 
@@ -509,7 +508,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 </head>
 <body>
-<div data-composition-id="beat-04">
+<div data-composition-id="beat-04" data-width="1920" data-height="1080" data-duration="10">
   <button class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
     <i class="ph-bold ph-list"></i>
   </button>
@@ -558,8 +557,8 @@
       <div class="sidebar-foot">
         <div class="lang-toggle" role="group" aria-label="Language">
           <a class="lang-opt is-active" hreflang="en" href="general-report.html">EN</a>
-          <a class="lang-opt" hreflang="fr" href="../fr/general-report.html">FR</a>
-          <a class="lang-opt" hreflang="es" href="../es/general-report.html">ES</a>
+          <a class="lang-opt" hreflang="fr" href="#">FR</a>
+          <a class="lang-opt" hreflang="es" href="#">ES</a>
         </div>
         <div class="user-mini">
           <div class="user-avatar">SB</div>
@@ -742,7 +741,7 @@
       alert(fmt(STR.generatingAlert, { reportName, format }));
 
       const tableBody = document.querySelector('#exports-table tbody');
-      const now = new Date();
+      const now = (new (function(){ this.toLocaleDateString = () => '13 Jun 2026'; this.toLocaleTimeString = () => '09:15'; })());
       const timeStr = now.toLocaleDateString(dateLocale, { day: '2-digit', month: 'short', year: 'numeric' }) + `, ` + now.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' });
 
       const newRow = document.createElement('tr');
