@@ -107,6 +107,58 @@ test('verifying a suspended entity renders a localized badge, not an English lea
   await expect(row.getByRole('button', { name: 'Suspendre' })).toBeVisible();
 });
 
+test('re-inviting an entity renders a localized alert, not an English leak', async ({ page }) => {
+  // Regression test for the same class of bug as the verify-badge test above,
+  // this time via window.alert() rather than innerHTML: the re-invite button
+  // called alert('Re-invited Savanna Freight Partners') as a raw English
+  // literal, even though the STR block already carried a translated
+  // reinvitedName: "{name}" template unused by this call site. Neither
+  // org:check (static text nodes only) nor a non-interactive layout spec can
+  // see text that only appears inside a JS alert() — this has to click.
+  await page.goto('file://' + path.join(ROOT, 'fr', 'entities.html'));
+
+  const row = page.locator('tr', { hasText: 'Savanna Freight Partners' });
+
+  // window.alert() blocks the page's JS thread until dismissed, so click()
+  // itself won't settle until the dialog is accepted. A page.once() handler
+  // that accepts immediately on the 'dialog' event unblocks the renderer as
+  // soon as it fires; waiting on a Promise.all of [waitForEvent, click()]
+  // instead deadlocks, since click() can't resolve until something accepts
+  // the dialog, and that accept was gated behind click() resolving first.
+  let dialogMessage = null;
+  page.once('dialog', async (dialog) => {
+    dialogMessage = dialog.message();
+    await dialog.accept();
+  });
+
+  await row.getByRole('button', { name: 'Réinviter' }).click();
+
+  expect(dialogMessage).toBe('Réinvitation envoyée à Savanna Freight Partners');
+  expect(dialogMessage).not.toContain('Re-invited');
+});
+
+test('viewing a job funnel renders the localized job title, not an English leak', async ({ page }) => {
+  // Same class again: viewFunnel(jobTitle, entity, count) interpolated an
+  // English jobTitle literal into an otherwise-translated sentence
+  // (STR.funnelTitle / STR.funnelDesc). The job title is now routed through
+  // STR too, so the modal it populates should read entirely in French.
+  await page.goto('file://' + path.join(ROOT, 'fr', 'jobs-applications.html'));
+
+  // Locate by the now-translated static job-title text (itself already
+  // covered by org:check), not the English original, since that's what's
+  // actually on screen in this row.
+  const row = page.locator('tr', { hasText: 'Superviseur de production textile' });
+  await row.getByRole('button', { name: "Voir l'entonnoir" }).click();
+
+  const title = page.locator('#funnel-title');
+  const desc = page.locator('#funnel-desc');
+
+  await expect(title).toHaveText('Entonnoir Superviseur de production textile');
+  await expect(desc).toHaveText('Superviseur de production textile chez Highland Textile Works (2 candidats au total)');
+  await expect(title).not.toContainText('Textile Production Supervisor');
+  await expect(desc).not.toContainText('Textile Production Supervisor');
+});
+
 test('demo gate is actually bypassed, not vacuously passing', async ({ page }) => {
   await page.goto('file://' + path.join(ROOT, 'en', 'index.html'));
   await page.waitForTimeout(300);

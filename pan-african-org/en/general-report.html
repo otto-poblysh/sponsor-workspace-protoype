@@ -598,7 +598,7 @@
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Monthly Community Impact Summary', 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameMonthly, 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -611,7 +611,7 @@
                 <option value="PDF">PDF Document (.pdf)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Member Company Status Report', 'fmt-entity')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameEntityStatus, 'fmt-entity')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -624,7 +624,7 @@
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="PDF">PDF Document (.pdf)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Member Company Vacancy Report', 'fmt-jobs')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameVacancy, 'fmt-jobs')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -636,7 +636,7 @@
                 <option value="PDF">PDF Document (.pdf)</option>
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Recruitment Outcomes Report', 'fmt-applicants')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameRecruitmentOutcomes, 'fmt-applicants')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -648,7 +648,7 @@
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Skills Demand Report', 'fmt-skills')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameSkillsDemand, 'fmt-skills')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
 
             <div class="template-row">
@@ -661,7 +661,7 @@
                 <option value="Excel">Excel Spreadsheet (.xlsx)</option>
                 <option value="CSV">Comma Separated Values (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Inactive Member Report', 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Generate Report</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameInactiveMember, 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Generate Report</button>
             </div>
           </div>
         </div>
@@ -722,7 +722,13 @@
       statusGenerating: "Generating...",
       statusWaiting: "Waiting",
       statusReady: "Ready",
-      downloadLink: "Download"
+      downloadLink: "Download",
+      reportNameMonthly: "Monthly Community Impact Summary",
+      reportNameEntityStatus: "Member Company Status Report",
+      reportNameVacancy: "Member Company Vacancy Report",
+      reportNameRecruitmentOutcomes: "Recruitment Outcomes Report",
+      reportNameSkillsDemand: "Skills Demand Report",
+      reportNameInactiveMember: "Inactive Member Report"
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

@@ -599,7 +599,7 @@
                 <option value="Excel">Feuille de calcul Excel (.xlsx)</option>
                 <option value="CSV">Valeurs séparées par des virgules (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Monthly Community Impact Summary', 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameMonthly, 'fmt-monthly')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
 
             <div class="template-row">
@@ -612,7 +612,7 @@
                 <option value="PDF">Document PDF (.pdf)</option>
                 <option value="CSV">Valeurs séparées par des virgules (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Member Company Status Report', 'fmt-entity')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameEntityStatus, 'fmt-entity')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
 
             <div class="template-row">
@@ -625,7 +625,7 @@
                 <option value="Excel">Feuille de calcul Excel (.xlsx)</option>
                 <option value="PDF">Document PDF (.pdf)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Member Company Vacancy Report', 'fmt-jobs')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameVacancy, 'fmt-jobs')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
 
             <div class="template-row">
@@ -637,7 +637,7 @@
                 <option value="PDF">Document PDF (.pdf)</option>
                 <option value="Excel">Feuille de calcul Excel (.xlsx)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Recruitment Outcomes Report', 'fmt-applicants')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameRecruitmentOutcomes, 'fmt-applicants')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
 
             <div class="template-row">
@@ -649,7 +649,7 @@
                 <option value="Excel">Feuille de calcul Excel (.xlsx)</option>
                 <option value="CSV">Valeurs séparées par des virgules (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Skills Demand Report', 'fmt-skills')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameSkillsDemand, 'fmt-skills')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
 
             <div class="template-row">
@@ -662,7 +662,7 @@
                 <option value="Excel">Feuille de calcul Excel (.xlsx)</option>
                 <option value="CSV">Valeurs séparées par des virgules (.csv)</option>
               </select>
-              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport('Inactive Member Report', 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
+              <button class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameInactiveMember, 'fmt-inactive')"><i class="ph-bold ph-gear"></i> Générer le rapport</button>
             </div>
           </div>
         </div>
@@ -723,7 +723,13 @@
       statusGenerating: "Génération en cours...",
       statusWaiting: "En attente",
       statusReady: "Prêt",
-      downloadLink: "Télécharger"
+      downloadLink: "Télécharger",
+      reportNameMonthly: "Résumé mensuel de l'impact communautaire",
+      reportNameEntityStatus: "Rapport sur le statut des entreprises membres",
+      reportNameVacancy: "Rapport sur les postes vacants des entreprises membres",
+      reportNameRecruitmentOutcomes: "Rapport sur les résultats des recrutements",
+      reportNameSkillsDemand: "Rapport sur la demande de compétences",
+      reportNameInactiveMember: "Rapport sur les membres inactifs"
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

@@ -699,7 +699,7 @@
           <p class="page-subtitle">Comparer la demande de compétences du secteur privé à l'offre de main-d'œuvre dans les pays membres</p>
         </div>
         <div class="header-actions">
-          <button class="btn btn-secondary" onclick="alert('Exporting Report...')"><i class="ph-bold ph-download-simple"></i> Exporter le rapport</button>
+          <button class="btn btn-secondary" onclick="alert(STR.exportingReportAlert)"><i class="ph-bold ph-download-simple"></i> Exporter le rapport</button>
         </div>
       </header>
 
@@ -911,7 +911,8 @@
       certifiedWeldingProgTitle: "Programme de soudure certifiée",
       certifiedWeldingProgDesc: "Développer des formations certifiées en soudure et fabrication alignées sur 148 postes actuellement vacants.",
       commercialDriverUpskillingTitle: "Perfectionnement des conducteurs professionnels",
-      commercialDriverUpskillingDesc: "Soutenir l'obtention de permis professionnels, la sécurité de flotte et la préparation logistique des demandeurs d'emploi."
+      commercialDriverUpskillingDesc: "Soutenir l'obtention de permis professionnels, la sécurité de flotte et la préparation logistique des demandeurs d'emploi.",
+      exportingReportAlert: "Exportation du rapport..."
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

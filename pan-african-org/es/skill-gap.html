@@ -699,7 +699,7 @@
           <p class="page-subtitle">Comparar la demanda de competencias del sector privado con la oferta de trabajadores en los países miembro</p>
         </div>
         <div class="header-actions">
-          <button class="btn btn-secondary" onclick="alert('Exporting Report...')"><i class="ph-bold ph-download-simple"></i> Exportar informe</button>
+          <button class="btn btn-secondary" onclick="alert(STR.exportingReportAlert)"><i class="ph-bold ph-download-simple"></i> Exportar informe</button>
         </div>
       </header>
 
@@ -911,7 +911,8 @@
       certifiedWeldingProgTitle: "Programa de Soldadura Certificada",
       certifiedWeldingProgDesc: "Ampliar la formación acreditada en soldadura y calderería alineada con 148 vacantes actuales.",
       commercialDriverUpskillingTitle: "Capacitación para Conductores Profesionales",
-      commercialDriverUpskillingDesc: "Apoyar la obtención de licencias profesionales, seguridad de flotas y preparación logística para demandantes."
+      commercialDriverUpskillingDesc: "Apoyar la obtención de licencias profesionales, seguridad de flotas y preparación logística para demandantes.",
+      exportingReportAlert: "Exportando informe..."
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

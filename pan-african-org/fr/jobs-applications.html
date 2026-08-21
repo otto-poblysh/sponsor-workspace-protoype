@@ -744,7 +744,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Difficile à pourvoir)</small></td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Textile Production Supervisor', 'Highland Textile Works', 2)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleTextileProdSupervisor, 'Highland Textile Works', 2)">Voir l'entonnoir</button>
               </td>
             </tr>
             <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
@@ -756,7 +756,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">18</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Industrial Electrician', 'Highland Textile Works', 18)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleIndustrialElectrician, 'Highland Textile Works', 18)">Voir l'entonnoir</button>
               </td>
             </tr>
             <tr data-entity="rift valley agro-processing" data-sector="agriculture and agro-processing" data-status="active">
@@ -768,7 +768,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">12</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Agro-Processing Line Technician', 'Rift Valley Agro-Processing', 12)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleAgroProcessingTechnician, 'Rift Valley Agro-Processing', 12)">Voir l'entonnoir</button>
               </td>
             </tr>
             <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="active">
@@ -780,7 +780,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">45</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Front Office Supervisor', 'Coastal Hospitality Group', 45)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleFrontOfficeSupervisor, 'Coastal Hospitality Group', 45)">Voir l'entonnoir</button>
               </td>
             </tr>
             <tr data-entity="tigray construction partners" data-sector="construction" data-status="active">
@@ -792,7 +792,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">6</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Construction Site Supervisor', 'Tigray Construction Partners', 6)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleConstructionSiteSupervisor, 'Tigray Construction Partners', 6)">Voir l'entonnoir</button>
               </td>
             </tr>
             <tr data-entity="mombasa road logistics" data-sector="logistics and transport" data-status="active">
@@ -804,7 +804,7 @@
               <td><span class="badge badge-success">Actif</span></td>
               <td style="font-family:var(--font-mono)">9</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Mombasa Road Logistics', 9)">Voir l'entonnoir</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleLogisticsCoordinator, 'Mombasa Road Logistics', 9)">Voir l'entonnoir</button>
               </td>
             </tr>
           </tbody>
@@ -848,7 +848,13 @@
       stageCallScreening: "Entretien téléphonique préliminaire",
       stageQualified: "Qualifié",
       stageNewApplicant: "Nouveau candidat",
-      moreApplicants: "... et {count} autres candidats aux étapes précédentes."
+      moreApplicants: "... et {count} autres candidats aux étapes précédentes.",
+      jobTitleTextileProdSupervisor: "Superviseur de production textile",
+      jobTitleIndustrialElectrician: "Électricien industriel",
+      jobTitleAgroProcessingTechnician: "Technicien de ligne d'agro-transformation",
+      jobTitleFrontOfficeSupervisor: "Superviseur de la réception",
+      jobTitleConstructionSiteSupervisor: "Superviseur de chantier",
+      jobTitleLogisticsCoordinator: "Coordinateur logistique"
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

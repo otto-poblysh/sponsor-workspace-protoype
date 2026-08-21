@@ -19,6 +19,7 @@
   "Director (Permanent)": "Directeur (Permanent)",
   "Email Address": "Adresse e-mail",
   "Invitation email resent": "E-mail d'invitation renvoyé",
+  "Invitation email resent to {name}.": "E-mail d'invitation renvoyé à {name}.",
   "Invitation sent to {email}": "Invitation envoyée à {email}",
   "Invite Organization Team Member": "Inviter un membre de l'Équipe de l'Organisation",
   "Invite User": "Inviter un utilisateur",

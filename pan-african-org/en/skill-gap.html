@@ -698,7 +698,7 @@
           <p class="page-subtitle">Compare private-sector skill demand with worker supply across member countries</p>
         </div>
         <div class="header-actions">
-          <button class="btn btn-secondary" onclick="alert('Exporting Report...')"><i class="ph-bold ph-download-simple"></i> Export report</button>
+          <button class="btn btn-secondary" onclick="alert(STR.exportingReportAlert)"><i class="ph-bold ph-download-simple"></i> Export report</button>
         </div>
       </header>
 
@@ -910,7 +910,8 @@
       certifiedWeldingProgTitle: "Certified Welding Programme",
       certifiedWeldingProgDesc: "Expand accredited welding and fabrication training aligned with 148 current vacancies.",
       commercialDriverUpskillingTitle: "Commercial Driver Upskilling",
-      commercialDriverUpskillingDesc: "Support commercial licensing, fleet safety and logistics readiness for job seekers."
+      commercialDriverUpskillingDesc: "Support commercial licensing, fleet safety and logistics readiness for job seekers.",
+      exportingReportAlert: "Exporting Report..."
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

@@ -670,7 +670,7 @@
               <td><span class="badge badge-warning">Invité</span></td>
               <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Jamais</td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Wanjiru.')">Renvoyer</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert(fmt(STR.invitationResentTo, { name: 'Wanjiru' }))">Renvoyer</button>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Supprimer</button>
               </td>
             </tr>
@@ -721,6 +721,7 @@
       actionResend: "Renvoyer",
       actionRemove: "Supprimer",
       invitationResentGeneric: "E-mail d'invitation renvoyé",
+      invitationResentTo: "E-mail d'invitation renvoyé à {name}.",
       invitationSentToEmail: "Invitation envoyée à {email}",
       roleChangeLogged: "Changement de rôle enregistré pour {userName} vers « {role} ». Cette action a été ajoutée aux Journaux d'activité.",
       statusActive: "Actif",
