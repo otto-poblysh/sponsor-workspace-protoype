@@ -1,6 +1,6 @@
-# Pan-African Enterprise Alliance Portal
+# Pan-African Organization Portal
 
-This directory contains the Pan-African Enterprise Alliance (org) prototypes and their localized tutorial videos.
+This directory contains the Pan-African Organization (org) prototypes and their localized tutorial videos.
 
 ## Structure
 - `en/`: The base English HTML portal pages.
