@@ -12,10 +12,14 @@
  * regression of that class — this test is that automation.
  *
  * For every pan-african-org/en/*.html page, this test extracts every JS
- * string literal that appears:
+ * string literal - single-quoted, double-quoted, or backtick-delimited -
+ * that appears:
  *   (a) inside an on*="..." handler attribute, or
  *   (b) inside an alert(...)/confirm(...) call within a <script> block,
- * and requires each one to fall into exactly one of four buckets:
+ * including literals nested inside a `${...}` template interpolation
+ * (round 4 closed a gap where such a nested literal was discarded instead
+ * of classified - see the two round-4 tests below), and requires each one
+ * to fall into exactly one of four buckets:
  *   1. Not user-facing   - no static alphabetic content, a hex colour,
  *                           a CSS class name (".foo"), or a kebab-case
  *                           internal id/token ("invite-modal", "is-open").
@@ -49,30 +53,62 @@ const ALLOWLIST = new Map([
   // DOM. Verified across every call site in entities.html.
   ['suspend', "openModeration() type key - compared against, never rendered (entities.html)"],
   ['reject', "openModeration() type key - compared against, never rendered (entities.html)"],
+  // entities.html:1031 - row.querySelector('strong') inside a template
+  // interpolation. This is a bare HTML tag-name selector argument to
+  // Element.querySelector(), not a string of user-facing text; it is
+  // consumed by querySelector, never assigned to .textContent/.innerHTML.
+  // Round 3's classifier never saw this literal at all (it was discarded
+  // whole with the rest of the interpolation); round 4's recursive scan
+  // now surfaces it as its own literal and it needs this explicit entry.
+  ['strong', "HTML tag-name selector argument to querySelector(), never rendered (entities.html:1031)"],
 ]);
 
 // ---------------------------------------------------------------------------
 // Extraction helpers
 // ---------------------------------------------------------------------------
 
+// Round 4: any of the three JS string delimiters can carry a leak, and a
+// hardcoded literal can hide *inside* a ${...} interpolation right next to
+// a genuine STR reference. Both gaps were demonstrated against round 3's
+// classifier (see the two "round-4 regression" tests below and the report).
+const QUOTE_CHARS = new Set(["'", '"', '`']);
+
 /**
- * Scan `text` for top-level single-quoted string literals. Handles escaped
- * quotes (\') and `${...}` template interpolations embedded inside a
- * literal - including interpolations that themselves contain nested quoted
- * strings (e.g. `'${row.querySelector('strong').textContent}'`, which is
- * real markup in entities.html) - without letting the nested quote
- * prematurely close the outer literal.
+ * Scan `text` for top-level single-, double-, or backtick-quoted string
+ * literals. Handles escaped quotes (\', \", \`) and `${...}` template
+ * interpolations embedded inside a literal.
+ *
+ * An interpolation is walked twice, deliberately:
+ *   1. Once to find its matching closing `}` (tracking brace depth, and
+ *      skipping over any nested quoted string so ITS internal braces/quotes
+ *      don't confuse the depth count) - this is how the outer literal's own
+ *      true end is found, e.g. in real markup like
+ *      `'${row.querySelector('strong').textContent}'` (entities.html:1031).
+ *   2. Once *recursively*, over that same interpolation's text, to pull out
+ *      any string literal nested inside it (of any of the three delimiter
+ *      types) as its OWN top-level entry in the returned list - so it gets
+ *      independently run through classify() rather than being silently
+ *      discarded as "just part of the interpolation". This is what closes
+ *      the round-4 gap where a hardcoded English string riding alongside a
+ *      real `STR.foo` reference in the same `${...}` was never inspected.
  *
  * Returns [{ value, index }] where `index` is the position of the opening
- * quote and `value` is the literal's raw contents (quotes not included,
- * `${...}` blocks left intact for stripInterpolations to handle later).
+ * quote (relative to the start of `text`) and `value` is the literal's raw
+ * contents (quotes not included, `${...}` blocks left intact in `value` so
+ * stripInterpolations/isPureSTRTemplate can reason about the wrapper).
  */
 function scanLiterals(text) {
   const out = [];
+  scanLiteralsInto(text, 0, out);
+  return out;
+}
+
+function scanLiteralsInto(text, baseOffset, out) {
   let i = 0;
   const n = text.length;
   while (i < n) {
-    if (text[i] === "'") {
+    const quote = text[i];
+    if (QUOTE_CHARS.has(quote)) {
       const startIdx = i;
       i++;
       let value = '';
@@ -83,54 +119,52 @@ function scanLiterals(text) {
           i += 2;
           continue;
         }
-        if (ch === "'") {
+        if (ch === quote) {
           i++;
           break;
         }
         if (ch === '$' && text[i + 1] === '{') {
-          value += '${';
-          i += 2;
+          const exprStart = i + 2;
+          let j = exprStart;
           let depth = 1;
-          while (i < n && depth > 0) {
-            const c = text[i];
-            if (c === "'" || c === '"' || c === '`') {
-              // Nested quoted string inside the interpolation - consume it
-              // verbatim so its quotes don't get mistaken for the outer
-              // literal's closing quote.
-              const q = c;
-              value += c;
-              i++;
-              while (i < n && text[i] !== q) {
-                if (text[i] === '\\') {
-                  value += text[i] + (text[i + 1] || '');
-                  i += 2;
-                  continue;
-                }
-                value += text[i];
-                i++;
+          while (j < n && depth > 0) {
+            const c = text[j];
+            if (QUOTE_CHARS.has(c)) {
+              // Nested quoted string inside the interpolation - skip over
+              // it (for brace-balancing purposes only; it is separately
+              // recursed into below) so its own quotes/braces don't get
+              // mistaken for this interpolation's boundary.
+              const q2 = c;
+              j++;
+              while (j < n && text[j] !== q2) {
+                if (text[j] === '\\') j++;
+                j++;
               }
-              if (i < n) {
-                value += text[i];
-                i++;
-              }
+              if (j < n) j++;
               continue;
             }
             if (c === '{') depth++;
             else if (c === '}') depth--;
-            value += c;
-            i++;
+            j++;
           }
+          const exprEnd = j - 1; // index of the matching '}'
+          const exprText = text.slice(exprStart, exprEnd);
+          // Recurse: any literal nested inside this interpolation must be
+          // classified on its own merits, not laundered by co-location
+          // with a STR. reference elsewhere in the same expression.
+          scanLiteralsInto(exprText, baseOffset + exprStart, out);
+          value += text.slice(i, j); // keep the raw ${...} text for the wrapper
+          i = j;
           continue;
         }
         value += ch;
         i++;
       }
-      out.push({ value, index: startIdx });
+      out.push({ value, index: baseOffset + startIdx });
     } else {
       i++;
     }
   }
-  return out;
 }
 
 /** Remove every balanced top-level `${...}` block from a literal's value,
@@ -327,7 +361,20 @@ test('no unclassified English JS string literals in on*="..." attributes or aler
   );
 });
 
-test('literal classification stats (informational)', () => {
+// Round 3 shipped this as `assert.ok(total > 0)` - a floor so low it stays
+// green through an extraction collapse (exactly what happened with the
+// quote-style gap: it would have passed with zero double/backtick literals
+// ever found, forever, since the corpus doesn't currently use them). A
+// blanket total can't catch that class of regression either - the corpus
+// is clean today, so a coverage check against *this* corpus cannot prove a
+// delimiter or recursion path still works; only a direct, synthetic input
+// can (see the two tests below, which exist specifically for that). What
+// THIS test can meaningfully catch is a structural collapse of the
+// existing extractors - e.g. the on*="..." attribute regex or the
+// alert/confirm call-matcher silently stops matching - which would crater
+// every bucket's count at once. Per-bucket floors, tied to the known
+// clean-corpus counts, catch that; a bare `total > 0` would not.
+test('literal classification counts do not regress below the known corpus floor', () => {
   const { stats } = collectFailuresAndStats();
   const total = stats[1] + stats[2] + stats[3] + stats[4];
   console.log(
@@ -335,5 +382,75 @@ test('literal classification stats (informational)', () => {
     `bucket2(allowlisted-key)=${stats[2]} bucket3(proper-noun)=${stats[3]} ` +
     `bucket4(STR-routed)=${stats[4]} total=${total}`
   );
-  assert.ok(total > 0, 'expected at least one classified literal across the org English pages');
+  assert.ok(stats[1] >= 40, `bucket1 (not-user-facing) dropped to ${stats[1]}, expected >= 40 - extraction may have collapsed`);
+  assert.ok(stats[2] >= 8, `bucket2 (allowlisted key) dropped to ${stats[2]}, expected >= 8 - extraction may have collapsed`);
+  assert.ok(stats[3] >= 18, `bucket3 (proper noun) dropped to ${stats[3]}, expected >= 18 - extraction may have collapsed`);
+  assert.ok(stats[4] >= 5, `bucket4 (STR-routed) dropped to ${stats[4]}, expected >= 5 - extraction may have collapsed`);
+});
+
+// ---------------------------------------------------------------------------
+// Round 4 regression tests - each proves a false negative the reviewer
+// demonstrated against round 3's actual classifier code, by feeding the
+// same offending input straight into the extractor/classifier.
+// ---------------------------------------------------------------------------
+
+test('round 4 / Important 1: extractScriptAlertLiterals finds double-quoted and backtick alert() literals, not just single-quoted', () => {
+  // Round 3's scanLiterals only recognised `'` as a string delimiter
+  // (tests/js-string-literal-gate.test.js was literally `if (text[i] === "'")`).
+  // Fed the exact input below, extractScriptAlertLiterals returned zero
+  // literals for both lines - not unclassified, invisible - so the leaks
+  // shipped silently and the gate never even counted them.
+  const html = [
+    '<script>',
+    '  function demo() {',
+    '    alert("Brand new leak via double quotes");',
+    '    alert(`Brand new leak via backticks`);',
+    '  }',
+    '</script>',
+  ].join('\n');
+
+  const found = extractScriptAlertLiterals(html).map((l) => l.value);
+  assert.ok(
+    found.includes('Brand new leak via double quotes'),
+    `double-quoted alert() literal must be extracted; got ${JSON.stringify(found)}`
+  );
+  assert.ok(
+    found.includes('Brand new leak via backticks'),
+    `backtick alert() literal must be extracted; got ${JSON.stringify(found)}`
+  );
+
+  for (const value of ['Brand new leak via double quotes', 'Brand new leak via backticks']) {
+    assert.strictEqual(
+      classify(value),
+      null,
+      `${JSON.stringify(value)} is unrouted English text and must fail classification`
+    );
+  }
+});
+
+test('round 4 / Important 2: a hardcoded literal riding alongside a real STR. reference inside the same ${...} is independently classified and fails', () => {
+  // Round 3's isPureSTRTemplate() stripped the *entire* ${...} block -
+  // including any nested quoted string inside it - before checking for a
+  // "STR." substring anywhere in the raw literal. That meant a hardcoded
+  // English string sharing an interpolation with a real STR reference was
+  // deleted before classification ever saw it, and the whole wrapper was
+  // credited to bucket 4 by co-location alone. This is one variable swap
+  // away from the real entities.html:1009 idiom
+  // (`alert('${fmt(STR.reinvitedName, { name: activeModName })}')`).
+  const html = [
+    '<script>',
+    '  alert(\'${fmt(STR.reinvitedName, { name: "Totally Unrouted English Text" })}\');',
+    '</script>',
+  ].join('\n');
+
+  const found = extractScriptAlertLiterals(html).map((l) => l.value);
+  assert.ok(
+    found.includes('Totally Unrouted English Text'),
+    `the nested hardcoded string must be extracted as its own literal, not discarded with the interpolation; got ${JSON.stringify(found)}`
+  );
+  assert.strictEqual(
+    classify('Totally Unrouted English Text'),
+    null,
+    'co-location with a real STR. reference in the same interpolation must not launder unrouted English text into bucket 4'
+  );
 });
