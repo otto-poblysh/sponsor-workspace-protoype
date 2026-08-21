@@ -5,8 +5,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="../../gate.js"></script>
-  <title>Portal de Talento Comunitario — Personalización del portal</title>
-  <meta name="description" content="Pan-African Enterprise Alliance — Prototipo de personalización del Portal de Talento Comunitario"/>
+  <title>Portal Comunitario de Empleo — Personalización del portal</title>
+  <meta name="description" content="Pan-African Organization — Prototipo de personalización del Portal Comunitario de Empleo"/>
 
   <!-- Language Routing & Preference Persistence (R8) -->
   <script>
@@ -503,8 +503,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Pan-African Enterprise Alliance</div>
-          <div class="brand-sub">Portal de Talento Comunitario</div>
+          <div class="brand-name">Pan-African Organization</div>
+          <div class="brand-sub">Portal Comunitario de Empleo</div>
         </div>
       </div>
 
@@ -559,7 +559,7 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Personalización del portal</h1>
-          <p class="page-subtitle">Configure la identidad visual y los colores del portal público de la Alianza</p>
+          <p class="page-subtitle">Configure la identidad visual y los colores del portal público de la Organización</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="saveBranding()"><i class="ph-bold ph-floppy-disk"></i> Guardar cambios</button>
@@ -568,19 +568,19 @@
 
       <div class="badge-approval animate-enter delay-1">
         <i class="ph-bold ph-warning"></i>
-        <span><strong>Control de moderación:</strong> Modificar el nombre del portal o el nombre de visualización requiere la aprobación del Superadministrador de Pan-African Enterprise Alliance antes de su publicación.</span>
+        <span><strong>Control de moderación:</strong> Modificar el nombre del portal o el nombre de visualización requiere la aprobación del Superadministrador de Pan-African Organization antes de su publicación.</span>
       </div>
 
       <div class="split-layout animate-enter delay-2">
         <section class="card" aria-label="Formulario de configuración de personalización">
           <div class="form-group">
             <label class="form-label" for="portal-name">Nombre del portal</label>
-            <input type="text" id="portal-name" class="form-input" value="Community Talent Portal" oninput="updatePreviewText()">
+            <input type="text" id="portal-name" class="form-input" value="Community Employment Portal" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
             <label class="form-label" for="legal-name">Nombre de la institución</label>
-            <input type="text" id="legal-name" class="form-input" value="Pan-African Enterprise Alliance" oninput="updatePreviewText()">
+            <input type="text" id="legal-name" class="form-input" value="Pan-African Organization" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
@@ -600,12 +600,12 @@
 
           <div class="form-group">
             <label class="form-label" for="display-name">Nombre de visualización de la organización</label>
-            <input type="text" id="display-name" class="form-input" value="Pan-African Enterprise Alliance" oninput="updatePreviewText()">
+            <input type="text" id="display-name" class="form-input" value="Pan-African Organization" oninput="updatePreviewText()">
           </div>
 
           <div class="form-group">
             <label class="form-label" for="footer-copyright">Detalles de copyright del pie de página</label>
-            <input type="text" id="footer-copyright" class="form-input" value="© 2026 Pan-African Enterprise Alliance. Powered by iCUBEFARM." oninput="updatePreviewText()">
+            <input type="text" id="footer-copyright" class="form-input" value="© 2026 Pan-African Organization. Powered by iCUBEFARM." oninput="updatePreviewText()">
           </div>
         </section>
 
@@ -617,7 +617,7 @@
               <div class="mock-header">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <div id="prev-header-icon" style="width:28px; height:28px; background:#1E3A5F; border-radius:4px; display:grid; place-items:center; color:white; font-size:14px;"><i class="ph-bold ph-globe"></i></div>
-                  <strong style="font-size:13px;" id="prev-portal-name">Portal de Talento Comunitario</strong>
+                  <strong style="font-size:13px;" id="prev-portal-name">Portal Comunitario de Empleo</strong>
                 </div>
                 <button class="btn btn-primary" id="prev-header-btn" style="padding: 6px 12px; font-size:11px; background:#1E3A5F;">Añadir empresa miembro</button>
               </div>
@@ -626,9 +626,9 @@
             <div>
               <small style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; display:block; margin-bottom:4px;">Vista previa del pie de página</small>
               <div class="mock-footer">
-                <p id="prev-legal-name" style="font-weight:600; margin: 0 0 4px 0;">Pan-African Enterprise Alliance</p>
+                <p id="prev-legal-name" style="font-weight:600; margin: 0 0 4px 0;">Pan-African Organization</p>
                 <p id="prev-address" style="margin:0 0 8px 0; color:var(--text-tertiary);">Addis Ababa, Ethiopia</p>
-                <div style="border-top: 1px solid var(--border); padding-top:8px;" id="prev-copyright">© 2026 Pan-African Enterprise Alliance. Desarrollado por iCUBEFARM.</div>
+                <div style="border-top: 1px solid var(--border); padding-top:8px;" id="prev-copyright">© 2026 Pan-African Organization. Desarrollado por iCUBEFARM.</div>
               </div>
             </div>
           </div>
