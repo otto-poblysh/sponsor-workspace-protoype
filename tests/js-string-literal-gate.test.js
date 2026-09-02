@@ -48,11 +48,15 @@ const DO_NOT_TRANSLATE = new Set(JSON.parse(fs.readFileSync(DNT_PATH, 'utf8')));
 // genuinely user-facing strings, the gate stops being a gate.
 const ALLOWLIST = new Map([
   // openModeration(type, entityName) in entities.html branches on `type`
-  // (`type === 'suspend' ? STR.suspendTitle : STR.returnTitle`) to select
+  // (`type === 'deactivate' ? STR.deactivateTitle : STR.expireTitle`) to select
   // an already-translated string; `type` itself is never written to the
   // DOM. Verified across every call site in entities.html.
+  ['deactivate', "openModeration() type key - compared against, never rendered (entities.html)"],
+  ['expire', "openModeration() type key - compared against, never rendered (entities.html)"],
   ['suspend', "openModeration() type key - compared against, never rendered (entities.html)"],
   ['reject', "openModeration() type key - compared against, never rendered (entities.html)"],
+  ['pause', "openModeration() type key - compared against, never rendered (entities.html)"],
+  ['unapprove', "openModeration() type key - compared against, never rendered (entities.html)"],
   // entities.html:1031 - row.querySelector('strong') inside a template
   // interpolation. This is a bare HTML tag-name selector argument to
   // Element.querySelector(), not a string of user-facing text; it is

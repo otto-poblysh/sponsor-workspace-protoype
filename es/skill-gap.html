@@ -1,5 +1,5 @@
-<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../skill-gap.html -->
 <!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../skill-gap.html -->
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
@@ -768,7 +768,7 @@
                   <th>Competencia</th>
                   <th>Ofertas que requieren la competencia (Demanda)</th>
                   <th>Demandantes cualificados (Oferta)</th>
-                  <th>Estado de la brecha</th>
+                  <th>Disponibilidad</th>
                 </tr>
               </thead>
               <tbody id="general-skills-body">
@@ -776,31 +776,31 @@
                   <td>Salud y seguridad laboral</td>
                   <td>286</td>
                   <td>1,094</td>
-                  <td><span class="badge badge-warning">Ajustado</span></td>
+                  <td><span class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr>
                   <td>Atención al cliente</td>
                   <td>264</td>
                   <td>2,486</td>
-                  <td><span class="badge badge-success">Superávit</span></td>
+                  <td><span class="badge badge-success">Por encima del promedio</span></td>
                 </tr>
                 <tr>
                   <td>Mantenimiento de equipos</td>
                   <td>238</td>
                   <td>724</td>
-                  <td><span class="badge badge-error">Escasez</span></td>
+                  <td><span class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr>
                   <td>Oficios de la construcción</td>
                   <td>219</td>
                   <td>1,358</td>
-                  <td><span class="badge badge-success">Superávit</span></td>
+                  <td><span class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr>
                   <td>Ventas y comercialización</td>
                   <td>197</td>
                   <td>2,104</td>
-                  <td><span class="badge badge-success">Superávit</span></td>
+                  <td><span class="badge badge-success">Alto</span></td>
                 </tr>
               </tbody>
             </table>
@@ -814,7 +814,7 @@
                   <th>Competencia</th>
                   <th>Ofertas que requieren la competencia (Demanda)</th>
                   <th>Demandantes cualificados (Oferta)</th>
-                  <th>Estado de la brecha</th>
+                  <th>Disponibilidad</th>
                 </tr>
               </thead>
               <tbody id="ict-skills-body">
@@ -822,31 +822,31 @@
                   <td>Sistemas eléctricos industriales</td>
                   <td>174</td>
                   <td>496</td>
-                  <td><span class="badge badge-error">Escasez</span></td>
+                  <td><span class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr>
                   <td>Herramientas de ofimática y productividad</td>
                   <td>161</td>
                   <td>2,104</td>
-                  <td><span class="badge badge-success">Superávit</span></td>
+                  <td><span class="badge badge-success">Por encima del promedio</span></td>
                 </tr>
                 <tr>
                   <td>Soldadura y fabricación</td>
                   <td>148</td>
                   <td>382</td>
-                  <td><span class="badge badge-error">Escasez</span></td>
+                  <td><span class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr>
                   <td>Conducción profesional</td>
                   <td>132</td>
                   <td>608</td>
-                  <td><span class="badge badge-warning">Ajustado</span></td>
+                  <td><span class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr>
                   <td>Operaciones hosteleras</td>
                   <td>119</td>
                   <td>354</td>
-                  <td><span class="badge badge-error">Escasez</span></td>
+                  <td><span class="badge badge-error">Bajo</span></td>
                 </tr>
               </tbody>
             </table>
@@ -886,9 +886,11 @@
   <script>
     /* i18n:STR:start */
     const STR = {
-      badgeShortage: "Escasez",
-      badgeSurplus: "Superávit",
-      badgeTight: "Ajustado",
+      badgeLow: "Bajo",
+      badgeBelowAverage: "Por debajo del promedio",
+      badgeAverage: "Promedio",
+      badgeAboveAverage: "Por encima del promedio",
+      badgeHigh: "Alto",
       hotelOperations: "Gestión hotelera",
       foodSafety: "Seguridad alimentaria",
       propertyManagementSystems: "Sistemas de gestión hotelera (PMS)",
@@ -938,13 +940,13 @@
             <td>${STR.hotelOperations}</td>
             <td>12</td>
             <td>8</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.foodSafety}</td>
             <td>10</td>
             <td>42</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
@@ -952,7 +954,7 @@
             <td>${STR.propertyManagementSystems}</td>
             <td>8</td>
             <td>3</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
@@ -979,31 +981,31 @@
             <td>${STR.occupationalHealthSafety}</td>
             <td>286</td>
             <td>1,094</td>
-            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.customerService}</td>
             <td>264</td>
             <td>2,486</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.equipmentMaintenance}</td>
             <td>238</td>
             <td>724</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.constructionTrades}</td>
             <td>219</td>
             <td>1,358</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.salesMerchandising}</td>
             <td>197</td>
             <td>2,104</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
@@ -1011,31 +1013,31 @@
             <td>${STR.industrialElectricalSystems}</td>
             <td>174</td>
             <td>496</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.officeProductivityTools}</td>
             <td>161</td>
             <td>2,104</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.weldingFabrication}</td>
             <td>148</td>
             <td>382</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.commercialDriving}</td>
             <td>132</td>
             <td>608</td>
-            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.hotelOperations}</td>
             <td>119</td>
             <td>354</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `

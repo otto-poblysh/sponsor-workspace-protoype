@@ -1080,43 +1080,18 @@
 
   <!-- Video Overlays -->
   <style>
-    #subtitle-container {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 500;
-      text-align: center;
-      max-width: 80%;
-      z-index: 9998;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      visibility: hidden;
-    }
   </style>
 
-  <div data-hf-id="hf-99q3" id="subtitle-container"></div>
-
+  
   <script>
 
-    gsap.set("#subtitle-container", { autoAlpha: 0 });
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
 
-    tl.to("#subtitle-container", { autoAlpha: 1, duration: 0.5 })
-      .set("#subtitle-container", { textContent: 'Every company in your community, in one directory...' })
       .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
-      .set("#subtitle-container", { textContent: '...with membership status you control.' })
       .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
-      .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 });
 
   window.__timelines["beat-02"] = tl;
   </script>

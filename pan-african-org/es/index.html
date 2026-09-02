@@ -874,10 +874,13 @@
           <label data-hf-id="hf-48au" class="filter-label" for="filter-status">Estado de membresía</label>
           <select data-hf-id="hf-vnvr" id="filter-status" class="filter-select">
             <option data-hf-id="hf-q0w7">Todos los estados</option>
-            <option data-hf-id="hf-og08">Verificado</option>
+            <option data-hf-id="hf-og08">Activo</option>
             <option data-hf-id="hf-g7ch">Pendiente de revisión</option>
             <option data-hf-id="hf-fvoj">Invitado</option>
-            <option data-hf-id="hf-9tu9">Suspendido</option>
+            <option data-hf-id="hf-9pau">En pausa</option>
+            <option data-hf-id="hf-9tu9">Inactivo</option>
+            <option data-hf-id="hf-9exp">Expirado</option>
+            <option data-hf-id="hf-9unp">No aprobado</option>
           </select>
         </div>
         <div data-hf-id="hf-d57n" class="filter-group">
@@ -900,7 +903,7 @@
           <div data-hf-id="hf-1syl" class="kpi-label">Empresas miembro</div>
           <div data-hf-id="hf-x6d9" class="kpi-value">388</div>
           <div data-hf-id="hf-jabu" class="kpi-delta positive"><i data-hf-id="hf-2owo" class="ph-bold ph-trend-up"></i> +21 este mes</div>
-          <div data-hf-id="hf-aczh" class="kpi-context">334 verificadas · 23 invitadas · 12 pendientes de revisión · 14 suspendidas · 5 inactivas</div>
+          <div data-hf-id="hf-aczh" class="kpi-context">334 activas · 23 invitadas · 12 pendientes de revisión · 10 en pausa · 14 inactivas · 5 expiradas · 4 no aprobadas</div>
         </article>
         <article data-hf-id="hf-p1e6" class="kpi-tile animate-enter delay-2">
           <div data-hf-id="hf-vddb" class="kpi-label">Ofertas activas</div>
@@ -1022,7 +1025,7 @@
                   <th data-hf-id="hf-1vl6">Competencia</th>
                   <th data-hf-id="hf-5dmh">Ofertas que requieren</th>
                   <th data-hf-id="hf-3llk">Demandantes cualificados</th>
-                  <th data-hf-id="hf-8utn">Brecha</th>
+                  <th data-hf-id="hf-8utn">Disponibilidad</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-bsvf">
@@ -1030,31 +1033,31 @@
                   <td data-hf-id="hf-eeet">Salud y seguridad laboral</td>
                   <td data-hf-id="hf-39f7">286</td>
                   <td data-hf-id="hf-y6m5">1,094</td>
-                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr data-hf-id="hf-cz86">
                   <td data-hf-id="hf-msxq">Atención al cliente</td>
                   <td data-hf-id="hf-ivpz">264</td>
                   <td data-hf-id="hf-u5pn">2,486</td>
-                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Superávit</span></td>
+                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Por encima del promedio</span></td>
                 </tr>
                 <tr data-hf-id="hf-ckx5">
                   <td data-hf-id="hf-sahc">Mantenimiento de equipos</td>
                   <td data-hf-id="hf-de3i">238</td>
                   <td data-hf-id="hf-88bs">724</td>
-                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr data-hf-id="hf-c6m4">
                   <td data-hf-id="hf-hwlf">Oficios de la construcción</td>
                   <td data-hf-id="hf-o0r3">219</td>
                   <td data-hf-id="hf-9lbo">1,358</td>
-                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr data-hf-id="hf-bsb3">
                   <td data-hf-id="hf-xwwd">Ventas y comercialización</td>
                   <td data-hf-id="hf-bw2g">197</td>
                   <td data-hf-id="hf-r84a">2,104</td>
-                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Superávit</span></td>
+                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Alto</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1068,7 +1071,7 @@
                   <th data-hf-id="hf-iewe">Competencia</th>
                   <th data-hf-id="hf-88i5">Ofertas que requieren</th>
                   <th data-hf-id="hf-hgfk">Demandantes cualificados</th>
-                  <th data-hf-id="hf-5yzv">Brecha</th>
+                  <th data-hf-id="hf-5yzv">Disponibilidad</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-2rij">
@@ -1076,31 +1079,31 @@
                   <td data-hf-id="hf-mxgy">Sistemas eléctricos industriales</td>
                   <td data-hf-id="hf-3rvj">174</td>
                   <td data-hf-id="hf-dd54">496</td>
-                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr data-hf-id="hf-ale0">
                   <td data-hf-id="hf-i088">Herramientas de ofimática</td>
                   <td data-hf-id="hf-rhbx">161</td>
                   <td data-hf-id="hf-d09u">1,842</td>
-                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-success">Superávit</span></td>
+                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-success">Por encima del promedio</span></td>
                 </tr>
                 <tr data-hf-id="hf-a72z">
                   <td data-hf-id="hf-yx7n">Soldadura y fabricación</td>
                   <td data-hf-id="hf-8dz4">148</td>
                   <td data-hf-id="hf-bi7o">382</td>
-                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Bajo</span></td>
                 </tr>
                 <tr data-hf-id="hf-j2bt">
                   <td data-hf-id="hf-47xo">Conducción profesional</td>
                   <td data-hf-id="hf-opy5">132</td>
                   <td data-hf-id="hf-f395">608</td>
-                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Por debajo del promedio</span></td>
                 </tr>
                 <tr data-hf-id="hf-jgmu">
                   <td data-hf-id="hf-93cd">Operaciones hosteleras</td>
                   <td data-hf-id="hf-l73e">119</td>
                   <td data-hf-id="hf-ov1v">354</td>
-                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Bajo</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1227,7 +1230,7 @@
             </div>
             <div data-hf-id="hf-wnia" class="activity-row">
               <time data-hf-id="hf-fw2a" class="activity-time">13 ago, 09:47</time>
-              <p data-hf-id="hf-53hu" class="activity-text"><strong data-hf-id="hf-zoxy">Selamawit Bekele</strong> suspendió la empresa miembro <strong data-hf-id="hf-3s9o">Northern Highlands Construction</strong></p>
+              <p data-hf-id="hf-53hu" class="activity-text"><strong data-hf-id="hf-zoxy">Selamawit Bekele</strong> puso en pausa la empresa miembro <strong data-hf-id="hf-3s9o">Northern Highlands Construction</strong></p>
               <span data-hf-id="hf-d3k3" class="activity-meta">Comentario: Inactivo durante 120 días</span>
             </div>
             <div data-hf-id="hf-yn1f" class="activity-row">
@@ -1237,7 +1240,7 @@
             </div>
             <div data-hf-id="hf-z1cg" class="activity-row">
               <time data-hf-id="hf-brh8" class="activity-time">12 ago, 11:03</time>
-              <p data-hf-id="hf-6m1t" class="activity-text"><strong data-hf-id="hf-psmh">Dawit Haile</strong> devolvió la solicitud de membresía de <strong data-hf-id="hf-zo1m">Central Leather Works</strong></p>
+              <p data-hf-id="hf-6m1t" class="activity-text"><strong data-hf-id="hf-psmh">Dawit Haile</strong> rechazó la aprobación de la solicitud de membresía de <strong data-hf-id="hf-zo1m">Central Leather Works</strong></p>
               <span data-hf-id="hf-pec6" class="activity-meta">Comentario: Documentos de membresía incompletos</span>
             </div>
             <div data-hf-id="hf-xufd" class="activity-row">

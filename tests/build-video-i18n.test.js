@@ -22,7 +22,7 @@ const REQUIRED_SUBTITLES = [
 const REQUIRED_ARTWORK = [
   'Digital Workforce',
   'Solutions',
-  'Labour Market Information System (LMIS)',
+  'National Employment Portal',
   'Demo for Job Creation',
   'To customize your Labor Market Information System (LMIS)',
   'Contact:',
@@ -342,7 +342,7 @@ for (const locale of ['fr', 'es']) {
     const { outDir } = buildToTempFor(locale);
     const intro = fs.readFileSync(path.join(outDir, 'compositions/beat-00-intro.html'), 'utf8');
     assert.ok(!/Ã[©¨«¢]/.test(intro), 'mojibake detected in the intro');
-    const expected = locale === 'fr' ? 'Marché' : 'Información';
+    const expected = locale === 'fr' ? 'Création' : 'Creación';
     assert.ok(intro.includes(expected), `expected "${expected}" in the ${locale} intro`);
   });
 

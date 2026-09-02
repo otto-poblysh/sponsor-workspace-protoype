@@ -666,7 +666,7 @@
       <header class="page-header animate-enter">
         <div>
           <h1 class="page-title">Member Companies</h1>
-          <p class="page-subtitle">Onboard, verify and support the Organization’s 388 member companies — 334 verified, 23 invited, 12 pending review, 14 suspended, 5 inactive</p>
+          <p class="page-subtitle">Onboard, verify and support the Organization’s 388 member companies — 334 active, 23 invited, 12 pending review, 10 paused, 14 inactive, 5 expired, 4 unapproved</p>
         </div>
         <div class="header-actions">
           <button class="btn btn-primary" onclick="openModal('invite-modal')"><i class="ph-bold ph-plus"></i> Add member company</button>
@@ -689,11 +689,13 @@
           <label class="filter-label" for="filter-status">Status</label>
           <select id="filter-status" class="filter-select" onchange="filterEntities()">
             <option value="all">All statuses</option>
-            <option value="verified">Verified</option>
+            <option value="active">Active</option>
             <option value="pending review">Pending review</option>
             <option value="invited">Invited</option>
-            <option value="suspended">Suspended</option>
+            <option value="paused">Paused</option>
             <option value="inactive">Inactive</option>
+            <option value="expired">Expired</option>
+            <option value="unapproved">Unapproved</option>
           </select>
         </div>
         <div class="filter-group">
@@ -721,12 +723,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-sector="agriculture and agro-processing" data-status="verified" data-size="50–249">
+            <tr data-sector="agriculture and agro-processing" data-status="active" data-size="50–249">
               <td><strong>Rift Valley Agro-Processing</strong><br><small style="color:var(--text-secondary)">Hawassa, Sidama, Ethiopia · Joined 10 Jun 2026</small></td>
               <td>jobs@riftvalleyagro.et</td>
               <td>Agriculture &amp; agro-processing</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Verified</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -734,15 +736,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Rift Valley Agro-Processing')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Rift Valley Agro-Processing')">Deactivate</button>
               </td>
             </tr>
-            <tr data-sector="construction" data-status="suspended" data-size="250+">
+            <tr data-sector="construction" data-status="paused" data-size="250+">
               <td><strong>Northern Highlands Construction</strong><br><small style="color:var(--text-secondary)">Bahir Dar, Amhara, Ethiopia · Joined 12 May 2026</small></td>
               <td>hr@northernhighlands.et</td>
               <td>Construction</td>
               <td>250+</td>
-              <td><span class="badge badge-error">Suspended</span></td>
+              <td><span class="badge badge-warning">Paused</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -750,15 +752,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Activate</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, STR.statusActive, 'badge-success', STR.actionDeactivate)">Resume</button>
               </td>
             </tr>
-            <tr data-sector="manufacturing and textiles" data-status="verified" data-size="50–249">
+            <tr data-sector="manufacturing and textiles" data-status="active" data-size="50–249">
               <td><strong>Highland Textile Works</strong><br><small style="color:var(--text-secondary)">Addis Ababa, Ethiopia · Joined 01 Jun 2026</small></td>
               <td>careers@highlandtextile.et</td>
               <td>Manufacturing &amp; textiles</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Verified</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
@@ -766,7 +768,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Highland Textile Works')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('pause', 'Highland Textile Works')">Pause</button>
               </td>
             </tr>
             <tr data-sector="logistics and transport" data-status="invited" data-size="1–49">
@@ -798,16 +800,16 @@
                 </div>
               </td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Verify</button>
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Central Leather Works')">Reject</button>
+                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, STR.statusActive, 'badge-success', STR.actionDeactivate)">Verify</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('unapprove', 'Central Leather Works')">Unapprove</button>
               </td>
             </tr>
-            <tr data-sector="tourism and hospitality" data-status="verified" data-size="250+">
+            <tr data-sector="tourism and hospitality" data-status="active" data-size="250+">
               <td><strong>Coastal Hospitality Group</strong><br><small style="color:var(--text-secondary)">Accra, Ghana · Joined 15 May 2026</small></td>
               <td>jobs@coastalhospitality.com.gh</td>
               <td>Tourism &amp; hospitality</td>
               <td>250+</td>
-              <td><span class="badge badge-success">Verified</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -815,15 +817,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Coastal Hospitality Group')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Coastal Hospitality Group')">Deactivate</button>
               </td>
             </tr>
-            <tr data-sector="construction" data-status="verified" data-size="50–249">
+            <tr data-sector="construction" data-status="active" data-size="50–249">
               <td><strong>Tigray Construction Partners</strong><br><small style="color:var(--text-secondary)">Mekelle, Tigray, Ethiopia · Joined 22 May 2026</small></td>
               <td>careers@tigrayconstruction.et</td>
               <td>Construction</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Verified</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -831,15 +833,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Tigray Construction Partners')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Tigray Construction Partners')">Deactivate</button>
               </td>
             </tr>
-            <tr data-sector="logistics and transport" data-status="verified" data-size="50–249">
+            <tr data-sector="logistics and transport" data-status="active" data-size="50–249">
               <td><strong>Mombasa Road Logistics</strong><br><small style="color:var(--text-secondary)">Nairobi, Kenya · Joined 04 Jun 2026</small></td>
               <td>jobs@mombasaroad.co.ke</td>
               <td>Logistics &amp; transport</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Verified</span></td>
+              <td><span class="badge badge-success">Active</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -847,7 +849,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Mombasa Road Logistics')">Suspend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Mombasa Road Logistics')">Deactivate</button>
               </td>
             </tr>
           </tbody>
@@ -890,10 +892,10 @@
     </div>
   </div>
 
-  <!-- Moderation (Suspension / Rejection) Modal -->
+  <!-- Moderation Modal -->
   <div class="modal-overlay" id="moderation-modal">
     <div class="modal">
-      <h3 class="modal-title" id="mod-title">Suspend Member Company</h3>
+      <h3 class="modal-title" id="mod-title">Deactivate Member Company</h3>
       <p class="modal-desc" id="mod-desc">Please provide a comment. This action will be logged in the activity logs.</p>
 
       <div class="form-group">
@@ -911,16 +913,24 @@
   <script>
     /* i18n:STR:start */
     const STR = {
-      suspendTitle: "Suspend Member Company",
-      returnTitle: "Return Membership Application",
-      suspendConfirm: "Are you sure you want to suspend access for {name}? A comment is required to proceed.",
-      returnConfirm: "Are you sure you want to return the membership application for {name}? A comment is required to proceed.",
+      deactivateTitle: "Deactivate Member Company",
+      expireTitle: "Expire Membership Application",
+      pauseTitle: "Pause Member Company",
+      unapproveTitle: "Unapprove Membership Application",
+      deactivateConfirm: "Are you sure you want to deactivate access for {name}? A comment is required to proceed.",
+      expireConfirm: "Are you sure you want to expire the membership application for {name}? A comment is required to proceed.",
+      pauseConfirm: "Are you sure you want to pause access for {name}? A comment is required to proceed.",
+      unapproveConfirm: "Are you sure you want to return the application as unapproved for {name}? A comment is required to proceed.",
       commentRequired: "Please enter a comment before submitting.",
-      statusSuspended: "Suspended",
-      statusRejected: "Rejected",
+      statusInactive: "Inactive",
+      statusExpired: "Expired",
+      statusPaused: "Paused",
+      statusUnapproved: "Unapproved",
       actionActivate: "Activate",
-      actionSuspend: "Suspend",
-      statusVerified: "Verified",
+      actionDeactivate: "Deactivate",
+      actionResume: "Resume",
+      actionPause: "Pause",
+      statusActive: "Active",
       reinvitedName: "Re-invited {name}",
       actionProcessedSuccess: "Action processed successfully. Comment logged: \"{comment}\"",
       fillAllFields: "Please fill out all fields.",
@@ -973,10 +983,19 @@
     function openModeration(type, entityName) {
       activeModType = type;
       activeModName = entityName;
-      const title = type === 'suspend' ? STR.suspendTitle : STR.returnTitle;
-      const desc = type === 'suspend'
-        ? fmt(STR.suspendConfirm, { name: entityName })
-        : fmt(STR.returnConfirm, { name: entityName });
+      let title = STR.deactivateTitle;
+      let desc = fmt(STR.deactivateConfirm, { name: entityName });
+
+      if (type === 'expire') {
+        title = STR.expireTitle;
+        desc = fmt(STR.expireConfirm, { name: entityName });
+      } else if (type === 'pause') {
+        title = STR.pauseTitle;
+        desc = fmt(STR.pauseConfirm, { name: entityName });
+      } else if (type === 'unapprove') {
+        title = STR.unapproveTitle;
+        desc = fmt(STR.unapproveConfirm, { name: entityName });
+      }
 
       document.getElementById('mod-title').textContent = title;
       document.getElementById('mod-desc').textContent = desc;
@@ -999,13 +1018,21 @@
         const statusTd = activeModRow.querySelector('td:nth-child(5)');
         const actionTd = activeModRow.querySelector('td:nth-child(7)');
 
-        if (activeModType === 'suspend') {
-          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusSuspended}</span>`;
-          activeModRow.setAttribute('data-status', 'suspended');
-          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusVerified}', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
-        } else if (activeModType === 'reject') {
-          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusRejected}</span>`;
-          activeModRow.setAttribute('data-status', 'rejected');
+        if (activeModType === 'deactivate') {
+          statusTd.innerHTML = `<span class="badge badge-warning">${STR.statusInactive}</span>`;
+          activeModRow.setAttribute('data-status', 'inactive');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusActive}', 'badge-success', '${STR.actionDeactivate}')">${STR.actionActivate}</button>`;
+        } else if (activeModType === 'pause') {
+          statusTd.innerHTML = `<span class="badge badge-warning">${STR.statusPaused}</span>`;
+          activeModRow.setAttribute('data-status', 'paused');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusActive}', 'badge-success', '${STR.actionDeactivate}')">${STR.actionResume}</button>`;
+        } else if (activeModType === 'unapprove') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusUnapproved}</span>`;
+          activeModRow.setAttribute('data-status', 'unapproved');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
+        } else if (activeModType === 'expire') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusExpired}</span>`;
+          activeModRow.setAttribute('data-status', 'expired');
           actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
         }
       }
@@ -1015,20 +1042,14 @@
     }
 
     function changeStatus(btn, statusLabel, badgeClass, nextActionLabel) {
-      // statusLabel is the localized text shown in the badge. All current
-      // callers transition a row to the "verified" state, so the internal
-      // data-status key (used by the sector/status/size filters above) and
-      // the branch below are keyed off that fixed, locale-invariant string
-      // rather than off statusLabel — comparing statusLabel to a literal
-      // would silently stop matching once statusLabel is translated.
       const row = btn.closest('tr');
       const statusTd = row.querySelector('td:nth-child(5)');
       const actionTd = row.querySelector('td:nth-child(7)');
 
       statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusLabel}</span>`;
-      row.setAttribute('data-status', 'verified');
+      row.setAttribute('data-status', 'active');
 
-      actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
+      actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
     }
 
     function submitInvite() {

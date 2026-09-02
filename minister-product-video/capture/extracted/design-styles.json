@@ -143,7 +143,7 @@
   },
   "chips": [
     {
-      "label": "Tight",
+      "label": "Below Average",
       "background": "#FBF3DB",
       "color": "#956400",
       "padding": "4px 10px",
@@ -155,7 +155,7 @@
       "height": "21px"
     },
     {
-      "label": "Surplus",
+      "label": "High",
       "background": "#EDF3EC",
       "color": "#346538",
       "padding": "4px 10px",
@@ -167,7 +167,7 @@
       "height": "21px"
     },
     {
-      "label": "Shortage",
+      "label": "Low",
       "background": "#FDEBEC",
       "color": "#9F2F2D",
       "padding": "4px 10px",

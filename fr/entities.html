@@ -1,5 +1,5 @@
-<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../entities.html -->
 <!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../entities.html -->
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -690,11 +690,13 @@
           <label class="filter-label" for="filter-status">Statut</label>
           <select id="filter-status" class="filter-select" onchange="filterEntities()">
             <option value="all">Tous les statuts</option>
-            <option value="verified">Vérifié</option>
+            <option value="active">Actif</option>
             <option value="pending review">En attente d'examen</option>
             <option value="invited">Invité</option>
-            <option value="suspended">Suspendu</option>
+            <option value="paused">En pause</option>
             <option value="inactive">Inactif</option>
+            <option value="expired">Expiré</option>
+            <option value="unapproved">Non approuvé</option>
           </select>
         </div>
         <div class="filter-group">
@@ -722,12 +724,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-sector="oil and gas services" data-status="verified" data-size="50–249">
+            <tr data-sector="oil and gas services" data-status="active" data-size="50–249">
               <td><strong>Bioko Marine Services</strong><br><small style="color:var(--text-secondary)">Inscrit le 10 juin 2026</small></td>
               <td>empleo@biokomarine.gq</td>
               <td>Services pétroliers et gaziers</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Vérifié</span></td>
+              <td><span class="badge badge-success">Actif</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -735,15 +737,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bioko Marine Services')">Suspendre</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Bioko Marine Services')">Désactiver</button>
               </td>
             </tr>
-            <tr data-sector="transportation" data-status="suspended" data-size="250+">
+            <tr data-sector="transportation" data-status="paused" data-size="250+">
               <td><strong>Río Muni Logistics</strong><br><small style="color:var(--text-secondary)">Inscrit le 12 mai 2026</small></td>
               <td>rrhh@riomunilogistica.gq</td>
               <td>Commerce et logistique</td>
               <td>250+</td>
-              <td><span class="badge badge-error">Suspendu</span></td>
+              <td><span class="badge badge-warning">En pause</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -751,15 +753,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Activer</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, STR.statusActive, 'badge-success', STR.actionDeactivate)">Reprendre</button>
               </td>
             </tr>
-            <tr data-sector="construction" data-status="verified" data-size="50–249">
+            <tr data-sector="construction" data-status="active" data-size="50–249">
               <td><strong>Litoral Obras</strong><br><small style="color:var(--text-secondary)">Inscrit le 01 juin 2026</small></td>
               <td>personal@litoralobras.gq</td>
               <td>Construction</td>
               <td>50–249</td>
-              <td><span class="badge badge-success">Vérifié</span></td>
+              <td><span class="badge badge-success">Actif</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
@@ -767,15 +769,15 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Litoral Obras')">Suspendre</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('pause', 'Litoral Obras')">Mettre en pause</button>
               </td>
             </tr>
-            <tr data-sector="hospitality" data-status="rejected" data-size="1–49">
+            <tr data-sector="hospitality" data-status="expired" data-size="1–49">
               <td><strong>Hotel Bahía Malabo</strong><br><small style="color:var(--text-secondary)">Invité le 08 juin 2026</small></td>
               <td>rrhh@bahiamalabo.gq</td>
               <td>Hôtellerie et tourisme</td>
               <td>1–49</td>
-              <td><span class="badge badge-error">Rejeté</span></td>
+              <td><span class="badge badge-error">Expiré</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
@@ -783,7 +785,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Re-invited Hotel Bahía Malabo')">Réinviter</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert(fmt(STR.reinvitedName, { name: 'Hotel Bahía Malabo' }))">Réinviter</button>
               </td>
             </tr>
             <tr data-sector="hospitality" data-status="pending review" data-size="1–49">
@@ -799,8 +801,8 @@
                 </div>
               </td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, 'Verified', 'badge-success', 'Suspend')">Vérifier</button>
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Annobón Eco Tours')">Rejeter</button>
+                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, STR.statusActive, 'badge-success', STR.actionDeactivate)">Vérifier</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('unapprove', 'Annobón Eco Tours')">Ne pas approuver</button>
               </td>
             </tr>
             <tr data-sector="retail" data-status="inactive" data-size="250+">
@@ -808,7 +810,7 @@
               <td>contratacion@batacomercio.gq</td>
               <td>Commerce et distribution</td>
               <td>250+</td>
-              <td><span class="badge badge-info">Inactif</span></td>
+              <td><span class="badge badge-warning">Inactif</span></td>
               <td>
                 <div class="progress-container">
                   <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -816,7 +818,7 @@
                 </div>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Bata Comercio')">Suspendre</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', 'Bata Comercio')">Désactiver</button>
               </td>
             </tr>
           </tbody>
@@ -849,6 +851,7 @@
           <option>Hôtellerie et tourisme</option>
           <option>Agriculture et pêche</option>
           <option>Commerce et logistique</option>
+          <option>Commerce et distribution</option>
         </select>
       </div>
 
@@ -859,20 +862,20 @@
     </div>
   </div>
 
-  <!-- Moderation (Suspension / Rejection) Modal -->
+  <!-- Moderation Modal -->
   <div class="modal-overlay" id="moderation-modal">
     <div class="modal">
-      <h3 class="modal-title" id="mod-title">Suspendre l'employeur</h3>
+      <h3 class="modal-title" id="mod-title">Désactiver l'employeur</h3>
       <p class="modal-desc" id="mod-desc">Veuillez fournir un commentaire. Cette action sera enregistrée dans les journaux d'activité.</p>
 
       <div class="form-group">
         <label class="form-label" for="mod-comment">Motif / Commentaires</label>
-        <textarea id="mod-comment" class="form-textarea" placeholder="Fournir des précisions pour cette action de modération..." required></textarea>
+        <textarea id="mod-comment" class="form-textarea" placeholder="Fournir des précisions pour cette action de modération..."></textarea>
       </div>
 
       <div class="modal-actions">
         <button class="btn btn-secondary" onclick="closeModal('moderation-modal')">Annuler</button>
-        <button class="btn btn-primary" style="background:var(--error-text);" onclick="submitModeration()">Confirmer l'action</button>
+        <button class="btn btn-primary" style="background:var(--error-text); border-color:var(--error-text);" onclick="submitModeration()">Confirmer l'action</button>
       </div>
     </div>
   </div>
@@ -880,15 +883,24 @@
   <script>
     /* i18n:STR:start */
     const STR = {
-      suspendTitle: "Suspendre l'employeur",
-      returnTitle: "Renvoyer l'enregistrement de l'employeur",
-      suspendConfirm: "Êtes-vous sûr de vouloir suspendre l'accès pour {name} ? Un commentaire est requis pour continuer.",
-      returnConfirm: "Êtes-vous sûr de vouloir renvoyer l'enregistrement pour {name} ? Un commentaire est requis pour continuer.",
+      deactivateTitle: "Désactiver l'employeur",
+      expireTitle: "Expirer l'enregistrement de l'employeur",
+      pauseTitle: "Mettre en pause l'employeur",
+      unapproveTitle: "Refuser l'approbation de l'enregistrement de l'employeur",
+      deactivateConfirm: "Êtes-vous sûr de vouloir désactiver l'accès pour {name} ? Un commentaire est requis pour continuer.",
+      expireConfirm: "Êtes-vous sûr de vouloir expirer l'enregistrement pour {name} ? Un commentaire est requis pour continuer.",
+      pauseConfirm: "Êtes-vous sûr de vouloir mettre en pause l'accès pour {name} ? Un commentaire est requis pour continuer.",
+      unapproveConfirm: "Êtes-vous sûr de vouloir renvoyer l'enregistrement comme non approuvé pour {name} ? Un commentaire est requis pour continuer.",
       commentRequired: "Veuillez saisir un commentaire avant de soumettre.",
-      statusSuspended: "Suspendu",
-      statusRejected: "Rejeté",
+      statusInactive: "Inactif",
+      statusExpired: "Expiré",
+      statusPaused: "En pause",
+      statusUnapproved: "Non approuvé",
       actionActivate: "Activer",
-      actionSuspend: "Suspendre",
+      actionDeactivate: "Désactiver",
+      actionResume: "Reprendre",
+      actionPause: "Mettre en pause",
+      statusActive: "Actif",
       reinvitedName: "Réinvitation envoyée à {name}",
       actionProcessedSuccess: "Action traitée avec succès. Commentaire enregistré : « {comment} »",
       fillAllFields: "Veuillez remplir tous les champs.",
@@ -941,10 +953,19 @@
     function openModeration(type, entityName) {
       activeModType = type;
       activeModName = entityName;
-      const title = type === 'suspend' ? STR.suspendTitle : STR.returnTitle;
-      const desc = type === 'suspend'
-        ? fmt(STR.suspendConfirm, { name: entityName })
-        : fmt(STR.returnConfirm, { name: entityName });
+      let title = STR.deactivateTitle;
+      let desc = fmt(STR.deactivateConfirm, { name: entityName });
+
+      if (type === 'expire') {
+        title = STR.expireTitle;
+        desc = fmt(STR.expireConfirm, { name: entityName });
+      } else if (type === 'pause') {
+        title = STR.pauseTitle;
+        desc = fmt(STR.pauseConfirm, { name: entityName });
+      } else if (type === 'unapprove') {
+        title = STR.unapproveTitle;
+        desc = fmt(STR.unapproveConfirm, { name: entityName });
+      }
 
       document.getElementById('mod-title').textContent = title;
       document.getElementById('mod-desc').textContent = desc;
@@ -967,13 +988,21 @@
         const statusTd = activeModRow.querySelector('td:nth-child(5)');
         const actionTd = activeModRow.querySelector('td:nth-child(7)');
 
-        if (activeModType === 'suspend') {
-          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusSuspended}</span>`;
-          activeModRow.setAttribute('data-status', 'suspended');
-          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, 'Verified', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
-        } else if (activeModType === 'reject') {
-          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusRejected}</span>`;
-          activeModRow.setAttribute('data-status', 'rejected');
+        if (activeModType === 'deactivate') {
+          statusTd.innerHTML = `<span class="badge badge-warning">${STR.statusInactive}</span>`;
+          activeModRow.setAttribute('data-status', 'inactive');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusActive}', 'badge-success', '${STR.actionDeactivate}')">${STR.actionActivate}</button>`;
+        } else if (activeModType === 'pause') {
+          statusTd.innerHTML = `<span class="badge badge-warning">${STR.statusPaused}</span>`;
+          activeModRow.setAttribute('data-status', 'paused');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusActive}', 'badge-success', '${STR.actionDeactivate}')">${STR.actionResume}</button>`;
+        } else if (activeModType === 'unapprove') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusUnapproved}</span>`;
+          activeModRow.setAttribute('data-status', 'unapproved');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
+        } else if (activeModType === 'expire') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusExpired}</span>`;
+          activeModRow.setAttribute('data-status', 'expired');
           actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
         }
       }
@@ -988,11 +1017,9 @@
       const actionTd = row.querySelector('td:nth-child(7)');
 
       statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusName}</span>`;
-      row.setAttribute('data-status', statusName.toLowerCase());
+      row.setAttribute('data-status', 'active');
 
-      if(statusName === 'Verified') {
-        actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
-      }
+      actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('deactivate', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
     }
 
     function submitInvite() {

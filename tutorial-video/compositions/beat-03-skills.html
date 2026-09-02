@@ -148,18 +148,7 @@
         }
 
         /* Subtitle */
-        .subtitle-container {
-          position: absolute;
-          bottom: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-          background: rgba(0,0,0,0.7);
-          border-radius: 30px;
-          padding: 16px 32px;
-          z-index: 200;
-          text-align: center;
-          opacity: 0;
-        }
+        
         .subtitle-text {
           color: #FFFFFF;
           font-size: 32px;
@@ -222,10 +211,7 @@
             Demand: 240<br data-hf-id="hf-x5px">Supply: 35
         </div>
 
-        <div data-hf-id="hf-q8uc" class="subtitle-container" id="subtitle-box">
-          <p data-hf-id="hf-uuyt" class="subtitle-text" id="subtitle-text"></p>
-        </div>
-
+        
         <div data-hf-id="hf-c0g2" class="cursor" id="cursor"></div>
       </div>
 
@@ -239,8 +225,6 @@
         // Helper for subtitle changes
         function showSubtitle(text, startTime, duration) {
           tl.add(() => { document.getElementById("subtitle-text").innerText = text; }, startTime);
-          tl.to("#subtitle-box", { opacity: 1, duration: 0.4 }, startTime);
-          tl.to("#subtitle-box", { opacity: 0, duration: 0.4 }, startTime + duration - 0.4);
         }
 
         // Initially we should be on entities state

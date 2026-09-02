@@ -57,8 +57,12 @@ function buildVideoLocale({ srcDir, outDir, i18nDir, locale, catalogMap = BEAT_C
   const common = loadCatalog(path.join(i18nDir, `common.${locale}.json`));
   const video = loadCatalog(path.join(i18nDir, `video.${locale}.json`));
   const dnt = loadDoNotTranslate(path.join(i18nDir, 'do-not-translate.json'));
+  dnt.delete("Pan-African Organization");
 
-  fs.rmSync(outDir, { recursive: true, force: true });
+
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.rmSync(path.join(outDir, 'compositions'), { recursive: true, force: true });
+  fs.rmSync(path.join(outDir, 'assets'), { recursive: true, force: true });
   fs.mkdirSync(path.join(outDir, 'compositions'), { recursive: true });
   fs.mkdirSync(path.join(outDir, 'assets'), { recursive: true });
 
@@ -128,8 +132,25 @@ if (require.main === module) {
   const outBase = flag('--out', root);
   const i18nDir = flag('--i18n', path.join(root, 'i18n'));
   const outDir = path.join(outBase, `${path.basename(srcDir).replace(/-en$/, '')}-${locale}`);
-  const isOrg = srcDir.includes('pan-african-org');
-  const catalogMap = isOrg ? {
+  const hasCorp = fs.existsSync(path.join(srcDir, 'compositions/beat-03-integrations.html'));
+  const hasPublicAdmin = fs.existsSync(path.join(srcDir, 'compositions/beat-02-agencies.html'));
+  const hasMembers = fs.existsSync(path.join(srcDir, 'compositions/beat-02-members.html'));
+  const catalogMap = hasCorp ? {
+    'beat-00-intro.html': null,
+    'beat-01-dashboard.html': 'index',
+    'beat-02-subsidiaries.html': 'entities',
+    'beat-03-integrations.html': 'integrations',
+    'beat-04-skill-gap.html': 'skill-gap',
+    'beat-05-audit.html': 'activity-logs',
+    'beat-06-outro.html': null
+  } : (hasPublicAdmin ? {
+    'beat-00-intro.html': null,
+    'beat-01-dashboard.html': 'index',
+    'beat-02-agencies.html': 'agencies',
+    'beat-03-skill-gap.html': 'skill-gap',
+    'beat-04-audit.html': 'activity-logs',
+    'beat-05-outro.html': null
+  } : (hasMembers ? {
     'beat-00-intro.html': null,
     'beat-01-dashboard.html': 'index',
     'beat-02-members.html': 'entities',
@@ -137,7 +158,7 @@ if (require.main === module) {
     'beat-04-reports.html': 'general-report',
     'beat-05-audit.html': 'activity-logs',
     'beat-06-outro.html': null
-  } : BEAT_CATALOG_MAP;
+  } : BEAT_CATALOG_MAP));
   const result = buildVideoLocale({ srcDir, outDir, i18nDir, locale, catalogMap });
   console.log(
     `✓ ${path.relative(root, outDir)}: ${result.generatedFiles.length} compositions, ` +

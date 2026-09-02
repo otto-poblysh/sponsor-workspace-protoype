@@ -768,7 +768,7 @@
                   <th>Skill</th>
                   <th>Jobs requiring (Demand)</th>
                   <th>Seekers with skill (Supply)</th>
-                  <th>Gap Status</th>
+                  <th>Availability</th>
                 </tr>
               </thead>
               <tbody id="general-skills-body">
@@ -776,31 +776,31 @@
                   <td>Occupational health & safety</td>
                   <td>286</td>
                   <td>1,094</td>
-                  <td><span class="badge badge-warning">Tight</span></td>
+                  <td><span class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr>
                   <td>Customer service</td>
                   <td>264</td>
                   <td>2,486</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
+                  <td><span class="badge badge-success">Above Average</span></td>
                 </tr>
                 <tr>
                   <td>Equipment maintenance</td>
                   <td>238</td>
                   <td>724</td>
-                  <td><span class="badge badge-error">Shortage</span></td>
+                  <td><span class="badge badge-error">Low</span></td>
                 </tr>
                 <tr>
                   <td>Construction trades</td>
                   <td>219</td>
                   <td>1,358</td>
-                  <td><span class="badge badge-warning">Tight</span></td>
+                  <td><span class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr>
                   <td>Sales & merchandising</td>
                   <td>197</td>
                   <td>2,104</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
+                  <td><span class="badge badge-success">High</span></td>
                 </tr>
               </tbody>
             </table>
@@ -814,7 +814,7 @@
                   <th>Skill</th>
                   <th>Jobs requiring (Demand)</th>
                   <th>Seekers with skill (Supply)</th>
-                  <th>Gap Status</th>
+                  <th>Availability</th>
                 </tr>
               </thead>
               <tbody id="ict-skills-body">
@@ -822,31 +822,31 @@
                   <td>Industrial electrical systems</td>
                   <td>174</td>
                   <td>496</td>
-                  <td><span class="badge badge-error">Shortage</span></td>
+                  <td><span class="badge badge-error">Low</span></td>
                 </tr>
                 <tr>
                   <td>Office productivity tools</td>
                   <td>161</td>
                   <td>1,842</td>
-                  <td><span class="badge badge-success">Surplus</span></td>
+                  <td><span class="badge badge-success">Above Average</span></td>
                 </tr>
                 <tr>
                   <td>Welding & fabrication</td>
                   <td>148</td>
                   <td>382</td>
-                  <td><span class="badge badge-error">Shortage</span></td>
+                  <td><span class="badge badge-error">Low</span></td>
                 </tr>
                 <tr>
                   <td>Commercial driving</td>
                   <td>132</td>
                   <td>608</td>
-                  <td><span class="badge badge-warning">Tight</span></td>
+                  <td><span class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr>
                   <td>Hospitality operations</td>
                   <td>119</td>
                   <td>354</td>
-                  <td><span class="badge badge-error">Shortage</span></td>
+                  <td><span class="badge badge-error">Low</span></td>
                 </tr>
               </tbody>
             </table>
@@ -886,9 +886,11 @@
   <script>
     /* i18n:STR:start */
     const STR = {
-      badgeShortage: "Shortage",
-      badgeSurplus: "Surplus",
-      badgeTight: "Tight",
+      badgeLow: "Low",
+      badgeBelowAverage: "Below Average",
+      badgeAverage: "Average",
+      badgeAboveAverage: "Above Average",
+      badgeHigh: "High",
       hotelOperations: "Hotel operations",
       foodSafety: "Food safety",
       propertyManagementSystems: "Property management systems",
@@ -939,13 +941,13 @@
             <td>${STR.hotelOperations}</td>
             <td>12</td>
             <td>8</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.foodSafety}</td>
             <td>10</td>
             <td>42</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
@@ -953,7 +955,7 @@
             <td>${STR.propertyManagementSystems}</td>
             <td>8</td>
             <td>3</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `
@@ -980,31 +982,31 @@
             <td>${STR.occupationalHealthSafety}</td>
             <td>286</td>
             <td>1,094</td>
-            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.customerService}</td>
             <td>264</td>
             <td>2,486</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.equipmentMaintenance}</td>
             <td>238</td>
             <td>724</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.constructionTrades}</td>
             <td>219</td>
             <td>1,358</td>
-            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.salesMerchandising}</td>
             <td>197</td>
             <td>2,104</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
           </tr>
         `;
         document.getElementById('ict-skills-body').innerHTML = `
@@ -1012,31 +1014,31 @@
             <td>${STR.industrialElectricalSystems}</td>
             <td>174</td>
             <td>496</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.officeProductivityTools}</td>
             <td>161</td>
             <td>1,842</td>
-            <td><span class="badge badge-success">${STR.badgeSurplus}</span></td>
+            <td><span class="badge badge-success">${STR.badgeAboveAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.weldingFabrication}</td>
             <td>148</td>
             <td>382</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
           <tr>
             <td>${STR.commercialDriving}</td>
             <td>132</td>
             <td>608</td>
-            <td><span class="badge badge-warning">${STR.badgeTight}</span></td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
           </tr>
           <tr>
             <td>${STR.hotelOperations}</td>
             <td>119</td>
             <td>354</td>
-            <td><span class="badge badge-error">${STR.badgeShortage}</span></td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
           </tr>
         `;
         document.getElementById('recommendations-box').innerHTML = `

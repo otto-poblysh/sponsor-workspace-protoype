@@ -81,30 +81,25 @@ test('every internal link resolves on disk', async () => {
   expect(missing, `broken links: ${missing.join(', ')}`).toEqual([]);
 });
 
-test('verifying a suspended entity renders a localized badge, not an English leak', async ({ page }) => {
-  // Regression test for the English-literal 2nd/4th arguments to
-  // changeStatus(btn, statusLabel, badgeClass, nextActionLabel) that used
-  // to leak 'Verified'/'Suspend' straight into the badge/button text on
-  // fr/es, invisible to org:check because it only scans static text nodes
-  // — clicking is required to see the bug at all.
+test('resuming a paused entity renders a localized badge, not an English leak', async ({ page }) => {
   await page.goto('file://' + path.join(ROOT, 'fr', 'entities.html'));
 
   const row = page.locator('tr', { hasText: 'Northern Highlands Construction' });
-  await expect(row.locator('td:nth-child(5) .badge')).toHaveText('Suspendu');
+  await expect(row.locator('td:nth-child(5) .badge')).toHaveText('En pause');
 
-  await row.getByRole('button', { name: 'Activer' }).click();
+  await row.getByRole('button', { name: 'Reprendre' }).click();
 
   const badge = row.locator('td:nth-child(5) .badge');
-  await expect(badge).toHaveText('Vérifié');
-  await expect(badge).not.toHaveText('Verified');
+  await expect(badge).toHaveText('Actif');
+  await expect(badge).not.toHaveText('Active');
 
   // The row's canonical data-status key must stay the locale-invariant
-  // 'verified' (used by the status filter dropdown), even though the
+  // 'active' (used by the status filter dropdown), even though the
   // badge text is now localized.
-  await expect(row).toHaveAttribute('data-status', 'verified');
+  await expect(row).toHaveAttribute('data-status', 'active');
 
-  // The action cell should now offer the (localized) Suspend action.
-  await expect(row.getByRole('button', { name: 'Suspendre' })).toBeVisible();
+  // The action cell should now offer the (localized) Deactivate action.
+  await expect(row.getByRole('button', { name: 'Désactiver' })).toBeVisible();
 });
 
 test('re-inviting an entity renders a localized alert, not an English leak', async ({ page }) => {
