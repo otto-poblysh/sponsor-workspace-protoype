@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../en/jobs-applications.html -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="../../gate.js"></script>
+  <title>Portail des Talents du Groupe — Emplois et Candidatures</title>
+  <meta name="description" content="Prototype des offres et candidatures du Portail des Talents de Corporate Multinational Group LTD"/>
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .kpi-tile {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(16px);
+      transition: transform 200ms ease;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-lg);
+    }
+
+    /* Privacy Banner */
+    .privacy-box {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--info-bg);
+      color: var(--info-text);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Funnel visual inside modal */
+    .funnel-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .funnel-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      font-size: 13px;
+    }
+
+    .funnel-candidate {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Corporate Multinational Group LTD</div>
+          <div class="brand-sub">Portail des Talents du Groupe</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Vue d'ensemble</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Tableau de Bord Corporate</a></li>
+            <li><a class="nav-item" href="entities.html"><i class="ph-bold ph-buildings"></i> Filiales et Unités Commerciales</a></li>
+            <li><a class="nav-item is-active" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Offres et candidatures</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Équipe Corporate</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Analyses</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Rapports d'Impact Communautaire</a></li>
+            <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Paramètres</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Pays d'Implantation</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Langue">
+          <a class="lang-opt" hreflang="en" href="../en/jobs-applications.html">EN</a>
+          <a class="lang-opt is-active" hreflang="fr" href="jobs-applications.html">FR</a>
+          <a class="lang-opt" hreflang="es" href="../es/jobs-applications.html">ES</a>
+        </div>
+        <div class="user-mini">
+          <div class="user-avatar">MS</div>
+          <div>
+            <div class="user-name">Marcus Sterling</div>
+            <div class="user-role">Administrateur Exécutif du Groupe</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Offres et candidatures</h1>
+          <p class="page-subtitle">Suivre les offres d'emploi et les candidatures avec des analyses agrégées et une protection de la vie privée</p>
+        </div>
+      </header>
+
+      <section class="kpi-grid animate-enter delay-1">
+        <article class="kpi-tile">
+          <div class="kpi-label">Offres d'emploi actives</div>
+          <div class="kpi-value">1,126</div>
+        </article>
+        <article class="kpi-tile">
+          <div class="kpi-label">Total des candidatures</div>
+          <div class="kpi-value">6,408</div>
+        </article>
+        <article class="kpi-tile">
+          <div class="kpi-label">Moy. candidatures / offre</div>
+          <div class="kpi-value">5.7</div>
+        </article>
+        <article class="kpi-tile">
+          <div class="kpi-label">Postes difficiles à pourvoir</div>
+          <div class="kpi-value" style="color:var(--error-text);">186</div>
+        </article>
+      </section>
+
+      <div class="filter-bar animate-enter delay-1" role="search" aria-label="Filtres d'offres">
+        <div class="filter-group">
+          <label class="filter-label" for="filter-entity">Filiale</label>
+          <select id="filter-entity" class="filter-select" onchange="filterJobs()">
+            <option value="all">Toutes les filiales et unités commerciales</option>
+            <option value="highland textile works">Highland Textile Works</option>
+            <option value="rift valley agro-processing">Rift Valley Agro-Processing</option>
+            <option value="coastal hospitality group">Coastal Hospitality Group</option>
+            <option value="tigray construction partners">Tigray Construction Partners</option>
+            <option value="mombasa road logistics">Mombasa Road Logistics</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-sector">Secteur</label>
+          <select id="filter-sector" class="filter-select" onchange="filterJobs()">
+            <option value="all">Tous les secteurs</option>
+            <option value="manufacturing and textiles">Industrie manufacturière et textile</option>
+            <option value="agriculture and agro-processing">Agriculture et agro-industrie</option>
+            <option value="tourism and hospitality">Tourisme et hôtellerie</option>
+            <option value="construction">Construction</option>
+            <option value="logistics and transport">Logistique et transport</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-status">Statut de l'offre</label>
+          <select id="filter-status" class="filter-select" onchange="filterJobs()">
+            <option value="all">Tous les statuts</option>
+            <option value="active">Actif</option>
+            <option value="closed">Clôturé</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card animate-enter delay-2">
+        <table class="data-table" id="jobs-table">
+          <thead>
+            <tr>
+              <th>Intitulé du poste</th>
+              <th>Entreprise membre</th>
+              <th>Secteur</th>
+              <th>Localisation</th>
+              <th>Date de publication</th>
+              <th>Statut</th>
+              <th>Candidatures</th>
+              <th style="text-align: right;">Action de l'entonnoir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
+              <td><strong>Superviseur de production textile</strong></td>
+              <td>Highland Textile Works</td>
+              <td>Industrie manufacturière et textile</td>
+              <td>Addis Ababa, Ethiopia</td>
+              <td style="font-family:var(--font-mono)">28 mai 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Difficile à pourvoir)</small></td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleTextileProdSupervisor, 'Highland Textile Works', 2)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+            <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
+              <td><strong>Électricien industriel</strong></td>
+              <td>Highland Textile Works</td>
+              <td>Industrie manufacturière et textile</td>
+              <td>Addis Ababa, Ethiopia</td>
+              <td style="font-family:var(--font-mono)">01 juin 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">18</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleIndustrialElectrician, 'Highland Textile Works', 18)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+            <tr data-entity="rift valley agro-processing" data-sector="agriculture and agro-processing" data-status="active">
+              <td><strong>Technicien de ligne d'agro-transformation</strong></td>
+              <td>Rift Valley Agro-Processing</td>
+              <td>Agriculture et agro-industrie</td>
+              <td>Hawassa, Sidama</td>
+              <td style="font-family:var(--font-mono)">03 juin 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">12</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleAgroProcessingTechnician, 'Rift Valley Agro-Processing', 12)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+            <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="active">
+              <td><strong>Superviseur de la réception</strong></td>
+              <td>Coastal Hospitality Group</td>
+              <td>Tourisme et hôtellerie</td>
+              <td>Accra, Ghana</td>
+              <td style="font-family:var(--font-mono)">10 mai 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">45</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleFrontOfficeSupervisor, 'Coastal Hospitality Group', 45)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+            <tr data-entity="tigray construction partners" data-sector="construction" data-status="active">
+              <td><strong>Superviseur de chantier</strong></td>
+              <td>Tigray Construction Partners</td>
+              <td>Construction</td>
+              <td>Mekelle, Tigray</td>
+              <td style="font-family:var(--font-mono)">22 mai 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">6</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleConstructionSiteSupervisor, 'Tigray Construction Partners', 6)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+            <tr data-entity="mombasa road logistics" data-sector="logistics and transport" data-status="active">
+              <td><strong>Coordinateur logistique</strong></td>
+              <td>Mombasa Road Logistics</td>
+              <td>Logistique et transport</td>
+              <td>Nairobi, Kenya</td>
+              <td style="font-family:var(--font-mono)">04 juin 2026</td>
+              <td><span class="badge badge-success">Actif</span></td>
+              <td style="font-family:var(--font-mono)">9</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleLogisticsCoordinator, 'Mombasa Road Logistics', 9)">Voir l'entonnoir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Funnel Modal -->
+  <div class="modal-overlay" id="funnel-modal">
+    <div class="modal">
+      <h3 class="modal-title" id="funnel-title">Entonnoir des candidatures</h3>
+      <p class="modal-desc" id="funnel-desc">Détails de l'offre : Superviseur de production textile chez Highland Textile Works</p>
+
+      <div class="privacy-box">
+        <i class="ph-bold ph-shield-check"></i>
+        <span>Les identités individuelles des candidats sont masquées conformément aux règles de protection des données de l'Organisation.</span>
+      </div>
+
+      <h4 style="font-size: 13px; font-weight:600; margin-bottom:8px;">Statut du processus :</h4>
+      <div class="funnel-list" id="funnel-applicants-box">
+        <!-- Applicants show up here masked -->
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="closeModal()">Fermer les détails</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      funnelTitle: "Entonnoir {jobTitle}",
+      funnelDesc: "{jobTitle} chez {entity} ({count} candidats au total)",
+      applicantCandidate: "Candidat #C-098{id}",
+      stageHired: "Embauché",
+      stageOfferAccepted: "Offre acceptée",
+      stageShortlisted: "Présélectionné",
+      stageBackgroundCheck: "Vérification des antécédents",
+      stageCallScreening: "Entretien téléphonique préliminaire",
+      stageQualified: "Qualifié",
+      stageNewApplicant: "Nouveau candidat",
+      moreApplicants: "... et {count} autres candidats aux étapes précédentes.",
+      jobTitleTextileProdSupervisor: "Superviseur de production textile",
+      jobTitleIndustrialElectrician: "Électricien industriel",
+      jobTitleAgroProcessingTechnician: "Technicien de ligne d'agro-transformation",
+      jobTitleFrontOfficeSupervisor: "Superviseur de la réception",
+      jobTitleConstructionSiteSupervisor: "Superviseur de chantier",
+      jobTitleLogisticsCoordinator: "Coordinateur logistique"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('is-open');
+    }
+
+    function closeModal() {
+      document.getElementById('funnel-modal').classList.remove('is-open');
+    }
+
+    function filterJobs() {
+      const entity = document.getElementById('filter-entity').value.toLowerCase();
+      const sector = document.getElementById('filter-sector').value.toLowerCase();
+      const status = document.getElementById('filter-status').value.toLowerCase();
+      const rows = document.querySelectorAll('#jobs-table tbody tr');
+
+      rows.forEach(row => {
+        const rowEntity = row.getAttribute('data-entity').toLowerCase();
+        const rowSector = row.getAttribute('data-sector').toLowerCase();
+        const rowStatus = row.getAttribute('data-status').toLowerCase();
+
+        const matchEntity = (entity === 'all' || rowEntity === entity);
+        const matchSector = (sector === 'all' || rowSector === sector);
+        const matchStatus = (status === 'all' || rowStatus === status);
+
+        if(matchEntity && matchSector && matchStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function viewFunnel(jobTitle, entity, count) {
+      document.getElementById('funnel-title').textContent = fmt(STR.funnelTitle, { jobTitle });
+      document.getElementById('funnel-desc').textContent = fmt(STR.funnelDesc, { jobTitle, entity, count });
+
+      const box = document.getElementById('funnel-applicants-box');
+      box.innerHTML = '';
+
+      const stages = [
+        STR.stageHired,
+        STR.stageOfferAccepted,
+        STR.stageShortlisted,
+        STR.stageBackgroundCheck,
+        STR.stageCallScreening,
+        STR.stageQualified,
+        STR.stageNewApplicant
+      ];
+
+      // Generate mock applicants masked
+      for(let i = 1; i <= Math.min(count, 5); i++) {
+        const stage = stages[Math.min(i - 1, stages.length - 1)];
+        const item = document.createElement('div');
+        item.className = 'funnel-item';
+        item.innerHTML = `
+          <span class="funnel-candidate">${fmt(STR.applicantCandidate, { id: i + 4 })}</span>
+          <span class="badge ${stage === STR.stageHired ? 'badge-success' : 'badge-warning'}">${stage}</span>
+        `;
+        box.appendChild(item);
+      }
+
+      if(count > 5) {
+        const more = document.createElement('div');
+        more.style.fontSize = '12px';
+        more.style.color = 'var(--text-secondary)';
+        more.style.textAlign = 'center';
+        more.style.marginTop = '8px';
+        more.textContent = fmt(STR.moreApplicants, { count: count - 5 });
+        box.appendChild(more);
+      }
+
+      openModal('funnel-modal');
+    }
+  </script>
+</body>
+</html>

@@ -1080,8 +1080,7 @@
 
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
-
-      .to({}, { duration: 3 })
+    tl.to({}, { duration: 3 })
       .to({}, { duration: 1.5 })
       .to({}, { duration: 3 })
       .to({}, { duration: 1.5 })

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ../en/tenant-branding.html -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="../../gate.js"></script>
+  <title>Ministerio de Administración Pública — Portal Branding</title>
+  <meta name="description" content="Ministerio de Administración Pública — Ministerio de Administración Pública portal branding prototype"/>
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Split layout */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Form items */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .form-input, .form-textarea {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* Color picker selector */
+    .color-swatch-list {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 14px;
+    }
+
+    .color-swatch.is-selected {
+      border-color: var(--text);
+    }
+
+    /* Live Preview panel */
+    .preview-box {
+      border: 1px dashed var(--text-tertiary);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .mock-header {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mock-footer {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .badge-approval {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+      .split-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+  <button class="mobile-nav-toggle" aria-label="Abrir navegación" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i class="ph-bold ph-list"></i>
+  </button>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
+        <div>
+          <div class="brand-name">Ministry of Public Administration</div>
+          <div class="brand-sub">Ministry of Public Administration</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-label">Visión general</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="index.html"><i class="ph-bold ph-squares-four"></i> Panel de Control Corporativo</a></li>
+            <li><a class="nav-item" href="agencies.html"><i class="ph-bold ph-buildings"></i> Agencias Gubernamentales</a></li>
+            <li><a class="nav-item" href="jobs-applications.html"><i class="ph-bold ph-briefcase"></i> Ofertas y solicitudes</a></li>
+            <li><a class="nav-item" href="users-management.html"><i class="ph-bold ph-users"></i> Equipo Corporativo</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Análisis</div>
+          <ul class="nav-list">
+            <li><a class="nav-item" href="skill-gap.html"><i class="ph-bold ph-chart-bar"></i> Informe de brecha de competencias</a></li>
+            <li><a class="nav-item" href="general-report.html"><i class="ph-bold ph-file-text"></i> Informes de Impacto Comunitario</a></li>
+            <li><a class="nav-item" href="activity-logs.html"><i class="ph-bold ph-clock-counter-clockwise"></i> Registros de actividad</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Configuración</div>
+          <ul class="nav-list">
+            <li><a class="nav-item is-active" href="tenant-branding.html"><i class="ph-bold ph-paint-brush"></i> Personalización del portal</a></li>
+            <li><a class="nav-item" href="supported-countries.html"><i class="ph-bold ph-globe"></i> Países de Operación</a></li>
+            <li><a class="nav-item" href="report-recipients.html"><i class="ph-bold ph-envelope"></i> Destinatarios de informes</a></li>
+            <li><a class="nav-item" href="notification-preferences.html"><i class="ph-bold ph-bell"></i> Preferencias de notificación</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="lang-toggle" role="group" aria-label="Idioma">
+          <a class="lang-opt" hreflang="en" href="../en/tenant-branding.html">EN</a>
+          <a class="lang-opt" hreflang="fr" href="../fr/tenant-branding.html">FR</a>
+          <a class="lang-opt is-active" hreflang="es" href="tenant-branding.html">ES</a>
+        </div>
+        <div class="user-mini">
+          <div class="user-avatar">MS</div>
+          <div>
+            <div class="user-name">Marcus Sterling</div>
+            <div class="user-role">Administrador Ejecutivo del Grupo</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header animate-enter">
+        <div>
+          <h1 class="page-title">Personalización del portal</h1>
+          <p class="page-subtitle">Configure la identidad visual y los colores del portal público de la Organización</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="saveBranding()"><i class="ph-bold ph-floppy-disk"></i> Guardar cambios</button>
+        </div>
+      </header>
+
+      <div class="badge-approval animate-enter delay-1">
+        <i class="ph-bold ph-warning"></i>
+        <span><strong>Control de moderación:</strong> Modifying portal name or display name requires approval from the Ministerio de Administración Pública Super Admin before public propagation.</span>
+      </div>
+
+      <div class="split-layout animate-enter delay-2">
+        <section class="card" aria-label="Formulario de configuración de personalización">
+          <div class="form-group">
+            <label class="form-label" for="portal-name">Nombre del portal</label>
+            <input type="text" id="portal-name" class="form-input" value="Ministry of Public Administration" oninput="updatePreviewText()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="legal-name">Nombre de la institución</label>
+            <input type="text" id="legal-name" class="form-input" value="Ministry of Public Administration" oninput="updatePreviewText()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="address">Dirección registrada</label>
+            <textarea id="address" class="form-textarea" oninput="updatePreviewText()">[ES] Addis Ababa, Ethiopia</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Color de énfasis institucional</label>
+            <div class="color-swatch-list">
+              <div class="color-swatch is-selected" style="background:#1E3A5F;" onclick="changeThemeColor(this, '#1E3A5F')"><i class="ph-bold ph-check"></i></div>
+              <div class="color-swatch" style="background:#0F5C58;" onclick="changeThemeColor(this, '#0F5C58')"></div>
+              <div class="color-swatch" style="background:#9F2F2D;" onclick="changeThemeColor(this, '#9F2F2D')"></div>
+              <div class="color-swatch" style="background:#111111;" onclick="changeThemeColor(this, '#111111')"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="display-name">Nombre de visualización de la organización</label>
+            <input type="text" id="display-name" class="form-input" value="Ministry of Public Administration" oninput="updatePreviewText()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="footer-copyright">Detalles de copyright del pie de página</label>
+            <input type="text" id="footer-copyright" class="form-input" value="© 2026 Ministry of Public Administration. Powered by iCUBEFARM." oninput="updatePreviewText()">
+          </div>
+        </section>
+
+        <section class="card" aria-label="Vista previa de personalización del portal">
+          <h3 style="font-size: 14px; font-weight:600; margin-top:0; margin-bottom: var(--space-md);">Vista previa interactiva en vivo</h3>
+          <div class="preview-box">
+            <div>
+              <small style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; display:block; margin-bottom:4px;">Vista previa del encabezado</small>
+              <div class="mock-header">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div id="prev-header-icon" style="width:28px; height:28px; background:#1E3A5F; border-radius:4px; display:grid; place-items:center; color:white; font-size:14px;"><i class="ph-bold ph-globe"></i></div>
+                  <strong style="font-size:13px;" id="prev-portal-name">Ministry of Public Administration</strong>
+                </div>
+                <button class="btn btn-primary" id="prev-header-btn" style="padding: 6px 12px; font-size:11px; background:#1E3A5F;">Añadir empresa miembro</button>
+              </div>
+            </div>
+
+            <div>
+              <small style="font-size:10px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; display:block; margin-bottom:4px;">Vista previa del pie de página</small>
+              <div class="mock-footer">
+                <p id="prev-legal-name" style="font-weight:600; margin: 0 0 4px 0;">Ministry of Public Administration</p>
+                <p id="prev-address" style="margin:0 0 8px 0; color:var(--text-tertiary);">[ES] Addis Ababa, Ethiopia</p>
+                <div style="border-top: 1px solid var(--border); padding-top:8px;" id="prev-copyright">© 2026 Ministerio de Administración Pública. Powered by iCUBEFARM.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      brandingSavedAlert: "Modificaciones de personalización guardadas. Color principal actualizado a {activeColor}.\n\nNota: Los cambios públicos para \"{portalName}\" se envían para la aprobación del Superadministrador."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    let activeColor = '#1E3A5F';
+
+    function changeThemeColor(swatchEl, hexColor) {
+      document.querySelectorAll('.color-swatch').forEach(sw => {
+        sw.classList.remove('is-selected');
+        sw.innerHTML = '';
+      });
+      swatchEl.classList.add('is-selected');
+      swatchEl.innerHTML = '<i class="ph-bold ph-check"></i>';
+      activeColor = hexColor;
+
+      // Update interactive preview color variables
+      document.getElementById('prev-header-icon').style.background = hexColor;
+      document.getElementById('prev-header-btn').style.background = hexColor;
+    }
+
+    function updatePreviewText() {
+      document.getElementById('prev-portal-name').textContent = document.getElementById('portal-name').value;
+      document.getElementById('prev-legal-name').textContent = document.getElementById('legal-name').value;
+      document.getElementById('prev-address').textContent = document.getElementById('address').value;
+      document.getElementById('prev-copyright').textContent = document.getElementById('footer-copyright').value;
+    }
+
+    function saveBranding() {
+      const portalName = document.getElementById('portal-name').value;
+      alert(fmt(STR.brandingSavedAlert, { activeColor, portalName }));
+    }
+  </script>
+</body>
+</html>

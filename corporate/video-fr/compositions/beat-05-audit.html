@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Portail des Talents du Groupe — Journaux d'Activité</title>
+  <meta name="description" content="Prototype des journaux d'activité de Corporate Multinational Group LTD">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filter-input {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .data-table td strong {
+      color: var(--text);
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Alert / Warning Banner */
+    .alert-banner {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border: 1px solid rgba(149, 100, 0, 0.2);
+    }
+
+    .alert-banner i {
+      font-size: 18px;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+<div data-hf-id="hf-efb6" data-composition-id="beat-05" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-wtkg" class="brand-name">Corporate Multinational Group LTD</div>
+          <div data-hf-id="hf-op2x" class="brand-sub">Portail des Talents du Groupe</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Vue d'ensemble</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-9ed1" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Tableau de Bord Corporate</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-4ky9" class="nav-item" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Filiales et Unités Commerciales</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-1sx0" class="nav-item" href="integrations.html"><i data-hf-id="hf-zpwu" class="ph-bold ph-plugs-connected"></i> Intégrations</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Offres et candidatures</a></li>
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-6hq0" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Équipe Corporate</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Analyses</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-e313" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Rapports d'Impact Communautaire</a></li>
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-1yfe" class="nav-item is-active" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Paramètres</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-y3pc" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Pays d'Implantation</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li data-hf-id="hf-ck35"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-r5d3" class="lang-opt is-active" hreflang="en" href="activity-logs.html">EN</a>
+          <a data-hf-id="hf-4i4q" class="lang-opt" hreflang="fr" href="activity-logs.html">FR</a>
+          <a data-hf-id="hf-j0d6" class="lang-opt" hreflang="es" href="activity-logs.html">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-whet" class="user-avatar">MS</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-6f7e" class="user-name">Marcus Sterling</div>
+            <div data-hf-id="hf-s8m6" class="user-role">Administrateur Exécutif du Groupe</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-0quy" class="page-title">Journaux d'activité</h1>
+          <p data-hf-id="hf-jbkb" class="page-subtitle">Suivre les actions importantes au sein du Portail des Talents du Groupe pour la conformité</p>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-me1i" class="alert-banner animate-enter delay-1">
+        <i data-hf-id="hf-crg0" class="ph-bold ph-lock-keyhole"></i>
+        <span data-hf-id="hf-v3hr"><strong data-hf-id="hf-pvpy">Garantie de conservation des registres :</strong> Les journaux d'activité sont en lecture seule et immuables. Ils ne peuvent être ni modifiés ni supprimés par aucun membre de l'équipe Corporate. Conservés 365 jours.</span>
+      </div>
+
+      <div data-hf-id="hf-pvhw" class="filter-bar animate-enter delay-1" role="search" aria-label="Filtres de journal">
+        <div data-hf-id="hf-0gl0" class="filter-group" style="flex:2;">
+          <label data-hf-id="hf-r720" class="filter-label" for="search-logs">Rechercher un auteur ou une action</label>
+          <input data-hf-id="hf-1ob5" type="text" id="search-logs" class="filter-input" placeholder="p. ex. Selamawit, vérifié..." oninput="filterLogs()">
+        </div>
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-v40v" class="filter-label" for="filter-category">Catégorie</label>
+          <select data-hf-id="hf-t2hh" id="filter-category" class="filter-select" onchange="filterLogs()">
+            <option data-hf-id="hf-26qr" value="all">Toutes les catégories</option>
+            <option data-hf-id="hf-pkol" value="user management">Gestion des utilisateurs</option>
+            <option data-hf-id="hf-ytw4" value="entity moderation">Vérification de filiale</option>
+            <option data-hf-id="hf-k66x" value="branding">Image de marque du portail</option>
+            <option data-hf-id="hf-dhjt" value="countries">Pays membres</option>
+            <option data-hf-id="hf-ohjz" value="reports">Exportations de rapports</option>
+          </select>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-sot2" class="card animate-enter delay-2">
+        <table data-hf-id="hf-mmzo" class="data-table" id="logs-table">
+          <thead data-hf-id="hf-zd89">
+            <tr data-hf-id="hf-p3r7">
+              <th data-hf-id="hf-txyt" style="width: 150px;">Horodatage</th>
+              <th data-hf-id="hf-2gl0" style="width: 150px;">Auteur</th>
+              <th data-hf-id="hf-468z">Action</th>
+              <th data-hf-id="hf-1lxe" style="width: 180px;">Catégorie</th>
+              <th data-hf-id="hf-xj9h">Détails (Avant → Après)</th>
+            </tr>
+          </thead>
+          <tbody data-hf-id="hf-bsvf">
+            <tr data-hf-id="hf-m2un" data-category="entity moderation">
+              <td data-hf-id="hf-l7l7" style="font-family: var(--font-mono);">13 juin 2026, 14:38</td>
+              <td data-hf-id="hf-54xx"><strong data-hf-id="hf-zrzl">Marcus Sterling</strong></td>
+              <td data-hf-id="hf-5j4d">Filiale vérifiée Rift Valley Agro-Processing</td>
+              <td data-hf-id="hf-r5mb">Vérification de filiale</td>
+              <td data-hf-id="hf-t9cp"><small data-hf-id="hf-1fg9" style="color:var(--text-secondary)">Statut : En attente d'examen → Vérifié</small></td>
+            </tr>
+            <tr data-hf-id="hf-ewwq" data-category="user management">
+              <td data-hf-id="hf-ghfc" style="font-family: var(--font-mono);">13 juin 2026, 13:52</td>
+              <td data-hf-id="hf-ug9s"><strong data-hf-id="hf-2672">Dawit Haile</strong></td>
+              <td data-hf-id="hf-tuu5">Utilisateur invité wanjiru.kamau@paea.africa</td>
+              <td data-hf-id="hf-6ix9">Gestion des utilisateurs</td>
+              <td data-hf-id="hf-u1yr"><small data-hf-id="hf-xj2s" style="color:var(--text-secondary)">Rôle : Responsable Pays (Invité)</small></td>
+            </tr>
+            <tr data-hf-id="hf-fzxm" data-category="countries">
+              <td data-hf-id="hf-wpyr" style="font-family: var(--font-mono);">13 juin 2026, 11:20</td>
+              <td data-hf-id="hf-s2fm"><strong data-hf-id="hf-zllf">Système</strong></td>
+              <td data-hf-id="hf-nwhq">A mis à jour la couverture des pays membres</td>
+              <td data-hf-id="hf-dwup">Pays membres</td>
+              <td data-hf-id="hf-ro4l"><small data-hf-id="hf-7wkn" style="color:var(--text-secondary)">Déclaration des offres d'emploi activée : Rwanda</small></td>
+            </tr>
+            <tr data-hf-id="hf-oqof" data-category="entity moderation">
+              <td data-hf-id="hf-8mtz" style="font-family: var(--font-mono);">13 juin 2026, 09:47</td>
+              <td data-hf-id="hf-sv1o"><strong data-hf-id="hf-zb6t">Marcus Sterling</strong></td>
+              <td data-hf-id="hf-29v9">Filiale mise en pause Northern Highlands Construction</td>
+              <td data-hf-id="hf-g1oz">Vérification de filiale</td>
+              <td data-hf-id="hf-sgqn"><small data-hf-id="hf-820j" style="color:var(--text-secondary)">Commentaire : Inactif depuis 120 jours</small></td>
+            </tr>
+            <tr data-hf-id="hf-a0f1" data-category="reports">
+              <td data-hf-id="hf-e2zz" style="font-family: var(--font-mono);">12 juin 2026, 16:15</td>
+              <td data-hf-id="hf-qh7i"><strong data-hf-id="hf-z0nw">Tigist Alemu</strong></td>
+              <td data-hf-id="hf-i6nr">A généré le résumé mensuel de l'emploi</td>
+              <td data-hf-id="hf-4xi4">Exportations de rapports</td>
+              <td data-hf-id="hf-q2wh"><small data-hf-id="hf-mk7p" style="color:var(--text-secondary)">Format : PDF</small></td>
+            </tr>
+            <tr data-hf-id="hf-ocde" data-category="entity moderation">
+              <td data-hf-id="hf-4hmf" style="font-family: var(--font-mono);">12 juin 2026, 11:03</td>
+              <td data-hf-id="hf-vuh7"><strong data-hf-id="hf-1r5u">Dawit Haile</strong></td>
+              <td data-hf-id="hf-0k10">A refusé l'approbation de la demande d'adhésion de Central Leather Works</td>
+              <td data-hf-id="hf-fndy">Vérification de filiale</td>
+              <td data-hf-id="hf-w8s8"><small data-hf-id="hf-zinb" style="color:var(--text-secondary)">Commentaire : Documents d'adhésion incomplets</small></td>
+            </tr>
+            <tr data-hf-id="hf-y5c5" data-category="branding">
+              <td data-hf-id="hf-jjk3" style="font-family: var(--font-mono);">10 juin 2026, 10:11</td>
+              <td data-hf-id="hf-v1v5"><strong data-hf-id="hf-0i3w">Marcus Sterling</strong></td>
+              <td data-hf-id="hf-q17s">Mise à jour de la couleur principale de la marque</td>
+              <td data-hf-id="hf-mg1i">Image de marque du portail</td>
+              <td data-hf-id="hf-vg66"><small data-hf-id="hf-m9z8" style="color:var(--text-secondary)">Accent : #0f5c58 → #1E3A5F</small></td>
+            </tr>
+            <tr data-hf-id="hf-8gfy" data-category="user management">
+              <td data-hf-id="hf-dniy" style="font-family: var(--font-mono);">09 juin 2026, 15:44</td>
+              <td data-hf-id="hf-u993"><strong data-hf-id="hf-03sv">Marcus Sterling</strong></td>
+              <td data-hf-id="hf-hb48">Utilisateur désactivé yonas.mekonnen@paea.africa</td>
+              <td data-hf-id="hf-xwn5">Gestion des utilisateurs</td>
+              <td data-hf-id="hf-unk4"><small data-hf-id="hf-62c6" style="color:var(--text-secondary)">Statut : Actif → Désactivé</small></td>
+            </tr>
+            <tr data-hf-id="hf-aai9" data-category="reports">
+              <td data-hf-id="hf-3b6e" style="font-family: var(--font-mono);">08 juin 2026, 09:00</td>
+              <td data-hf-id="hf-tgn1"><strong data-hf-id="hf-km7n">Système</strong></td>
+              <td data-hf-id="hf-1f9p">Envoi automatisé aux destinataires des rapports</td>
+              <td data-hf-id="hf-pfo4">Exportations de rapports</td>
+              <td data-hf-id="hf-tuy2"><small data-hf-id="hf-86pm" style="color:var(--text-secondary)">Envoyé à : 3 destinataires configurés</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function filterLogs() {
+      const query = document.getElementById('search-logs').value.toLowerCase();
+      const category = document.getElementById('filter-category').value.toLowerCase();
+      const rows = document.querySelectorAll('#logs-table tbody tr');
+
+      rows.forEach(row => {
+        const actor = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        const action = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+        const rowCategory = row.getAttribute('data-category').toLowerCase();
+
+        const matchQuery = (actor.includes(query) || action.includes(query));
+        const matchCategory = (category === 'all' || rowCategory === category);
+
+        if(matchQuery && matchCategory) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["beat-05"] = tl;
+  </script>
+</div>
+</body>
+
+</html>
