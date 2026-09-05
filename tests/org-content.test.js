@@ -36,7 +36,7 @@ test('the seeding scaffolding is gone', () => {
 
 test('every org page carries the organization identity', () => {
   for (const f of pages()) {
-    assert.ok(read(f).includes('Pan-African Enterprise Alliance'), `${f} missing org name`);
+    assert.ok(read(f).includes('Pan-African Organization'), `${f} missing org name`);
   }
 });
 
@@ -84,7 +84,7 @@ test('the org do-not-translate list exists and excludes Equatorial Guinea nouns'
   const dnt = JSON.parse(fs.readFileSync(p, 'utf8'));
   assert.ok(Array.isArray(dnt) && dnt.length > 0);
   assert.ok(dnt.includes('Addis Ababa'), 'anchor city must be protected');
-  assert.ok(dnt.includes('Pan-African Enterprise Alliance'), 'org name must be protected');
+  assert.ok(dnt.includes('Pan-African Organization'), 'org name must be protected');
   for (const n of ['Malabo', 'GETESA', 'FCFA']) {
     assert.ok(!dnt.includes(n), `${n} belongs to the ministry list, not this one`);
   }

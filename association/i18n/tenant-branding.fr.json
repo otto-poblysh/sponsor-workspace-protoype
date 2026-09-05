@@ -1,0 +1,23 @@
+{
+  "Add Member Company": "Ajouter une entreprise membre",
+  "Addis Ababa, Ethiopia": "Addis Ababa, Ethiopia",
+  "Brand Color Accent": "Couleur d'accent de la marque",
+  "Branding modifications saved. Primary color updated to {activeColor}.\n\nNote: Public changes for \"{portalName}\" are submitted for Super Admin approval.": "Modifications de l'image de marque enregistrées. Couleur principale mise à jour : {activeColor}.\n\nRemarque : Les modifications publiques pour « {portalName} » sont soumises à l'approbation du Super Administrateur.",
+  "Branding settings form": "Formulaire des paramètres d'image de marque",
+  "Community Employment Portal — Portal Branding": "Portail Communautaire de l'Emploi — Image de marque du portail",
+  "Configure the Organization's public member portal identity and colours": "Configurer l'identité visuelle et les couleurs du portail public de l'Organisation",
+  "Footer copyright details": "Mentions de copyright de pied de page",
+  "Institution Name": "Nom de l'institution",
+  "Interactive Live Preview": "Aperçu interactif en direct",
+  "Moderation Guardrail:": "Garde-fou de modération :",
+  "Modifying portal name or display name requires approval from the Pan-African Organization Super Admin before public propagation.": "La modification du nom du portail ou du nom d'affichage nécessite l'approbation du Super Administrateur de Pan-African Organization avant toute diffusion publique.",
+  "Organization Display Name": "Nom d'affichage de l'organisation",
+  "Pan-African Organization — Community Employment Portal portal branding prototype": "Pan-African Organization — Prototype de l'image de marque du Portail Communautaire de l'Emploi",
+  "Portal Footer Preview": "Aperçu du pied de page du portail",
+  "Portal Header Preview": "Aperçu de l'en-tête du portail",
+  "Portal Name": "Nom du portail",
+  "Portal branding preview": "Aperçu de l'image de marque du portail",
+  "Registered Address": "Adresse enregistrée",
+  "Save changes": "Enregistrer les modifications",
+  "© 2026 Pan-African Organization. Powered by iCUBEFARM.": "© 2026 Pan-African Organization. Propulsé par iCUBEFARM."
+}

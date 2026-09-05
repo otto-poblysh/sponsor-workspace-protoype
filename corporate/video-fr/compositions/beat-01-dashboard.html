@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Portail des Talents du Groupe — Tableau de Bord</title>
+  <meta name="description" content="Prototype du tableau de bord des talents et du recrutement de Corporate Multinational Group LTD">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <!-- Pretext fallback -->
+  <script type="module">
+    import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+    window.Pretext = { prepare, layout };
+  </script>
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filter-meta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .kpi-tile {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: box-shadow 200ms ease;
+    }
+
+    .kpi-tile:hover { box-shadow: var(--shadow-hover); }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    .kpi-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .kpi-delta.positive { color: var(--success-text); }
+    .kpi-delta.negative { color: var(--error-text); }
+
+    .kpi-context {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Bento sections */
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .section-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .bento {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .bento-3 { grid-template-columns: repeat(3, 1fr); }
+    .bento-2 { grid-template-columns: repeat(2, 1fr); }
+    .bento-mixed {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 var(--space-md);
+      color: var(--text);
+    }
+
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .bar-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .bar-label {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .bar-value {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    .bar-track {
+      grid-column: 1 / -1;
+      height: 6px;
+      background: var(--bone);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 9999px;
+    }
+
+    .bar-fill.muted { background: var(--text-tertiary); opacity: 0.5; }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    /* Funnel */
+    .funnel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .funnel-row:last-child { border-bottom: none; }
+
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .funnel-bar {
+      height: 8px;
+      background: var(--accent);
+      border-radius: 9999px;
+      min-width: 4px;
+    }
+
+    .funnel-label {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .funnel-count {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Activity */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-row {
+      display: grid;
+      grid-template-columns: 130px 1fr auto;
+      gap: var(--space-md);
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-row:last-child { border-bottom: none; }
+
+    .activity-time {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      padding-top: 2px;
+    }
+
+    .activity-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .activity-text strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .activity-meta {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: var(--space-2xl);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .empty-state-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-3 { grid-template-columns: repeat(2, 1fr); }
+      .bento-mixed { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+      .filter-meta { margin-left: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid,
+      .bento-3,
+      .bento-2,
+      .bento-mixed { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+      .filter-meta { justify-content: space-between; }
+      .activity-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .activity-meta { text-align: left; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+    .delay-3 { animation-delay: 240ms; }
+    .delay-4 { animation-delay: 320ms; }
+  </style>
+</head>
+<body>
+<div data-hf-id="hf-oyh2" data-composition-id="beat-01" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-fidg" class="brand-name">Corporate Multinational Group LTD</div>
+          <div data-hf-id="hf-oyyb" class="brand-sub">Portail des Talents du Groupe</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Vue d'ensemble</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-x1bz" class="nav-item is-active" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Tableau de Bord Corporate</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-il3t" class="nav-item" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Filiales et Unités Commerciales</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Offres et candidatures</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-eatl" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Équipe Corporate</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Analyses</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-zs5p" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Rapports d'Impact Communautaire</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Paramètres</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-90jk" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Pays d'Implantation</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-hny8" class="lang-opt is-active" hreflang="en" href="index.html">EN</a>
+          <a data-hf-id="hf-2h39" class="lang-opt" hreflang="fr" href="index.html">FR</a>
+          <a data-hf-id="hf-xk9t" class="lang-opt" hreflang="es" href="index.html">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-sicj" class="user-avatar">MS</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-wlyx" class="user-name">Marcus Sterling</div>
+            <div data-hf-id="hf-s3sy" class="user-role">Administrateur Exécutif du Groupe</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-ml5y" class="page-title">Tableau de Bord Corporate</h1>
+          <p data-hf-id="hf-hiae" class="page-subtitle">Vue d'ensemble consolidée de l'emploi dans les filiales et unités commerciales de Corporate Multinational Group LTD</p>
+        </div>
+        <div data-hf-id="hf-91nl" class="header-actions">
+          <button data-hf-id="hf-ztck" class="btn btn-secondary"><i data-hf-id="hf-dljg" class="ph-bold ph-download-simple"></i> Exporter</button>
+          <button data-hf-id="hf-a4nc" class="btn btn-primary"><i data-hf-id="hf-v891" class="ph-bold ph-plus"></i> Ajouter une filiale</button>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-n3ji" class="filter-bar animate-enter delay-1" role="search" aria-label="Filtres du tableau de bord">
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-t022" class="filter-label" for="filter-date">Période</label>
+          <select data-hf-id="hf-pqpp" id="filter-date" class="filter-select">
+            <option data-hf-id="hf-wh0y">30 derniers jours</option>
+            <option data-hf-id="hf-z2n9">Dernières 24 heures</option>
+            <option data-hf-id="hf-we2k">7 derniers jours</option>
+            <option data-hf-id="hf-8e48">90 derniers jours</option>
+            <option data-hf-id="hf-0bz3">365 derniers jours</option>
+            <option data-hf-id="hf-yi1g">Depuis le début</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-byak" class="filter-group">
+          <label data-hf-id="hf-42fj" class="filter-label" for="filter-sector">Secteur</label>
+          <select data-hf-id="hf-8dzz" id="filter-sector" class="filter-select">
+            <option data-hf-id="hf-abxg">Tous les secteurs</option>
+            <option data-hf-id="hf-awap">Industrie manufacturière et textile</option>
+            <option data-hf-id="hf-3a1t">Agriculture et agro-industrie</option>
+            <option data-hf-id="hf-y2rd">Construction</option>
+            <option data-hf-id="hf-b0kr">Logistique et transport</option>
+            <option data-hf-id="hf-18z7">Tourisme et hôtellerie</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-ardh" class="filter-group">
+          <label data-hf-id="hf-3yzd" class="filter-label" for="filter-location">Localisation</label>
+          <select data-hf-id="hf-1das" id="filter-location" class="filter-select">
+            <option data-hf-id="hf-2xvj">Toutes les localisations</option>
+            <option data-hf-id="hf-vsh2">Lagos, Nigeria</option>
+            <option data-hf-id="hf-uy8q">Douala, Cameroon</option>
+            <option data-hf-id="hf-3pp1">Accra, Ghana</option>
+            <option data-hf-id="hf-580k">Dakar, Senegal</option>
+            <option data-hf-id="hf-ofmq">Johannesburg, South Africa</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-b5oi" class="filter-group">
+          <label data-hf-id="hf-48au" class="filter-label" for="filter-status">Statut d'adhésion</label>
+          <select data-hf-id="hf-vnvr" id="filter-status" class="filter-select">
+            <option data-hf-id="hf-q0w7">Tous les statuts</option>
+            <option data-hf-id="hf-og08">Actif</option>
+            <option data-hf-id="hf-g7ch">En attente d'examen</option>
+            <option data-hf-id="hf-fvoj">Invité</option>
+            <option data-hf-id="hf-9pau">En pause</option>
+            <option data-hf-id="hf-9tu9">Inactif</option>
+            <option data-hf-id="hf-9exp">Expiré</option>
+            <option data-hf-id="hf-9unp">Non approuvé</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-d57n" class="filter-group">
+          <label data-hf-id="hf-l8l5" class="filter-label" for="filter-size">Taille des effectifs</label>
+          <select data-hf-id="hf-c9zq" id="filter-size" class="filter-select">
+            <option data-hf-id="hf-bcnh">Toutes les tailles</option>
+            <option data-hf-id="hf-34j7">1–49</option>
+            <option data-hf-id="hf-urub">50–249</option>
+            <option data-hf-id="hf-n9qs">250+</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-huyg" class="filter-meta">
+          <span data-hf-id="hf-bqsb">Actualisé le 13 août, 14:42</span>
+          <button data-hf-id="hf-taa9" class="btn btn-secondary" style="padding: 8px 12px;"><i data-hf-id="hf-rebq" class="ph-bold ph-arrows-clockwise"></i></button>
+        </div>
+      </div>
+
+      <section data-hf-id="hf-d9vu" class="kpi-grid" aria-label="Indicateurs clés">
+        <article data-hf-id="hf-mv7u" class="kpi-tile animate-enter delay-2">
+          <div data-hf-id="hf-1syl" class="kpi-label">Filiales et Unités Commerciales</div>
+          <div data-hf-id="hf-x6d9" class="kpi-value">388</div>
+          <div data-hf-id="hf-jabu" class="kpi-delta positive"><i data-hf-id="hf-2owo" class="ph-bold ph-trend-up"></i> +21 ce mois-ci</div>
+          <div data-hf-id="hf-aczh" class="kpi-context">334 actives · 23 invitées · 12 en attente d'examen · 10 en pause · 14 inactives · 5 expirées · 4 non approuvées</div>
+        </article>
+        <article data-hf-id="hf-p1e6" class="kpi-tile animate-enter delay-2">
+          <div data-hf-id="hf-vddb" class="kpi-label">Offres actives</div>
+          <div data-hf-id="hf-72n6" class="kpi-value">1,126</div>
+          <div data-hf-id="hf-5ed8" class="kpi-delta positive"><i data-hf-id="hf-wnhs" class="ph-bold ph-trend-up"></i> +74 ce mois-ci</div>
+          <div data-hf-id="hf-5d0n" class="kpi-context">186 postes difficiles à pourvoir</div>
+        </article>
+        <article data-hf-id="hf-pfp7" class="kpi-tile animate-enter delay-2">
+          <div data-hf-id="hf-vsrk" class="kpi-label">Demandeurs d'emploi enregistrés</div>
+          <div data-hf-id="hf-kbak" class="kpi-value">18,742</div>
+          <div data-hf-id="hf-p5zy" class="kpi-delta positive"><i data-hf-id="hf-vgkp" class="ph-bold ph-trend-up"></i> +683 ce mois-ci</div>
+          <div data-hf-id="hf-7zdp" class="kpi-context">5 916 actifs au cours des 30 derniers jours</div>
+        </article>
+        <article data-hf-id="hf-pu08" class="kpi-tile animate-enter delay-2">
+          <div data-hf-id="hf-6hfh" class="kpi-label">Candidatures soumises</div>
+          <div data-hf-id="hf-om64" class="kpi-value">6,408</div>
+          <div data-hf-id="hf-4on7" class="kpi-delta positive"><i data-hf-id="hf-vuvq" class="ph-bold ph-trend-up"></i> +6 % par rapport au mois dernier</div>
+          <div data-hf-id="hf-m5yp" class="kpi-context">Moyenne de 5,7 par offre</div>
+        </article>
+      </section>
+
+      <section data-hf-id="hf-wf18" class="section animate-enter delay-3">
+        <div data-hf-id="hf-k0k5" class="section-header">
+          <h2 data-hf-id="hf-7ctx" class="section-title">Répartition des effectifs</h2>
+          <span data-hf-id="hf-p8tu" class="section-note">Demandeurs d'emploi par expérience, niveau d'études et ancienneté</span>
+        </div>
+        <div data-hf-id="hf-vod0" class="bento bento-3">
+          <div data-hf-id="hf-vn2y" class="card">
+            <h3 data-hf-id="hf-dt3g" class="card-title">Années d'expérience</h3>
+            <div data-hf-id="hf-ydpk" class="bar-list">
+              <div data-hf-id="hf-25dp" class="bar-item">
+                <span data-hf-id="hf-sio0" class="bar-label">0–2 ans</span>
+                <span data-hf-id="hf-pxfg" class="bar-value">6,910</span>
+                <div data-hf-id="hf-2kxp" class="bar-track"><div data-hf-id="hf-srv3" class="bar-fill" style="width: 72%"></div></div>
+              </div>
+              <div data-hf-id="hf-o24x" class="bar-item">
+                <span data-hf-id="hf-ohj7" class="bar-label">2–5 ans</span>
+                <span data-hf-id="hf-o1l0" class="bar-value">6,420</span>
+                <div data-hf-id="hf-dok1" class="bar-track"><div data-hf-id="hf-rk4i" class="bar-fill" style="width: 84%"></div></div>
+              </div>
+              <div data-hf-id="hf-p920" class="bar-item">
+                <span data-hf-id="hf-b766" class="bar-label">5–10 ans</span>
+                <span data-hf-id="hf-73dh" class="bar-value">3,620</span>
+                <div data-hf-id="hf-evh4" class="bar-track"><div data-hf-id="hf-tlq4" class="bar-fill" style="width: 46%"></div></div>
+              </div>
+              <div data-hf-id="hf-ouqz" class="bar-item">
+                <span data-hf-id="hf-pv7f" class="bar-label">10+ ans</span>
+                <span data-hf-id="hf-84a1" class="bar-value">1,792</span>
+                <div data-hf-id="hf-eh63" class="bar-track"><div data-hf-id="hf-z27y" class="bar-fill" style="width: 22%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-i08u" class="card">
+            <h3 data-hf-id="hf-eish" class="card-title">Niveau d'études</h3>
+            <div data-hf-id="hf-ljvk" class="bar-list">
+              <div data-hf-id="hf-mgwt" class="bar-item">
+                <span data-hf-id="hf-gw8r" class="bar-label">Primaire ou inférieur</span>
+                <span data-hf-id="hf-6jvr" class="bar-value">2,986</span>
+                <div data-hf-id="hf-chmy" class="bar-track"><div data-hf-id="hf-94lt" class="bar-fill" style="width: 34%"></div></div>
+              </div>
+              <div data-hf-id="hf-nntw" class="bar-item">
+                <span data-hf-id="hf-3r5b" class="bar-label">Enseignement secondaire</span>
+                <span data-hf-id="hf-svst" class="bar-value">7,264</span>
+                <div data-hf-id="hf-c3bx" class="bar-track"><div data-hf-id="hf-loof" class="bar-fill" style="width: 54%"></div></div>
+              </div>
+              <div data-hf-id="hf-n9iv" class="bar-item">
+                <span data-hf-id="hf-5l1f" class="bar-label">Technique / Professionnel</span>
+                <span data-hf-id="hf-eon0" class="bar-value">4,138</span>
+                <div data-hf-id="hf-da90" class="bar-track"><div data-hf-id="hf-dbto" class="bar-fill" style="width: 82%"></div></div>
+              </div>
+              <div data-hf-id="hf-rmw6" class="bar-item">
+                <span data-hf-id="hf-0d67" class="bar-label">Diplôme universitaire</span>
+                <span data-hf-id="hf-g1s4" class="bar-value">4,354</span>
+                <div data-hf-id="hf-cvxz" class="bar-track"><div data-hf-id="hf-u0aa" class="bar-fill" style="width: 35%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-iejv" class="card">
+            <h3 data-hf-id="hf-gu3z" class="card-title">Niveau d'ancienneté</h3>
+            <div data-hf-id="hf-kcyh" class="bar-list">
+              <div data-hf-id="hf-r8l5" class="bar-item">
+                <span data-hf-id="hf-uym1" class="bar-label">Débutant</span>
+                <span data-hf-id="hf-ol9h" class="bar-value">8,014</span>
+                <div data-hf-id="hf-h9ba" class="bar-track"><div data-hf-id="hf-o6l7" class="bar-fill" style="width: 76%"></div></div>
+              </div>
+              <div data-hf-id="hf-fjn7" class="bar-item">
+                <span data-hf-id="hf-1ml3" class="bar-label">Intermédiaire</span>
+                <span data-hf-id="hf-vu36" class="bar-value">6,725</span>
+                <div data-hf-id="hf-gv09" class="bar-track"><div data-hf-id="hf-rzeo" class="bar-fill" style="width: 68%"></div></div>
+              </div>
+              <div data-hf-id="hf-fxy8" class="bar-item">
+                <span data-hf-id="hf-njev" class="bar-label">Sénior</span>
+                <span data-hf-id="hf-7ekd" class="bar-value">3,156</span>
+                <div data-hf-id="hf-a6wj" class="bar-track"><div data-hf-id="hf-hqk4" class="bar-fill" style="width: 28%"></div></div>
+              </div>
+              <div data-hf-id="hf-er15" class="bar-item">
+                <span data-hf-id="hf-n6t8" class="bar-label">Direction / Cadre supérieur</span>
+                <span data-hf-id="hf-vphp" class="bar-value">847</span>
+                <div data-hf-id="hf-al7k" class="bar-track"><div data-hf-id="hf-74xo" class="bar-fill" style="width: 8%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-9wk4" class="section animate-enter delay-3">
+        <div data-hf-id="hf-qx3d" class="section-header">
+          <h2 data-hf-id="hf-tfr7" class="section-title">Compétences demandées et disponibles</h2>
+          <span data-hf-id="hf-5g74" class="section-note">Compétences demandées par les filiales &amp; unités commerciales comparées aux profils des travailleurs</span>
+        </div>
+        <div data-hf-id="hf-wg0t" class="bento bento-2">
+          <div data-hf-id="hf-isuw" class="card">
+            <h3 data-hf-id="hf-mphv" class="card-title">Compétences générales / clés</h3>
+            <table data-hf-id="hf-r3h0" class="data-table">
+              <thead data-hf-id="hf-zd89">
+                <tr data-hf-id="hf-p3r7">
+                  <th data-hf-id="hf-1vl6">Compétence</th>
+                  <th data-hf-id="hf-5dmh">Offres exigeant la compétence</th>
+                  <th data-hf-id="hf-3llk">Demandeurs qualifiés</th>
+                  <th data-hf-id="hf-8utn">Disponibilité</th>
+                </tr>
+              </thead>
+              <tbody data-hf-id="hf-bsvf">
+                <tr data-hf-id="hf-ddj7">
+                  <td data-hf-id="hf-eeet">Santé et sécurité au travail</td>
+                  <td data-hf-id="hf-39f7">286</td>
+                  <td data-hf-id="hf-y6m5">1,094</td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">En dessous de la moyenne</span></td>
+                </tr>
+                <tr data-hf-id="hf-cz86">
+                  <td data-hf-id="hf-msxq">Service client</td>
+                  <td data-hf-id="hf-ivpz">264</td>
+                  <td data-hf-id="hf-u5pn">2,486</td>
+                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Au-dessus de la moyenne</span></td>
+                </tr>
+                <tr data-hf-id="hf-ckx5">
+                  <td data-hf-id="hf-sahc">Maintenance des équipements</td>
+                  <td data-hf-id="hf-de3i">238</td>
+                  <td data-hf-id="hf-88bs">724</td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Faible</span></td>
+                </tr>
+                <tr data-hf-id="hf-c6m4">
+                  <td data-hf-id="hf-hwlf">Métiers de la construction</td>
+                  <td data-hf-id="hf-o0r3">219</td>
+                  <td data-hf-id="hf-9lbo">1,358</td>
+                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">En dessous de la moyenne</span></td>
+                </tr>
+                <tr data-hf-id="hf-bsb3">
+                  <td data-hf-id="hf-xwwd">Vente et merchandising</td>
+                  <td data-hf-id="hf-bw2g">197</td>
+                  <td data-hf-id="hf-r84a">2,104</td>
+                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Élevé</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div data-hf-id="hf-byql" class="card">
+            <h3 data-hf-id="hf-fiov" class="card-title">Compétences techniques et numériques</h3>
+            <table data-hf-id="hf-7ecs" class="data-table">
+              <thead data-hf-id="hf-qnil">
+                <tr data-hf-id="hf-be02">
+                  <th data-hf-id="hf-iewe">Compétence</th>
+                  <th data-hf-id="hf-88i5">Offres exigeant la compétence</th>
+                  <th data-hf-id="hf-hgfk">Demandeurs qualifiés</th>
+                  <th data-hf-id="hf-5yzv">Disponibilité</th>
+                </tr>
+              </thead>
+              <tbody data-hf-id="hf-2rij">
+                <tr data-hf-id="hf-azp1">
+                  <td data-hf-id="hf-mxgy">Systèmes électriques industriels</td>
+                  <td data-hf-id="hf-3rvj">174</td>
+                  <td data-hf-id="hf-dd54">496</td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Faible</span></td>
+                </tr>
+                <tr data-hf-id="hf-ale0">
+                  <td data-hf-id="hf-i088">Bureautique et productivité</td>
+                  <td data-hf-id="hf-rhbx">161</td>
+                  <td data-hf-id="hf-d09u">1,842</td>
+                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-success">Au-dessus de la moyenne</span></td>
+                </tr>
+                <tr data-hf-id="hf-a72z">
+                  <td data-hf-id="hf-yx7n">Soudure et fabrication</td>
+                  <td data-hf-id="hf-8dz4">148</td>
+                  <td data-hf-id="hf-bi7o">382</td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Faible</span></td>
+                </tr>
+                <tr data-hf-id="hf-j2bt">
+                  <td data-hf-id="hf-47xo">Conduite professionnelle</td>
+                  <td data-hf-id="hf-opy5">132</td>
+                  <td data-hf-id="hf-f395">608</td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">En dessous de la moyenne</span></td>
+                </tr>
+                <tr data-hf-id="hf-jgmu">
+                  <td data-hf-id="hf-93cd">Opérations hôtelières</td>
+                  <td data-hf-id="hf-l73e">119</td>
+                  <td data-hf-id="hf-ov1v">354</td>
+                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Faible</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-jwir" class="section animate-enter delay-4">
+        <div data-hf-id="hf-s40g" class="section-header">
+          <h2 data-hf-id="hf-37rn" class="section-title">Offres et candidatures</h2>
+          <span data-hf-id="hf-uuxp" class="section-note">Postes difficiles à pourvoir et entonnoir des candidatures</span>
+        </div>
+        <div data-hf-id="hf-uxx6" class="bento bento-mixed">
+          <div data-hf-id="hf-cd1m" class="card">
+            <h3 data-hf-id="hf-xo9p" class="card-title">Entonnoir des candidatures</h3>
+            <div data-hf-id="hf-hli4" class="funnel">
+              <div data-hf-id="hf-z22r" class="funnel-row">
+                <div data-hf-id="hf-8851" class="funnel-stage">
+                  <div data-hf-id="hf-kv3k" class="funnel-bar" style="width: 100%"></div>
+                  <span data-hf-id="hf-8rsh" class="funnel-label">Nouveaux candidats</span>
+                </div>
+                <span data-hf-id="hf-ubfn" class="funnel-count">6,408</span>
+              </div>
+              <div data-hf-id="hf-1m0z" class="funnel-row">
+                <div data-hf-id="hf-nxbd" class="funnel-stage">
+                  <div data-hf-id="hf-7m44" class="funnel-bar" style="width: 78%"></div>
+                  <span data-hf-id="hf-5u5m" class="funnel-label">Qualifié</span>
+                </div>
+                <span data-hf-id="hf-la2z" class="funnel-count">4,550</span>
+              </div>
+              <div data-hf-id="hf-17py" class="funnel-row">
+                <div data-hf-id="hf-p48g" class="funnel-stage">
+                  <div data-hf-id="hf-exhg" class="funnel-bar" style="width: 52%"></div>
+                  <span data-hf-id="hf-icht" class="funnel-label">Sélection des filiales</span>
+                </div>
+                <span data-hf-id="hf-01aq" class="funnel-count">2,986</span>
+              </div>
+              <div data-hf-id="hf-0tex" class="funnel-row">
+                <div data-hf-id="hf-opxf" class="funnel-stage">
+                  <div data-hf-id="hf-huyo" class="funnel-bar" style="width: 38%"></div>
+                  <span data-hf-id="hf-dsio" class="funnel-label">Vérification des antécédents</span>
+                </div>
+                <span data-hf-id="hf-63qd" class="funnel-count">2,114</span>
+              </div>
+              <div data-hf-id="hf-0f3w" class="funnel-row">
+                <div data-hf-id="hf-mqea" class="funnel-stage">
+                  <div data-hf-id="hf-8tki" class="funnel-bar" style="width: 29%"></div>
+                  <span data-hf-id="hf-e2rn" class="funnel-label">Présélectionné</span>
+                </div>
+                <span data-hf-id="hf-fjk6" class="funnel-count">1,628</span>
+              </div>
+              <div data-hf-id="hf-00sv" class="funnel-row">
+                <div data-hf-id="hf-mc39" class="funnel-stage">
+                  <div data-hf-id="hf-zuxm" class="funnel-bar" style="width: 18%"></div>
+                  <span data-hf-id="hf-6d9b" class="funnel-label">Offre acceptée</span>
+                </div>
+                <span data-hf-id="hf-r3ic" class="funnel-count">982</span>
+              </div>
+              <div data-hf-id="hf-zmhu" class="funnel-row">
+                <div data-hf-id="hf-nj0c" class="funnel-stage">
+                  <div data-hf-id="hf-v2am" class="funnel-bar" style="width: 14%"></div>
+                  <span data-hf-id="hf-ylvq" class="funnel-label">Embauché</span>
+                </div>
+                <span data-hf-id="hf-2f4o" class="funnel-count">814</span>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-crcn" class="card">
+            <h3 data-hf-id="hf-6ga2" class="card-title">Offres difficiles à pourvoir</h3>
+            <p data-hf-id="hf-z9kc" style="font-size: 13px; color: var(--text-secondary); margin-top: -8px; margin-bottom: 16px;">Postes avec moins de 5 candidats en 30 jours</p>
+            <div data-hf-id="hf-kr9i" class="bar-list">
+              <div data-hf-id="hf-f5c6" class="bar-item">
+                <span data-hf-id="hf-7mef" class="bar-label">Superviseur de production textile</span>
+                <span data-hf-id="hf-gn41" class="bar-value">2 candidats</span>
+                <div data-hf-id="hf-9eah" class="bar-track"><div data-hf-id="hf-h45a" class="bar-fill muted" style="width: 12%"></div></div>
+              </div>
+              <div data-hf-id="hf-dyf3" class="bar-item">
+                <span data-hf-id="hf-9057" class="bar-label">Soudeur certifié</span>
+                <span data-hf-id="hf-5y8s" class="bar-value">3 candidats</span>
+                <div data-hf-id="hf-9sli" class="bar-track"><div data-hf-id="hf-iie7" class="bar-fill muted" style="width: 20%"></div></div>
+              </div>
+              <div data-hf-id="hf-ecq4" class="bar-item">
+                <span data-hf-id="hf-l4ut" class="bar-label">Technicien de classement du cuir</span>
+                <span data-hf-id="hf-7w3b" class="bar-value">4 candidats</span>
+                <div data-hf-id="hf-8lof" class="bar-track"><div data-hf-id="hf-gy87" class="bar-fill muted" style="width: 28%"></div></div>
+              </div>
+              <div data-hf-id="hf-d5t1" class="bar-item">
+                <span data-hf-id="hf-upmi" class="bar-label">Mécanicien d'engins lourds</span>
+                <span data-hf-id="hf-8lkn" class="bar-value">4 candidats</span>
+                <div data-hf-id="hf-8zzg" class="bar-track"><div data-hf-id="hf-x8br" class="bar-fill muted" style="width: 28%"></div></div>
+              </div>
+              <div data-hf-id="hf-dk42" class="bar-item">
+                <span data-hf-id="hf-qamp" class="bar-label">Contrôleur qualité en agro-industrie</span>
+                <span data-hf-id="hf-pxv5" class="bar-value">1 candidat</span>
+                <div data-hf-id="hf-7t2d" class="bar-track"><div data-hf-id="hf-hbkv" class="bar-fill muted" style="width: 6%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-98bn" class="section animate-enter delay-4">
+        <div data-hf-id="hf-rppf" class="section-header">
+          <h2 data-hf-id="hf-7q7d" class="section-title">Activité récente du portail</h2>
+          <span data-hf-id="hf-crha" class="section-note">Dernières actions de l'équipe Corporate et des filiales &amp; unités commerciales</span>
+        </div>
+        <div data-hf-id="hf-d5no" class="card">
+          <div data-hf-id="hf-jg0w" class="activity-list">
+            <div data-hf-id="hf-jnl0" class="activity-row">
+              <time data-hf-id="hf-g4ei" class="activity-time">13 août, 14:38</time>
+              <p data-hf-id="hf-xb59" class="activity-text"><strong data-hf-id="hf-7in6">Marcus Sterling</strong> filiale vérifiée <strong data-hf-id="hf-zmmg">Rift Valley Agro-Processing</strong></p>
+              <span data-hf-id="hf-owcb" class="activity-meta">Statut : En attente d'examen → Vérifié</span>
+            </div>
+            <div data-hf-id="hf-xg4c" class="activity-row">
+              <time data-hf-id="hf-rte5" class="activity-time">13 août, 13:52</time>
+              <p data-hf-id="hf-nfjy" class="activity-text"><strong data-hf-id="hf-opv9">Dawit Haile</strong> a invité <strong data-hf-id="hf-efga">wanjiru.kamau@paea.africa</strong> en tant que Responsable Pays</p>
+              <span data-hf-id="hf-d1nr" class="activity-meta">Bureau : Nairobi, Kenya</span>
+            </div>
+            <div data-hf-id="hf-w979" class="activity-row">
+              <time data-hf-id="hf-ehci" class="activity-time">13 août, 11:20</time>
+              <p data-hf-id="hf-io8q" class="activity-text"><strong data-hf-id="hf-zllf">Système</strong> importé 63 nouvelles offres des filiales &amp; unités commerciales</p>
+              <span data-hf-id="hf-gxq3" class="activity-meta">Source : Flux des filiales</span>
+            </div>
+            <div data-hf-id="hf-wnia" class="activity-row">
+              <time data-hf-id="hf-fw2a" class="activity-time">13 août, 09:47</time>
+              <p data-hf-id="hf-53hu" class="activity-text"><strong data-hf-id="hf-zoxy">Marcus Sterling</strong> filiale mise en pause <strong data-hf-id="hf-3s9o">Northern Highlands Construction</strong></p>
+              <span data-hf-id="hf-d3k3" class="activity-meta">Commentaire : Inactif depuis 120 jours</span>
+            </div>
+            <div data-hf-id="hf-yn1f" class="activity-row">
+              <time data-hf-id="hf-q8a0" class="activity-time">12 août, 16:15</time>
+              <p data-hf-id="hf-5h4h" class="activity-text"><strong data-hf-id="hf-tkzr">Tigist Alemu</strong> a généré le rapport mensuel d'emploi des entreprises membres</p>
+              <span data-hf-id="hf-y3d1" class="activity-meta">Format : PDF</span>
+            </div>
+            <div data-hf-id="hf-z1cg" class="activity-row">
+              <time data-hf-id="hf-brh8" class="activity-time">12 août, 11:03</time>
+              <p data-hf-id="hf-6m1t" class="activity-text"><strong data-hf-id="hf-psmh">Dawit Haile</strong> a refusé l'approbation de la demande d'adhésion de <strong data-hf-id="hf-zo1m">Central Leather Works</strong></p>
+              <span data-hf-id="hf-pec6" class="activity-meta">Commentaire : Documents d'adhésion incomplets</span>
+            </div>
+            <div data-hf-id="hf-xufd" class="activity-row">
+              <time data-hf-id="hf-ri13" class="activity-time">11 août, 15:29</time>
+              <p data-hf-id="hf-uch1" class="activity-text"><strong data-hf-id="hf-km7n">Système</strong> a ajouté 47 nouveaux profils de demandeurs d'emploi</p>
+              <span data-hf-id="hf-j8rz" class="activity-meta">Source : Enregistrement direct</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    // Pretext-powered text reflow for metric tiles and card titles
+    const { prepare, layout } = window.Pretext;
+    await document.fonts.ready;
+
+    const pretextElements = document.querySelectorAll('[data-pretext]');
+    const prepared = new Map();
+
+    for (const el of pretextElements) {
+      const font = getComputedStyle(el).font;
+      prepared.set(el, prepare(el.textContent, font));
+    }
+
+    function relayout() {
+      for (const [el, handle] of prepared) {
+        const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+        const { height } = layout(handle, el.clientWidth, lineHeight);
+        el.style.height = `${height}px`;
+      }
+    }
+
+    const ro = new ResizeObserver(() => relayout());
+    ro.observe(document.body);
+    relayout();
+
+    for (const el of pretextElements) {
+      if (el.contentEditable === 'true') {
+        new MutationObserver(() => {
+          const font = getComputedStyle(el).font;
+          prepared.set(el, prepare(el.textContent, font));
+          relayout();
+        }).observe(el, { characterData: true, subtree: true, childList: true });
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["beat-01"] = tl;
+  </script>
+</div>
+</body>
+
+</html>

@@ -4,8 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="../../gate.js"></script>
-  <title>Community Talent Portal — Jobs and Applications</title>
-  <meta name="description" content="Pan-African Enterprise Alliance — Community Talent Portal jobs and applications prototype"/>
+  <title>Community Employment Portal — Jobs and Applications</title>
+  <meta name="description" content="Pan-African Organization — Community Employment Portal jobs and applications prototype"/>
 
   <!-- Language Routing & Preference Persistence (R8) -->
   <script>
@@ -607,8 +607,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Pan-African Enterprise Alliance</div>
-          <div class="brand-sub">Community Talent Portal</div>
+          <div class="brand-name">Pan-African Organization</div>
+          <div class="brand-sub">Community Employment Portal</div>
         </div>
       </div>
 
@@ -743,7 +743,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">2 <small style="color:var(--error-text); font-weight:600;">(Hard-to-fill)</small></td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Textile Production Supervisor', 'Highland Textile Works', 2)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleTextileProdSupervisor, 'Highland Textile Works', 2)">View Funnel</button>
               </td>
             </tr>
             <tr data-entity="highland textile works" data-sector="manufacturing and textiles" data-status="active">
@@ -755,7 +755,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">18</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Industrial Electrician', 'Highland Textile Works', 18)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleIndustrialElectrician, 'Highland Textile Works', 18)">View Funnel</button>
               </td>
             </tr>
             <tr data-entity="rift valley agro-processing" data-sector="agriculture and agro-processing" data-status="active">
@@ -767,7 +767,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">12</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Agro-Processing Line Technician', 'Rift Valley Agro-Processing', 12)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleAgroProcessingTechnician, 'Rift Valley Agro-Processing', 12)">View Funnel</button>
               </td>
             </tr>
             <tr data-entity="coastal hospitality group" data-sector="tourism and hospitality" data-status="active">
@@ -779,7 +779,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">45</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Front Office Supervisor', 'Coastal Hospitality Group', 45)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleFrontOfficeSupervisor, 'Coastal Hospitality Group', 45)">View Funnel</button>
               </td>
             </tr>
             <tr data-entity="tigray construction partners" data-sector="construction" data-status="active">
@@ -791,7 +791,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">6</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Construction Site Supervisor', 'Tigray Construction Partners', 6)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleConstructionSiteSupervisor, 'Tigray Construction Partners', 6)">View Funnel</button>
               </td>
             </tr>
             <tr data-entity="mombasa road logistics" data-sector="logistics and transport" data-status="active">
@@ -803,7 +803,7 @@
               <td><span class="badge badge-success">Active</span></td>
               <td style="font-family:var(--font-mono)">9</td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel('Logistics Coordinator', 'Mombasa Road Logistics', 9)">View Funnel</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="viewFunnel(STR.jobTitleLogisticsCoordinator, 'Mombasa Road Logistics', 9)">View Funnel</button>
               </td>
             </tr>
           </tbody>
@@ -820,7 +820,7 @@
 
       <div class="privacy-box">
         <i class="ph-bold ph-shield-check"></i>
-        <span>Individual applicant identities are masked in accordance with Alliance data privacy controls.</span>
+        <span>Individual applicant identities are masked in accordance with Organization data privacy controls.</span>
       </div>
 
       <h4 style="font-size: 13px; font-weight:600; margin-bottom:8px;">Pipeline Status:</h4>
@@ -847,7 +847,13 @@
       stageCallScreening: "Call screening",
       stageQualified: "Qualified",
       stageNewApplicant: "New applicant",
-      moreApplicants: "... and {count} more applicants in earlier stages."
+      moreApplicants: "... and {count} more applicants in earlier stages.",
+      jobTitleTextileProdSupervisor: "Textile Production Supervisor",
+      jobTitleIndustrialElectrician: "Industrial Electrician",
+      jobTitleAgroProcessingTechnician: "Agro-Processing Line Technician",
+      jobTitleFrontOfficeSupervisor: "Front Office Supervisor",
+      jobTitleConstructionSiteSupervisor: "Construction Site Supervisor",
+      jobTitleLogisticsCoordinator: "Logistics Coordinator"
     };
     /* i18n:STR:end */
     const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');

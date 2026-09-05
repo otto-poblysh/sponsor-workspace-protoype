@@ -1,0 +1,410 @@
+npm notice run sponsor-workspace-prototype@1.0.0 npx
+npm notice run 'hyperframes' check tutorial-video
+◆  Checking tutorial-video
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 11 font face(s) for "Roboto" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/roboto)
+[INFO] [Compiler] Fetched 11 font face(s) for "Roboto" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/roboto)
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 10 font face(s) for "JetBrains Mono" from Google Fonts (cached to /Users/akamaotto/.cache/hyperframes/fonts/jetbrains-mono)
+[INFO] [Compiler] Injected deterministic @font-face rules for 6 requested font families
+[hyperframes] browserGpuMode probe → hardware (WebGL renderer vendor="Google Inc. (Apple)" renderer="ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Max, Unspecified Version)")
+
+Lint
+  ⚠ composition_file_too_large: This HTML composition file has 534 lines. Smaller sub-compositions are easier to read, iterate on, and diff.
+    /Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tutorial-video/compositions/beat-01-dashboard.html [data-composition-id] t=0s
+    Fix: Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently.
+  ⚠ composition_file_too_large: This HTML composition file has 459 lines. Smaller sub-compositions are easier to read, iterate on, and diff.
+    /Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tutorial-video/compositions/beat-02-verification.html [data-composition-id] t=0s
+    Fix: Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently.
+  ⚠ composition_file_too_large: This HTML composition file has 447 lines. Smaller sub-compositions are easier to read, iterate on, and diff.
+    /Users/akamaotto/code/icubefarm/sponsor-workspace-prototype/tutorial-video/compositions/beat-03-skill-gap.html [data-composition-id] t=0s
+    Fix: Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently.
+  0 error(s), 3 warning(s), 0 info(s)
+
+Runtime
+  ✗ request_failed: Failed to load client.js: net::ERR_BLOCKED_BY_ORB
+    index.html [data-composition-id] t=0s
+  1 error(s), 0 warning(s), 0 info(s)
+
+Layout
+  ⚠ t=36.67-43.33s (2 samples) panel_out_of_canvas div.card inside #root overflowed bottom 57px "GENERATED AT REPORT TYPE REQUESTOR FORMAT STATUS" — Painted panel extends outside the composition canvas.
+        Fix: Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=3.33s container_overflow div.text-container inside #beat-00 > div:nth-of-type(1) overflowed top 16px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) inside #root overflowed bottom 6.5px "Customer service" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) inside #root overflowed bottom 6.5px "264" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(3) inside #root overflowed bottom 6.5px "2,486" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-success inside #root overflowed bottom 5px "Surplus" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(1) inside #root overflowed bottom 52.5px "Equipment maintenance" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) inside #root overflowed bottom 52.5px "238" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(3) inside #root overflowed bottom 52.5px "724" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-error inside #root overflowed bottom 51px "Shortage" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) inside #root overflowed bottom 98.5px "Construction trades" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(2) inside #root overflowed bottom 98.5px "219" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(3) inside #root overflowed bottom 98.5px "1,358" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-warning inside #root overflowed bottom 97px "Tight" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(1) inside #root overflowed bottom 144.5px "Sales & merchandising" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(2) inside #root overflowed bottom 144.5px "197" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(3) inside #root overflowed bottom 144.5px "2,104" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-success inside #root overflowed bottom 143px "Surplus" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) inside #root overflowed bottom 6.5px "Office productivity tools" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) inside #root overflowed bottom 6.5px "161" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(3) inside #root overflowed bottom 6.5px "1,842" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-warning inside #root overflowed bottom 5px "Tight" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(1) inside #root overflowed bottom 52.5px "Welding & fabrication" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) inside #root overflowed bottom 52.5px "148" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(3) inside #root overflowed bottom 52.5px "382" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) inside #root overflowed bottom 98.5px "Commercial driving" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(2) inside #root overflowed bottom 98.5px "132" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(3) inside #root overflowed bottom 98.5px "608" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(1) inside #root overflowed bottom 144.5px "Hospitality operations" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(2) inside #root overflowed bottom 144.5px "119" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow table.data-table > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(3) inside #root overflowed bottom 144.5px "354" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.badge.badge-error inside #root overflowed bottom 143px "Shortage" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow h2.section-title inside #root overflowed bottom 255px "Jobs and applications" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.section-note inside #root overflowed bottom 254px "Hard-to-fill roles and the application funnel" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow h3.card-title inside #root overflowed bottom 321px "Application funnel" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 379px "New applicants" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 371.5px "6,408" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 424.5px "Qualified" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 425px "4,550" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 470.5px "Employer screening" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 471px "2,986" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 516.5px "Background check" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 517px "2,114" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 562.5px "Shortlisted" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 563px "1,628" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 608.5px "Offer accepted" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 609px "982" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-label inside #root overflowed bottom 654.5px "Hired" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.funnel-count inside #root overflowed bottom 655px "814" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow h3.card-title inside #root overflowed bottom 321px "Hard-to-fill jobs" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow div.card > p:nth-of-type(1) inside #root overflowed bottom 345px "Roles with fewer than 5 applicants in 30 days" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-label inside #root overflowed bottom 377px "Industrial electrician" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-value inside #root overflowed bottom 377px "2 applicants" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-label inside #root overflowed bottom 431px "Offshore safety technician" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-value inside #root overflowed bottom 431px "3 applicants" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-label inside #root overflowed bottom 485px "Certified welder" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-value inside #root overflowed bottom 485px "4 applicants" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-label inside #root overflowed bottom 539px "Heavy equipment mechanic" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-value inside #root overflowed bottom 539px "4 applicants" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-label inside #root overflowed bottom 593px "Hotel operations supervisor" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.bar-value inside #root overflowed bottom 593px "1 applicant" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow h2.section-title inside #root overflowed bottom 761px "Recent portal activity" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.section-note inside #root overflowed bottom 760px "Latest actions across ministry users and registered employers" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow time.activity-time inside #root overflowed bottom 841px "13 Aug, 14:38" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text inside #root overflowed bottom 855px "verified employer" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(1) inside #root overflowed bottom 855px "María Esono" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(2) inside #root overflowed bottom 855px "Bioko Marine Services" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.activity-meta inside #root overflowed bottom 839px "Status: Pending → Verified" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow time.activity-time inside #root overflowed bottom 915.5px "13 Aug, 13:52" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text inside #root overflowed bottom 929.5px "invited as Regional Officer" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(1) inside #root overflowed bottom 929.5px "Pedro Nsue" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(2) inside #root overflowed bottom 929.5px "inspeccion.bata@trabajo.gob.gq" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.activity-meta inside #root overflowed bottom 913.5px "Office: Litoral" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow time.activity-time inside #root overflowed bottom 990px "13 Aug, 11:20" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text inside #root overflowed bottom 1004px "imported 63 new vacancies from registered employers" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(1) inside #root overflowed bottom 1004px "System" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow span.activity-meta inside #root overflowed bottom 988px "National Employment Service" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow time.activity-time inside #root overflowed bottom 1064.5px "13 Aug, 09:47" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text inside #root overflowed bottom 1078.5px "suspended employer" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  ℹ t=10s canvas_overflow p.activity-text > strong:nth-of-type(1) inside #root overflowed bottom 1078.5px "María Esono" — Text extends outside the composition canvas.
+        Fix: Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.
+  0 error(s), 1 warning(s), 79 info(s)
+
+Motion
+  ◇ 0 errors, 0 warnings
+
+Contrast
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(1) > div 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(2) > div 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(3) > div 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > aside > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(2) 4.25:1 (need 4.5:1, t=16.667s)
+    Try rgb(116,115,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > header > div:nth-of-type(1) > p 4.14:1 (need 4.5:1, t=16.667s)
+    Try rgb(114,113,111); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(1) > div:nth-of-type(1) > label 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(1) > div:nth-of-type(2) > label 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(1) > div:nth-of-type(3) > label 2.55:1 (need 4.5:1, t=16.667s)
+    Try rgb(120,118,112); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(1) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(2) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(3) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(4) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(5) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(6) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(7) 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(1) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(1) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(4) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(4) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(5) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(5) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(6) > td:nth-of-type(1) > small 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(1) > main > div:nth-of-type(2) > table > tbody > tr:nth-of-type(6) > td:nth-of-type(6) > div > span 4.48:1 (need 4.5:1, t=16.667s)
+    Try rgb(119,118,115); source compositions/beat-02-verification.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(1) > div 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(2) > div 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(3) > div 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > aside > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(2) 4.25:1 (need 4.5:1, t=30s)
+    Try rgb(116,115,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > header > div:nth-of-type(1) > p 4.14:1 (need 4.5:1, t=30s)
+    Try rgb(114,113,111); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(1) > div:nth-of-type(1) > label 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(1) > div:nth-of-type(2) > label 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(1) > div:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(1) > div:nth-of-type(3) 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(2) > div:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(2) > div:nth-of-type(3) 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(3) > div:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(3) > div:nth-of-type(3) 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(4) > div:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > section > article:nth-of-type(4) > div:nth-of-type(3) 2.55:1 (need 4.5:1, t=30s)
+    Try rgb(120,118,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table > thead > tr > th:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table > thead > tr > th:nth-of-type(2) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table > thead > tr > th:nth-of-type(3) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table > thead > tr > th:nth-of-type(4) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(1) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(2) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(3) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(4) 4.48:1 (need 4.5:1, t=30s)
+    Try rgb(119,118,115); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(2) > div > div:nth-of-type(1) > p 4.25:1 (need 4.5:1, t=30s)
+    Try rgb(116,115,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(2) > div > div:nth-of-type(2) > p 4.25:1 (need 4.5:1, t=30s)
+    Try rgb(116,115,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div > main > div:nth-of-type(3) > div:nth-of-type(2) > div > div:nth-of-type(3) > p 4.25:1 (need 4.5:1, t=30s)
+    Try rgb(116,115,112); source compositions/beat-03-skill-gap.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(1) > div 2.55:1 (need 4.5:1, t=43.333s)
+    Try rgb(120,118,112); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(1) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(2) > div 2.55:1 (need 4.5:1, t=43.333s)
+    Try rgb(120,118,112); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(2) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(3) > div 2.55:1 (need 4.5:1, t=43.333s)
+    Try rgb(120,118,112); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(1) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(2) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(3) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > nav > div:nth-of-type(3) > ul > li:nth-of-type(4) > a 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > aside > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(2) 4.25:1 (need 4.5:1, t=43.333s)
+    Try rgb(116,115,112); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > header > div > p 4.14:1 (need 4.5:1, t=43.333s)
+    Try rgb(114,113,111); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(1) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(2) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(3) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(4) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(5) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(1) > div:nth-of-type(2) > div > div:nth-of-type(6) > div > span:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(1) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(2) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(3) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(4) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(5) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > thead > tr > th:nth-of-type(6) 4.48:1 (need 4.5:1, t=43.333s)
+    Try rgb(119,118,115); source compositions/beat-04-reports.html
+  ✗ div > div:nth-of-type(2) > div > div:nth-of-type(4) > div > div > main > section:nth-of-type(2) > div:nth-of-type(2) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(6) 2.55:1 (need 4.5:1, t=43.333s)
+    Try rgb(120,118,112); source compositions/beat-04-reports.html
+  0 error(s), 104 warning(s), 0 info(s)
+
+Snapshots
+  ◇ disabled
+
+◇  Check failed

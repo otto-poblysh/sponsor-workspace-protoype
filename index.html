@@ -873,10 +873,13 @@
           <label data-hf-id="hf-48au" class="filter-label" for="filter-status">Employer status</label>
           <select data-hf-id="hf-vnvr" id="filter-status" class="filter-select">
             <option data-hf-id="hf-q0w7">All statuses</option>
-            <option data-hf-id="hf-og08">Verified</option>
+            <option data-hf-id="hf-og08">Active</option>
             <option data-hf-id="hf-g7ch">Pending review</option>
             <option data-hf-id="hf-fvoj">Invited</option>
-            <option data-hf-id="hf-9tu9">Suspended</option>
+            <option data-hf-id="hf-9pau">Paused</option>
+            <option data-hf-id="hf-9tu9">Inactive</option>
+            <option data-hf-id="hf-9exp">Expired</option>
+            <option data-hf-id="hf-9unp">Unapproved</option>
           </select>
         </div>
         <div data-hf-id="hf-d57n" class="filter-group">
@@ -899,7 +902,7 @@
           <div data-hf-id="hf-1syl" class="kpi-label">Registered employers</div>
           <div data-hf-id="hf-x6d9" class="kpi-value">386</div>
           <div data-hf-id="hf-jabu" class="kpi-delta positive"><i data-hf-id="hf-2owo" class="ph-bold ph-trend-up"></i> +21 this month</div>
-          <div data-hf-id="hf-aczh" class="kpi-context">351 verified, 12 pending, 23 invited</div>
+          <div data-hf-id="hf-aczh" class="kpi-context">334 active, 23 invited, 12 pending review, 10 paused, 14 inactive, 5 expired, 4 unapproved</div>
         </article>
         <article data-hf-id="hf-p1e6" class="kpi-tile animate-enter delay-2">
           <div data-hf-id="hf-vddb" class="kpi-label">Active jobs</div>
@@ -1009,19 +1012,22 @@
 
       <section data-hf-id="hf-9wk4" class="section animate-enter delay-3">
         <div data-hf-id="hf-qx3d" class="section-header">
-          <h2 data-hf-id="hf-tfr7" class="section-title">Skills in demand and supply</h2>
-          <span data-hf-id="hf-5g74" class="section-note">Capabilities requested by private employers compared with registered worker profiles</span>
-        </div>
-        <div data-hf-id="hf-wg0t" class="bento bento-2">
-          <div data-hf-id="hf-isuw" class="card">
-            <h3 data-hf-id="hf-mphv" class="card-title">General / key skills</h3>
-            <table data-hf-id="hf-r3h0" class="data-table">
-              <thead data-hf-id="hf-zd89">
+      <!-- Charts & Visualisation Bento -->
+      <section data-hf-id="hf-c5yo" class="bento bento-dashboard animate-enter delay-3">
+        <!-- Main Column: In-demand skills vs labour supply -->
+        <div data-hf-id="hf-b30v" class="bento-col-skills">
+          <div data-hf-id="hf-bf3u" class="card">
+            <div data-hf-id="hf-f0r1" class="card-header">
+              <h3 data-hf-id="hf-tq7n" class="card-title">Skills in demand and supply</h3>
+              <a data-hf-id="hf-c9yv" href="skill-gap.html" class="btn btn-secondary" style="padding: 6px 12px; font-size: 13px;">View full report</a>
+            </div>
+            <table data-hf-id="hf-bs7n" class="data-table">
+              <thead data-hf-id="hf-s9r6">
                 <tr data-hf-id="hf-p3r7">
                   <th data-hf-id="hf-1vl6">Skill</th>
                   <th data-hf-id="hf-5dmh">Jobs requiring</th>
                   <th data-hf-id="hf-3llk">Seekers with skill</th>
-                  <th data-hf-id="hf-8utn">Gap</th>
+                  <th data-hf-id="hf-8utn">Availability</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-bsvf">
@@ -1029,31 +1035,31 @@
                   <td data-hf-id="hf-eeet">Occupational health &amp; safety</td>
                   <td data-hf-id="hf-39f7">286</td>
                   <td data-hf-id="hf-y6m5">1,094</td>
-                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Tight</span></td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr data-hf-id="hf-cz86">
                   <td data-hf-id="hf-msxq">Customer service</td>
                   <td data-hf-id="hf-ivpz">264</td>
                   <td data-hf-id="hf-u5pn">2,486</td>
-                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Surplus</span></td>
+                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Above Average</span></td>
                 </tr>
                 <tr data-hf-id="hf-ckx5">
                   <td data-hf-id="hf-sahc">Equipment maintenance</td>
                   <td data-hf-id="hf-de3i">238</td>
                   <td data-hf-id="hf-88bs">724</td>
-                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Shortage</span></td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Low</span></td>
                 </tr>
                 <tr data-hf-id="hf-c6m4">
                   <td data-hf-id="hf-hwlf">Construction trades</td>
                   <td data-hf-id="hf-o0r3">219</td>
                   <td data-hf-id="hf-9lbo">1,358</td>
-                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Tight</span></td>
+                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr data-hf-id="hf-bsb3">
                   <td data-hf-id="hf-xwwd">Sales &amp; merchandising</td>
                   <td data-hf-id="hf-bw2g">197</td>
                   <td data-hf-id="hf-r84a">2,104</td>
-                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Surplus</span></td>
+                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">High</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1067,7 +1073,7 @@
                   <th data-hf-id="hf-iewe">Skill</th>
                   <th data-hf-id="hf-88i5">Jobs requiring</th>
                   <th data-hf-id="hf-hgfk">Seekers with skill</th>
-                  <th data-hf-id="hf-5yzv">Gap</th>
+                  <th data-hf-id="hf-5yzv">Availability</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-2rij">
@@ -1075,31 +1081,31 @@
                   <td data-hf-id="hf-mxgy">Industrial electrical systems</td>
                   <td data-hf-id="hf-3rvj">174</td>
                   <td data-hf-id="hf-dd54">496</td>
-                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Shortage</span></td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Low</span></td>
                 </tr>
                 <tr data-hf-id="hf-ale0">
                   <td data-hf-id="hf-i088">Office productivity tools</td>
                   <td data-hf-id="hf-rhbx">161</td>
                   <td data-hf-id="hf-d09u">1,842</td>
-                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-warning">Tight</span></td>
+                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-success">Above Average</span></td>
                 </tr>
                 <tr data-hf-id="hf-a72z">
                   <td data-hf-id="hf-yx7n">Welding &amp; fabrication</td>
                   <td data-hf-id="hf-8dz4">148</td>
                   <td data-hf-id="hf-bi7o">382</td>
-                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Shortage</span></td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Low</span></td>
                 </tr>
                 <tr data-hf-id="hf-j2bt">
                   <td data-hf-id="hf-47xo">Commercial driving</td>
                   <td data-hf-id="hf-opy5">132</td>
                   <td data-hf-id="hf-f395">608</td>
-                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Tight</span></td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Below Average</span></td>
                 </tr>
                 <tr data-hf-id="hf-jgmu">
                   <td data-hf-id="hf-93cd">Hospitality operations</td>
                   <td data-hf-id="hf-l73e">119</td>
-                  <td data-hf-id="hf-ov1v">354</td>
-                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Shortage</span></td>
+                  <td data-hf-id="hf-q38m">354</td>
+                  <td data-hf-id="hf-o12b"><span data-hf-id="hf-581b" class="badge badge-error">Low</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1226,7 +1232,7 @@
             </div>
             <div data-hf-id="hf-wnia" class="activity-row">
               <time data-hf-id="hf-fw2a" class="activity-time">13 Aug, 09:47</time>
-              <p data-hf-id="hf-53hu" class="activity-text"><strong data-hf-id="hf-zoxy">María Esono</strong> suspended employer <strong data-hf-id="hf-3s9o">Río Muni Logistics</strong></p>
+              <p data-hf-id="hf-53hu" class="activity-text"><strong data-hf-id="hf-zoxy">María Esono</strong> paused employer <strong data-hf-id="hf-3s9o">Río Muni Logistics</strong></p>
               <span data-hf-id="hf-d3k3" class="activity-meta">Comment: Inactive for 120 days</span>
             </div>
             <div data-hf-id="hf-yn1f" class="activity-row">
@@ -1236,7 +1242,7 @@
             </div>
             <div data-hf-id="hf-z1cg" class="activity-row">
               <time data-hf-id="hf-brh8" class="activity-time">12 Aug, 11:03</time>
-              <p data-hf-id="hf-6m1t" class="activity-text"><strong data-hf-id="hf-psmh">Pedro Nsue</strong> returned employer registration <strong data-hf-id="hf-zo1m">Litoral Obras</strong></p>
+              <p data-hf-id="hf-6m1t" class="activity-text"><strong data-hf-id="hf-psmh">Pedro Nsue</strong> unapproved employer registration <strong data-hf-id="hf-zo1m">Litoral Obras</strong></p>
               <span data-hf-id="hf-pec6" class="activity-meta">Comment: Incomplete registration documents</span>
             </div>
             <div data-hf-id="hf-xufd" class="activity-row">

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Portail du Groupe Corporate — Intégrations</title>
+  <meta name="description" content="Prototype du centre d'intégrations d'entreprise de Corporate Multinational Group LTD">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+      border-color: var(--text-tertiary);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .integration-card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+    }
+
+    .integration-card:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: #d8d8d8;
+    }
+
+    .integration-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .integration-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+    }
+
+    .icon-sap { background: #008FD3; color: white; }
+    .icon-linkedin { background: #0A66C2; color: white; }
+    .icon-glassdoor { background: #0CAA41; color: white; }
+    .icon-indeed { background: #2164F3; color: white; }
+    .icon-workday { background: #E28225; color: white; }
+    .icon-api { background: #1E3A5F; color: white; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    .integration-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .integration-type {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-sm);
+    }
+
+    .integration-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0 0 var(--space-lg);
+    }
+
+    .integration-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .integration-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      place-items: center;
+      z-index: 100;
+      padding: var(--space-lg);
+    }
+
+    .modal-overlay.is-open { display: grid; }
+
+    .modal {
+      background: var(--canvas);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .modal-title { font-size: 18px; font-weight: 600; margin: 0 0 6px; }
+    .modal-desc { font-size: 13px; color: var(--text-secondary); margin: 0 0 var(--space-lg); }
+
+    .form-group { margin-bottom: var(--space-md); }
+    .form-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 150ms ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent);
+      background: var(--canvas);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-sm);
+      margin-top: var(--space-xl);
+    }
+
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      right: var(--space-md);
+      z-index: 50;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        width: 260px;
+        z-index: 40;
+        transition: left 200ms ease;
+      }
+      .sidebar.is-open { left: 0; }
+      .mobile-nav-toggle { display: block; }
+      .main { padding: var(--space-lg); }
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-enter { animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+<div data-hf-id="hf-26q0" data-composition-id="beat-03" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Ouvrir la navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-wtkg" class="brand-name">Corporate Multinational Group LTD</div>
+          <div data-hf-id="hf-op2x" class="brand-sub">Portail des Talents du Groupe</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Vue d'ensemble</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-9ed1" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Tableau de Bord Corporate</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-4ky9" class="nav-item" href="entities.html"><i data-hf-id="hf-qyks" class="ph-bold ph-buildings"></i> Filiales et Unités Commerciales</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-blrt" class="nav-item is-active" href="integrations.html"><i data-hf-id="hf-zpwu" class="ph-bold ph-plugs-connected"></i> Intégrations</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-jz0b" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Offres &amp; Candidatures</a></li>
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-6hq0" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Équipe Corporate</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Analyses</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Rapport sur le déficit de compétences</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-ve7p" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Rapports d'Impact du Groupe</a></li>
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Journaux d'activité</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Paramètres</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Image de marque du portail</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-y3pc" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i> Pays d'Implantation</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinataires des rapports</a></li>
+            <li data-hf-id="hf-ck35"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Préférences de notification</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-czgt" class="lang-opt is-active" hreflang="en" href="integrations.html">EN</a>
+          <a data-hf-id="hf-qinm" class="lang-opt" hreflang="fr" href="integrations.html">FR</a>
+          <a data-hf-id="hf-jv36" class="lang-opt" hreflang="es" href="integrations.html">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-whet" class="user-avatar">MS</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-6f7e" class="user-name">Marcus Sterling</div>
+            <div data-hf-id="hf-s8m6" class="user-role">Administrateur Exécutif du Groupe</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-gfcc" class="page-title">Intégrations d'Entreprise</h1>
+          <p data-hf-id="hf-ar6s" class="page-subtitle">Connectez les SIRH, ATS, canaux de diffusion d'offres et plateformes de marque employeur centralisés pour toutes les filiales du groupe</p>
+        </div>
+        <div data-hf-id="hf-91nl" class="header-actions">
+          <button data-hf-id="hf-4k1i" class="btn btn-secondary" onclick="openModal('sync-all-modal')"><i data-hf-id="hf-rebq" class="ph-bold ph-arrows-clockwise"></i> Synchroniser toutes les intégrations</button>
+          <button data-hf-id="hf-jdlt" class="btn btn-primary" onclick="openModal('add-connector-modal')"><i data-hf-id="hf-v891" class="ph-bold ph-plus"></i> Ajouter un connecteur</button>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-sdaa" class="grid-2 animate-enter delay-1">
+        <!-- SAP SuccessFactors -->
+        <div data-hf-id="hf-fvdx" class="integration-card">
+          <div data-hf-id="hf-xfcu">
+            <div data-hf-id="hf-36ep" class="integration-head">
+              <div data-hf-id="hf-urfw" class="integration-icon icon-sap"><i data-hf-id="hf-2s4q" class="ph-bold ph-database"></i></div>
+              <span data-hf-id="hf-3li8" class="badge badge-success"><i data-hf-id="hf-tf5g" class="ph-bold ph-check-circle"></i> Connecté</span>
+            </div>
+            <div data-hf-id="hf-qs8g" class="integration-type">Référentiel SIRH &amp; ERP</div>
+            <h3 data-hf-id="hf-2ife" class="integration-title">SAP SuccessFactors</h3>
+            <p data-hf-id="hf-t9sg" class="integration-desc">Synchronisation bidirectionnelle des dossiers employés, des effectifs des filiales et intégration automatisée pour 38 unités commerciales.</p>
+          </div>
+          <div data-hf-id="hf-008o" class="integration-meta">
+            <span data-hf-id="hf-tmc8">Dernière synchronisation : il y a 14 min · 1 420 offres synchronisées</span>
+            <div data-hf-id="hf-8zak" class="integration-actions">
+              <button data-hf-id="hf-lfdw" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="syncIntegration('SAP SuccessFactors')">Synchroniser maintenant</button>
+              <button data-hf-id="hf-uds2" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="configureIntegration('SAP SuccessFactors')">Configurer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LinkedIn Recruiter -->
+        <div data-hf-id="hf-6mm1" class="integration-card">
+          <div data-hf-id="hf-w8fr">
+            <div data-hf-id="hf-i71h" class="integration-head">
+              <div data-hf-id="hf-v4kq" class="integration-icon icon-linkedin"><i data-hf-id="hf-a6k9" class="ph-bold ph-linkedin-logo"></i></div>
+              <span data-hf-id="hf-tg2g" class="badge badge-success"><i data-hf-id="hf-91cc" class="ph-bold ph-check-circle"></i> Connecté</span>
+            </div>
+            <div data-hf-id="hf-2im6" class="integration-type">Sourcing et Synchronisation des Offres</div>
+            <h3 data-hf-id="hf-jrcg" class="integration-title">LinkedIn Recruiter</h3>
+            <p data-hf-id="hf-vcxh" class="integration-desc">Syndication automatisée des offres, intégration des candidatures Easy Apply et cartographie des viviers d'ingénieurs spécialisés.</p>
+          </div>
+          <div data-hf-id="hf-08i8" class="integration-meta">
+            <span data-hf-id="hf-ycsl">Actualisation automatique activée · 482 flux actifs</span>
+            <div data-hf-id="hf-5ft0" class="integration-actions">
+              <button data-hf-id="hf-ys6a" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="syncIntegration('LinkedIn Recruiter')">Synchroniser maintenant</button>
+              <button data-hf-id="hf-mijo" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="configureIntegration('LinkedIn Recruiter')">Configurer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indeed -->
+        <div data-hf-id="hf-7tj4" class="integration-card">
+          <div data-hf-id="hf-wmqs">
+            <div data-hf-id="hf-jdyk" class="integration-head">
+              <div data-hf-id="hf-7u5v" class="integration-icon icon-indeed"><i data-hf-id="hf-rqcr" class="ph-bold ph-briefcase"></i></div>
+              <span data-hf-id="hf-s95d" class="badge badge-success"><i data-hf-id="hf-7uf9" class="ph-bold ph-check-circle"></i> Connecté</span>
+            </div>
+            <div data-hf-id="hf-7pc7" class="integration-type">Diffusion Mondiale sur Job Boards</div>
+            <h3 data-hf-id="hf-ptf2" class="integration-title">Indeed</h3>
+            <p data-hf-id="hf-vai4" class="integration-desc">Diffusion automatisée par flux XML et API sur tous les marchés africains, candidatures directes et suivi des campagnes sponsorisées.</p>
+          </div>
+          <div data-hf-id="hf-z1l5" class="integration-meta">
+            <span data-hf-id="hf-wmao">Diffusion dans 8 pays · 3 110 candidats</span>
+            <div data-hf-id="hf-48vx" class="integration-actions">
+              <button data-hf-id="hf-lkh0" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="syncIntegration('Indeed')">Synchroniser maintenant</button>
+              <button data-hf-id="hf-zc72" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="configureIntegration('Indeed')">Configurer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glassdoor -->
+        <div data-hf-id="hf-7f83" class="integration-card">
+          <div data-hf-id="hf-vftp">
+            <div data-hf-id="hf-iznj" class="integration-head">
+              <div data-hf-id="hf-jn94" class="integration-icon icon-glassdoor"><i data-hf-id="hf-8qfp" class="ph-bold ph-star"></i></div>
+              <span data-hf-id="hf-snge" class="badge badge-success"><i data-hf-id="hf-88qa" class="ph-bold ph-check-circle"></i> Connecté</span>
+            </div>
+            <div data-hf-id="hf-4uly" class="integration-type">Réputation et Marque Employeur</div>
+            <h3 data-hf-id="hf-h529" class="integration-title">Glassdoor</h3>
+            <p data-hf-id="hf-3wuu" class="integration-desc">Synchronisation du profil employeur, analyse des avis employés, taux d'approbation de la direction et réputation des filiales.</p>
+          </div>
+          <div data-hf-id="hf-zfw6" class="integration-meta">
+            <span data-hf-id="hf-7rdr">Score : 4,2 / 5,0 · Mis à jour hier</span>
+            <div data-hf-id="hf-4n6y" class="integration-actions">
+              <button data-hf-id="hf-6w99" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="syncIntegration('Glassdoor')">Synchroniser maintenant</button>
+              <button data-hf-id="hf-m1vb" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="configureIntegration('Glassdoor')">Configurer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workday HCM -->
+        <div data-hf-id="hf-5foy" class="integration-card">
+          <div data-hf-id="hf-vu4q">
+            <div data-hf-id="hf-k6km" class="integration-head">
+              <div data-hf-id="hf-d063" class="integration-icon icon-workday"><i data-hf-id="hf-rjhh" class="ph-bold ph-tree-structure"></i></div>
+              <span data-hf-id="hf-hyx6" class="badge badge-warning"><i data-hf-id="hf-igb5" class="ph-bold ph-pause"></i> Prêt à connecter</span>
+            </div>
+            <div data-hf-id="hf-soxf" class="integration-type">Connecteur HCM d'Entreprise</div>
+            <h3 data-hf-id="hf-3d58" class="integration-title">Workday HCM</h3>
+            <p data-hf-id="hf-zfwe" class="integration-desc">Connecteur optionnel pour les filiales régionales utilisant Workday pour la rémunération et l'organigramme.</p>
+          </div>
+          <div data-hf-id="hf-y8z3" class="integration-meta">
+            <span data-hf-id="hf-fcuy">Non configuré</span>
+            <div data-hf-id="hf-6mq3" class="integration-actions">
+              <button data-hf-id="hf-8fu6" class="btn btn-primary" style="padding: 6px 12px; font-size:12px;" onclick="configureIntegration('Workday HCM')">Connecter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- REST API & Webhooks -->
+        <div data-hf-id="hf-51dx" class="integration-card">
+          <div data-hf-id="hf-1043">
+            <div data-hf-id="hf-js9l" class="integration-head">
+              <div data-hf-id="hf-y9us" class="integration-icon icon-api"><i data-hf-id="hf-95ri" class="ph-bold ph-code"></i></div>
+              <span data-hf-id="hf-zvhe" class="badge badge-info"><i data-hf-id="hf-16p9" class="ph-bold ph-lightning"></i> Actif</span>
+            </div>
+            <div data-hf-id="hf-z1h4" class="integration-type">API Personnalisée &amp; Webhooks</div>
+            <h3 data-hf-id="hf-i7g8" class="integration-title">API REST Corporate</h3>
+            <p data-hf-id="hf-3k5n" class="integration-desc">Envoi direct de webhooks et points de terminaison REST sécurisés pour ERP personnalisés, pointages d'usines et rapports.</p>
+          </div>
+          <div data-hf-id="hf-yna4" class="integration-meta">
+            <span data-hf-id="hf-e9qb">3 points de terminaison webhook actifs</span>
+            <div data-hf-id="hf-7114" class="integration-actions">
+              <button data-hf-id="hf-g7pf" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModal('api-keys-modal')">Clés API</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Configure Modal -->
+  <div data-hf-id="hf-dd6o" class="modal-overlay" id="config-modal">
+    <div data-hf-id="hf-keer" class="modal">
+      <h3 data-hf-id="hf-sly3" class="modal-title" id="config-title">Configurer l'intégration</h3>
+      <p data-hf-id="hf-xdq3" class="modal-desc" id="config-desc">Ajustez les identifiants d'authentification, la fréquence de synchronisation et les mappages.</p>
+
+      <div data-hf-id="hf-dx00" class="form-group">
+        <label data-hf-id="hf-75po" class="form-label" for="cfg-endpoint">Point de terminaison du serveur API</label>
+        <input data-hf-id="hf-xnrx" type="text" id="cfg-endpoint" class="form-input" value="https://api.successfactors.eu/v2/odata" required>
+      </div>
+
+      <div data-hf-id="hf-1m3s" class="form-group">
+        <label data-hf-id="hf-g9np" class="form-label" for="cfg-client-id">ID Client / Clé OAuth</label>
+        <input data-hf-id="hf-0mfp" type="text" id="cfg-client-id" class="form-input" value="CMG-CORP-PROD-2026" required>
+      </div>
+
+      <div data-hf-id="hf-0f6p" class="form-group">
+        <label data-hf-id="hf-sih0" class="form-label" for="cfg-interval">Intervalle de synchronisation</label>
+        <select data-hf-id="hf-eu1a" id="cfg-interval" class="form-select">
+          <option data-hf-id="hf-rxuj">Webhook en temps réel</option>
+          <option data-hf-id="hf-kxev" selected>Toutes les 15 minutes</option>
+          <option data-hf-id="hf-ol61">Toutes les heures</option>
+          <option data-hf-id="hf-duua">Quotidien à 00:00 UTC</option>
+        </select>
+      </div>
+
+      <div data-hf-id="hf-jfvp" class="modal-actions">
+        <button data-hf-id="hf-6tco" class="btn btn-secondary" onclick="closeModal('config-modal')">Annuler</button>
+        <button data-hf-id="hf-ia6m" class="btn btn-primary" onclick="saveConfig()">Enregistrer les paramètres</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sync All Modal -->
+  <div data-hf-id="hf-bevl" class="modal-overlay" id="sync-all-modal">
+    <div data-hf-id="hf-cn6b" class="modal">
+      <h3 data-hf-id="hf-i2c5" class="modal-title">Synchroniser toutes les intégrations</h3>
+      <p data-hf-id="hf-2zuc" class="modal-desc">Ceci déclenchera une actualisation immédiate sur SAP SuccessFactors, LinkedIn Recruiter, Indeed et Glassdoor.</p>
+      <div data-hf-id="hf-27p5" class="modal-actions">
+        <button data-hf-id="hf-lf7p" class="btn btn-secondary" onclick="closeModal('sync-all-modal')">Annuler</button>
+        <button data-hf-id="hf-3vit" class="btn btn-primary" onclick="triggerSyncAll()">Démarrer la synchronisation complète</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      syncInitiated: "Synchronisation des données initiée pour {name}. Les modifications apparaîtront dans 2 minutes.",
+      syncAllComplete: "Synchronisation globale de l'entreprise déclenchée sur tous les canaux connectés.",
+      settingsSaved: "Paramètres d'intégration enregistrés avec succès.",
+      configureTitle: "Configurer {name}",
+      configureDesc: "Ajuster les identifiants d'authentification et les options d'échange pour {name}."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('is-open');
+    }
+
+    function syncIntegration(name) {
+      alert(fmt(STR.syncInitiated, { name }));
+    }
+
+    function configureIntegration(name) {
+      document.getElementById('config-title').textContent = fmt(STR.configureTitle, { name });
+      document.getElementById('config-desc').textContent = fmt(STR.configureDesc, { name });
+      openModal('config-modal');
+    }
+
+    function saveConfig() {
+      closeModal('config-modal');
+      alert(STR.settingsSaved);
+    }
+
+    function triggerSyncAll() {
+      closeModal('sync-all-modal');
+      alert(STR.syncAllComplete);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["beat-03"] = tl;
+  </script>
+</div>
+</body>
+
+</html>

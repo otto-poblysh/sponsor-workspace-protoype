@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Corporate Multinational Group LTD — Vidéo de Démonstration du Portail des Talents</title>
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-display: block;
+    }
+
+    body {
+      margin: 0;
+      width: 1920px; height: 1080px;
+      overflow: hidden;
+      font-family: 'Geist Sans', -apple-system, sans-serif;
+      color: #ffffff;
+    }
+    
+    #outro-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 1920px; height: 1080px;
+      font-family: 'Geist Sans', -apple-system, sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene-fill {
+      position: absolute;
+      inset: 0;
+      background-color: #1e293b;
+      z-index: -1;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: rgba(255,255,255,0.03);
+      padding: 60px 100px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 32px;
+      filter: brightness(0) invert(1);
+    }
+    
+    .message {
+      font-size: 28px;
+      font-weight: 400;
+      color: #cbd5e1;
+      margin-bottom: 40px;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .contact-item .label {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+  <div data-composition-id="beat-06" data-width="1920" data-height="1080" data-duration="5" data-hf-id="hf-rwck" id="outro-wrapper">
+    <div data-hf-id="hf-6fil" class="scene-fill"></div>
+    <div data-hf-id="hf-gycn" class="grid-overlay"></div>
+    <div data-hf-id="hf-rbco" class="container" id="content-container">
+      <img data-hf-id="hf-7dwn" src="https://jobs.icubefarm.com/_next/image?url=%2Fassets%2Fimages%2Flogo%2Ficf_logo.png&w=640&q=75" alt="iCUBEFARM" class="logo">
+      <div data-hf-id="hf-9sxx" class="message">
+        Pour déployer le Portail des Talents du Groupe pour votre organisation<br data-hf-id="hf-x5px">Contact :
+      </div>
+      <div data-hf-id="hf-209j" class="contact-details">
+        <div data-hf-id="hf-186e" class="contact-item">
+          <span data-hf-id="hf-4y35" class="label">Email :</span>
+          <span data-hf-id="hf-9j3l">enterprise@icubefarm.com</span>
+        </div>
+        <div data-hf-id="hf-843h" class="contact-item">
+          <span data-hf-id="hf-0v2k" class="label">Site web :</span>
+          <span data-hf-id="hf-u2e8">www.icubefarm.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    gsap.set("#content-container", { autoAlpha: 0, scale: 0.95, y: 20 });
+
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to("#content-container", {
+      autoAlpha: 1,
+      scale: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, 0.2);
+
+    window.__timelines["beat-06"] = tl;
+  </script>
+</body>
+</html>

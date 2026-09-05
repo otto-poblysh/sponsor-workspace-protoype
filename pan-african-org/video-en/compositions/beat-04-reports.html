@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Employment Portal — General Report</title>
+  <meta name="description" content="Pan-African Organization — Community Employment Portal general report prototype">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Cards & Grids */
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header {
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Template row */
+    .template-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .template-row {
+      display: grid;
+      grid-template-columns: 1fr 200px 240px;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .template-row:last-child {
+      border-bottom: none;
+    }
+
+    .template-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .template-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .template-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .template-format-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      font-size: 13px;
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Alert / Banner */
+    .alert-banner {
+      background: var(--info-bg);
+      color: var(--info-text);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .alert-banner i {
+      font-size: 18px;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .template-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+      }
+      .template-format-select {
+        width: 100%;
+      }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+<div data-hf-id="hf-4rnf" data-composition-id="beat-04" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-0kj0" class="brand-name">Pan-African Organization</div>
+          <div data-hf-id="hf-xl4j" class="brand-sub">Community Employment Portal</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Overview</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-042k" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Network Dashboard</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-gjp2" class="nav-item" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Member Companies</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Jobs and Applications</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-pqf4" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Organization Team</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Insights</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Skill Gap Report</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-2ca6" class="nav-item is-active" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Community Impact Reports</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Activity Logs</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Settings</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Portal Branding</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-uquj" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Member Countries</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Report Recipients</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Notification Preferences</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-w5yf" class="lang-opt is-active" hreflang="en" href="general-report.html">EN</a>
+          <a data-hf-id="hf-nz4f" class="lang-opt" hreflang="fr" href="#">FR</a>
+          <a data-hf-id="hf-ztqb" class="lang-opt" hreflang="es" href="#">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-9uto" class="user-avatar">SB</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-qctg" class="user-name">Selamawit Bekele</div>
+            <div data-hf-id="hf-pp7d" class="user-role">Programme Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-n8g4" class="page-title">Community Impact Reports</h1>
+          <p data-hf-id="hf-0gep" class="page-subtitle">Configure, generate, and export evidence-based operational reports</p>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-me1i" class="alert-banner animate-enter delay-1">
+        <i data-hf-id="hf-1rgt" class="ph-bold ph-info"></i>
+        <span data-hf-id="hf-pl38">All exports carry Pan-African Organization branding and contain aggregated member-company employment data. Downloads remain available for 24 hours.</span>
+      </div>
+
+      <section data-hf-id="hf-14t2" class="section animate-enter delay-1">
+        <div data-hf-id="hf-k0k5" class="section-header">
+          <h2 data-hf-id="hf-51tx" class="section-title">Available Report Templates</h2>
+        </div>
+        <div data-hf-id="hf-vn2y" class="card">
+          <div data-hf-id="hf-v1wj" class="template-list">
+            <div data-hf-id="hf-gajd" class="template-row">
+              <div data-hf-id="hf-fb8f" class="template-info">
+                <span data-hf-id="hf-nwrj" class="template-name">Monthly Community Impact Summary</span>
+                <span data-hf-id="hf-7taj" class="template-desc">Member companies, vacancies, applications, placements and sector movements.</span>
+              </div>
+              <select data-hf-id="hf-dfup" class="template-format-select" id="fmt-monthly">
+                <option data-hf-id="hf-c2fd" value="PDF">PDF Document (.pdf)</option>
+                <option data-hf-id="hf-v8rr" value="Excel">Excel Spreadsheet (.xlsx)</option>
+                <option data-hf-id="hf-k6e6" value="CSV">Comma Separated Values (.csv)</option>
+              </select>
+              <button data-hf-id="hf-4tn7" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameMonthly, 'fmt-monthly')"><i data-hf-id="hf-v8uk" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+
+            <div data-hf-id="hf-3xgt" class="template-row">
+              <div data-hf-id="hf-hjbz" class="template-info">
+                <span data-hf-id="hf-emew" class="template-name">Member Company Status Report</span>
+                <span data-hf-id="hf-7c0s" class="template-desc">Membership status, workforce size, reporting activity and verification changes.</span>
+              </div>
+              <select data-hf-id="hf-iba3" class="template-format-select" id="fmt-entity">
+                <option data-hf-id="hf-uuo7" value="Excel">Excel Spreadsheet (.xlsx)</option>
+                <option data-hf-id="hf-xy65" value="PDF">PDF Document (.pdf)</option>
+                <option data-hf-id="hf-9jr6" value="CSV">Comma Separated Values (.csv)</option>
+              </select>
+              <button data-hf-id="hf-i78l" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameEntityStatus, 'fmt-entity')"><i data-hf-id="hf-wwpw" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+
+            <div data-hf-id="hf-54dw" class="template-row">
+              <div data-hf-id="hf-h50y" class="template-info">
+                <span data-hf-id="hf-sebp" class="template-name">Member Company Vacancy Report</span>
+                <span data-hf-id="hf-xv3f" class="template-desc">Reported vacancies by occupation, sector, member country and hard-to-fill status.</span>
+              </div>
+              <select data-hf-id="hf-oosm" class="template-format-select" id="fmt-jobs">
+                <option data-hf-id="hf-9y27" value="CSV">Comma Separated Values (.csv)</option>
+                <option data-hf-id="hf-ugd6" value="Excel">Excel Spreadsheet (.xlsx)</option>
+                <option data-hf-id="hf-z538" value="PDF">PDF Document (.pdf)</option>
+              </select>
+              <button data-hf-id="hf-l194" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameVacancy, 'fmt-jobs')"><i data-hf-id="hf-vpst" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+
+            <div data-hf-id="hf-4q2v" class="template-row">
+              <div data-hf-id="hf-gqpx" class="template-info">
+                <span data-hf-id="hf-lw6c" class="template-name">Recruitment Outcomes Report</span>
+                <span data-hf-id="hf-8ea9" class="template-desc">Aggregated applications, shortlists, offers and placements. Personal identifiers are masked.</span>
+              </div>
+              <select data-hf-id="hf-ifwv" class="template-format-select" id="fmt-applicants">
+                <option data-hf-id="hf-yqs7" value="PDF">PDF Document (.pdf)</option>
+                <option data-hf-id="hf-u225" value="Excel">Excel Spreadsheet (.xlsx)</option>
+              </select>
+              <button data-hf-id="hf-yo4x" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameRecruitmentOutcomes, 'fmt-applicants')"><i data-hf-id="hf-w43u" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+
+            <div data-hf-id="hf-5wzy" class="template-row">
+              <div data-hf-id="hf-jiv4" class="template-info">
+                <span data-hf-id="hf-lb8k" class="template-name">Skills Demand Report</span>
+                <span data-hf-id="hf-0zuh" class="template-desc">Occupational demand, available worker profiles and priority training gaps.</span>
+              </div>
+              <select data-hf-id="hf-axq0" class="template-format-select" id="fmt-skills">
+                <option data-hf-id="hf-wu7c" value="Excel">Excel Spreadsheet (.xlsx)</option>
+                <option data-hf-id="hf-acd8" value="CSV">Comma Separated Values (.csv)</option>
+              </select>
+              <button data-hf-id="hf-1o1k" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameSkillsDemand, 'fmt-skills')"><i data-hf-id="hf-y3mz" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+
+            <div data-hf-id="hf-5iox" class="template-row">
+              <div data-hf-id="hf-j4k3" class="template-info">
+                <span data-hf-id="hf-hdjk" class="template-name">Inactive Member Report</span>
+                <span data-hf-id="hf-n1ai" class="template-desc">Member companies with overdue employment updates, no vacancies or no recent portal activity.</span>
+              </div>
+              <select data-hf-id="hf-ms5h" class="template-format-select" id="fmt-inactive">
+                <option data-hf-id="hf-zxpa" value="PDF">PDF Document (.pdf)</option>
+                <option data-hf-id="hf-wfwb" value="Excel">Excel Spreadsheet (.xlsx)</option>
+                <option data-hf-id="hf-aqo9" value="CSV">Comma Separated Values (.csv)</option>
+              </select>
+              <button data-hf-id="hf-0khd" class="btn btn-primary" style="justify-content:center;" onclick="requestExport(STR.reportNameInactiveMember, 'fmt-inactive')"><i data-hf-id="hf-yhy0" class="ph-bold ph-gear"></i> Generate Report</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-x6p1" class="section animate-enter delay-2">
+        <div data-hf-id="hf-qx3d" class="section-header">
+          <h2 data-hf-id="hf-40q7" class="section-title">Recent Exports Log</h2>
+        </div>
+        <div data-hf-id="hf-i08u" class="card">
+          <table data-hf-id="hf-tmik" class="data-table" id="exports-table">
+            <thead data-hf-id="hf-zd89">
+              <tr data-hf-id="hf-p3r7">
+                <th data-hf-id="hf-3b67">Generated At</th>
+                <th data-hf-id="hf-7qf9">Report Type</th>
+                <th data-hf-id="hf-ag8r">Requestor</th>
+                <th data-hf-id="hf-h4zy">Format</th>
+                <th data-hf-id="hf-308j">Status</th>
+                <th data-hf-id="hf-z0sy" style="text-align: right;">Download</th>
+              </tr>
+            </thead>
+            <tbody data-hf-id="hf-bsvf">
+              <tr data-hf-id="hf-ddj7">
+                <td data-hf-id="hf-e2zz" style="font-family: var(--font-mono);">12 Jun 2026, 16:15</td>
+                <td data-hf-id="hf-yw9v">Monthly Community Impact Summary</td>
+                <td data-hf-id="hf-opab">Tigist Alemu</td>
+                <td data-hf-id="hf-54xx"><span data-hf-id="hf-lhd1" class="badge badge-success">PDF</span></td>
+                <td data-hf-id="hf-nlsk">Ready</td>
+                <td data-hf-id="hf-571i" style="text-align: right;"><a data-hf-id="hf-whjc" href="#" style="color:var(--accent); font-weight:600; text-decoration:none;"><i data-hf-id="hf-dljg" class="ph-bold ph-download-simple"></i> Download</a></td>
+              </tr>
+              <tr data-hf-id="hf-cz86">
+                <td data-hf-id="hf-ykdr" style="font-family: var(--font-mono);">11 Jun 2026, 09:30</td>
+                <td data-hf-id="hf-xhbc">Skills Demand Report</td>
+                <td data-hf-id="hf-4gie">Selamawit Bekele</td>
+                <td data-hf-id="hf-t9cp"><span data-hf-id="hf-gk37" class="badge badge-warning">Excel</span></td>
+                <td data-hf-id="hf-ea7g">Ready</td>
+                <td data-hf-id="hf-44tm" style="text-align: right;"><a data-hf-id="hf-mf5s" href="#" style="color:var(--accent); font-weight:600; text-decoration:none;"><i data-hf-id="hf-aiqs" class="ph-bold ph-download-simple"></i> Download</a></td>
+              </tr>
+              <tr data-hf-id="hf-ckx5">
+                <td data-hf-id="hf-qtyf" style="font-family: var(--font-mono);">10 Jun 2026, 14:02</td>
+                <td data-hf-id="hf-9uak">Inactive Member Report</td>
+                <td data-hf-id="hf-yubr">Dawit Haile</td>
+                <td data-hf-id="hf-ug9s"><span data-hf-id="hf-b7ps" class="badge badge-info">CSV</span></td>
+                <td data-hf-id="hf-xy6q">Expired</td>
+                <td data-hf-id="hf-v3bq" style="text-align: right; color:var(--text-tertiary);"><i data-hf-id="hf-eiuf" class="ph-bold ph-warning"></i> Unavailable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      generatingAlert: "Generating {reportName} in {format} format. Once complete, it will appear in the Recent Exports Log.",
+      statusGenerating: "Generating...",
+      statusWaiting: "Waiting",
+      statusReady: "Ready",
+      downloadLink: "Download",
+      reportNameMonthly: "Monthly Community Impact Summary",
+      reportNameEntityStatus: "Member Company Status Report",
+      reportNameVacancy: "Member Company Vacancy Report",
+      reportNameRecruitmentOutcomes: "Recruitment Outcomes Report",
+      reportNameSkillsDemand: "Skills Demand Report",
+      reportNameInactiveMember: "Inactive Member Report"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+    const pageLocale = document.documentElement.lang || 'en';
+    const dateLocale = pageLocale === 'en' ? 'en-GB' : (pageLocale === 'es' ? 'es-GQ' : 'fr-GQ');
+
+    function requestExport(reportName, selectId) {
+      const format = document.getElementById(selectId).value;
+      alert(fmt(STR.generatingAlert, { reportName, format }));
+
+      const tableBody = document.querySelector('#exports-table tbody');
+      const now = (new (function(){ this.toLocaleDateString = () => '13 Jun 2026'; this.toLocaleTimeString = () => '09:15'; })());
+      const timeStr = now.toLocaleDateString(dateLocale, { day: '2-digit', month: 'short', year: 'numeric' }) + `, ` + now.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' });
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td style="font-family: var(--font-mono);">${timeStr}</td>
+        <td>${reportName}</td>
+        <td>Selamawit Bekele</td>
+        <td><span class="badge badge-success">${format}</span></td>
+        <td><span style="color:var(--warning-text); font-weight:600;">${STR.statusGenerating}</span></td>
+        <td style="text-align: right; color:var(--text-tertiary);"><i class="ph-bold ph-spinner"></i> ${STR.statusWaiting}</td>
+      `;
+
+      tableBody.insertBefore(newRow, tableBody.firstChild);
+
+      // Simulate completed report generation after 2.5 seconds
+      setTimeout(() => {
+        newRow.querySelector('td:nth-child(5)').textContent = STR.statusReady;
+        newRow.querySelector('td:nth-child(6)').innerHTML = `<a href="#" style="color:var(--accent); font-weight:600; text-decoration:none;"><i class="ph-bold ph-download-simple"></i> ${STR.downloadLink}</a>`;
+      }, 2500);
+    }
+  </script>
+
+  <style>
+    #subtitle-container { display: none !important; }
+  </style>
+
+  
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+      .to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+
+    window.__timelines["beat-04"] = tl;
+  </script>
+
+</div>
+</body>
+</html>

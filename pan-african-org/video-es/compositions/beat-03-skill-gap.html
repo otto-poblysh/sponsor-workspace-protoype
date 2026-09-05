@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Comunitario de Empleo — Informe de brecha de competencias</title>
+  <meta name="description" content="Pan-African Organization — Prototipo del informe de brecha de competencias del Portal Comunitario de Empleo">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Warning banner */
+    .warning-banner {
+      display: none;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      border: 1px solid var(--warning-text);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .warning-banner.is-visible {
+      display: flex;
+    }
+
+    .warning-banner i {
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .kpi-tile {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Bento sections */
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .section-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .bento {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .bento-2 { grid-template-columns: repeat(2, 1fr); }
+    .bento-mixed {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 var(--space-md);
+      color: var(--text);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    /* Recommendation list */
+    .rec-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .rec-item {
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--space-xs);
+    }
+
+    .rec-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rec-impact {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .rec-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid, .bento-2, .bento-mixed { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group { min-width: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+<div data-hf-id="hf-pa05" data-composition-id="beat-03" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Abrir navegación" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-0kj0" class="brand-name">Organización Panafricana</div>
+          <div data-hf-id="hf-xl4j" class="brand-sub">Portal Comunitario de Empleo</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Visión general</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-042k" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Panel de la Red</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-gjp2" class="nav-item" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Empresas Miembro</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Ofertas y solicitudes</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-pqf4" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Equipo de la Organización</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Análisis</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-032c" class="nav-item is-active" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Informe de brecha de competencias</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-e313" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Informes de Impacto Comunitario</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Registros de actividad</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Configuración</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Personalización del portal</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-uquj" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Países Miembro</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinatarios de informes</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Preferencias de notificación</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-k39k" class="lang-opt is-active" hreflang="en" href="skill-gap.html">EN</a>
+          <a data-hf-id="hf-nz4f" class="lang-opt" hreflang="fr" href="#">FR</a>
+          <a data-hf-id="hf-ztqb" class="lang-opt" hreflang="es" href="#">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-9uto" class="user-avatar">SB</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-qctg" class="user-name">Selamawit Bekele</div>
+            <div data-hf-id="hf-pp7d" class="user-role">Administrador de Programa</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-m8cb" class="page-title">Informe de brecha de competencias</h1>
+          <p data-hf-id="hf-td0w" class="page-subtitle">Comparar la demanda de competencias del sector privado con la oferta de trabajadores en los países miembro</p>
+        </div>
+        <div data-hf-id="hf-91nl" class="header-actions">
+          <button data-hf-id="hf-07by" class="btn btn-secondary" onclick="alert(STR.exportingReportAlert)"><i data-hf-id="hf-dljg" class="ph-bold ph-download-simple"></i> Exportar informe</button>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-wbm4" class="filter-bar animate-enter delay-1" role="search" aria-label="Filtros de informe">
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-42fj" class="filter-label" for="filter-sector">Sector</label>
+          <select data-hf-id="hf-zcm6" id="filter-sector" class="filter-select" onchange="checkLowData()">
+            <option data-hf-id="hf-rtx2" value="all">Todos los sectores</option>
+            <option data-hf-id="hf-28vq" value="manufacturing and textiles">Manufactura y textiles</option>
+            <option data-hf-id="hf-496q" value="agriculture and agro-processing">Agricultura y agroindustria</option>
+            <option data-hf-id="hf-gukn" value="construction">Construcción</option>
+            <option data-hf-id="hf-dqpm" value="logistics and transport">Logística y transporte</option>
+            <option data-hf-id="hf-qn1m" value="tourism and hospitality">Turismo y hostelería</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-byak" class="filter-group">
+          <label data-hf-id="hf-3yzd" class="filter-label" for="filter-location">Ubicación</label>
+          <select data-hf-id="hf-i5sp" id="filter-location" class="filter-select" onchange="checkLowData()">
+            <option data-hf-id="hf-tl4x" value="all">Todas las ubicaciones</option>
+            <option data-hf-id="hf-i4dw" value="addis-ababa">Addis Ababa</option>
+            <option data-hf-id="hf-hxvx" value="mekelle">Mekelle</option>
+            <option data-hf-id="hf-8w7b" value="kigali">Kigali</option>
+            <option data-hf-id="hf-j6h9" value="lagos">Lagos</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Simulated Low Data Warning Banner -->
+      <div data-hf-id="hf-nqbo" class="warning-banner" id="low-data-warning" role="alert">
+        <i data-hf-id="hf-p5tl" class="ph-bold ph-warning-octagon"></i>
+        <div data-hf-id="hf-0vvu">
+          <strong data-hf-id="hf-fc16">Advertencia de datos insuficientes:</strong> Los filtros seleccionados dan como resultado menos de 50 ofertas o 100 perfiles de candidatos. Los datos pueden no ser estadísticamente representativos.
+          <br data-hf-id="hf-x5px"><small data-hf-id="hf-k03n" style="color:var(--warning-text); font-family:var(--font-mono); margin-top:4px; display:inline-block;">El filtro actual contiene: <span data-hf-id="hf-m4rc" id="warn-jobs">12</span> ofertas de empleo, <span data-hf-id="hf-7jyu" id="warn-seekers">45</span> perfiles de demandantes.</small>
+        </div>
+      </div>
+
+      <section data-hf-id="hf-xqxw" class="kpi-grid animate-enter delay-1">
+        <article data-hf-id="hf-mmpy" class="kpi-tile">
+          <div data-hf-id="hf-cjea" class="kpi-label">Ofertas analizadas</div>
+          <div data-hf-id="hf-daht" class="kpi-value" id="kpi-jobs">1,126</div>
+          <div data-hf-id="hf-y1ab" class="kpi-desc">Basado en vacantes activas de las empresas miembro</div>
+        </article>
+        <article data-hf-id="hf-u8i2" class="kpi-tile">
+          <div data-hf-id="hf-beax" class="kpi-label">Perfiles de demandantes analizados</div>
+          <div data-hf-id="hf-6lb7" class="kpi-value" id="kpi-seekers">18,742</div>
+          <div data-hf-id="hf-vxkx" class="kpi-desc">Basado en demandantes registrados en el portal</div>
+        </article>
+        <article data-hf-id="hf-umt3" class="kpi-tile">
+          <div data-hf-id="hf-uvj7" class="kpi-label">Competencias en escasez crítica</div>
+          <div data-hf-id="hf-btk5" class="kpi-value" id="kpi-shortages">4</div>
+          <div data-hf-id="hf-6l2y" class="kpi-desc">Oferta inferior a 3 veces la demanda en ambas tablas de competencias</div>
+        </article>
+        <article data-hf-id="hf-v144" class="kpi-tile">
+          <div data-hf-id="hf-l9r1" class="kpi-label">Recomendaciones</div>
+          <div data-hf-id="hf-q8i7" class="kpi-value" id="kpi-recs">3</div>
+          <div data-hf-id="hf-gu6h" class="kpi-desc">Programas de capacitación orientados a la acción</div>
+        </article>
+      </section>
+
+      <div data-hf-id="hf-916e" class="bento bento-mixed animate-enter delay-2">
+        <div data-hf-id="hf-ifr9" class="bento bento-1" style="display:flex; flex-direction:column; gap:var(--space-lg);">
+          <div data-hf-id="hf-vn2y" class="card">
+            <h3 data-hf-id="hf-c5e0" class="card-title">Demanda vs Oferta de competencias generales / clave</h3>
+            <table data-hf-id="hf-r3h0" class="data-table">
+              <thead data-hf-id="hf-zd89">
+                <tr data-hf-id="hf-p3r7">
+                  <th data-hf-id="hf-1vl6">Competencia</th>
+                  <th data-hf-id="hf-eq6x">Ofertas que requieren la competencia (Demanda)</th>
+                  <th data-hf-id="hf-anq6">Demandantes cualificados (Oferta)</th>
+                  <th data-hf-id="hf-thrn">Disponibilidad</th>
+                </tr>
+              </thead>
+              <tbody data-hf-id="hf-x5zs" id="general-skills-body">
+                <tr data-hf-id="hf-ddj7">
+                  <td data-hf-id="hf-eeet">Salud y seguridad laboral</td>
+                  <td data-hf-id="hf-39f7">286</td>
+                  <td data-hf-id="hf-y6m5">1,094</td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Por debajo del promedio</span></td>
+                </tr>
+                <tr data-hf-id="hf-cz86">
+                  <td data-hf-id="hf-msxq">Atención al cliente</td>
+                  <td data-hf-id="hf-ivpz">264</td>
+                  <td data-hf-id="hf-u5pn">2,486</td>
+                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Alto</span></td>
+                </tr>
+                <tr data-hf-id="hf-ckx5">
+                  <td data-hf-id="hf-sahc">Mantenimiento de equipos</td>
+                  <td data-hf-id="hf-de3i">238</td>
+                  <td data-hf-id="hf-88bs">724</td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Bajo</span></td>
+                </tr>
+                <tr data-hf-id="hf-c6m4">
+                  <td data-hf-id="hf-hwlf">Oficios de la construcción</td>
+                  <td data-hf-id="hf-o0r3">219</td>
+                  <td data-hf-id="hf-9lbo">1,358</td>
+                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Por debajo del promedio</span></td>
+                </tr>
+                <tr data-hf-id="hf-bsb3">
+                  <td data-hf-id="hf-xwwd">Ventas y comercialización</td>
+                  <td data-hf-id="hf-bw2g">197</td>
+                  <td data-hf-id="hf-r84a">2,104</td>
+                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Alto</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div data-hf-id="hf-i08u" class="card">
+            <h3 data-hf-id="hf-s73w" class="card-title">Demanda vs Oferta de competencias técnicas y digitales</h3>
+            <table data-hf-id="hf-7ecs" class="data-table">
+              <thead data-hf-id="hf-qnil">
+                <tr data-hf-id="hf-be02">
+                  <th data-hf-id="hf-iewe">Competencia</th>
+                  <th data-hf-id="hf-3ist">Ofertas que requieren la competencia (Demanda)</th>
+                  <th data-hf-id="hf-k0aq">Demandantes cualificados (Oferta)</th>
+                  <th data-hf-id="hf-cfwz">Disponibilidad</th>
+                </tr>
+              </thead>
+              <tbody data-hf-id="hf-g0n8" id="ict-skills-body">
+                <tr data-hf-id="hf-azp1">
+                  <td data-hf-id="hf-mxgy">Sistemas eléctricos industriales</td>
+                  <td data-hf-id="hf-3rvj">174</td>
+                  <td data-hf-id="hf-dd54">496</td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Bajo</span></td>
+                </tr>
+                <tr data-hf-id="hf-ale0">
+                  <td data-hf-id="hf-i088">Herramientas de ofimática</td>
+                  <td data-hf-id="hf-rhbx">161</td>
+                  <td data-hf-id="hf-d09u">1,842</td>
+                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-50bk" class="badge badge-success">Alto</span></td>
+                </tr>
+                <tr data-hf-id="hf-a72z">
+                  <td data-hf-id="hf-yx7n">Soldadura y fabricación</td>
+                  <td data-hf-id="hf-8dz4">148</td>
+                  <td data-hf-id="hf-bi7o">382</td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Bajo</span></td>
+                </tr>
+                <tr data-hf-id="hf-j2bt">
+                  <td data-hf-id="hf-47xo">Conducción profesional</td>
+                  <td data-hf-id="hf-opy5">132</td>
+                  <td data-hf-id="hf-f395">608</td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7jv9" class="badge badge-warning">Por debajo del promedio</span></td>
+                </tr>
+                <tr data-hf-id="hf-jgmu">
+                  <td data-hf-id="hf-93cd">Operaciones hosteleras</td>
+                  <td data-hf-id="hf-l73e">119</td>
+                  <td data-hf-id="hf-ov1v">354</td>
+                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Bajo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-43ix" class="card" style="height: fit-content;">
+          <h3 data-hf-id="hf-p649" class="card-title">Recomendaciones de capacitación</h3>
+          <div data-hf-id="hf-rk7n" class="rec-list" id="recommendations-box">
+            <div data-hf-id="hf-ie4u" class="rec-item">
+              <div data-hf-id="hf-eegk" class="rec-header">
+                <span data-hf-id="hf-inqt" class="rec-title">Certificación en Electricidad Industrial</span>
+                <span data-hf-id="hf-1ipx" class="rec-impact" style="color:var(--error-text)">Alto impacto</span>
+              </div>
+              <p data-hf-id="hf-p07a" class="rec-body">Desarrollar competencias prácticas en sistemas eléctricos industriales para 174 vacantes con oferta cualificada limitada.</p>
+            </div>
+            <div data-hf-id="hf-jhn6" class="rec-item">
+              <div data-hf-id="hf-y9cc" class="rec-header">
+                <span data-hf-id="hf-xrdz" class="rec-title">Programa de Soldadura Certificada</span>
+                <span data-hf-id="hf-wu3d" class="rec-impact" style="color:var(--error-text)">Alto impacto</span>
+              </div>
+              <p data-hf-id="hf-0zzk" class="rec-body">Ampliar la formación acreditada en soldadura y calderería alineada con 148 vacantes actuales.</p>
+            </div>
+            <div data-hf-id="hf-jvy7" class="rec-item">
+              <div data-hf-id="hf-x2f9" class="rec-header">
+                <span data-hf-id="hf-cng2" class="rec-title">Capacitación para Conductores Profesionales</span>
+                <span data-hf-id="hf-feli" class="rec-impact" style="color:var(--warning-text)">Impacto medio</span>
+              </div>
+              <p data-hf-id="hf-zwd3" class="rec-body">Apoyar la obtención de licencias profesionales, seguridad de flotas y preparación logística para demandantes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      badgeLow: "Bajo",
+      badgeHigh: "Alto",
+      badgeBelowAverage: "Por debajo del promedio",
+      hotelOperations: "Gestión hotelera",
+      foodSafety: "Seguridad alimentaria",
+      propertyManagementSystems: "Sistemas de gestión hotelera (PMS)",
+      hotelSystemsTrainingTitle: "Capacitación en Sistemas Hoteleros",
+      highImpact: "Alto impacto",
+      mediumImpact: "Impacto medio",
+      hotelSystemsTrainingDesc: "Solo 3 demandantes en esta selección declaran experiencia con sistemas de gestión hotelera.",
+      occupationalHealthSafety: "Salud y seguridad laboral",
+      customerService: "Atención al cliente",
+      equipmentMaintenance: "Mantenimiento de equipos",
+      constructionTrades: "Oficios de la construcción",
+      salesMerchandising: "Ventas y comercialización",
+      industrialElectricalSystems: "Sistemas eléctricos industriales",
+      officeProductivityTools: "Herramientas de ofimática",
+      weldingFabrication: "Soldadura y fabricación",
+      commercialDriving: "Conducción profesional",
+      industrialElectricalCertTitle: "Certificación en Electricidad Industrial",
+      industrialElectricalCertDesc: "Desarrollar competencias prácticas en sistemas eléctricos industriales para 174 vacantes con oferta cualificada limitada.",
+      certifiedWeldingProgTitle: "Programa de Soldadura Certificada",
+      certifiedWeldingProgDesc: "Ampliar la formación acreditada en soldadura y calderería alineada con 148 vacantes actuales.",
+      commercialDriverUpskillingTitle: "Capacitación para Conductores Profesionales",
+      commercialDriverUpskillingDesc: "Apoyar la obtención de licencias profesionales, seguridad de flotas y preparación logística para demandantes.",
+      exportingReportAlert: "Exportando informe..."
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    function checkLowData() {
+      const sector = document.getElementById('filter-sector').value;
+      const location = document.getElementById('filter-location').value;
+      const warningBanner = document.getElementById('low-data-warning');
+
+      // Demo a low-data slice for tourism vacancies in Mekelle.
+      if (sector === 'tourism and hospitality' && location === 'mekelle') {
+        document.getElementById('warn-jobs').textContent = '12';
+        document.getElementById('warn-seekers').textContent = '45';
+        warningBanner.classList.add('is-visible');
+
+        // Update KPIs to match low data
+        document.getElementById('kpi-jobs').textContent = '12';
+        document.getElementById('kpi-seekers').textContent = '45';
+        document.getElementById('kpi-shortages').textContent = '2';
+        document.getElementById('kpi-recs').textContent = '1';
+
+        // Update tables
+        document.getElementById('general-skills-body').innerHTML = `
+          <tr>
+            <td>${STR.hotelOperations}</td>
+            <td>12</td>
+            <td>8</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.foodSafety}</td>
+            <td>10</td>
+            <td>42</td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
+          </tr>
+        `;
+        document.getElementById('ict-skills-body').innerHTML = `
+          <tr>
+            <td>${STR.propertyManagementSystems}</td>
+            <td>8</td>
+            <td>3</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+        `;
+        document.getElementById('recommendations-box').innerHTML = `
+          <div class="rec-item">
+            <div class="rec-header">
+              <span class="rec-title">${STR.hotelSystemsTrainingTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
+            </div>
+            <p class="rec-body">${STR.hotelSystemsTrainingDesc}</p>
+          </div>
+        `;
+      } else {
+        warningBanner.classList.remove('is-visible');
+
+        // Restore normal metrics
+        document.getElementById('kpi-jobs').textContent = '1,126';
+        document.getElementById('kpi-seekers').textContent = '18,742';
+        document.getElementById('kpi-shortages').textContent = '4';
+        document.getElementById('kpi-recs').textContent = '3';
+
+        // Restore table defaults
+        document.getElementById('general-skills-body').innerHTML = `
+          <tr>
+            <td>${STR.occupationalHealthSafety}</td>
+            <td>286</td>
+            <td>1,094</td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.customerService}</td>
+            <td>264</td>
+            <td>2,486</td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.equipmentMaintenance}</td>
+            <td>238</td>
+            <td>724</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.constructionTrades}</td>
+            <td>219</td>
+            <td>1,358</td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.salesMerchandising}</td>
+            <td>197</td>
+            <td>2,104</td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
+          </tr>
+        `;
+        document.getElementById('ict-skills-body').innerHTML = `
+          <tr>
+            <td>${STR.industrialElectricalSystems}</td>
+            <td>174</td>
+            <td>496</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.officeProductivityTools}</td>
+            <td>161</td>
+            <td>1,842</td>
+            <td><span class="badge badge-success">${STR.badgeHigh}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.weldingFabrication}</td>
+            <td>148</td>
+            <td>382</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.commercialDriving}</td>
+            <td>132</td>
+            <td>608</td>
+            <td><span class="badge badge-warning">${STR.badgeBelowAverage}</span></td>
+          </tr>
+          <tr>
+            <td>${STR.hotelOperations}</td>
+            <td>119</td>
+            <td>354</td>
+            <td><span class="badge badge-error">${STR.badgeLow}</span></td>
+          </tr>
+        `;
+        document.getElementById('recommendations-box').innerHTML = `
+          <div class="rec-item">
+            <div class="rec-header">
+              <span class="rec-title">${STR.industrialElectricalCertTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
+            </div>
+            <p class="rec-body">${STR.industrialElectricalCertDesc}</p>
+          </div>
+          <div class="rec-item">
+            <div class="rec-header">
+              <span class="rec-title">${STR.certifiedWeldingProgTitle}</span>
+              <span class="rec-impact" style="color:var(--error-text)">${STR.highImpact}</span>
+            </div>
+            <p class="rec-body">${STR.certifiedWeldingProgDesc}</p>
+          </div>
+          <div class="rec-item">
+            <div class="rec-header">
+              <span class="rec-title">${STR.commercialDriverUpskillingTitle}</span>
+              <span class="rec-impact" style="color:var(--warning-text)">${STR.mediumImpact}</span>
+            </div>
+            <p class="rec-body">${STR.commercialDriverUpskillingDesc}</p>
+          </div>
+        `;
+      }
+    }
+  </script>
+
+  <!-- GSAP & HyperFrames -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://hyperframes.dev/client.js"></script>
+
+  <!-- Video Overlays -->
+  <style>
+    #subtitle-container { display: none !important; }
+  </style>
+
+  
+  <script>
+
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+      .to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+
+  window.__timelines["beat-03"] = tl;
+  </script>
+
+</div>
+</body>
+</html>

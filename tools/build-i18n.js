@@ -457,6 +457,27 @@ function translateHtml(htmlContent, options = {}) {
 }
 
 /**
+ * Inserts the generated-file banner comment *after* <!DOCTYPE html> rather than
+ * before it.
+ *
+ * A comment before the doctype makes downstream tooling (and some strict HTML
+ * parsers) treat the file as a fragment rather than a document, which drops
+ * <meta charset="UTF-8"> and decodes the body as Latin-1 — every accented
+ * character then renders as mojibake. `buildAll` always uses this helper
+ * (calling `translateHtml` with `headerComment: false` first) so generated
+ * pages open with `<!DOCTYPE html>` on line 1. `translateHtml`'s own default
+ * header behavior is left as-is for direct callers/tests.
+ * @param {string} html
+ * @param {string} headerComment
+ * @returns {string}
+ */
+function insertHeaderAfterDoctype(html, headerComment) {
+  const m = html.match(/^\uFEFF?\s*<!DOCTYPE html>[^\n]*\r?\n?/i);
+  if (!m) return headerComment + html;
+  return html.slice(0, m[0].length) + headerComment + html.slice(m[0].length);
+}
+
+/**
  * Points the demo-gate script at repo-root gate.js from a generated locale page.
  * @param {string} html
  * @param {string} outPagePath
@@ -520,14 +541,22 @@ function buildAll(options = {}) {
       const pageCatalogPath = path.join(i18nDir, `${baseName}.${locale}.json`);
       const pageCatalog = loadCatalog(pageCatalogPath);
 
-      const translated = translateHtml(htmlContent, {
+      const translatedBody = translateHtml(htmlContent, {
         pageCatalog,
         commonCatalog,
         locale,
         pageName,
         doNotTranslateSet,
-        englishDir
+        englishDir,
+        headerComment: false
       });
+      // Ministry layout (no englishDir): source sits at the repo/site root,
+      // one level up from fr/es -> ../pageName. Nested layout (englishDir
+      // set, e.g. 'en' for pan-african-org): source sits in a sibling
+      // directory alongside fr/es -> ../en/pageName.
+      const sourceRelPath = englishDir ? `../${englishDir}/${pageName}` : `../${pageName}`;
+      const headerComment = `<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: ${sourceRelPath} -->\n`;
+      const translated = insertHeaderAfterDoctype(translatedBody, headerComment);
 
       const outPagePath = path.join(localeDir, pageName);
       const withGateSrc = rewriteGateScriptSrc(
@@ -600,6 +629,7 @@ module.exports = {
   escapeHtmlAttr,
   resolveSite,
   rewriteGateScriptSrc,
+  insertHeaderAfterDoctype,
   DEFAULT_PROTOTYPE_PAGES,
   WHITELISTED_ATTRS
 };

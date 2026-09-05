@@ -4,8 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="../../gate.js"></script>
-  <title>Community Talent Portal — Users Management</title>
-  <meta name="description" content="Pan-African Enterprise Alliance — Community Talent Portal users management prototype"/>
+  <title>Community Employment Portal — Users Management</title>
+  <meta name="description" content="Pan-African Organization — Community Employment Portal users management prototype"/>
 
   <!-- Language Routing & Preference Persistence (R8) -->
   <script>
@@ -539,8 +539,8 @@
       <div class="brand">
         <div class="brand-mark"><i class="ph-bold ph-globe"></i></div>
         <div>
-          <div class="brand-name">Pan-African Enterprise Alliance</div>
-          <div class="brand-sub">Community Talent Portal</div>
+          <div class="brand-name">Pan-African Organization</div>
+          <div class="brand-sub">Community Employment Portal</div>
         </div>
       </div>
 
@@ -669,7 +669,7 @@
               <td><span class="badge badge-warning">Invited</span></td>
               <td style="font-family:var(--font-mono); color:var(--text-tertiary)">Never</td>
               <td style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
-                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('Invitation email resent to Wanjiru.')">Resend</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert(fmt(STR.invitationResentTo, { name: 'Wanjiru' }))">Resend</button>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="removeUser(this)">Remove</button>
               </td>
             </tr>
@@ -720,6 +720,7 @@
       actionResend: "Resend",
       actionRemove: "Remove",
       invitationResentGeneric: "Invitation email resent",
+      invitationResentTo: "Invitation email resent to {name}.",
       invitationSentToEmail: "Invitation sent to {email}",
       roleChangeLogged: "Role change logged for {userName} to \"{role}\". This action has been appended to Activity Logs.",
       statusActive: "Active",

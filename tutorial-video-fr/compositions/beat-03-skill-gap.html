@@ -691,7 +691,7 @@
                   <th data-hf-id="hf-1vl6">Compétence</th>
                   <th data-hf-id="hf-eq6x">Offres exigeant la compétence (Demande)</th>
                   <th data-hf-id="hf-anq6">Demandeurs qualifiés (Offre)</th>
-                  <th data-hf-id="hf-thrn">Statut de l'écart</th>
+                  <th data-hf-id="hf-thrn">Gap Status</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-x5zs" id="general-skills-body">
@@ -699,7 +699,7 @@
                   <td data-hf-id="hf-eeet">Santé et sécurité au travail</td>
                   <td data-hf-id="hf-39f7">286</td>
                   <td data-hf-id="hf-y6m5">1,094</td>
-                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Tendu</span></td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-cz86">
                   <td data-hf-id="hf-msxq">Service client</td>
@@ -711,7 +711,7 @@
                   <td data-hf-id="hf-sahc">Maintenance des équipements</td>
                   <td data-hf-id="hf-de3i">238</td>
                   <td data-hf-id="hf-88bs">724</td>
-                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Pénurie</span></td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-c6m4">
                   <td data-hf-id="hf-hwlf">Métiers de la construction</td>
@@ -737,7 +737,7 @@
                   <th data-hf-id="hf-iewe">Compétence</th>
                   <th data-hf-id="hf-3ist">Offres exigeant la compétence (Demande)</th>
                   <th data-hf-id="hf-k0aq">Demandeurs qualifiés (Offre)</th>
-                  <th data-hf-id="hf-cfwz">Statut de l'écart</th>
+                  <th data-hf-id="hf-cfwz">Gap Status</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-g0n8" id="ict-skills-body">
@@ -745,7 +745,7 @@
                   <td data-hf-id="hf-mxgy">Systèmes électriques industriels</td>
                   <td data-hf-id="hf-3rvj">174</td>
                   <td data-hf-id="hf-dd54">496</td>
-                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Pénurie</span></td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-ale0">
                   <td data-hf-id="hf-i088">Bureautique et productivité</td>
@@ -757,19 +757,19 @@
                   <td data-hf-id="hf-yx7n">Soudure et fabrication</td>
                   <td data-hf-id="hf-8dz4">148</td>
                   <td data-hf-id="hf-bi7o">382</td>
-                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Pénurie</span></td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-j2bt">
                   <td data-hf-id="hf-47xo">Conduite professionnelle</td>
                   <td data-hf-id="hf-opy5">132</td>
                   <td data-hf-id="hf-f395">608</td>
-                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-8qsc" class="badge badge-warning">Tendu</span></td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-8qsc" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-jgmu">
                   <td data-hf-id="hf-93cd">Opérations hôtelières</td>
                   <td data-hf-id="hf-l73e">119</td>
                   <td data-hf-id="hf-ov1v">354</td>
-                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Pénurie</span></td>
+                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Shortage</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1005,7 +1005,8 @@
     gsap.set("#subtitle-container", { autoAlpha: 0 });
     gsap.set("#cursor", { x: 100, y: 300, autoAlpha: 0 });
 
-    const tl = gsap.timeline();
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
 
     tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
@@ -1018,6 +1019,7 @@
       .to("#cursor", { autoAlpha: 0, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
 
+  window.__timelines["beat-03"] = tl;
   </script>
 </div>
 </body>

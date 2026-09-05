@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal del Mercado Laboral — Panel de Control</title>
+  <title>Portal del Mercado Laboral — Panel</title>
   <meta name="description" content="Prototipo de panel de control de empleo del sector privado del Ministerio de Trabajo de Guinea Ecuatorial">
 
   <!-- Geist Sans + Mono -->
@@ -28,12 +28,6 @@
 
   <!-- Phosphor Icons Bold -->
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
-
-  <!-- Pretext fallback -->
-  <script type="module">
-    import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
-    window.Pretext = { prepare, layout };
-  </script>
 
   <style>
     :root {
@@ -800,7 +794,7 @@
             <option data-hf-id="hf-og08">Verificado</option>
             <option data-hf-id="hf-g7ch">Pendiente de revisión</option>
             <option data-hf-id="hf-fvoj">Invitado</option>
-            <option data-hf-id="hf-9tu9">Suspendido</option>
+            <option data-hf-id="hf-9tu9">Suspended</option>
           </select>
         </div>
         <div data-hf-id="hf-d57n" class="filter-group">
@@ -945,7 +939,7 @@
                   <th data-hf-id="hf-1vl6">Competencia</th>
                   <th data-hf-id="hf-5dmh">Ofertas que requieren</th>
                   <th data-hf-id="hf-3llk">Demandantes cualificados</th>
-                  <th data-hf-id="hf-8utn">Brecha</th>
+                  <th data-hf-id="hf-8utn">Disponibilidad</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-bsvf">
@@ -953,31 +947,31 @@
                   <td data-hf-id="hf-eeet">Salud y seguridad laboral</td>
                   <td data-hf-id="hf-39f7">286</td>
                   <td data-hf-id="hf-y6m5">1,094</td>
-                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-54xx"><span data-hf-id="hf-ex9g" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-cz86">
                   <td data-hf-id="hf-msxq">Atención al cliente</td>
                   <td data-hf-id="hf-ivpz">264</td>
                   <td data-hf-id="hf-u5pn">2,486</td>
-                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Superávit</span></td>
+                  <td data-hf-id="hf-t9cp"><span data-hf-id="hf-qypx" class="badge badge-success">Surplus</span></td>
                 </tr>
                 <tr data-hf-id="hf-ckx5">
                   <td data-hf-id="hf-sahc">Mantenimiento de equipos</td>
                   <td data-hf-id="hf-de3i">238</td>
                   <td data-hf-id="hf-88bs">724</td>
-                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-ug9s"><span data-hf-id="hf-qvpn" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-c6m4">
                   <td data-hf-id="hf-hwlf">Oficios de la construcción</td>
                   <td data-hf-id="hf-o0r3">219</td>
                   <td data-hf-id="hf-9lbo">1,358</td>
-                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-u1yr"><span data-hf-id="hf-8qsc" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-bsb3">
                   <td data-hf-id="hf-xwwd">Ventas y comercialización</td>
                   <td data-hf-id="hf-bw2g">197</td>
                   <td data-hf-id="hf-r84a">2,104</td>
-                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Superávit</span></td>
+                  <td data-hf-id="hf-s2fm"><span data-hf-id="hf-3teh" class="badge badge-success">Surplus</span></td>
                 </tr>
               </tbody>
             </table>
@@ -991,7 +985,7 @@
                   <th data-hf-id="hf-iewe">Competencia</th>
                   <th data-hf-id="hf-88i5">Ofertas que requieren</th>
                   <th data-hf-id="hf-hgfk">Demandantes cualificados</th>
-                  <th data-hf-id="hf-5yzv">Brecha</th>
+                  <th data-hf-id="hf-5yzv">Disponibilidad</th>
                 </tr>
               </thead>
               <tbody data-hf-id="hf-2rij">
@@ -999,31 +993,31 @@
                   <td data-hf-id="hf-mxgy">Sistemas eléctricos industriales</td>
                   <td data-hf-id="hf-3rvj">174</td>
                   <td data-hf-id="hf-dd54">496</td>
-                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-ro4l"><span data-hf-id="hf-ajxn" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-ale0">
                   <td data-hf-id="hf-i088">Herramientas de ofimática</td>
                   <td data-hf-id="hf-rhbx">161</td>
                   <td data-hf-id="hf-d09u">1,842</td>
-                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-sv1o"><span data-hf-id="hf-7jv9" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-a72z">
                   <td data-hf-id="hf-yx7n">Soldadura y fabricación</td>
                   <td data-hf-id="hf-8dz4">148</td>
                   <td data-hf-id="hf-bi7o">382</td>
-                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-sgqn"><span data-hf-id="hf-a5mm" class="badge badge-error">Shortage</span></td>
                 </tr>
                 <tr data-hf-id="hf-j2bt">
                   <td data-hf-id="hf-47xo">Conducción profesional</td>
                   <td data-hf-id="hf-opy5">132</td>
                   <td data-hf-id="hf-f395">608</td>
-                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Ajustado</span></td>
+                  <td data-hf-id="hf-qh7i"><span data-hf-id="hf-7y6a" class="badge badge-warning">Tight</span></td>
                 </tr>
                 <tr data-hf-id="hf-jgmu">
                   <td data-hf-id="hf-93cd">Operaciones hosteleras</td>
                   <td data-hf-id="hf-l73e">119</td>
                   <td data-hf-id="hf-ov1v">354</td>
-                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Escasez</span></td>
+                  <td data-hf-id="hf-q2wh"><span data-hf-id="hf-9rbl" class="badge badge-error">Shortage</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1174,42 +1168,6 @@
     </main>
   </div>
 
-  <script type="module">
-    // Pretext-powered text reflow for metric tiles and card titles
-    const { prepare, layout } = window.Pretext;
-    await document.fonts.ready;
-
-    const pretextElements = document.querySelectorAll('[data-pretext]');
-    const prepared = new Map();
-
-    for (const el of pretextElements) {
-      const font = getComputedStyle(el).font;
-      prepared.set(el, prepare(el.textContent, font));
-    }
-
-    function relayout() {
-      for (const [el, handle] of prepared) {
-        const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
-        const { height } = layout(handle, el.clientWidth, lineHeight);
-        el.style.height = `${height}px`;
-      }
-    }
-
-    const ro = new ResizeObserver(() => relayout());
-    ro.observe(document.body);
-    relayout();
-
-    for (const el of pretextElements) {
-      if (el.contentEditable === 'true') {
-        new MutationObserver(() => {
-          const font = getComputedStyle(el).font;
-          prepared.set(el, prepare(el.textContent, font));
-          relayout();
-        }).observe(el, { characterData: true, subtree: true, childList: true });
-      }
-    }
-  </script>
-
   <!-- GSAP & HyperFrames -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://hyperframes.dev/client.js"></script>
@@ -1258,7 +1216,8 @@
     gsap.set("#subtitle-container", { autoAlpha: 0 });
     gsap.set("#cursor", { x: 500, y: 800, autoAlpha: 0 });
 
-    const tl = gsap.timeline();
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
 
     tl.to("#cursor", { autoAlpha: 1, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 1, duration: 0.5 }, "<")
@@ -1274,6 +1233,7 @@
       .to("#cursor", { autoAlpha: 0, duration: 0.5 })
       .to("#subtitle-container", { autoAlpha: 0, duration: 0.5 }, "<");
 
+  window.__timelines["beat-01"] = tl;
   </script>
 </div>
 </body>

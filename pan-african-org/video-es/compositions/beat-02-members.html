@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Comunitario de Empleo — Entidades</title>
+  <meta name="description" content="Prototipo de empresas miembro de Pan-African Organization">
+
+  <!-- Language Routing & Preference Persistence (R8) -->
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('lang') === 'en') {
+          localStorage.removeItem('portalLang');
+          return;
+        }
+        var pref = localStorage.getItem('portalLang');
+        if (pref === 'fr' || pref === 'es') {
+          var path = window.location.pathname;
+          var isAlreadyLocalized = path.indexOf('/fr/') !== -1 || path.indexOf('/es/') !== -1 ||
+                                   (document.documentElement && document.documentElement.lang && document.documentElement.lang !== 'en');
+          if (!isAlreadyLocalized) {
+            var pathParts = path.split('/');
+            var page = pathParts[pathParts.length - 1] || 'index.html';
+            window.location.replace(pref + '/' + page + window.location.search + window.location.hash);
+          }
+        }
+      } catch (e) {}
+    })();
+
+    document.addEventListener('click', function(e) {
+      var opt = e.target && e.target.closest ? e.target.closest('.lang-opt') : null;
+      if (opt) {
+        var lang = opt.getAttribute('hreflang');
+        if (lang) {
+          try {
+            localStorage.setItem('portalLang', lang);
+          } catch (err) {}
+        }
+      }
+    });
+  </script>
+
+  <!-- Geist Sans + Mono -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'Geist Sans';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.2.2/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Phosphor Icons Bold -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --surface: #f9f9f8;
+      --bone: #f7f6f3;
+      --border: #eaeaea;
+      --text: #111111;
+      --text-secondary: #787774;
+      --text-tertiary: #a5a29a;
+      --accent: #1E3A5F;
+      --accent-hover: #172E4C;
+      --success-bg: #edf3ec;
+      --success-text: #346538;
+      --warning-bg: #fbf3db;
+      --warning-text: #956400;
+      --error-bg: #fdebec;
+      --error-text: #9f2f2d;
+      --info-bg: #e1f3fe;
+      --info-text: #1f6c9f;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Geist Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bone);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* App shell */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      background: var(--canvas);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-group + .nav-group { margin-top: var(--space-xl); }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 0 var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.is-active {
+      background: var(--bone);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bone);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .lang-opt {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .lang-opt:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .lang-opt.is-active {
+      background: var(--canvas);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--text);
+      color: var(--canvas);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-role { font-size: 12px; color: var(--text-secondary); }
+
+    /* Main */
+    .main {
+      padding: var(--space-2xl);
+      max-width: 1440px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    .filter-select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Card */
+    .card {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .data-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .data-table tr:hover td {
+      background: var(--surface);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success { background: var(--success-bg); color: var(--success-text); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-error { background: var(--error-bg); color: var(--error-text); }
+    .badge-info { background: var(--info-bg); color: var(--info-text); }
+
+    /* Progress bar */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--bone);
+      border-radius: 9999px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 9999px;
+    }
+
+    .progress-label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Modal dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(16px);
+      transition: transform 200ms ease;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-lg);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-textarea, .form-select {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: var(--space-md);
+      left: var(--space-md);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--canvas);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 250ms ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .mobile-nav-toggle { display: flex; }
+      .main { padding: var(--space-xl); padding-top: 72px; }
+      .page-header { flex-direction: column; }
+    }
+
+    /* Entrance animation */
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      animation: enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-1 { animation-delay: 80ms; }
+    .delay-2 { animation-delay: 160ms; }
+  </style>
+</head>
+<body>
+<div data-hf-id="hf-pa02" data-composition-id="beat-02" data-width="1920" data-height="1080" data-duration="10">
+  <button data-hf-id="hf-3yza" class="mobile-nav-toggle" aria-label="Abrir navegación" onclick="document.querySelector('.sidebar').classList.toggle('is-open')">
+    <i data-hf-id="hf-d5c9" class="ph-bold ph-list"></i>
+  </button>
+
+  <div data-hf-id="hf-gk5l" class="app">
+    <aside data-hf-id="hf-842t" class="sidebar">
+      <div data-hf-id="hf-oojr" class="brand">
+        <div data-hf-id="hf-d6dv" class="brand-mark"><i data-hf-id="hf-a46g" class="ph-bold ph-globe"></i></div>
+        <div data-hf-id="hf-yeow">
+          <div data-hf-id="hf-tuc9" class="brand-name">Organización Panafricana</div>
+          <div data-hf-id="hf-z4wz" class="brand-sub">Portal Comunitario de Empleo</div>
+        </div>
+      </div>
+
+      <nav data-hf-id="hf-27gi">
+        <div data-hf-id="hf-xdp5" class="nav-group">
+          <div data-hf-id="hf-92vl" class="nav-label">Visión general</div>
+          <ul data-hf-id="hf-45d0" class="nav-list">
+            <li data-hf-id="hf-a4s6"><a data-hf-id="hf-042k" class="nav-item" href="index.html"><i data-hf-id="hf-ypec" class="ph-bold ph-squares-four"></i> Panel de la Red</a></li>
+            <li data-hf-id="hf-9x5m"><a data-hf-id="hf-egcv" class="nav-item is-active" href="entities.html"><i data-hf-id="hf-47zo" class="ph-bold ph-buildings"></i> Empresas Miembro</a></li>
+            <li data-hf-id="hf-abgn"><a data-hf-id="hf-r8eu" class="nav-item" href="jobs-applications.html"><i data-hf-id="hf-1waz" class="ph-bold ph-briefcase"></i> Ofertas y solicitudes</a></li>
+            <li data-hf-id="hf-apro"><a data-hf-id="hf-pqf4" class="nav-item" href="users-management.html"><i data-hf-id="hf-4w1n" class="ph-bold ph-users"></i> Equipo de la Organización</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-2ict" class="nav-group">
+          <div data-hf-id="hf-73cf" class="nav-label">Análisis</div>
+          <ul data-hf-id="hf-53oc" class="nav-list">
+            <li data-hf-id="hf-b42p"><a data-hf-id="hf-tbhb" class="nav-item" href="skill-gap.html"><i data-hf-id="hf-tlef" class="ph-bold ph-chart-bar"></i> Informe de brecha de competencias</a></li>
+            <li data-hf-id="hf-bidq"><a data-hf-id="hf-e313" class="nav-item" href="general-report.html"><i data-hf-id="hf-4cmd" class="ph-bold ph-file-text"></i> Informes de Impacto Comunitario</a></li>
+            <li data-hf-id="hf-bwor"><a data-hf-id="hf-0d0j" class="nav-item" href="activity-logs.html"><i data-hf-id="hf-gem3" class="ph-bold ph-clock-counter-clockwise"></i> Registros de actividad</a></li>
+          </ul>
+        </div>
+
+        <div data-hf-id="hf-3p9w" class="nav-group">
+          <div data-hf-id="hf-t2if" class="nav-label">Configuración</div>
+          <ul data-hf-id="hf-3wr9" class="nav-list">
+            <li data-hf-id="hf-cazs"><a data-hf-id="hf-jz43" class="nav-item" href="tenant-branding.html"><i data-hf-id="hf-xc8c" class="ph-bold ph-paint-brush"></i> Personalización del portal</a></li>
+            <li data-hf-id="hf-cpat"><a data-hf-id="hf-uquj" class="nav-item" href="supported-countries.html"><i data-hf-id="hf-nicg" class="ph-bold ph-globe"></i> Países Miembro</a></li>
+            <li data-hf-id="hf-d3lu"><a data-hf-id="hf-ex3n" class="nav-item" href="report-recipients.html"><i data-hf-id="hf-0bwl" class="ph-bold ph-envelope"></i> Destinatarios de informes</a></li>
+            <li data-hf-id="hf-cye6"><a data-hf-id="hf-v03t" class="nav-item" href="notification-preferences.html"><i data-hf-id="hf-elpi" class="ph-bold ph-bell"></i> Preferencias de notificación</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div data-hf-id="hf-37m9" class="sidebar-foot">
+        <div data-hf-id="hf-2jfy" class="lang-toggle" role="group" aria-label="Language">
+          <a data-hf-id="hf-62l1" class="lang-opt is-active" hreflang="en" href="entities.html">EN</a>
+          <a data-hf-id="hf-nz4f" class="lang-opt" hreflang="fr" href="#">FR</a>
+          <a data-hf-id="hf-ztqb" class="lang-opt" hreflang="es" href="#">ES</a>
+        </div>
+        <div data-hf-id="hf-0qfb" class="user-mini">
+          <div data-hf-id="hf-9uto" class="user-avatar">SB</div>
+          <div data-hf-id="hf-y7yw">
+            <div data-hf-id="hf-qctg" class="user-name">Selamawit Bekele</div>
+            <div data-hf-id="hf-pp7d" class="user-role">Administrador de Programa</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main data-hf-id="hf-g3rz" class="main">
+      <header data-hf-id="hf-9qm5" class="page-header animate-enter">
+        <div data-hf-id="hf-x11t">
+          <h1 data-hf-id="hf-eidb" class="page-title">Empresas Miembro</h1>
+          <p data-hf-id="hf-qd5p" class="page-subtitle">Onboard, verify and support the Organization’s 388 member companies — 334 verified, 23 invited, 12 pending review, 14 suspended, 5 inactive</p>
+        </div>
+        <div data-hf-id="hf-91nl" class="header-actions">
+          <button data-hf-id="hf-7phn" class="btn btn-primary" onclick="openModal('invite-modal')"><i data-hf-id="hf-v891" class="ph-bold ph-plus"></i> Añadir empresa miembro</button>
+        </div>
+      </header>
+
+      <div data-hf-id="hf-qrif" class="filter-bar animate-enter delay-1" role="search" aria-label="Filtros de empresas miembro">
+        <div data-hf-id="hf-0fxg" class="filter-group">
+          <label data-hf-id="hf-42fj" class="filter-label" for="filter-sector">Sector</label>
+          <select data-hf-id="hf-f79n" id="filter-sector" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-9nmq" value="all">Todos los sectores (388)</option>
+            <option data-hf-id="hf-pwhd" value="manufacturing and textiles">Manufactura y textiles (112)</option>
+            <option data-hf-id="hf-mtxm" value="agriculture and agro-processing">Agricultura y agroindustria (94)</option>
+            <option data-hf-id="hf-1rbh" value="construction">Construcción (72)</option>
+            <option data-hf-id="hf-70gj" value="logistics and transport">Logística y transporte (64)</option>
+            <option data-hf-id="hf-mjwv" value="tourism and hospitality">Turismo y hostelería (46)</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-byak" class="filter-group">
+          <label data-hf-id="hf-jdq7" class="filter-label" for="filter-status">Estado</label>
+          <select data-hf-id="hf-6usj" id="filter-status" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-3ccl" value="all">Todos los estados</option>
+            <option data-hf-id="hf-hayh" value="verified">Verificado</option>
+            <option data-hf-id="hf-d85n" value="pending review">Pendiente de revisión</option>
+            <option data-hf-id="hf-5ext" value="invited">Invitado</option>
+            <option data-hf-id="hf-nmrt" value="suspended">Suspended</option>
+            <option data-hf-id="hf-jke7" value="inactive">Inactivo</option>
+          </select>
+        </div>
+        <div data-hf-id="hf-ardh" class="filter-group">
+          <label data-hf-id="hf-l8l5" class="filter-label" for="filter-size">Tamaño de la plantilla</label>
+          <select data-hf-id="hf-2shm" id="filter-size" class="filter-select" onchange="filterEntities()">
+            <option data-hf-id="hf-oz2n" value="all">Todos los tamaños</option>
+            <option data-hf-id="hf-wpob" value="1–49">1–49</option>
+            <option data-hf-id="hf-rrsj" value="50–249">50–249</option>
+            <option data-hf-id="hf-hb65" value="250+">250+</option>
+          </select>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-sot2" class="card animate-enter delay-2">
+        <table data-hf-id="hf-dibk" class="data-table" id="entities-table">
+          <thead data-hf-id="hf-zd89">
+            <tr data-hf-id="hf-p3r7">
+              <th data-hf-id="hf-ui4k">Empresa miembro</th>
+              <th data-hf-id="hf-epmf">Correo de contacto</th>
+              <th data-hf-id="hf-wowj">Sector</th>
+              <th data-hf-id="hf-f5cw">Tamaño</th>
+              <th data-hf-id="hf-308j">Estado</th>
+              <th data-hf-id="hf-7244">Incorporación</th>
+              <th data-hf-id="hf-5y9l" style="text-align: right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody data-hf-id="hf-bsvf">
+            <tr data-hf-id="hf-g51v" data-sector="agriculture and agro-processing" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-54xx"><strong data-hf-id="hf-qk8h">Rift Valley Agro-Processing</strong><br data-hf-id="hf-x5px"><small data-hf-id="hf-gx0e" style="color:var(--text-secondary)">Hawassa, Sidama, Ethiopia · Registrado el 10 jun 2026</small></td>
+              <td data-hf-id="hf-g8gb">jobs@riftvalleyagro.et</td>
+              <td data-hf-id="hf-sest">Agricultura y agroindustria</td>
+              <td data-hf-id="hf-k58i">50–249</td>
+              <td data-hf-id="hf-t9cp"><span data-hf-id="hf-zj6d" class="badge badge-success">Verificado</span></td>
+              <td data-hf-id="hf-ug9s">
+                <div data-hf-id="hf-4tcz" class="progress-container">
+                  <div data-hf-id="hf-7gch" class="progress-bar"><div data-hf-id="hf-pppd" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-vln7" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-571i" style="text-align: right;">
+                <button data-hf-id="hf-7ko0" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Rift Valley Agro-Processing')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-vaif" data-sector="construction" data-status="suspended" data-size="250+">
+              <td data-hf-id="hf-u1yr"><strong data-hf-id="hf-10rj">Northern Highlands Construction</strong><br data-hf-id="hf-rsrt"><small data-hf-id="hf-rhie" style="color:var(--text-secondary)">Bahir Dar, Amhara, Ethiopia · Registrado el 12 may 2026</small></td>
+              <td data-hf-id="hf-hrl6">hr@northernhighlands.et</td>
+              <td data-hf-id="hf-cnjg">Construcción</td>
+              <td data-hf-id="hf-pl6p">250+</td>
+              <td data-hf-id="hf-s2fm"><span data-hf-id="hf-6mkr" class="badge badge-error">Suspended</span></td>
+              <td data-hf-id="hf-ro4l">
+                <div data-hf-id="hf-g1wj" class="progress-container">
+                  <div data-hf-id="hf-bogl" class="progress-bar"><div data-hf-id="hf-8ar9" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-bwkz" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-44tm" style="text-align: right;">
+                <button data-hf-id="hf-e4ht" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Activar</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-sh5t" data-sector="manufacturing and textiles" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-sv1o"><strong data-hf-id="hf-jn8c">Highland Textile Works</strong><br data-hf-id="hf-szow"><small data-hf-id="hf-kkyf" style="color:var(--text-secondary)">Addis Ababa, Ethiopia · Registrado el 01 jun 2026</small></td>
+              <td data-hf-id="hf-bj9l">careers@highlandtextile.et</td>
+              <td data-hf-id="hf-1x8f">Manufactura y textiles</td>
+              <td data-hf-id="hf-3mqu">50–249</td>
+              <td data-hf-id="hf-sgqn"><span data-hf-id="hf-mznt" class="badge badge-success">Verificado</span></td>
+              <td data-hf-id="hf-qh7i">
+                <div data-hf-id="hf-fnli" class="progress-container">
+                  <div data-hf-id="hf-cvdo" class="progress-bar"><div data-hf-id="hf-8scr" class="progress-fill" style="width: 85%"></div></div>
+                  <span data-hf-id="hf-0ash" class="progress-label">85%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-4j4n" style="text-align: right;">
+                <button data-hf-id="hf-nggl" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Highland Textile Works')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-zyxe" data-sector="logistics and transport" data-status="invited" data-size="1–49">
+              <td data-hf-id="hf-q2wh"><strong data-hf-id="hf-60xk">Savanna Freight Partners</strong><br data-hf-id="hf-sldv"><small data-hf-id="hf-zbgl" style="color:var(--text-secondary)">Nairobi, Kenya · Invitado el 08 jun 2026</small></td>
+              <td data-hf-id="hf-37yl">careers@savannafreight.co.ke</td>
+              <td data-hf-id="hf-vz2b">Logística y transporte</td>
+              <td data-hf-id="hf-s3sm">1–49</td>
+              <td data-hf-id="hf-vuh7"><span data-hf-id="hf-b53z" class="badge badge-warning">Invitado</span></td>
+              <td data-hf-id="hf-w8s8">
+                <div data-hf-id="hf-f9ah" class="progress-container">
+                  <div data-hf-id="hf-ch2n" class="progress-bar"><div data-hf-id="hf-mmac" class="progress-fill" style="width: 40%"></div></div>
+                  <span data-hf-id="hf-g7qk" class="progress-label">40%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-4xfo" style="text-align: right;">
+                <button data-hf-id="hf-mtkh" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert(fmt(STR.reinvitedName, { name: 'Savanna Freight Partners' }))">Reinvitar</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-56v6" data-sector="manufacturing and textiles" data-status="pending review" data-size="1–49">
+              <td data-hf-id="hf-v1v5"><strong data-hf-id="hf-krhk">Central Leather Works</strong><br data-hf-id="hf-qluq"><small data-hf-id="hf-dlhc" style="color:var(--text-secondary)">Adama, Oromia, Ethiopia · Registrado el 13 jun 2026</small></td>
+              <td data-hf-id="hf-7g1k">recruitment@centralleather.et</td>
+              <td data-hf-id="hf-8y2n">Manufactura y textiles</td>
+              <td data-hf-id="hf-7k4a">1–49</td>
+              <td data-hf-id="hf-vg66"><span data-hf-id="hf-e3px" class="badge badge-warning">Pendiente de revisión</span></td>
+              <td data-hf-id="hf-u993">
+                <div data-hf-id="hf-euzg" class="progress-container">
+                  <div data-hf-id="hf-dnzq" class="progress-bar"><div data-hf-id="hf-4gze" class="progress-fill" style="width: 20%"></div></div>
+                  <span data-hf-id="hf-20dy" class="progress-label">20%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-8sqb" style="text-align: right; display:flex; gap:6px; justify-content:flex-end;">
+                <button data-hf-id="hf-tkjo" class="btn btn-primary" style="padding: 6px 12px; font-size:12px; background:#346538;" onclick="changeStatus(this, STR.statusVerified, 'badge-success', STR.actionSuspend)">Verificar</button>
+                <button data-hf-id="hf-v69k" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px; border-color:var(--error-text); color:var(--error-text);" onclick="openModeration('reject', 'Central Leather Works')">Reject</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-0l15" data-sector="tourism and hospitality" data-status="verified" data-size="250+">
+              <td data-hf-id="hf-unk4"><strong data-hf-id="hf-jlv4">Coastal Hospitality Group</strong><br data-hf-id="hf-q7jp"><small data-hf-id="hf-1xss" style="color:var(--text-secondary)">Accra, Ghana · Registrado el 15 may 2026</small></td>
+              <td data-hf-id="hf-l7sc">jobs@coastalhospitality.com.gh</td>
+              <td data-hf-id="hf-h1xm">Turismo y hostelería</td>
+              <td data-hf-id="hf-pvo5">250+</td>
+              <td data-hf-id="hf-tgn1"><span data-hf-id="hf-o6kw" class="badge badge-success">Verificado</span></td>
+              <td data-hf-id="hf-tuy2">
+                <div data-hf-id="hf-egof" class="progress-container">
+                  <div data-hf-id="hf-d9op" class="progress-bar"><div data-hf-id="hf-9hoc" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-bi9y" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-5bqp" style="text-align: right;">
+                <button data-hf-id="hf-5pff" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Coastal Hospitality Group')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-l7tv" data-sector="construction" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-z0xf"><strong data-hf-id="hf-ymzq">Tigray Construction Partners</strong><br data-hf-id="hf-regs"><small data-hf-id="hf-509l" style="color:var(--text-secondary)">Mekelle, Tigray, Ethiopia · Registrado el 22 may 2026</small></td>
+              <td data-hf-id="hf-9vwc">careers@tigrayconstruction.et</td>
+              <td data-hf-id="hf-0atg">Construcción</td>
+              <td data-hf-id="hf-411v">50–249</td>
+              <td data-hf-id="hf-zf8g"><span data-hf-id="hf-ns9v" class="badge badge-success">Verificado</span></td>
+              <td data-hf-id="hf-8epc">
+                <div data-hf-id="hf-e2de" class="progress-container">
+                  <div data-hf-id="hf-egls" class="progress-bar"><div data-hf-id="hf-93db" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-b3yx" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-5q1q" style="text-align: right;">
+                <button data-hf-id="hf-0d1n" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Tigray Construction Partners')">Suspend</button>
+              </td>
+            </tr>
+            <tr data-hf-id="hf-poex" data-sector="logistics and transport" data-status="verified" data-size="50–249">
+              <td data-hf-id="hf-80eb"><strong data-hf-id="hf-wtb9">Mombasa Road Logistics</strong><br data-hf-id="hf-r05r"><small data-hf-id="hf-966t" style="color:var(--text-secondary)">Nairobi, Kenya · Registrado el 04 jun 2026</small></td>
+              <td data-hf-id="hf-0j33">jobs@mombasaroad.co.ke</td>
+              <td data-hf-id="hf-i66b">Logística y transporte</td>
+              <td data-hf-id="hf-4fcw">50–249</td>
+              <td data-hf-id="hf-7m3a"><span data-hf-id="hf-lsqq" class="badge badge-success">Verificado</span></td>
+              <td data-hf-id="hf-77s9">
+                <div data-hf-id="hf-do2d" class="progress-container">
+                  <div data-hf-id="hf-e2ar" class="progress-bar"><div data-hf-id="hf-aaae" class="progress-fill" style="width: 100%"></div></div>
+                  <span data-hf-id="hf-apnw" class="progress-label">100%</span>
+                </div>
+              </td>
+              <td data-hf-id="hf-64cr" style="text-align: right;">
+                <button data-hf-id="hf-mgwy" class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', 'Mombasa Road Logistics')">Suspend</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Member Company Modal -->
+  <div data-hf-id="hf-7tid" class="modal-overlay" id="invite-modal">
+    <div data-hf-id="hf-keer" class="modal">
+      <h3 data-hf-id="hf-x6qy" class="modal-title">Añadir empresa miembro</h3>
+      <p data-hf-id="hf-a118" class="modal-desc">Invite a una empresa miembro a compartir sus datos de personal y vacantes a través del Portal Comunitario de Empleo.</p>
+
+      <div data-hf-id="hf-dx00" class="form-group">
+        <label data-hf-id="hf-0d23" class="form-label" for="invite-name">Razón social</label>
+        <input data-hf-id="hf-hm7d" type="text" id="invite-name" class="form-input" placeholder="p. ej. Highland Textile Works" required>
+      </div>
+
+      <div data-hf-id="hf-1m3s" class="form-group">
+        <label data-hf-id="hf-ptax" class="form-label" for="invite-email">Correo de la persona de contacto</label>
+        <input data-hf-id="hf-gaoq" type="email" id="invite-email" class="form-input" placeholder="p. ej. careers@company.et" required>
+      </div>
+
+      <div data-hf-id="hf-0f6p" class="form-group">
+        <label data-hf-id="hf-b9p5" class="form-label" for="invite-sector-sel">Sector principal</label>
+        <select data-hf-id="hf-lw7r" id="invite-sector-sel" class="form-select">
+          <option data-hf-id="hf-70xq">Manufactura y textiles</option>
+          <option data-hf-id="hf-dh9a">Agricultura y agroindustria</option>
+          <option data-hf-id="hf-3a1t">Construcción</option>
+          <option data-hf-id="hf-9dh4">Logística y transporte</option>
+          <option data-hf-id="hf-ylah">Turismo y hostelería</option>
+        </select>
+      </div>
+
+      <div data-hf-id="hf-jfvp" class="modal-actions">
+        <button data-hf-id="hf-kklx" class="btn btn-secondary" onclick="closeModal('invite-modal')">Cancelar</button>
+        <button data-hf-id="hf-q95z" class="btn btn-primary" onclick="submitInvite()">Enviar invitación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moderation (Suspension / Rejection) Modal -->
+  <div data-hf-id="hf-ufm6" class="modal-overlay" id="moderation-modal">
+    <div data-hf-id="hf-cn6b" class="modal">
+      <h3 data-hf-id="hf-j84w" class="modal-title" id="mod-title">Suspend Member Company</h3>
+      <p data-hf-id="hf-ujji" class="modal-desc" id="mod-desc">Por favor, proporcione un comentario. Esta acción se registrará en los registros de actividad.</p>
+
+      <div data-hf-id="hf-0thq" class="form-group">
+        <label data-hf-id="hf-of1x" class="form-label" for="mod-comment">Motivo / Comentarios</label>
+        <textarea data-hf-id="hf-y7kk" id="mod-comment" class="form-textarea" placeholder="Proporcione detalles sobre esta acción de moderación..." required></textarea>
+      </div>
+
+      <div data-hf-id="hf-27p5" class="modal-actions">
+        <button data-hf-id="hf-429u" class="btn btn-secondary" onclick="closeModal('moderation-modal')">Cancelar</button>
+        <button data-hf-id="hf-9ivs" class="btn btn-primary" style="background:var(--error-text);" onclick="submitModeration()">Confirmar acción</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* i18n:STR:start */
+    const STR = {
+      suspendTitle: "Suspend Member Company",
+      returnTitle: "Return Membership Application",
+      suspendConfirm: "Are you sure you want to suspend access for {name}? A comment is required to proceed.",
+      returnConfirm: "Are you sure you want to return the membership application for {name}? A comment is required to proceed.",
+      commentRequired: "Por favor, introduzca un comentario antes de enviar.",
+      statusSuspended: "Suspended",
+      statusRejected: "Rejected",
+      actionActivate: "Activar",
+      actionSuspend: "Suspend",
+      statusVerified: "Verificado",
+      reinvitedName: "Reinvitación enviada a {name}",
+      actionProcessedSuccess: "Acción procesada con éxito. Comentario registrado: \"{comment}\"",
+      fillAllFields: "Por favor, complete todos los campos.",
+      invitedJustNow: "Invitado ahora mismo",
+      statusInvited: "Invitado",
+      invitationResent: "Invitación reenviada",
+      actionResend: "Reenviar"
+    };
+    /* i18n:STR:end */
+    const fmt = (s, v = {}) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '{' + k + '}');
+
+    let activeModRow = null;
+    let activeModType = '';
+    let activeModName = '';
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('is-open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('is-open');
+      if(id === 'moderation-modal') {
+        document.getElementById('mod-comment').value = '';
+      }
+    }
+
+    function filterEntities() {
+      const sector = document.getElementById('filter-sector').value.toLowerCase();
+      const status = document.getElementById('filter-status').value.toLowerCase();
+      const size = document.getElementById('filter-size').value.toLowerCase();
+      const rows = document.querySelectorAll('#entities-table tbody tr');
+
+      rows.forEach(row => {
+        const rowSector = row.getAttribute('data-sector').toLowerCase();
+        const rowStatus = row.getAttribute('data-status').toLowerCase();
+        const rowSize = row.getAttribute('data-size').toLowerCase();
+
+        const matchSector = (sector === 'all' || rowSector === sector);
+        const matchStatus = (status === 'all' || rowStatus === status);
+        const matchSize = (size === 'all' || rowSize === size);
+
+        if(matchSector && matchStatus && matchSize) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function openModeration(type, entityName) {
+      activeModType = type;
+      activeModName = entityName;
+      const title = type === 'suspend' ? STR.suspendTitle : STR.returnTitle;
+      const desc = type === 'suspend'
+        ? fmt(STR.suspendConfirm, { name: entityName })
+        : fmt(STR.returnConfirm, { name: entityName });
+
+      document.getElementById('mod-title').textContent = title;
+      document.getElementById('mod-desc').textContent = desc;
+
+      const triggerBtn = event.currentTarget;
+      activeModRow = triggerBtn.closest('tr');
+
+      openModal('moderation-modal');
+    }
+
+    function submitModeration() {
+      const comment = document.getElementById('mod-comment').value.trim();
+      if(!comment) {
+        alert(STR.commentRequired);
+        return;
+      }
+
+      // Perform simulated state change
+      if (activeModRow) {
+        const statusTd = activeModRow.querySelector('td:nth-child(5)');
+        const actionTd = activeModRow.querySelector('td:nth-child(7)');
+
+        if (activeModType === 'suspend') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusSuspended}</span>`;
+          activeModRow.setAttribute('data-status', 'suspended');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="changeStatus(this, '${STR.statusVerified}', 'badge-success', '${STR.actionSuspend}')">${STR.actionActivate}</button>`;
+        } else if (activeModType === 'reject') {
+          statusTd.innerHTML = `<span class="badge badge-error">${STR.statusRejected}</span>`;
+          activeModRow.setAttribute('data-status', 'rejected');
+          actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${fmt(STR.reinvitedName, { name: activeModName })}')">${STR.actionResend}</button>`;
+        }
+      }
+
+      closeModal('moderation-modal');
+      alert(fmt(STR.actionProcessedSuccess, { comment }));
+    }
+
+    function changeStatus(btn, statusLabel, badgeClass, nextActionLabel) {
+      // statusLabel is the localized text shown in the badge. All current
+      // callers transition a row to the "verified" state, so the internal
+      // data-status key (used by the sector/status/size filters above) and
+      // the branch below are keyed off that fixed, locale-invariant string
+      // rather than off statusLabel — comparing statusLabel to a literal
+      // would silently stop matching once statusLabel is translated.
+      const row = btn.closest('tr');
+      const statusTd = row.querySelector('td:nth-child(5)');
+      const actionTd = row.querySelector('td:nth-child(7)');
+
+      statusTd.innerHTML = `<span class="badge ${badgeClass}">${statusLabel}</span>`;
+      row.setAttribute('data-status', 'verified');
+
+      actionTd.innerHTML = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="openModeration('suspend', '${row.querySelector('strong').textContent}')">${nextActionLabel}</button>`;
+    }
+
+    function submitInvite() {
+      const name = document.getElementById('invite-name').value.trim();
+      const email = document.getElementById('invite-email').value.trim();
+      const sector = document.getElementById('invite-sector-sel').value;
+
+      if(!name || !email) {
+        alert(STR.fillAllFields);
+        return;
+      }
+
+      // Add to table dynamically
+      const tableBody = document.querySelector('#entities-table tbody');
+      const newRow = document.createElement('tr');
+      newRow.setAttribute('data-sector', sector.toLowerCase());
+      newRow.setAttribute('data-status', 'invited');
+      newRow.setAttribute('data-size', '1–49');
+
+      newRow.innerHTML = `
+        <td><strong>${name}</strong><br><small style="color:var(--text-secondary)">${STR.invitedJustNow}</small></td>
+        <td>${email}</td>
+        <td>${sector}</td>
+        <td>1–49</td>
+        <td><span class="badge badge-warning">${STR.statusInvited}</span></td>
+        <td>
+          <div class="progress-container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+            <span class="progress-label">0%</span>
+          </div>
+        </td>
+        <td style="text-align: right;">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size:12px;" onclick="alert('${STR.invitationResent}')">${STR.actionResend}</button>
+        </td>
+      `;
+
+      tableBody.insertBefore(newRow, tableBody.firstChild);
+      closeModal('invite-modal');
+
+      // Reset fields
+      document.getElementById('invite-name').value = '';
+      document.getElementById('invite-email').value = '';
+    }
+  </script>
+
+  <!-- GSAP & HyperFrames -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://hyperframes.dev/client.js"></script>
+
+  <!-- Video Overlays -->
+  <style>
+    #subtitle-container { display: none !important; }
+  </style>
+
+  
+  <script>
+
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    tl.to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+      .to({}, { duration: 3 })
+      .to({}, { duration: 1.5 })
+
+  window.__timelines["beat-02"] = tl;
+  </script>
+
+</div>
+</body>
+</html>

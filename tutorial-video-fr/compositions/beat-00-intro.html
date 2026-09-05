@@ -162,7 +162,7 @@
         <div data-hf-id="hf-srul" class="signature-rule" id="signature-rule"></div>
         <div data-hf-id="hf-min" class="ministry" id="ministry">Ministère du Travail</div>
         <div data-hf-id="hf-j70o" class="title" id="title">
-          <div data-hf-id="hf-tln1" class="title-line">Système d'Information sur le Marché du Travail</div>
+          <div data-hf-id="hf-tln1" class="title-line">Portail National de l'Emploi</div>
           <div data-hf-id="hf-tln2" class="title-line">Démonstration pour la Création d'Emplois</div>
         </div>
       </div>
@@ -175,7 +175,8 @@
       gsap.set("#signature-rule", { scaleY: 0 });
       gsap.set("#right-column", { xPercent: 100 });
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
       // 1. The dark panel arrives first and sets the frame.
       tl.to("#right-column", { xPercent: 0, duration: 1.1, ease: "power3.inOut" }, 0);
@@ -191,6 +192,8 @@
 
       // 4. Hand off to the screencast.
       tl.to("#intro-wrapper", { opacity: 0, duration: 0.8, ease: "power2.inOut" }, 4.2);
+
+      window.__timelines["beat-00"] = tl;
     </script>
   </div>
 </body>

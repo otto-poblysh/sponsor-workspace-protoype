@@ -1,0 +1,1001 @@
+=== extract-i18n.js ===
+#!/usr/bin/env node
+
+/**
+ * tools/extract-i18n.js
+ *
+ * Scans English HTML source files and extracts translatable strings into catalog skeletons (R2):
+ * - Extracts visible text nodes (trimmed, non-empty, skipping <script>, <style>, and data-i18n-ignore).
+ * - Extracts whitelisted attributes: title, aria-label, placeholder, alt, and <meta name="description"> content.
+ * - Extracts dynamic strings inside /* i18n:STR:start * / ... /* i18n:STR:end * / blocks in scripts.
+ * - Skips entries matching do-not-translate.json, pure numbers, currency symbols, and punctuation-only strings.
+ * - Categorizes strings on >= 8 of 11 pages into common.[locale].json; others into [page].[locale].json.
+ * - Merges new strings non-destructively into existing catalogs, preserving existing translations and key sorting.
+ */
+
+const fs = require('node:fs');
+const path = require('node:path');
+
+const DEFAULT_PROTOTYPE_PAGES = [
+  'index.html',
+  'entities.html',
+  'skill-gap.html',
+  'jobs-applications.html',
+  'general-report.html',
+  'users-management.html',
+  'activity-logs.html',
+  'report-recipients.html',
+  'notification-preferences.html',
+  'tenant-branding.html',
+  'supported-countries.html'
+];
+
+const VOID_ELEMENTS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
+  'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+]);
+
+/**
+ * Loads the do-not-translate list from a JSON file into a Set.
+ * @param {string} filePath
+ * @returns {Set<string>}
+ */
+function loadDoNotTranslate(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return new Set();
+  }
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const list = JSON.parse(raw);
+    return new Set(Array.isArray(list) ? list : []);
+  } catch (err) {
+    console.error(`Warning: Failed to load do-not-translate file from ${filePath}: ${err.message}`);
+    return new Set();
+  }
+}
+
+/**
+ * Unescapes basic HTML entities.
+ * @param {string} str
+ * @returns {string}
+ */
+function unescapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–');
+}
+
+/**
+ * Unescapes JavaScript string literals.
+ * @param {string} str
+ * @returns {string}
+ */
+function unescapeJsString(str) {
+  if (!str) return '';
+  return str
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '\r')
+    .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"')
+    .replace(/\\'/g, "'")
+    .replace(/\\\\/g, '\\');
+}
+
+/**
+ * Checks if a string is eligible for translation.
+ * Omit if:
+ * - Empty or whitespace-only
+ * - Found in doNotTranslateSet
+ * - Pure numbers, currency amounts, percentages, or punctuation-only
+ * @param {string} str
+ * @param {Set<string>} [doNotTranslateSet]
+ * @returns {boolean}
+ */
+function isTranslatable(str, doNotTranslateSet = new Set()) {
+  if (!str || typeof str !== 'string') return false;
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+
+  const dntSet = doNotTranslateSet instanceof Set ? doNotTranslateSet : new Set(doNotTranslateSet || []);
+  if (dntSet.has(trimmed)) return false;
+
+  // Must contain at least one unicode letter character (\p{L})
+  if (!/\p{L}/u.test(trimmed)) return false;
+
+  // Exclude standalone currency amounts like "100 FCFA", "500 USD", "$100"
+  if (/^(?:FCFA|XAF|USD|EUR|GBP)[\s\d,.\-+%]+$/i.test(trimmed) || /^[\s\d,.\-+%]+(?:FCFA|XAF|USD|EUR|GBP)$/i.test(trimmed)) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Parses attributes from an HTML element opening tag.
+ * @param {string} attrString
+ * @returns {Record<string, string>}
+ */
+function parseAttributes(attrString) {
+  const attrs = {};
+  if (!attrString) return attrs;
+
+  const attrRegex = /([a-zA-Z0-9\-:]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
+  let m;
+  while ((m = attrRegex.exec(attrString)) !== null) {
+    const name = m[1].toLowerCase();
+    const value = m[2] !== undefined ? m[2] : (m[3] !== undefined ? m[3] : (m[4] !== undefined ? m[4] : ''));
+    attrs[name] = unescapeHtml(value);
+  }
+  return attrs;
+}
+
+/**
+ * Extracts all translatable strings from an HTML document string.
+ * @param {string} htmlContent
+ * @param {Set<string>} [doNotTranslateSet]
+ * @param {object} [options]
+ * @returns {Set<string>}
+ */
+function extractStringsFromHtml(htmlContent, doNotTranslateSet = new Set(), options = {}) {
+  const extracted = new Set();
+  const dntSet = doNotTranslateSet instanceof Set ? doNotTranslateSet : new Set(doNotTranslateSet || []);
+
+  if (!htmlContent || typeof htmlContent !== 'string') {
+    return extracted;
+  }
+
+  // 1. Extract dynamic strings from /* i18n:STR:start */ ... /* i18n:STR:end */
+  const strBlockRegex = /\/\*\s*i18n:STR:start\s*\*\/([\s\S]*?)\/\*\s*i18n:STR:end\s*\*\//g;
+  let blockMatch;
+  while ((blockMatch = strBlockRegex.exec(htmlContent)) !== null) {
+    const blockContent = blockMatch[1];
+    const strLitRegex = /(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'|`((?:[^`\\]|\\.)*)`)/g;
+    let litMatch;
+    while ((litMatch = strLitRegex.exec(blockContent)) !== null) {
+      const rawVal = litMatch[1] !== undefined ? litMatch[1] : (litMatch[2] !== undefined ? litMatch[2] : litMatch[3]);
+      if (rawVal !== undefined) {
+        const val = unescapeJsString(rawVal);
+        if (isTranslatable(val, dntSet)) {
+          extracted.add(val);
+        }
+      }
+    }
+  }
+
+  // 2. Tokenize and parse HTML tags, attributes, and text nodes
+  // Tokenizer pattern matches:
+  // - HTML comments: <!-- ... -->
+  // - <script ...> ... </script>
+  // - <style ...> ... </style>
+  // - HTML tags: <tagName attrs> or </tagName>
+  // - Text nodes: [^<]+
+  const tokenRegex = /<!--[\s\S]*?-->|<!DOCTYPE\b[^>]*>|<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>|<\/([a-zA-Z0-9\-]+)\s*>|<([a-zA-Z0-9\-]+)((?:\s+[^"'/>\s=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>|([^<]+)/gi;
+
+  let ignoreDepth = 0;
+  let tokenMatch;
+
+  while ((tokenMatch = tokenRegex.exec(htmlContent)) !== null) {
+    const fullMatch = tokenMatch[0];
+    const closeTagName = tokenMatch[1];
+    const openTagName = tokenMatch[2];
+    const attrString = tokenMatch[3];
+    const selfClosingSlash = tokenMatch[4];
+    const textNode = tokenMatch[5];
+
+    // Comments, doctype, scripts, styles
+    if (fullMatch.startsWith('<!--') || fullMatch.toUpperCase().startsWith('<!DOCTYPE') || fullMatch.toLowerCase().startsWith('<script') || fullMatch.toLowerCase().startsWith('<style')) {
+      continue;
+    }
+
+    // Closing tag: </tagName>
+    if (closeTagName) {
+      if (ignoreDepth > 0) {
+        ignoreDepth--;
+      }
+      continue;
+    }
+
+    // Opening tag: <tagName attrs>
+    if (openTagName) {
+      const tagLower = openTagName.toLowerCase();
+      const isVoid = VOID_ELEMENTS.has(tagLower) || selfClosingSlash === '/';
+      const hasIgnoreAttr = /\bdata-i18n-ignore\b/i.test(attrString || '');
+
+      if (ignoreDepth > 0) {
+        if (!isVoid) {
+          ignoreDepth++;
+        }
+        continue;
+      }
+
+      if (hasIgnoreAttr) {
+        if (!isVoid) {
+          ignoreDepth = 1;
+        }
+        continue;
+      }
+
+      if (ignoreDepth === 0) {
+        const attrs = parseAttributes(attrString);
+
+        // Whitelisted attributes: title, aria-label, placeholder, alt
+        if (attrs['title'] && isTranslatable(attrs['title'], dntSet)) {
+          extracted.add(attrs['title']);
+        }
+        if (attrs['aria-label'] && isTranslatable(attrs['aria-label'], dntSet)) {
+          extracted.add(attrs['aria-label']);
+        }
+        if (attrs['placeholder'] && isTranslatable(attrs['placeholder'], dntSet)) {
+          extracted.add(attrs['placeholder']);
+        }
+        if (attrs['alt'] && isTranslatable(attrs['alt'], dntSet)) {
+          extracted.add(attrs['alt']);
+        }
+
+        // <meta name="description" content="...">
+        if (tagLower === 'meta' && attrs['name'] && attrs['name'].toLowerCase() === 'description' && attrs['content']) {
+          if (isTranslatable(attrs['content'], dntSet)) {
+            extracted.add(attrs['content']);
+          }
+        }
+      }
+      continue;
+    }
+
+    // Text node
+    if (textNode && ignoreDepth === 0) {
+      const trimmed = unescapeHtml(textNode.trim());
+      if (isTranslatable(trimmed, dntSet)) {
+        extracted.add(trimmed);
+      }
+    }
+  }
+
+  return extracted;
+}
+
+/**
+ * Extracts strings across all pages and splits them into common and page-specific catalogs.
+ * Strings appearing on >= threshold pages land in common, not per-page.
+ * @param {Record<string, string>} pagesMap Map of pageName -> htmlContent
+ * @param {object} [options]
+ * @param {number} [options.threshold] Default 8
+ * @param {Set<string>} [options.doNotTranslateSet]
+ * @returns {{ common: Set<string>, pages: Record<string, Set<string>>, allStrings: Set<string> }}
+ */
+function extractAllPages(pagesMap, options = {}) {
+  const threshold = options.threshold !== undefined ? options.threshold : 8;
+  const dntSet = options.doNotTranslateSet || new Set();
+
+  const stringOccurrences = new Map(); // string -> Set of pageNames
+
+  for (const [pageName, htmlContent] of Object.entries(pagesMap)) {
+    const pageStrings = extractStringsFromHtml(htmlContent, dntSet, options);
+    for (const str of pageStrings) {
+      if (!stringOccurrences.has(str)) {
+        stringOccurrences.set(str, new Set());
+      }
+      stringOccurrences.get(str).add(pageName);
+    }
+  }
+
+  const common = new Set();
+  const pages = {};
+
+  for (const pageName of Object.keys(pagesMap)) {
+    pages[pageName] = new Set();
+  }
+
+  for (const [str, pageNames] of stringOccurrences.entries()) {
+    if (pageNames.size >= threshold) {
+      common.add(str);
+    } else {
+      for (const pageName of pageNames) {
+        pages[pageName].add(str);
+      }
+    }
+  }
+
+  return {
+    common,
+    pages,
+    allStrings: new Set(stringOccurrences.keys())
+  };
+}
+
+/**
+ * Non-destructively writes or updates translation catalog skeletons.
+ * Preserves existing translations and ensures alphabetical key sorting.
+ * @param {{ common: Set<string>, pages: Record<string, Set<string>> }} extractedData
+ * @param {string} i18nDir
+ * @param {string[]} [locales] Default ['fr', 'es']
+ * @param {object} [options]
+ * @param {string} [options.defaultValue] Default ""
+ * @returns {string[]} Written file paths
+ */
+function writeCatalogSkeletons(extractedData, i18nDir, locales = ['fr', 'es'], options = {}) {
+  fs.mkdirSync(i18nDir, { recursive: true });
+  const writtenFiles = [];
+  const defaultValue = options.defaultValue !== undefined ? options.defaultValue : '';
+
+  for (const locale of locales) {
+    // 1. common.[locale].json
+    const commonPath = path.join(i18nDir, `common.${locale}.json`);
+    let existingCommon = {};
+    if (fs.existsSync(commonPath)) {
+      try {
+        existingCommon = JSON.parse(fs.readFileSync(commonPath, 'utf-8'));
+      } catch (_) {
+        existingCommon = {};
+      }
+    }
+
+    const mergedCommon = { ...existingCommon };
+    for (const str of extractedData.common) {
+      if (!(str in mergedCommon)) {
+        mergedCommon[str] = defaultValue;
+      }
+    }
+
+    const sortedCommon = {};
+    for (const key of Object.keys(mergedCommon).sort()) {
+      sortedCommon[key] = mergedCommon[key];
+    }
+    fs.writeFileSync(commonPath, JSON.stringify(sortedCommon, null, 2) + '\n', 'utf-8');
+    writtenFiles.push(commonPath);
+
+    // 2. [page].[locale].json
+    for (const [pageFile, strings] of Object.entries(extractedData.pages)) {
+      const baseName = path.basename(pageFile, '.html');
+      const pagePath = path.join(i18nDir, `${baseName}.${locale}.json`);
+      let existingPage = {};
+      if (fs.existsSync(pagePath)) {
+        try {
+          existingPage = JSON.parse(fs.readFileSync(pagePath, 'utf-8'));
+        } catch (_) {
+          existingPage = {};
+        }
+      }
+
+      const mergedPage = { ...existingPage };
+      for (const str of strings) {
+        if (!(str in mergedPage)) {
+          mergedPage[str] = defaultValue;
+        }
+      }
+
+      const sortedPage = {};
+      for (const key of Object.keys(mergedPage).sort()) {
+        sortedPage[key] = mergedPage[key];
+      }
+      fs.writeFileSync(pagePath, JSON.stringify(sortedPage, null, 2) + '\n', 'utf-8');
+      writtenFiles.push(pagePath);
+    }
+  }
+
+  return writtenFiles;
+}
+
+// CLI runner
+if (require.main === module) {
+  const rootDir = process.cwd();
+  const i18nDir = path.join(rootDir, 'i18n');
+  const dntPath = path.join(i18nDir, 'do-not-translate.json');
+  const doNotTranslateSet = loadDoNotTranslate(dntPath);
+
+  const pagesMap = {};
+  for (const pageName of DEFAULT_PROTOTYPE_PAGES) {
+    const fullPath = path.join(rootDir, pageName);
+    if (fs.existsSync(fullPath)) {
+      pagesMap[pageName] = fs.readFileSync(fullPath, 'utf-8');
+    }
+  }
+
+  const pageCount = Object.keys(pagesMap).length;
+  console.log(`Scanning ${pageCount} English HTML prototype pages...`);
+
+  const extractedData = extractAllPages(pagesMap, {
+    threshold: 8,
+    doNotTranslateSet
+  });
+
+  console.log(`✓ Extracted ${extractedData.allStrings.size} total unique translatable strings.`);
+  console.log(`✓ Common strings (>= 8 pages): ${extractedData.common.size}`);
+  for (const [page, strings] of Object.entries(extractedData.pages)) {
+    console.log(`  - ${page}: ${strings.size} page-specific strings`);
+  }
+
+  const written = writeCatalogSkeletons(extractedData, i18nDir, ['fr', 'es']);
+  console.log(`✓ Wrote/updated ${written.length} catalog skeleton files in ${i18nDir}`);
+}
+
+module.exports = {
+  loadDoNotTranslate,
+  unescapeHtml,
+  unescapeJsString,
+  isTranslatable,
+  parseAttributes,
+  extractStringsFromHtml,
+  extractAllPages,
+  writeCatalogSkeletons,
+  DEFAULT_PROTOTYPE_PAGES
+};
+=== check-i18n.js ===
+#!/usr/bin/env node
+
+/**
+ * tools/check-i18n.js
+ *
+ * Automated coverage checker and progress reporter (R4, R11):
+ * - Scans every generated page in /fr and /es against original English strings.
+ * - Rejects any untranslated English string remaining in the generated output, excluding do-not-translate.json.
+ * - Exits with non-zero exit code if any untranslated string or catalog gap exists,
+ *   detailing `[locale]/[page].html: line [L] - "[string]"`.
+ * - Outputs per-page and per-locale progress stats (e.g. `fr/skill-gap: 168/171 (98%)`).
+ */
+
+const fs = require('node:fs');
+const path = require('node:path');
+const { loadDoNotTranslate, isTranslatable } = require('./extract-i18n.js');
+const { loadCatalog, DEFAULT_PROTOTYPE_PAGES } = require('./build-i18n.js');
+
+const VOID_ELEMENTS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
+  'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+]);
+
+const WHITELISTED_ATTRS = new Set(['title', 'aria-label', 'placeholder', 'alt']);
+
+/**
+ * Unescapes HTML entities.
+ */
+function unescapeHtml(text) {
+  if (!text) return '';
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+}
+
+/**
+ * Unescapes JavaScript string literals.
+ */
+function unescapeJsString(raw) {
+  if (!raw) return '';
+  try {
+    return (0, eval)(`"${raw.replace(/"/g, '\\"')}"`);
+  } catch {
+    return raw
+      .replace(/\\n/g, '\n')
+      .replace(/\\r/g, '\r')
+      .replace(/\\t/g, '\t')
+      .replace(/\\'/g, "'")
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, '\\');
+  }
+}
+
+/**
+ * Calculates 1-indexed line number for a character index in a string.
+ */
+function getLineNumber(content, index) {
+  let line = 1;
+  for (let i = 0; i < index && i < content.length; i++) {
+    if (content[i] === '\n') {
+      line++;
+    }
+  }
+  return line;
+}
+
+/**
+ * Extracts translatable strings from HTML along with their 1-indexed line numbers.
+ * @param {string} htmlContent
+ * @param {Set<string>} [doNotTranslateSet]
+ * @returns {Array<{ string: string, line: number }>}
+ */
+function extractStringsWithLocations(htmlContent, doNotTranslateSet = new Set()) {
+  const results = [];
+  const seenStrings = new Set();
+
+  function record(str, line) {
+    const trimmed = str.trim();
+    if (trimmed.length > 0 && isTranslatable(trimmed, doNotTranslateSet)) {
+      if (!seenStrings.has(trimmed)) {
+        seenStrings.add(trimmed);
+        results.push({ string: trimmed, line });
+      }
+    }
+  }
+
+  // 1. Dynamic strings in /* i18n:STR:start */ ... /* i18n:STR:end */ blocks
+  const strBlockRegex = /\/\*\s*i18n:STR:start\s*\*\/([\s\S]*?)\/\*\s*i18n:STR:end\s*\*\//g;
+  let strMatch;
+  while ((strMatch = strBlockRegex.exec(htmlContent)) !== null) {
+    const blockContent = strMatch[1];
+    const blockOffset = strMatch.index + strMatch[0].indexOf(blockContent);
+    const kvRegex = /(?:['"`]?([a-zA-Z0-9_$]+)['"`]?\s*:\s*)?(?:'([^'\\]*(?:\\.[^'\\]*)*)'|"([^"\\]*(?:\\.[^"\\]*)*)"|`([^`\\]*(?:\\.[^`\\]*)*)`)/g;
+    let kvMatch;
+    while ((kvMatch = kvRegex.exec(blockContent)) !== null) {
+      const rawVal = kvMatch[2] ?? kvMatch[3] ?? kvMatch[4];
+      if (rawVal !== undefined) {
+        const val = unescapeJsString(rawVal);
+        const matchPos = blockOffset + kvMatch.index;
+        const line = getLineNumber(htmlContent, matchPos);
+        record(val, line);
+      }
+    }
+  }
+
+  // 2. Tokenize HTML
+  let index = 0;
+  const len = htmlContent.length;
+  let ignoreDepth = 0;
+
+  while (index < len) {
+    const nextLt = htmlContent.indexOf('<', index);
+
+    if (nextLt === -1) {
+      if (ignoreDepth === 0) {
+        const text = htmlContent.slice(index);
+        const unesc = unescapeHtml(text);
+        const line = getLineNumber(htmlContent, index);
+        record(unesc, line);
+      }
+      break;
+    }
+
+    if (nextLt > index && ignoreDepth === 0) {
+      const text = htmlContent.slice(index, nextLt);
+      const unesc = unescapeHtml(text);
+      const line = getLineNumber(htmlContent, index);
+      record(unesc, line);
+    }
+
+    index = nextLt;
+
+    // Comments
+    if (htmlContent.startsWith('<!--', index)) {
+      const closeComment = htmlContent.indexOf('-->', index + 4);
+      index = closeComment === -1 ? len : closeComment + 3;
+      continue;
+    }
+
+    // DOCTYPE
+    if (htmlContent.startsWith('<!', index)) {
+      const closeGt = htmlContent.indexOf('>', index + 2);
+      index = closeGt === -1 ? len : closeGt + 1;
+      continue;
+    }
+
+    // Closing tags
+    if (htmlContent.startsWith('</', index)) {
+      const closeGt = htmlContent.indexOf('>', index + 2);
+      const tagContent = htmlContent.slice(index + 2, closeGt === -1 ? len : closeGt).trim().toLowerCase();
+      if (tagContent === 'script' || tagContent === 'style') {
+        // handled
+      }
+      if (ignoreDepth > 0) {
+        ignoreDepth--;
+      }
+      index = closeGt === -1 ? len : closeGt + 1;
+      continue;
+    }
+
+    // Opening tags
+    const closeGt = htmlContent.indexOf('>', index + 1);
+    if (closeGt === -1) {
+      break;
+    }
+
+    const tagFull = htmlContent.slice(index, closeGt + 1);
+    const tagMatch = tagFull.match(/^<([a-zA-Z0-9-]+)/);
+    const tagName = tagMatch ? tagMatch[1].toLowerCase() : '';
+    const isSelfClosing = tagFull.endsWith('/>') || VOID_ELEMENTS.has(tagName);
+    const isIgnore = tagFull.includes('data-i18n-ignore');
+
+    if (isIgnore && !isSelfClosing) {
+      ignoreDepth++;
+    }
+
+    // Attribute extraction
+    if (ignoreDepth === 0) {
+      const isMetaDesc = tagName === 'meta' && /name\s*=\s*["']description["']/i.test(tagFull);
+      const attrRegex = /([a-zA-Z0-9-:]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
+      let aMatch;
+      while ((aMatch = attrRegex.exec(tagFull)) !== null) {
+        const attrName = aMatch[1].toLowerCase();
+        const attrVal = aMatch[2] ?? aMatch[3] ?? aMatch[4] ?? '';
+        if (WHITELISTED_ATTRS.has(attrName) || (isMetaDesc && attrName === 'content')) {
+          const unesc = unescapeHtml(attrVal);
+          const line = getLineNumber(htmlContent, index + aMatch.index);
+          record(unesc, line);
+        }
+      }
+    }
+
+    index = closeGt + 1;
+
+    // Script/Style blocks
+    if (tagName === 'script' || tagName === 'style') {
+      const closeTag = `</${tagName}>`;
+      const endPos = htmlContent.toLowerCase().indexOf(closeTag, index);
+      index = endPos === -1 ? len : endPos + closeTag.length;
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Checks translation coverage of a single page against catalogs.
+ * @param {string} enHtmlContent
+ * @param {string} generatedHtmlContent
+ * @param {object} options
+ * @returns {object}
+ */
+function checkPageCoverage(enHtmlContent, generatedHtmlContent, options = {}) {
+  const {
+    locale = 'fr',
+    pageName = 'page.html',
+    doNotTranslateSet = new Set(),
+    pageCatalog = {},
+    commonCatalog = {}
+  } = options;
+
+  const extractedStrings = extractStringsWithLocations(enHtmlContent, doNotTranslateSet);
+  const totalStrings = extractedStrings.length;
+  const untranslatedStrings = [];
+  let translatedCount = 0;
+
+  for (const item of extractedStrings) {
+    const enStr = item.string;
+    const translation = pageCatalog[enStr] ?? commonCatalog[enStr];
+
+    if (translation !== undefined && typeof translation === 'string' && translation.trim().length > 0) {
+      translatedCount++;
+    } else {
+      untranslatedStrings.push({
+        string: enStr,
+        line: item.line
+      });
+    }
+  }
+
+  const coveragePercent = totalStrings === 0 ? 100 : Math.round((translatedCount / totalStrings) * 100);
+
+  return {
+    locale,
+    pageName,
+    totalStrings,
+    translatedCount,
+    untranslatedStrings,
+    coveragePercent,
+    isComplete: untranslatedStrings.length === 0
+  };
+}
+
+/**
+ * Checks coverage across all pages and locales.
+ * @param {object} options
+ * @returns {object}
+ */
+function checkAllCoverage(options = {}) {
+  const rootDir = options.srcDir || process.cwd();
+  const genDir = options.genDir || rootDir;
+  const i18nDir = options.i18nDir || path.join(rootDir, 'i18n');
+  const locales = options.locales || ['fr', 'es'];
+  const pages = options.pages || DEFAULT_PROTOTYPE_PAGES;
+  const doNotTranslateSet = options.doNotTranslateSet || loadDoNotTranslate(path.join(i18nDir, 'do-not-translate.json'));
+
+  const localeReports = {};
+  const errors = [];
+  let totalOverallStrings = 0;
+  let totalOverallTranslated = 0;
+
+  for (const locale of locales) {
+    const commonCatalogPath = path.join(i18nDir, `common.${locale}.json`);
+    const commonCatalog = loadCatalog(commonCatalogPath);
+
+    let localeTotalStrings = 0;
+    let localeTranslatedCount = 0;
+    const pageReports = {};
+    const localeErrors = [];
+
+    for (const pageName of pages) {
+      const srcPath = path.join(rootDir, pageName);
+      if (!fs.existsSync(srcPath)) {
+        continue;
+      }
+
+      const enHtmlContent = fs.readFileSync(srcPath, 'utf-8');
+      const baseName = path.basename(pageName, '.html');
+      const pageCatalogPath = path.join(i18nDir, `${baseName}.${locale}.json`);
+      const pageCatalog = loadCatalog(pageCatalogPath);
+
+      const genPagePath = path.join(genDir, locale, pageName);
+      const generatedHtmlContent = fs.existsSync(genPagePath) ? fs.readFileSync(genPagePath, 'utf-8') : '';
+
+      const pageReport = checkPageCoverage(enHtmlContent, generatedHtmlContent, {
+        locale,
+        pageName,
+        doNotTranslateSet,
+        pageCatalog,
+        commonCatalog
+      });
+
+      pageReports[pageName] = pageReport;
+      localeTotalStrings += pageReport.totalStrings;
+      localeTranslatedCount += pageReport.translatedCount;
+
+      for (const untranslated of pageReport.untranslatedStrings) {
+        const errMsg = `${locale}/${pageName}: line ${untranslated.line} - "${untranslated.string}"`;
+        localeErrors.push(errMsg);
+        errors.push(errMsg);
+      }
+    }
+
+    const localeCoveragePercent = localeTotalStrings === 0 ? 100 : Math.round((localeTranslatedCount / localeTotalStrings) * 100);
+
+    localeReports[locale] = {
+      locale,
+      totalStrings: localeTotalStrings,
+      translatedCount: localeTranslatedCount,
+      coveragePercent: localeCoveragePercent,
+      pages: pageReports,
+      errors: localeErrors,
+      untranslatedCount: localeErrors.length,
+      isComplete: localeErrors.length === 0
+    };
+
+    totalOverallStrings += localeTotalStrings;
+    totalOverallTranslated += localeTranslatedCount;
+  }
+
+  const overallCoveragePercent = totalOverallStrings === 0 ? 100 : Math.round((totalOverallTranslated / totalOverallStrings) * 100);
+
+  return {
+    allPassed: errors.length === 0,
+    errors,
+    overallCoverage: {
+      totalStrings: totalOverallStrings,
+      translatedCount: totalOverallTranslated,
+      coveragePercent: overallCoveragePercent
+    },
+    localeReports
+  };
+}
+
+/**
+ * Formats coverage report as a human-readable string.
+ * @param {object} result
+ * @returns {string}
+ */
+function formatCoverageReport(result) {
+  const lines = [];
+  lines.push('=== Translation Coverage Report ===\n');
+
+  for (const [locale, report] of Object.entries(result.localeReports)) {
+    lines.push(`Locale: [${locale.toUpperCase()}]`);
+    for (const [pageName, pReport] of Object.entries(report.pages)) {
+      lines.push(`  - ${locale}/${pageName}: ${pReport.translatedCount}/${pReport.totalStrings} (${pReport.coveragePercent}%)`);
+    }
+    lines.push(`  > ${locale} Total: ${report.translatedCount}/${report.totalStrings} (${report.coveragePercent}%)\n`);
+  }
+
+  const ov = result.overallCoverage;
+  lines.push(`Overall: ${ov.translatedCount}/${ov.totalStrings} (${ov.coveragePercent}%)`);
+
+  if (result.errors.length > 0) {
+    lines.push(`\nUntranslated String Gaps (${result.errors.length}):`);
+    for (const err of result.errors) {
+      lines.push(`  ✖ ${err}`);
+    }
+  } else {
+    lines.push('\n✓ All pages and locales are 100% translated.');
+  }
+
+  return lines.join('\n');
+}
+
+// CLI runner
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  let srcDir = process.cwd();
+  let genDir = process.cwd();
+  let i18nDir = path.join(process.cwd(), 'i18n');
+  let pages = DEFAULT_PROTOTYPE_PAGES;
+  let locales = ['fr', 'es'];
+  let silent = false;
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--src' && args[i + 1]) {
+      srcDir = args[++i];
+    } else if (args[i] === '--gen' && args[i + 1]) {
+      genDir = args[++i];
+    } else if (args[i] === '--i18n' && args[i + 1]) {
+      i18nDir = args[++i];
+    } else if (args[i] === '--pages' && args[i + 1]) {
+      pages = args[++i].split(',');
+    } else if (args[i] === '--locales' && args[i + 1]) {
+      locales = args[++i].split(',');
+    } else if (args[i] === '--silent') {
+      silent = true;
+    }
+  }
+
+  const result = checkAllCoverage({
+    srcDir,
+    genDir,
+    i18nDir,
+    locales,
+    pages
+  });
+
+  if (!silent) {
+    console.log(formatCoverageReport(result));
+  }
+
+  if (result.allPassed) {
+    process.exit(0);
+  } else {
+    if (!silent) {
+      console.error(`\nCoverage check failed with ${result.errors.length} untranslated string(s).`);
+    }
+    process.exit(1);
+  }
+}
+
+module.exports = {
+  extractStringsWithLocations,
+  checkPageCoverage,
+  checkAllCoverage,
+  formatCoverageReport
+};
+=== build-video-i18n.js ===
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * tools/build-video-i18n.js
+ *
+ * Generates tutorial-video-<locale>/ from tutorial-video/.
+ * Language differs; timing, motion, ids, and assets do not.
+ */
+
+const fs = require('node:fs');
+const path = require('node:path');
+const { translateHtml, loadCatalog, loadDoNotTranslate } = require('./build-i18n.js');
+const { translateSubtitles } = require('./lib/translate-subtitles.js');
+
+/** Composition file -> page catalog basename. `null` = artwork, uses video catalog only. */
+const BEAT_CATALOG_MAP = {
+  'beat-00-intro.html': null,
+  'beat-01-dashboard.html': 'index',
+  'beat-02-verification.html': 'entities',
+  'beat-03-skill-gap.html': 'skill-gap',
+  'beat-04-reports.html': 'general-report',
+  'beat-05-audit.html': 'activity-logs',
+  'beat-06-outro.html': null
+};
+
+const ASSETS = ['bgm-icubefarm.mp3', 'bgm-african-classical.mp3', 'corporate_writing_grayscale.jpg'];
+
+const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT DIRECTLY. Source: tutorial-video/ -->\n';
+
+/**
+ * Per-locale CSS injected into a composition's <head> to absorb text expansion.
+ * Copy-level fixes are always preferred; an entry here means no acceptable
+ * shorter rendering existed. Keys are composition filenames.
+ */
+const LOCALE_STYLE_OVERRIDES = {
+  // Empty: the 32px two-line intro title fits every locale, so no per-locale
+  // shrink is needed. Add entries here if a future locale overflows.
+};
+
+/**
+ * Prepends the generated-file banner *after* <!DOCTYPE html>.
+ *
+ * It must not come first: a comment before the doctype makes the HyperFrames
+ * sub-composition loader treat the file as a fragment rather than a document,
+ * which drops <meta charset="UTF-8"> and decodes the body as Latin-1 — every
+ * accented character then renders as mojibake (e-acute becomes A-tilde + (c)).
+ * This is also what the `root_composition_missing_html_wrapper` lint reports.
+ */
+function withGeneratedHeader(html) {
+  const m = html.match(/^\uFEFF?\s*<!DOCTYPE html>[^\n]*\r?\n?/i);
+  if (!m) return GENERATED_HEADER + html;
+  return html.slice(0, m[0].length) + GENERATED_HEADER + html.slice(m[0].length);
+}
+
+function buildVideoLocale({ srcDir, outDir, i18nDir, locale }) {
+  const common = loadCatalog(path.join(i18nDir, `common.${locale}.json`));
+  const video = loadCatalog(path.join(i18nDir, `video.${locale}.json`));
+  const dnt = loadDoNotTranslate(path.join(i18nDir, 'do-not-translate.json'));
+
+  fs.rmSync(outDir, { recursive: true, force: true });
+  fs.mkdirSync(path.join(outDir, 'compositions'), { recursive: true });
+  fs.mkdirSync(path.join(outDir, 'assets'), { recursive: true });
+
+  const generatedFiles = [];
+
+  // Host composition: no portal markup, but carries <html lang> and the title.
+  const hostSrc = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
+  const hostOut = translateHtml(hostSrc, {
+    pageCatalog: { ...common, ...video },
+    doNotTranslateSet: dnt,
+    locale,
+    rewriteToggle: false,
+    headerComment: false
+  });
+  fs.writeFileSync(path.join(outDir, 'index.html'), withGeneratedHeader(hostOut), 'utf8');
+  generatedFiles.push('index.html');
+
+  for (const [file, pageName] of Object.entries(BEAT_CATALOG_MAP)) {
+    const src = fs.readFileSync(path.join(srcDir, 'compositions', file), 'utf8');
+    const page = pageName ? loadCatalog(path.join(i18nDir, `${pageName}.${locale}.json`)) : {};
+    const catalog = { ...common, ...page, ...video };
+
+    let out = translateHtml(src, {
+      pageCatalog: catalog,
+      doNotTranslateSet: dnt,
+      locale,
+      rewriteToggle: false,
+      headerComment: false
+    });
+
+    // Subtitles live outside i18n:STR blocks; strict so a gap fails the build.
+    out = translateSubtitles(out, video, { strict: true }).html;
+
+    const override = (LOCALE_STYLE_OVERRIDES[locale] || {})[file];
+    if (override) {
+      out = out.replace(/<\/head>/, `<style>${override}</style></head>`);
+    }
+
+    fs.writeFileSync(path.join(outDir, 'compositions', file), withGeneratedHeader(out), 'utf8');
+    generatedFiles.push(`compositions/${file}`);
+  }
+
+  const copiedAssets = [];
+  for (const a of ASSETS) {
+    const from = path.join(srcDir, 'assets', a);
+    if (!fs.existsSync(from)) continue;
+    fs.copyFileSync(from, path.join(outDir, 'assets', a));
+    copiedAssets.push(a);
+  }
+
+  return { generatedFiles, copiedAssets };
+}
+
+if (require.main === module) {
+  const locale = process.argv[2];
+  if (!locale) {
+    console.error('Usage: node tools/build-video-i18n.js <locale>   e.g. fr');
+    process.exit(1);
+  }
+  const root = process.cwd();
+  const result = buildVideoLocale({
+    srcDir: path.join(root, 'tutorial-video'),
+    outDir: path.join(root, `tutorial-video-${locale}`),
+    i18nDir: path.join(root, 'i18n'),
+    locale
+  });
+  console.log(
+    `✓ tutorial-video-${locale}: ${result.generatedFiles.length} compositions, ` +
+    `${result.copiedAssets.length} assets copied.`
+  );
+}
+
+module.exports = { buildVideoLocale, BEAT_CATALOG_MAP, LOCALE_STYLE_OVERRIDES };
+
